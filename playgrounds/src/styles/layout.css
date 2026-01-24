@@ -1,0 +1,195 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: var(--body-margin);
+  height: 100vh; /* Ensure body takes full height for layout */
+}
+
+a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--base-gap);
+}
+
+.spacer-h {
+  margin: 0 auto;
+  flex: 1;
+}
+
+.spacer-v {
+  margin: auto 0;
+  flex: 1;
+}
+
+.box {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: var(--base-padding);
+  gap: var(--base-gap);
+}
+
+.box-sm {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: calc(var(--base-padding) * 0.25) var(--base-padding);
+  gap: var(--base-gap);
+}
+
+.box-capsule {
+  width: 100%;
+  padding: calc(var(--base-padding) * 0.5) var(--base-padding);
+  border-radius: var(--base-radius);
+}
+
+/* New Layout Classes */
+.main-container {
+  display: flex;
+  height: 100dvh; /* Dynamic viewport height for mobile support */
+  width: 100vw;
+  gap: var(--sidebar-gap, 1px);
+  background: var(--border-color);
+  overflow: hidden; /* Prevent scroll on the container itself */
+}
+
+.column-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.row-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.grid-flow {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: var(--base-gap);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-width);
+  background-color: var(--alternate-background-color);
+  height: 100%;
+}
+
+.main-content {
+  flex: 1;
+  background-color: var(--background-color); /* Explicit base background */
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* Utilities created for Colors Page refactor */
+.page-layout {
+  gap: var(--base-padding);
+  padding: calc(var(--base-padding) * 2);
+}
+
+.card {
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-radius: var(--base-radius);
+  padding: calc(var(--base-padding) * 0.5);
+}
+
+.gap-xs {
+  gap: calc(var(--base-gap) * 0.5);
+}
+
+.gap-sm {
+  gap: var(--base-gap);
+}
+
+.gap-md {
+  gap: calc(var(--base-gap) * 2);
+}
+
+.gap-lg {
+  gap: calc(var(--base-gap) * 3);
+}
+
+.items-center {
+  align-items: center;
+}
+
+.shrink-0 {
+  flex-shrink: 0;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.m-md {
+  margin: var(--base-padding);
+}
+
+.w-fit {
+  width: fit-content;
+}
+
+/* New Utilities for Layout Page */
+.w-full {
+  width: 100%;
+}
+
+.w-300 {
+  min-width: 300px;
+}
+
+.w-150 {
+  width: 150px;
+}
+
+.w-40 {
+  width: 40px;
+}
+
+.h-40 {
+  height: 40px;
+}
+
+.p-xs {
+  padding: calc(var(--base-padding) * 0.15) calc(var(--base-padding) * 0.5);
+}
+
+.p-sm {
+  padding: calc(var(--base-padding) * 0.5);
+}
+
+.p-0 {
+  padding: 0;
+}
+
+.rounded {
+  border-radius: var(--base-radius);
+}
+
+.rounded-sm {
+  border-radius: calc(var(--base-radius) * 0.5);
+}
+
+.border-dashed {
+  border: 1px dashed var(--border-color);
+}
+
+.border-solid {
+  border: 1px solid var(--border-color);
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-auto {
+  overflow: auto;
+}

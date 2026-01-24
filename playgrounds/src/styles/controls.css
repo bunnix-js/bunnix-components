@@ -1,0 +1,150 @@
+hr {
+  display: block;
+  border: 0;
+  border-top: 1px solid var(--border-color);
+  margin: 1em 0;
+  padding: 0;
+  height: 0;
+  box-sizing: content-box;
+}
+
+/* Textual & Select Inputs */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+textarea,
+select {
+  appearance: none;
+  outline: none;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--base-radius);
+  color: var(--color-primary);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  padding: calc(var(--base-padding) * 0.5) var(--base-padding);
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+select {
+  padding-right: calc(var(--base-padding) * 3) !important;
+  background-image: var(--svg-chevron-down);
+  background-repeat: no-repeat;
+  background-position: right var(--base-padding) center;
+  background-size: 1rem;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background-color: var(--alternate-background-color);
+  color: var(--color-secondary);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-secondary);
+  opacity: 0.8;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Control Sizes */
+.input-lg {
+  padding: calc(var(--base-padding) * 0.75) calc(var(--base-padding) * 1.25) !important;
+  font-size: 1.1rem !important;
+}
+
+.input-xl {
+  padding: var(--base-padding) calc(var(--base-padding) * 1.5) !important;
+  font-size: 1.2rem !important;
+}
+
+/* Checkbox & Radio */
+input[type="checkbox"],
+input[type="radio"] {
+  appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--background-color);
+  cursor: pointer;
+  display: inline-grid;
+  place-content: center;
+  transition: border-color 0.2s, background-color 0.2s;
+  margin: 0; /* Reset margins */
+  flex-shrink: 0;
+}
+
+input[type="checkbox"] {
+  border-radius: 4px;
+}
+
+input[type="radio"] {
+  border-radius: 50%;
+}
+
+input[type="checkbox"]::before,
+input[type="radio"]::before {
+  content: "";
+  width: 0.65rem;
+  height: 0.65rem;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--background-color);
+}
+
+input[type="checkbox"]::before {
+  /* Simple square for check, or we could use mask-image check icon */
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+input[type="radio"]::before {
+  border-radius: 50%;
+}
+
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+input[type="checkbox"]:checked::before,
+input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="checkbox"]:focus,
+input[type="radio"]:focus {
+  border-color: var(--accent-color);
+}
+
+/* Selection Wrapper */
+.selection-control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--base-gap);
+  cursor: pointer;
+}

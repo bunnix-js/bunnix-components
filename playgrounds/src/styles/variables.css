@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap');
+
+:root {
+  /* Colors */
+  color-scheme: light dark;
+  --color-primary: light-dark(black, white);
+  --color-primary-dimmed: light-dark(#444, #eee);
+  --color-secondary: light-dark(#666, #ccc);
+  --color-destructive: light-dark(#d73a49, #f85149);
+  --color-destructive-dimmed: light-dark(#b31d28, #da3633);
+  --color-success: light-dark(#2da44e, #3fb950);
+  --accent-color: light-dark(#007bff, #007bff);
+  --accent-color-dimmed: light-dark(#0069d9, #0069d9);
+
+  --border-color: light-dark(#ccc, #333);
+  --background-color: light-dark(#fff, #000);
+  --alternate-background-color: light-dark(#f5f5f5, #111);
+  --highlight-background-color: light-dark(#e5e5e5, #222);
+
+  /* Layout */
+  --body-margin: 0;
+  --base-margin: .15rem;
+  --base-gap: .5rem;
+  --base-radius: 6px;
+  --base-padding: 12px;
+
+  /* Sidebar */
+  --sidebar-width: 280px;
+  --sidebar-padding: 8px;
+  --sidebar-gap: 1px;
+
+  /* Typography - Minimal font size 14px */
+  --font-family: 'Inter', 'Roboto', system-ui, sans-serif;
+  --font-bold: 600;
+  --font-semibold: 500;
+  --font-size: 15px;
+  --font-size-sm: 13px;
+
+  /* Icons */
+  --icon-color: light-dark(#222, #aaa);
+  --svg-at: url('../icons/at.svg');
+  --svg-info: url('../icons/info.svg');
+  --svg-home: url('../icons/home.svg');
+  --svg-person: url('../icons/person.svg');
+  --svg-people: url('../icons/people.svg');
+  --svg-add: url('../icons/add.svg');
+  --svg-chevron-left: url('../icons/chevron-left.svg');
+  --svg-chevron-right: url('../icons/chevron-right.svg');
+  --svg-chevron-down: url('../icons/chevron-down.svg');
+  --svg-download: url('../icons/download.svg');
+  --svg-gearshape: url('../icons/gearshape.svg');
+  --svg-pencil: url('../icons/pencil.svg');
+  --svg-sign-out: url('../icons/sign-out.svg');
+  --svg-star: url('../icons/star.svg');
+  --svg-sync: url('../icons/sync.svg');
+  --svg-close: url('../icons/close.svg');
+  --svg-success: url('../icons/success.svg');
+  --svg-tag: url('../icons/tag.svg');
+  --svg-cloud-up: url('../icons/cloud-up.svg');
+  --svg-switch: url('../icons/switch.svg');
+  --svg-attestation: url('../icons/attestation.svg');
+  --svg-bell: url('../icons/bell.svg');
+  --svg-check: url('../icons/check.svg');
+  --svg-cube: url('../icons/cube.svg');
+  --svg-globe: url('../icons/globe.svg');
+  --svg-key: url('../icons/key.svg');
+  --svg-link: url('../icons/link.svg');
+  --svg-mail: url('../icons/mail.svg');
+  --svg-bookmark: url('../icons/bookmark.svg');
+  --svg-bot: url('../icons/bot.svg');
+  --svg-chart: url('../icons/chart.svg');
+  --svg-clock: url('../icons/clock.svg');
+  --svg-file-html: url('../icons/file-html.svg');
+  --svg-inbox: url('../icons/inbox.svg');
+  --svg-markup: url('../icons/markup.svg');
+  --svg-merge: url('../icons/merge.svg');
+  --svg-script: url('../icons/script.svg');
+  --svg-search: url('../icons/search.svg');
+  --svg-timer: url('../icons/timer.svg');
+  --svg-trash: url('../icons/trash.svg');
+  --svg-upload: url('../icons/upload.svg');
+  --svg-heart: url('../icons/heart.svg');
+  --svg-locker: url('../icons/locker.svg');
+  --svg-pin: url('../icons/pin.svg');
+  --svg-table: url('../icons/table.svg');
+}
