@@ -14,28 +14,26 @@
   overflow: visible;
   border: none;
   background: transparent;
+  
+  /* Modern CSS Anchor Positioning */
   position-anchor: var(--anchor-id);
   position: absolute;
   top: anchor(var(--anchor-id) bottom);
   left: anchor(var(--anchor-id) left);
-  right: auto;
   width: auto;
+  
+  /* Fallback for Safari */
+  margin-top: var(--base-gap);
 }
 
-@supports (position-try-fallbacks: flip-block) {
-  [popover].datepicker-popover {
-    position-try-fallbacks: flip-inline, flip-block, top, bottom;
-  }
+@position-try --date-flip-v {
+  top: auto;
+  bottom: anchor(var(--anchor-id) top);
+  left: anchor(var(--anchor-id) left);
 }
 
-@supports (position-area: bottom left) {
-  [popover].datepicker-popover {
-    top: auto;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    position-area: bottom left;
-  }
+[popover].datepicker-popover {
+  position-try-fallbacks: --date-flip-v;
 }
 
 .datepicker-card {
@@ -44,6 +42,7 @@
   flex-direction: column;
   gap: var(--base-gap);
   justify-content: flex-start;
+  min-width: 280px;
 }
 
 .datepicker-header {
@@ -57,6 +56,7 @@
   font-weight: var(--font-semibold);
   flex: 1;
   text-align: center;
+  color: var(--color-primary);
 }
 
 .datepicker-nav {
@@ -98,7 +98,7 @@
 .datepicker-cell {
   border: none;
   background: transparent;
-  border-radius: calc(var(--base-radius) * 1.25);
+  border-radius: var(--base-radius);
   aspect-ratio: 1 / 1;
   width: 100%;
   display: grid;
@@ -108,6 +108,7 @@
   font-size: var(--font-size);
   color: var(--color-primary);
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .datepicker-cell:hover {
@@ -115,14 +116,15 @@
 }
 
 .datepicker-cell.is-outside {
-  color: var(--color-tertiary);
+  color: var(--color-primary-dimmed);
+  opacity: 0.5;
 }
 
 .datepicker-cell.is-selected,
 .datepicker-cell.is-range-start,
 .datepicker-cell.is-range-end {
-  background-color: var(--accent-color);
-  color: white;
+  background-color: var(--accent-color) !important;
+  color: white !important;
 }
 
 .datepicker-cell.is-in-range {

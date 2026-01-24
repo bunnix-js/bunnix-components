@@ -30,11 +30,6 @@ export default function PopoverMenu({ trigger, items = [], id, align = "left" })
     }
   };
 
-  const renderIcon = (iconName, colorClass = "bg-primary") => {
-    if (!iconName) return null;
-    return span({ class: `icon ${iconName} ${colorClass}` });
-  };
-
   return div({ class: "menu-wrapper" }, [
     button({
       id: menuId,
@@ -49,6 +44,7 @@ export default function PopoverMenu({ trigger, items = [], id, align = "left" })
       class: `menu-popover menu-anchor-${align}`, 
       style: `--anchor-id: ${anchorName}`
     }, [
+      /* All design system styles go here to avoid overriding popover visibility */
       div({ class: "card column-container shadow gap-sm w-min-150 p-sm bg-base" },
         items.map((item) => {
           if (item.isSeparator) {
@@ -58,7 +54,7 @@ export default function PopoverMenu({ trigger, items = [], id, align = "left" })
             class: "btn btn-flat justify-start w-full",
             click: () => handleItemClick(item)
           }, [
-            renderIcon(item.icon, item.destructive ? "bg-destructive" : "bg-primary"),
+            item.icon ? span({ class: `icon ${item.icon} ${item.destructive ? 'bg-destructive' : 'bg-primary'}` }) : null,
             item.title
           ]);
         })
