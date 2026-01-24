@@ -189,6 +189,16 @@ input[type="radio"]:focus {
   transition: background-color 0.25s ease, box-shadow 0.25s ease;
 }
 
+.switch-lg .switch-track {
+  width: var(--switch-track-w-lg);
+  height: var(--switch-track-h-lg);
+}
+
+.switch-xl .switch-track {
+  width: var(--switch-track-w-xl);
+  height: var(--switch-track-h-xl);
+}
+
 .switch-track::after {
   content: "";
   position: absolute;
@@ -203,6 +213,18 @@ input[type="radio"]:focus {
   transition: transform 0.35s cubic-bezier(0.44, -0.12, 0.07, 1.15);
 }
 
+.switch-lg .switch-track::after {
+  left: var(--switch-pad-lg);
+  width: var(--switch-thumb-lg);
+  height: var(--switch-thumb-lg);
+}
+
+.switch-xl .switch-track::after {
+  left: var(--switch-pad-xl);
+  width: var(--switch-thumb-xl);
+  height: var(--switch-thumb-xl);
+}
+
 .switch-input:checked + .switch-track {
   background-color: var(--accent-color);
   box-shadow: inset 0 0 0 1px var(--accent-color);
@@ -210,6 +232,14 @@ input[type="radio"]:focus {
 
 .switch-input:checked + .switch-track::after {
   transform: translate3d(calc(var(--switch-track-w) - var(--switch-thumb) - (var(--switch-pad) * 2)), -50%, 0);
+}
+
+.switch-lg .switch-input:checked + .switch-track::after {
+  transform: translate3d(calc(var(--switch-track-w-lg) - var(--switch-thumb-lg) - (var(--switch-pad-lg) * 2)), -50%, 0);
+}
+
+.switch-xl .switch-input:checked + .switch-track::after {
+  transform: translate3d(calc(var(--switch-track-w-xl) - var(--switch-thumb-xl) - (var(--switch-pad-xl) * 2)), -50%, 0);
 }
 
 .switch-input:focus-visible + .switch-track {

@@ -2,6 +2,8 @@ import Bunnix from "@bunnix/core";
 import PopoverMenu from "../components/PopoverMenu.mjs";
 import DropdownMenu from "../components/DropdownMenu.mjs";
 import ToggleSwitch from "../components/ToggleSwitch.mjs";
+import AccordionGroup from "../components/AccordionGroup.mjs";
+import DatePicker from "../components/DatePicker.mjs";
 
 const { div, h1, h5, p, hr, span } = Bunnix;
 
@@ -30,7 +32,34 @@ export default function ComponentsPage() {
     { title: "Add", icon: "icon-add" },
     { title: "Edit", icon: "icon-pencil" },
     { title: "Duplicate", icon: "icon-duplicate" },
-    { title: "Archive", icon: "icon-inbox" },
+    { title: "Delete", icon: "icon-trash", destructive: true },
+  ];
+
+  const accordionItems = [
+    {
+      title: "What's an accordion?",
+      icon: "icon-info",
+      description:
+        "An accordion groups content into collapsible sections, with a title, a toggle icon, and controlled spacing."
+    },
+    {
+      title: "When should it be used?",
+      icon: "icon-question-circle",
+      description:
+        "Use it when users only need a few key details at a time and you want to reduce scroll length."
+    },
+    {
+      title: "Does it allow only one open item?",
+      icon: "icon-merge",
+      description:
+        "This variant keeps a single item open at a time; clicking another header collapses the current one."
+    },
+    {
+      title: "How to signal expansion?",
+      icon: "icon-add",
+      description:
+        "Use a clear icon with a rotation or state change so users can immediately read the toggle action."
+    }
   ];
 
   return div({ class: "column-container page-layout" }, [
@@ -79,6 +108,13 @@ export default function ComponentsPage() {
           ]),
           div({ class: "box w-fit p-0" }, [
             DropdownMenu({
+              items: languageOptions,
+              placeholder: "Large Dropdown",
+              size: "lg"
+            })
+          ]),
+          div({ class: "box w-fit p-0" }, [
+            DropdownMenu({
               items: [
                 { title: "Small", icon: "icon-cube" },
                 { title: "Medium", icon: "icon-cube" },
@@ -90,7 +126,8 @@ export default function ComponentsPage() {
           div({ class: "box w-fit p-0" }, [
             DropdownMenu({
               items: actionOptions,
-              placeholder: "Actions"
+              placeholder: "Extra Large",
+              size: "xl"
             })
           ]),
         ])
@@ -103,8 +140,28 @@ export default function ComponentsPage() {
         p("Toggle control built with design system utilities and custom styles."),
         div({ class: "row-container gap-md items-center" }, [
           ToggleSwitch({ labelText: "Notifications", checked: true }),
-          ToggleSwitch({ labelText: "Auto updates" }),
+          ToggleSwitch({ labelText: "Large", size: "lg" }),
+          ToggleSwitch({ labelText: "Extra Large", size: "xl" }),
           ToggleSwitch({ labelText: "Disabled", disabled: true }),
+        ])
+      ]),
+
+      hr(),
+
+      div({ class: "column-container gap-sm" }, [
+        h5("Accordion Group"),
+        p("Collapsible sections built with design system spacing, colors, and icons."),
+        AccordionGroup({ items: accordionItems })
+      ]),
+
+      hr(),
+
+      div({ class: "column-container gap-sm" }, [
+        h5("Date Picker"),
+        p("Custom date picker with dropdown-like behavior and locale formatting."),
+        div({ class: "grid-flow gap-md items-center" }, [
+          DatePicker({ placeholder: "Select date" }),
+          DatePicker({ placeholder: "Select range", range: true })
         ])
       ]),
     ])
