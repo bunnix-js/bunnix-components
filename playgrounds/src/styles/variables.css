@@ -47,7 +47,7 @@
   --svg-chevron-left: url('../icons/chevron-left.svg');
   --svg-chevron-right: url('../icons/chevron-right.svg');
   --svg-chevron-down: url('../icons/chevron-down.svg');
-  --svg-chevron-select: var(--svg-chevron-down);
+  --svg-duplicate: url('../icons/duplicate.svg');
   --svg-download: url('../icons/download.svg');
   --svg-gearshape: url('../icons/gearshape.svg');
   --svg-pencil: url('../icons/pencil.svg');

@@ -28,7 +28,7 @@ export default function ComponentsPage() {
   const actionOptions = [
     { title: "Add", icon: "icon-add" },
     { title: "Edit", icon: "icon-pencil" },
-    { title: "Duplicate", icon: "icon-clip" },
+    { title: "Duplicate", icon: "icon-duplicate" },
     { title: "Archive", icon: "icon-inbox" },
   ];
 
@@ -36,15 +36,15 @@ export default function ComponentsPage() {
     h1("Components"),
     p("Sophisticated components built by combining design system elements."),
     hr(),
-    
+
     div({ class: "column-container gap-md" }, [
       div({ class: "column-container gap-sm" }, [
         h5("Popover Menu"),
         p("Multiple independent instances with distinct content and alignment."),
-        
+
         div({ class: "row-container gap-md" }, [
           div({ class: "box w-fit p-0" }, [
-            PopoverMenu({ 
+            PopoverMenu({
               trigger: [
                   span({ class: "icon icon-more-horizontal bg-primary" }),
                   "User Menu"
@@ -55,7 +55,7 @@ export default function ComponentsPage() {
           ]),
 
           div({ class: "box w-fit p-0" }, [
-            PopoverMenu({ 
+            PopoverMenu({
               trigger: span({ class: "icon icon-more-vertical bg-primary" }),
               items: secondaryMenuItems,
               align: "right"
@@ -71,13 +71,13 @@ export default function ComponentsPage() {
         p("A selection control that combines 'select' appearance with Popover power."),
         div({ class: "row-container gap-md" }, [
           div({ class: "box w-fit p-0" }, [
-            DropdownMenu({ 
+            DropdownMenu({
               items: languageOptions,
               placeholder: "Choose Language"
             })
           ]),
           div({ class: "box w-fit p-0" }, [
-            DropdownMenu({ 
+            DropdownMenu({
               items: [
                 { title: "Small", icon: "icon-cube" },
                 { title: "Medium", icon: "icon-cube" },

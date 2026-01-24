@@ -26,7 +26,7 @@ export default function MediaPage() {
           IconItem("icon-info"),
           IconItem("icon-chevron-left"),
           IconItem("icon-chevron-right"),
-          IconItem("icon-clip"),
+          IconItem("icon-duplicate"),
           IconItem("icon-download"),
           IconItem("icon-gearshape"),
           IconItem("icon-pencil"),

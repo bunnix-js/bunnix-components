@@ -75,9 +75,9 @@
   mask-image: var(--svg-chevron-down);
 }
 
-.icon-clip {
-  -webkit-mask-image: var(--svg-clip);
-  mask-image: var(--svg-clip);
+.icon-duplicate {
+  -webkit-mask-image: var(--svg-duplicate);
+  mask-image: var(--svg-duplicate);
 }
 
 .icon-download {
