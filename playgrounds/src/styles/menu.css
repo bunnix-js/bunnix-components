@@ -9,7 +9,10 @@
   
   /* CSS Anchor Positioning */
   position-anchor: var(--anchor-id);
+  position: absolute;
   top: anchor(var(--anchor-id) bottom);
+  left: anchor(var(--anchor-id) left);
+  right: auto;
 }
 
 /* Alignment Modifiers for Menu */
@@ -21,6 +24,30 @@
 .menu-anchor-left {
   left: anchor(var(--anchor-id) left) !important;
   right: auto !important;
+}
+
+@supports (position-try-fallbacks: flip-block) {
+  [popover].menu-popover {
+    position-try-fallbacks: flip-inline, flip-block, top, bottom;
+  }
+}
+
+@supports (position-area: bottom left) {
+  [popover].menu-popover {
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    position-area: bottom left;
+  }
+
+  .menu-anchor-right {
+    position-area: bottom right;
+  }
+
+  .menu-anchor-left {
+    position-area: bottom left;
+  }
 }
 
 [popover]:popover-open {
