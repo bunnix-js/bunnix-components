@@ -74,6 +74,11 @@
   border-color: var(--accent-color);
 }
 
+.dropdown-trigger:hover {
+  background-color: var(--highlight-background-color);
+  color: var(--color-primary);
+}
+
 /* Highlight trigger when menu is open */
 .menu-wrapper:has([popover]:popover-open) > .btn,
 .menu-wrapper:has([popover]:popover-open) > .dropdown-trigger {

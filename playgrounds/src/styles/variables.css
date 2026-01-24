@@ -37,6 +37,12 @@
   --font-size: 15px;
   --font-size-sm: 13px;
 
+  /* Switch */
+  --switch-track-w: 2.75rem;
+  --switch-track-h: 1.6rem;
+  --switch-thumb: 1.2rem;
+  --switch-pad: calc((var(--switch-track-h) - var(--switch-thumb)) / 2);
+
   /* Icons */
   --svg-at: url('../icons/at.svg');
   --svg-info: url('../icons/info.svg');

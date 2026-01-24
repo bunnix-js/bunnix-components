@@ -1,6 +1,7 @@
 import Bunnix from "@bunnix/core";
 import PopoverMenu from "../components/PopoverMenu.mjs";
 import DropdownMenu from "../components/DropdownMenu.mjs";
+import ToggleSwitch from "../components/ToggleSwitch.mjs";
 
 const { div, h1, h5, p, hr, span } = Bunnix;
 
@@ -92,6 +93,18 @@ export default function ComponentsPage() {
               placeholder: "Actions"
             })
           ]),
+        ])
+      ]),
+
+      hr(),
+
+      div({ class: "column-container gap-sm" }, [
+        h5("Switch"),
+        p("Toggle control built with design system utilities and custom styles."),
+        div({ class: "row-container gap-md items-center" }, [
+          ToggleSwitch({ labelText: "Notifications", checked: true }),
+          ToggleSwitch({ labelText: "Auto updates" }),
+          ToggleSwitch({ labelText: "Disabled", disabled: true }),
         ])
       ]),
     ])
