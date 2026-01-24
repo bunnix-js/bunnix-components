@@ -1,5 +1,5 @@
 .icon {
-  background-color: var(--icon-color);
+  background-color: currentColor; /* Inherit text color for masking */
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: 1rem 1rem;
@@ -28,6 +28,11 @@
 .icon-contact {
   -webkit-mask-image: var(--svg-contact);
   mask-image: var(--svg-contact);
+}
+
+.icon-at {
+  -webkit-mask-image: var(--svg-at);
+  mask-image: var(--svg-at);
 }
 
 .icon-info {
@@ -68,6 +73,11 @@
 .icon-chevron-down {
   -webkit-mask-image: var(--svg-chevron-down);
   mask-image: var(--svg-chevron-down);
+}
+
+.icon-clip {
+  -webkit-mask-image: var(--svg-clip);
+  mask-image: var(--svg-clip);
 }
 
 .icon-download {
@@ -235,6 +245,21 @@
   mask-image: var(--svg-heart);
 }
 
+.icon-heart-fill {
+  -webkit-mask-image: var(--svg-heart-fill);
+  mask-image: var(--svg-heart-fill);
+}
+
+.icon-heart-stack {
+  -webkit-mask-image: var(--svg-heart-stack);
+  mask-image: var(--svg-heart-stack);
+}
+
+.icon-video {
+  -webkit-mask-image: var(--svg-video);
+  mask-image: var(--svg-video);
+}
+
 .icon-locker {
   -webkit-mask-image: var(--svg-locker);
   mask-image: var(--svg-locker);
@@ -248,6 +273,71 @@
 .icon-table {
   -webkit-mask-image: var(--svg-table);
   mask-image: var(--svg-table);
+}
+
+.icon-close-circle {
+  -webkit-mask-image: var(--svg-close-circle);
+  mask-image: var(--svg-close-circle);
+}
+
+.icon-lamp {
+  -webkit-mask-image: var(--svg-lamp);
+  mask-image: var(--svg-lamp);
+}
+
+.icon-question-circle {
+  -webkit-mask-image: var(--svg-question-circle);
+  mask-image: var(--svg-question-circle);
+}
+
+.icon-window {
+  -webkit-mask-image: var(--svg-window);
+  mask-image: var(--svg-window);
+}
+
+.icon-dollar {
+  -webkit-mask-image: var(--svg-dollar);
+  mask-image: var(--svg-dollar);
+}
+
+.icon-palette {
+  -webkit-mask-image: var(--svg-palette);
+  mask-image: var(--svg-palette);
+}
+
+.icon-alt {
+  -webkit-mask-image: var(--svg-alt);
+  mask-image: var(--svg-alt);
+}
+
+.icon-file {
+  -webkit-mask-image: var(--svg-file);
+  mask-image: var(--svg-file);
+}
+
+.icon-more-horizontal {
+  -webkit-mask-image: var(--svg-more-horizontal);
+  mask-image: var(--svg-more-horizontal);
+}
+
+.icon-more-vertical {
+  -webkit-mask-image: var(--svg-more-vertical);
+  mask-image: var(--svg-more-vertical);
+}
+
+.icon-sliders {
+  -webkit-mask-image: var(--svg-sliders);
+  mask-image: var(--svg-sliders);
+}
+
+.icon-swap {
+  -webkit-mask-image: var(--svg-swap);
+  mask-image: var(--svg-swap);
+}
+
+.icon-update-page {
+  -webkit-mask-image: var(--svg-update-page);
+  mask-image: var(--svg-update-page);
 }
 
 .swatch {

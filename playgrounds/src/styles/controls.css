@@ -5,7 +5,13 @@ hr {
   margin: 1em 0;
   padding: 0;
   height: 0;
+  width: 100%;
   box-sizing: content-box;
+}
+
+.menu-separator {
+  margin: var(--base-gap) calc(var(--base-padding) * -1);
+  border-top: 1px solid var(--border-color);
 }
 
 /* Textual & Select Inputs */
@@ -37,7 +43,8 @@ select {
 
 select {
   padding-right: calc(var(--base-padding) * 3) !important;
-  background-image: var(--svg-chevron-down);
+  cursor: pointer;
+  background-image: var(--svg-chevron-select);
   background-repeat: no-repeat;
   background-position: right var(--base-padding) center;
   background-size: 1rem;
@@ -93,7 +100,7 @@ input[type="radio"] {
   display: inline-grid;
   place-content: center;
   transition: border-color 0.2s, background-color 0.2s;
-  margin: 0; /* Reset margins */
+  margin: 0;
   flex-shrink: 0;
 }
 
@@ -105,7 +112,21 @@ input[type="radio"] {
   border-radius: 50%;
 }
 
-input[type="checkbox"]::before,
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: var(--background-color);
+  -webkit-mask-image: var(--svg-check);
+  mask-image: var(--svg-check);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+}
+
 input[type="radio"]::before {
   content: "";
   width: 0.65rem;
@@ -113,14 +134,6 @@ input[type="radio"]::before {
   transform: scale(0);
   transition: 120ms transform ease-in-out;
   box-shadow: inset 1em 1em var(--background-color);
-}
-
-input[type="checkbox"]::before {
-  /* Simple square for check, or we could use mask-image check icon */
-  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-}
-
-input[type="radio"]::before {
   border-radius: 50%;
 }
 
@@ -140,7 +153,6 @@ input[type="radio"]:focus {
   border-color: var(--accent-color);
 }
 
-/* Selection Wrapper */
 .selection-control {
   display: flex;
   flex-direction: row;

@@ -1,6 +1,15 @@
 body {
+  color-scheme: light dark;
   color: var(--color-primary-dimmed);
   background-color: var(--background-color);
+}
+
+* {
+  color-scheme: inherit;
+}
+
+.bg-base {
+  background-color: var(--background-color) !important;
 }
 
 /* Text Color Utilities */

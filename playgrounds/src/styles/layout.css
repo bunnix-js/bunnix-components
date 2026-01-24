@@ -121,6 +121,21 @@ a {
   align-items: center;
 }
 
+.justify-start {
+  justify-content: flex-start !important;
+  text-align: left;
+}
+
+.justify-center {
+  justify-content: center !important;
+  text-align: center;
+}
+
+.justify-end {
+  justify-content: flex-end !important;
+  text-align: right;
+}
+
 .shrink-0 {
   flex-shrink: 0;
 }
@@ -137,6 +152,14 @@ a {
   width: fit-content;
 }
 
+.hidden {
+  display: none !important;
+}
+
+.shadow {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 /* New Utilities for Layout Page */
 .w-full {
   width: 100%;
@@ -148,6 +171,10 @@ a {
 
 .w-150 {
   width: 150px;
+}
+
+.w-min-150 {
+  min-width: 150px;
 }
 
 .w-40 {
@@ -168,6 +195,11 @@ a {
 
 .p-0 {
   padding: 0;
+}
+
+.py-xs {
+  padding-top: calc(var(--base-gap) * 0.5);
+  padding-bottom: calc(var(--base-gap) * 0.5);
 }
 
 .rounded {

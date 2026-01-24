@@ -7,6 +7,7 @@ import MediaPage from "./pages/Media.mjs";
 import LayoutPage from "./pages/Layout.mjs";
 import ButtonsPage from "./pages/Buttons.mjs";
 import TablesPage from "./pages/Tables.mjs";
+import ComponentsPage from "./pages/Components.mjs";
 import ControlsPage from "./pages/Controls.mjs";
 
 const { div, h1 } = Bunnix;
@@ -29,6 +30,7 @@ export default function App() {
       Show(page.map(v => v === 'layout'), LayoutPage()),
       Show(page.map(v => v === 'buttons'), ButtonsPage()),
       Show(page.map(v => v === 'tables'), TablesPage()),
+      Show(page.map(v => v === 'components'), ComponentsPage()),
       Show(page.map(v => v === 'controls'), ControlsPage()),
       Show(page.map(v => v === 'home'), div({ style: "padding: 2rem;" }, [
         h1("Welcome to the Design System Showcase"),

@@ -1,0 +1,81 @@
+/* Scoped Menu Popover Logic */
+[popover].menu-popover {
+  margin: 0;
+  padding: 0;
+  inset: auto;
+  overflow: visible;
+  border: none;
+  background: transparent;
+  
+  /* CSS Anchor Positioning */
+  position-anchor: var(--anchor-id);
+  top: anchor(var(--anchor-id) bottom);
+}
+
+/* Alignment Modifiers for Menu */
+.menu-anchor-right {
+  left: auto !important;
+  right: anchor(var(--anchor-id) right) !important;
+}
+
+.menu-anchor-left {
+  left: anchor(var(--anchor-id) left) !important;
+  right: auto !important;
+}
+
+[popover]:popover-open {
+  display: flex;
+}
+
+.menu-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-trigger {
+  appearance: none;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--base-radius);
+  color: var(--color-primary);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  padding: calc(var(--base-padding) * 0.5) var(--base-padding);
+  padding-right: calc(var(--base-padding) * 3) !important;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--base-gap);
+  cursor: pointer;
+  min-width: 150px;
+  text-align: left;
+  position: relative;
+}
+
+/* Custom Chevron Arrow using Mask for perfect tinting */
+.dropdown-trigger::after {
+  content: "";
+  position: absolute;
+  right: var(--base-padding);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  background-color: currentColor; /* Matches text color! */
+  -webkit-mask-image: var(--svg-chevron-down);
+  mask-image: var(--svg-chevron-down);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.dropdown-trigger:focus {
+  border-color: var(--accent-color);
+}
+
+/* Highlight trigger when menu is open */
+.menu-wrapper:has([popover]:popover-open) > .btn,
+.menu-wrapper:has([popover]:popover-open) > .dropdown-trigger {
+  background-color: var(--highlight-background-color) !important;
+}

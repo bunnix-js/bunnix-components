@@ -82,6 +82,10 @@ export default function ControlsPage() {
           FormControl("Large (.input-lg)", input({ class: "input-lg", type: "text", placeholder: "Large input" })),
           FormControl("Extra Large (.input-xl)", input({ class: "input-xl", type: "text", placeholder: "Extra large input" })),
         ]),
+        div({ class: "grid-flow gap-md items-center" }, [
+          FormControl("Large Select", select({ class: "input-lg" }, [option("Option 1")])),
+          FormControl("Extra Large Select", select({ class: "input-xl" }, [option("Option 1")])),
+        ]),
       ]),
 
       div({ class: "column-container gap-sm" }, [

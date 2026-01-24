@@ -38,6 +38,7 @@ export default function Sidebar({ selection, onSelect } = {}) {
       renderItem('controls', 'Controls'),
       renderItem('buttons', 'Buttons'),
       renderItem('tables', 'Tables'),
+      renderItem('components', 'Components'),
       renderItem('links', 'Links'),
       renderItem('media', 'Media'),
     ]),
