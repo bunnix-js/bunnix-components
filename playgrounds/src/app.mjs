@@ -23,6 +23,7 @@ import TextPage from "./pages/components/Text.mjs";
 import StacksPage from "./pages/components/Stacks.mjs";
 import GridPage from "./pages/components/Grid.mjs";
 import TablesComponentPage from "./pages/components/Tables.mjs";
+import CheckboxPage from "./pages/components/Checkbox.mjs";
 
 const { div, h1 } = Bunnix;
 
@@ -51,6 +52,7 @@ export default function App() {
         { id: 'components-dropdown', label: 'Dropdown Menu', icon: 'icon-chevron-down' },
         { id: 'components-switch', label: 'Switch', icon: 'icon-toggle' },
         { id: 'components-input', label: 'Input Field', icon: 'icon-pencil' },
+        { id: 'components-checkbox', label: 'Checkbox', icon: 'icon-check' },
         { id: 'components-button', label: 'Button', icon: 'icon-button' },
         { id: 'components-icon', label: 'Icon', icon: 'icon-star' },
         { id: 'components-text', label: 'Text', icon: 'icon-text' },
@@ -89,6 +91,7 @@ export default function App() {
       Show(page.map(v => v === 'components-dropdown'), () => DropdownPage()),
       Show(page.map(v => v === 'components-switch'), () => SwitchPage()),
       Show(page.map(v => v === 'components-input'), () => InputFieldPage()),
+      Show(page.map(v => v === 'components-checkbox'), () => CheckboxPage()),
       Show(page.map(v => v === 'components-button'), () => ButtonPage()),
       Show(page.map(v => v === 'components-icon'), () => IconPage()),
       Show(page.map(v => v === 'components-text'), () => TextPage()),

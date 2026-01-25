@@ -133,6 +133,28 @@ input[type="checkbox"]::before {
   transition: 120ms transform ease-in-out;
 }
 
+input[type="checkbox"].checkbox-lg,
+input[type="radio"].checkbox-lg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+input[type="checkbox"].checkbox-lg::before {
+  width: 1rem;
+  height: 1rem;
+}
+
+input[type="checkbox"].checkbox-xl,
+input[type="radio"].checkbox-xl {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+input[type="checkbox"].checkbox-xl::before {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
 input[type="radio"]::before {
   content: "";
   width: 0.65rem;

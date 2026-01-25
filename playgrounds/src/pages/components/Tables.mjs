@@ -3,8 +3,10 @@ import PageHeader from "../../components/PageHeader.mjs";
 import PageSection from "../../components/PageSection.mjs";
 import Table from "../../components/Table.mjs";
 import Text from "../../components/Text.mjs";
+import InputField from "../../components/InputField.mjs";
+import VStack from "../../components/VStack.mjs";
 
-const { div, h5, p, span, input } = Bunnix;
+const { div, h5, p, span } = Bunnix;
 
 export default function TablesComponentPage() {
   const headerOffset = "6rem";
@@ -43,26 +45,30 @@ export default function TablesComponentPage() {
     div({ class: "column-container gap-md" }, [
       PageSection({ title: "Default Rendering", stickyOffset: headerOffset }, [
         p("Columns map to fields and render their corresponding values by default."),
-        input({
-          type: "text",
-          placeholder: "Search by name...",
-          value: searchText,
-          class: "w-150",
-          input: (e) => searchText.set(e.target.value)
-        }),
-        Table({
-          columns,
-          data,
-          key: "id",
-          renderCell: renderStatus,
-          searchable: { field: "name", searchText },
-          sortable: [
-            { field: "name", sortType: "string", sorted: true },
-            { field: "role", sortType: "string" },
-            { field: "location", sortType: "string" },
-            { field: "status", sortType: "string" }
-          ]
-        })
+        VStack({ alignment: "leading", gap: "regular" }, [
+          div({ class: "w-300" }, [
+            InputField({
+              type: "search",
+              label: "Search by name",
+              placeholder: "Type a name...",
+              value: searchText,
+              input: (e) => searchText.set(e.target.value)
+            })
+          ]),
+          Table({
+            columns,
+            data,
+            key: "id",
+            renderCell: renderStatus,
+            searchable: { field: "name", searchText },
+            sortable: [
+              { field: "name", sortType: "string", sorted: true },
+              { field: "role", sortType: "string" },
+              { field: "location", sortType: "string" },
+              { field: "status", sortType: "string" }
+            ]
+          })
+        ])
       ]),
 
       PageSection({ title: "Variants", stickyOffset: headerOffset }, [

@@ -7,19 +7,27 @@ export default function Button({
   size,
   href,
   disabled = false,
-  click: onClick,
+  click,
   class: className = "",
   ...rest
 } = {}, children) {
   const isHyperlink = variant === "hyperlink";
+  const disabledState = disabled && typeof disabled.map === "function" ? disabled : null;
+  const handler = click;
 
   // Only apply button-system classes if NOT a hyperlink
   const baseClass = isHyperlink ? "" : "btn";
   const variantClass = (isHyperlink || variant === "regular") ? "" : `btn-${variant}`;
   const sizeClass = (!isHyperlink && size && size !== "default") ? `btn-${size}` : "";
-  const disabledClass = disabled ? "btn-disabled" : "";
+  const disabledClass = disabledState
+    ? disabledState.map((value) => (value ? "btn-disabled" : ""))
+    : (disabled ? "btn-disabled" : "");
   
-  const combinedClass = `${baseClass} ${variantClass} ${sizeClass} ${disabledClass} ${className}`.trim();
+  const combinedClass = disabledState
+    ? disabledState.map((value) =>
+        `${baseClass} ${variantClass} ${sizeClass} ${value ? "btn-disabled" : ""} ${className}`.trim()
+      )
+    : `${baseClass} ${variantClass} ${sizeClass} ${disabledClass} ${className}`.trim();
 
   const props = {
     class: combinedClass,
@@ -28,8 +36,12 @@ export default function Button({
   };
 
   // Only attach click handler if not disabled
-  if (!disabled && onClick) {
-    props.click = onClick;
+  if (handler) {
+    props.click = (event) => {
+      const isDisabled = disabledState ? disabledState.get() : !!disabled;
+      if (isDisabled) return;
+      handler(event);
+    };
   }
 
   if (type === "link" || isHyperlink) {

@@ -1,7 +1,13 @@
 import Bunnix from "@bunnix/core";
 const { div, h5 } = Bunnix;
 
-export default function PageSection({ title, stickyOffset = 0 } = {}, children) {
+export default function PageSection({ title, stickyOffset = 0, gap = "regular" } = {}, children) {
+  const gapMap = {
+    small: "gap-sm",
+    regular: "gap-md",
+    large: "gap-lg"
+  };
+
   return div({ class: "column-container no-margin" }, [
     div({
       class: "sticky-top bg-base pt-sm pb-sm",
@@ -9,6 +15,6 @@ export default function PageSection({ title, stickyOffset = 0 } = {}, children) 
     }, [
       h5({ class: "no-margin select-none" }, title)
     ]),
-    div({ class: "column-container py-xs" }, children)
+    div({ class: `column-container py-xs ${gapMap[gap]}`.trim() }, children)
   ]);
 }
