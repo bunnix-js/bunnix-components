@@ -1,15 +1,19 @@
-import Bunnix from "@bunnix/core";
+import Bunnix, { useRef, useState, useEffect, useMemo } from "@bunnix/core";
 import PageHeader from "../components/PageHeader.mjs";
-const { div, h5, p, span, hr } = Bunnix;
+import PageSection from "../components/PageSection.mjs";
+const { div, p, span, hr } = Bunnix;
 
 const IconItem = (className) => {
   return div({ class: "card box gap-sm w-fit" }, [
-    span({ class: `icon icon-xl ${className}` }),
+    span({ class: `icon icon-xl ${className} icon-base` }),
     span({ class: "text-mono text-sm" }, `.${className}`)
   ]);
 };
 
 export default function MediaPage() {
+  const headerRef = useRef(null);
+  const headerOffset = useState("6rem");
+
   const icons = [
     "icon-add-circle", "icon-add", "icon-alt", "icon-archive", "icon-at", "icon-attestation", "icon-bell",
     "icon-bookmark", "icon-bot", "icon-button", "icon-calculate", "icon-calendar", "icon-chart", "icon-check",
@@ -30,39 +34,36 @@ export default function MediaPage() {
   ];
 
   return div({ class: "column-container page-layout" }, [
-    PageHeader({ 
-      title: "Media & Icons", 
-      description: "Core system icons managed via CSS variables and mask-image for easy recoloring." 
+    PageHeader({
+      ref: headerRef,
+      title: "Media & Icons",
+      description: "Core system icons managed via CSS variables and mask-image for easy recoloring."
     }),
-    hr(),
-    
+
     div({ class: "column-container gap-md" }, [
-      div({ class: "column-container gap-sm" }, [
-        h5("Available Icons"),
+      PageSection({ title: "Available Icons", stickyOffset: headerOffset.get() }, [
         div({ class: "grid-flow gap-md" }, icons.map(icon => IconItem(icon))),
       ]),
 
-      div({ class: "column-container gap-sm" }, [
-        h5("Sizes"),
+      PageSection({ title: "Sizes", stickyOffset: headerOffset.get() }, [
         div({ class: "grid-flow gap-md items-center" }, [
            div({ class: "card box gap-sm w-fit" }, [
-             span({ class: "icon icon-person" }),
+             span({ class: "icon icon-person icon-base" }),
              span("Default (1rem)")
            ]),
            div({ class: "card box gap-sm w-fit" }, [
-             span({ class: "icon icon-person icon-lg" }),
+             span({ class: "icon icon-person icon-lg icon-base" }),
              span("Large (1.5rem)")
            ]),
            div({ class: "card box gap-sm w-fit" }, [
-             span({ class: "icon icon-person icon-xl" }),
+             span({ class: "icon icon-person icon-xl icon-base" }),
              span("Extra Large (2rem)")
            ]),
         ])
       ]),
 
-      div({ class: "column-container gap-sm" }, [
-        h5("Colored Examples"),
-        p("Icons inherit the background color context or can be explicitly colored."),
+      PageSection({ title: "Colored Examples", stickyOffset: headerOffset.get() }, [
+        p({ class: "pb-sm" }, "Icons inherit the background color context or can be explicitly colored."),
         div({ class: "grid-flow gap-md" }, [
            div({ class: "card box gap-sm w-fit text-accent" }, [
             span({ class: "icon icon-xl icon-home bg-accent" }),

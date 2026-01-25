@@ -194,6 +194,14 @@ a {
   padding: calc(var(--base-padding) * 0.5);
 }
 
+.pt-sm {
+  padding-top: calc(var(--base-padding) * 0.5) !important;
+}
+
+.pb-sm {
+  padding-bottom: calc(var(--base-padding) * 0.5) !important;
+}
+
 .p-base {
   padding: var(--base-padding) !important;
 }
@@ -284,6 +292,10 @@ a {
 
 .sticky-top {
   position: sticky;
-  top: 0;
+  top: var(--sticky-offset, 0);
   z-index: 10;
+}
+
+.z-99 {
+  z-index: 99 !important;
 }
