@@ -20,6 +20,7 @@ import InputFieldPage from "./pages/components/InputField.mjs";
 import ButtonPage from "./pages/components/Button.mjs";
 import IconPage from "./pages/components/Icon.mjs";
 import TextPage from "./pages/components/Text.mjs";
+import StacksPage from "./pages/components/Stacks.mjs";
 
 const { div, h1 } = Bunnix;
 
@@ -51,6 +52,7 @@ export default function App() {
         { id: 'components-button', label: 'Button', icon: 'icon-button' },
         { id: 'components-icon', label: 'Icon', icon: 'icon-star' },
         { id: 'components-text', label: 'Text', icon: 'icon-text' },
+        { id: 'components-stacks', label: 'Stacks', icon: 'icon-columns-layout' },
         { id: 'components-accordion', label: 'Accordion Group', icon: 'icon-sections' },
         { id: 'components-datepicker', label: 'Date Picker', icon: 'icon-calendar' },
         { id: 'components-timepicker', label: 'Time Picker', icon: 'icon-clock' },
@@ -86,6 +88,7 @@ export default function App() {
       Show(page.map(v => v === 'components-button'), ButtonPage()),
       Show(page.map(v => v === 'components-icon'), IconPage()),
       Show(page.map(v => v === 'components-text'), TextPage()),
+      Show(page.map(v => v === 'components-stacks'), StacksPage()),
       Show(page.map(v => v === 'components-accordion'), AccordionPage()),
       Show(page.map(v => v === 'components-datepicker'), DatePickerPage()),
       Show(page.map(v => v === 'components-timepicker'), TimePickerPage()),

@@ -122,6 +122,14 @@ a {
   align-items: center;
 }
 
+.items-start {
+  align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
 .justify-start {
   justify-content: flex-start !important;
   text-align: left;
@@ -184,6 +192,10 @@ a {
 
 .h-40 {
   height: 40px;
+}
+
+.h-200 {
+  height: 200px;
 }
 
 .p-xs {
