@@ -83,6 +83,16 @@ textarea {
   resize: vertical;
 }
 
+kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--base-gap) * 0.25);
+  padding: calc(var(--base-padding) * 0.25) calc(var(--base-padding) * 0.4);
+  border-radius: calc(var(--base-radius) * 0.5);
+  background-color: color-mix(in srgb, var(--background-color) 15%, transparent);
+}
+
 /* Control Sizes */
 .input-lg {
   padding: calc(var(--base-padding) * 0.75) calc(var(--base-padding) * 1.25) !important;

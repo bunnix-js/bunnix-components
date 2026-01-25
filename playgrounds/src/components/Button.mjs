@@ -11,23 +11,32 @@ export default function Button({
   class: className = "",
   ...rest
 } = {}, children) {
-  const isHyperlink = variant === "hyperlink";
+  const variantState = variant && typeof variant.map === "function" ? variant : null;
+  const sizeState = size && typeof size.map === "function" ? size : null;
   const disabledState = disabled && typeof disabled.map === "function" ? disabled : null;
+  const resolvedVariant = variantState ? variantState.get() : variant;
+  const isHyperlink = resolvedVariant === "hyperlink";
   const handler = click;
 
-  // Only apply button-system classes if NOT a hyperlink
-  const baseClass = isHyperlink ? "" : "btn";
-  const variantClass = (isHyperlink || variant === "regular") ? "" : `btn-${variant}`;
-  const sizeClass = (!isHyperlink && size && size !== "default") ? `btn-${size}` : "";
-  const disabledClass = disabledState
-    ? disabledState.map((value) => (value ? "btn-disabled" : ""))
-    : (disabled ? "btn-disabled" : "");
-  
-  const combinedClass = disabledState
-    ? disabledState.map((value) =>
-        `${baseClass} ${variantClass} ${sizeClass} ${value ? "btn-disabled" : ""} ${className}`.trim()
+  const buildClass = (variantValue, sizeValue, disabledValue) => {
+    const baseClass = isHyperlink ? "" : "btn";
+    const variantClass = (isHyperlink || variantValue === "regular") ? "" : `btn-${variantValue}`;
+    const sizeClass = (!isHyperlink && sizeValue && sizeValue !== "default") ? `btn-${sizeValue}` : "";
+    const disabledClass = disabledValue ? "btn-disabled" : "";
+    return `${baseClass} ${variantClass} ${sizeClass} ${disabledClass} ${className}`.trim();
+  };
+
+  const combinedClass = variantState
+    ? variantState.map((value) =>
+        buildClass(value, sizeState ? sizeState.get() : size, disabledState ? disabledState.get() : disabled)
       )
-    : `${baseClass} ${variantClass} ${sizeClass} ${disabledClass} ${className}`.trim();
+    : sizeState
+      ? sizeState.map((value) =>
+          buildClass(resolvedVariant, value, disabledState ? disabledState.get() : disabled)
+        )
+      : disabledState
+        ? disabledState.map((value) => buildClass(resolvedVariant, size, value))
+        : buildClass(resolvedVariant, size, disabled);
 
   const props = {
     class: combinedClass,

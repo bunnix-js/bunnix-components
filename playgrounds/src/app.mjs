@@ -27,6 +27,8 @@ import CheckboxPage from "./pages/components/Checkbox.mjs";
 import ComboBoxPage from "./pages/components/ComboBox.mjs";
 import ToastPage from "./pages/components/Toast.mjs";
 import ToastNotification from "./components/ToastNotification.mjs";
+import DialogPage from "./pages/components/Dialog.mjs";
+import Dialog from "./components/Dialog.mjs";
 
 const { div, h1 } = Bunnix;
 
@@ -67,6 +69,7 @@ export default function App() {
         { id: 'components-datepicker', label: 'Date Picker', icon: 'icon-calendar' },
         { id: 'components-timepicker', label: 'Time Picker', icon: 'icon-clock' },
         { id: 'components-toast', label: 'Toast', icon: 'icon-bell' },
+        { id: 'components-dialog', label: 'Dialog', icon: 'icon-window' },
       ]
     },
   ];
@@ -108,12 +111,14 @@ export default function App() {
       Show(page.map(v => v === 'components-accordion'), () => AccordionPage()),
       Show(page.map(v => v === 'components-datepicker'), () => DatePickerPage()),
       Show(page.map(v => v === 'components-timepicker'), () => TimePickerPage()),
+      Show(page.map(v => v === 'components-dialog'), () => DialogPage()),
 
       Show(page.map(v => v === 'home'), () => div({ style: "padding: 2rem;" }, [
         h1("Welcome to the Design System Showcase"),
         div("Select an item from the sidebar to view components."),
       ]))
     ]),
-    ToastNotification()
+    ToastNotification(),
+    Dialog()
   ]);
 }
