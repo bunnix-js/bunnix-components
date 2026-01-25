@@ -1,4 +1,5 @@
 import Bunnix, { ForEach, useMemo, useState } from "@bunnix/core";
+import Checkbox from "./Checkbox.mjs";
 const { table, thead, tbody, tr, th, td, colgroup, col, span } = Bunnix;
 
 const normalizeKey = (value) =>
@@ -61,6 +62,7 @@ export default function Table({
   cell,
   searchable,
   sortable = [],
+  selection,
   sort,
   variant = "regular",
   interactive = false,
@@ -80,6 +82,8 @@ export default function Table({
         }
       : null
   );
+  const selectionEnabled = typeof selection === "function";
+  const selectedKeys = useState([]);
 
   const variantClass = variant === "background"
     ? "table-bg"
@@ -142,6 +146,35 @@ export default function Table({
         )
       : buildRows(data, resolvedSearchText, sortState.get());
 
+  const visibleKeysState = normalizedRows && typeof normalizedRows.map === "function"
+    ? normalizedRows.map((rows) => (rows || []).map((row) => row.__key))
+    : null;
+
+  const isAllSelected = visibleKeysState
+    ? useMemo([selectedKeys, visibleKeysState], (keys, visible) =>
+        visible.length > 0 && visible.every((key) => keys.includes(key))
+      )
+    : selectedKeys.map((keys) => keys.length > 0);
+
+  const handleSelectionChange = (next) => {
+    selectedKeys.set(next);
+    if (selectionEnabled) selection(next);
+  };
+
+  const handleToggleAll = () => {
+    const visibleKeys = visibleKeysState ? visibleKeysState.get() : [];
+    const allSelected = isAllSelected.get();
+    handleSelectionChange(allSelected ? [] : visibleKeys);
+  };
+
+  const handleToggleRow = (rowKey) => {
+    const current = selectedKeys.get();
+    const next = current.includes(rowKey)
+      ? current.filter((key) => key !== rowKey)
+      : [...current, rowKey];
+    handleSelectionChange(next);
+  };
+
   const handleSort = (field) => {
     const current = sortState.get();
     if (!current || current.field !== field) {
@@ -156,55 +189,74 @@ export default function Table({
 
   return table({ class: `table ${variantClass} ${interactiveClass} ${className}`.trim() }, [
     colgroup(
-      columns.map((column) =>
-        col({ style: `width: ${resolveColumnWidth(column.size)};` })
-      )
+      [
+        selectionEnabled ? col({ style: "width: 40px;" }) : null,
+        ...columns.map((column) => col({ style: `width: ${resolveColumnWidth(column.size)};` }))
+      ].filter(Boolean)
     ),
     thead([
       tr(
-        columns.map((column) => {
-          const sortableEntry = sortableConfig.find((entry) => entry.field === column.field);
-          if (!sortableEntry) {
-            return th(column.label ?? column.field ?? "");
-          }
-          const iconClass = sortState.map((sortValue) => {
-            const isSorted = sortValue && sortValue.field === column.field;
-            const isAsc = isSorted && sortValue.direction === "asc";
-            return `icon icon-chevron-down table-sort-icon ${isSorted ? "icon-base" : "icon-quaternary"} ${isAsc ? "rotate-180" : ""}`.trim();
-          });
-
-          return th({
-            class: sortState.map((sortValue) => {
+        [
+          selectionEnabled ? th({ class: "table-checkbox-cell" }, [
+            Checkbox({
+              class: "table-checkbox",
+              checked: isAllSelected,
+              change: handleToggleAll
+            })
+          ]) : null,
+          ...columns.map((column) => {
+            const sortableEntry = sortableConfig.find((entry) => entry.field === column.field);
+            if (!sortableEntry) {
+              return th(column.label ?? column.field ?? "");
+            }
+            const iconClass = sortState.map((sortValue) => {
               const isSorted = sortValue && sortValue.field === column.field;
-              return `table-sortable hoverable ${isSorted ? "is-sorted" : ""}`.trim();
-            }),
-            click: () => handleSort(column.field)
-          }, [
-            span({ class: "row-container items-center gap-xs w-full" }, [
-              span(column.label ?? column.field ?? ""),
-              span({ class: iconClass.map(cls => `${cls} ml-auto`.trim()) })
-            ])
-          ]);
-        })
+              const isAsc = isSorted && sortValue.direction === "asc";
+              return `icon icon-chevron-down table-sort-icon ${isSorted ? "icon-base" : "icon-quaternary"} ${isAsc ? "rotate-180" : ""}`.trim();
+            });
+
+            return th({
+              class: sortState.map((sortValue) => {
+                const isSorted = sortValue && sortValue.field === column.field;
+                return `table-sortable hoverable ${isSorted ? "is-sorted" : ""}`.trim();
+              }),
+              click: () => handleSort(column.field)
+            }, [
+              span({ class: "row-container items-center gap-xs w-full" }, [
+                span(column.label ?? column.field ?? ""),
+                span({ class: iconClass.map(cls => `${cls} ml-auto`.trim()) })
+              ])
+            ]);
+          })
+        ].filter(Boolean)
       )
     ]),
     tbody([
       ForEach(normalizedRows, "__key", (item, rowIndex) => {
         const row = item.__row;
         return tr(
-          columns.map((column, columnIndex) => {
-            if (renderer) {
-              const rendered = renderer(columnIndex, column.field, row, column);
-              if (rendered !== undefined && rendered !== null) {
-                return td(rendered);
+          [
+            selectionEnabled ? td({ class: "table-checkbox-cell" }, [
+              Checkbox({
+                class: "table-checkbox",
+                checked: selectedKeys.map((keys) => keys.includes(item.__key)),
+                change: () => handleToggleRow(item.__key)
+              })
+            ]) : null,
+            ...columns.map((column, columnIndex) => {
+              if (renderer) {
+                const rendered = renderer(columnIndex, column.field, row, column);
+                if (rendered !== undefined && rendered !== null) {
+                  return td(rendered);
+                }
               }
-            }
-            const value = row && typeof row === "object" ? row[column.field] : "";
-            if (value && typeof value.map === "function") {
-              return td(value.map((val) => span(val)));
-            }
-            return td(String(value ?? ""));
-          })
+              const value = row && typeof row === "object" ? row[column.field] : "";
+              if (value && typeof value.map === "function") {
+                return td(value.map((val) => span(val)));
+              }
+              return td(String(value ?? ""));
+            })
+          ].filter(Boolean)
         );
       })
     ])

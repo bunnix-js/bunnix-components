@@ -2,12 +2,14 @@ import Bunnix, { useState } from "@bunnix/core";
 import PageHeader from "../../components/PageHeader.mjs";
 import PageSection from "../../components/PageSection.mjs";
 import Table from "../../components/Table.mjs";
+import Text from "../../components/Text.mjs";
 
 const { div, h5, p, span, input } = Bunnix;
 
 export default function TablesComponentPage() {
   const headerOffset = "6rem";
   const searchText = useState("");
+  const selectedKeys = useState([]);
 
   const columns = [
     { field: "name", size: "auto", label: "Name" },
@@ -71,7 +73,21 @@ export default function TablesComponentPage() {
           ]),
           div({ class: "column-container gap-sm" }, [
             h5({ class: "text-tertiary text-sm" }, "Bordered"),
-            Table({ columns, data, key: "id", renderCell: renderStatus, variant: "bordered" })
+            Table({
+              columns,
+              data,
+              key: "id",
+              renderCell: renderStatus,
+              variant: "bordered",
+              selection: (keys) => selectedKeys.set(keys)
+            }),
+            Text({ type: "paragraph", color: "secondary", class: "no-margin" },
+              selectedKeys.map((keys) => {
+                if (!keys.length) return "Selected: none";
+                const names = data.filter((row) => keys.includes(row.id)).map((row) => row.name).join(", ");
+                return `Selected: ${names}`;
+              })
+            )
           ])
         ])
       ]),

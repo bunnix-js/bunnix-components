@@ -67,3 +67,12 @@
   margin-left: var(--base-gap);
   vertical-align: middle;
 }
+
+.table-checkbox-cell {
+  text-align: center;
+  width: 40px;
+}
+
+.table-checkbox {
+  gap: 0;
+}
