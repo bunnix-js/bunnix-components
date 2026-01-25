@@ -197,6 +197,11 @@ a {
   padding: var(--base-padding) !important;
 }
 
+.px-base {
+  padding-left: var(--base-padding) !important;
+  padding-right: var(--base-padding) !important;
+}
+
 .p-0 {
   padding: 0;
 }
@@ -204,6 +209,36 @@ a {
 .py-xs {
   padding-top: calc(var(--base-gap) * 0.5);
   padding-bottom: calc(var(--base-gap) * 0.5);
+}
+
+.py-md {
+  padding-top: calc(var(--base-gap) * 2);
+  padding-bottom: calc(var(--base-gap) * 2);
+}
+
+.pl-md {
+  padding-left: calc(var(--base-padding) * 1.5) !important;
+}
+
+.pr-md {
+  padding-right: calc(var(--base-padding) * 1.5) !important;
+}
+
+.px-md {
+  padding-left: calc(var(--base-padding) * 1.5) !important;
+  padding-right: calc(var(--base-padding) * 1.5) !important;
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.transition-transform {
+  transition: transform 0.2s ease;
 }
 
 .rounded {
@@ -228,4 +263,8 @@ a {
 
 .overflow-auto {
   overflow: auto;
+}
+
+.select-none {
+  user-select: none;
 }

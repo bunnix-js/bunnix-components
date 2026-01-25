@@ -20,12 +20,28 @@ export default function App() {
     { id: 'typography', label: 'Typography', icon: 'icon-markup' },
     { id: 'colors', label: 'Colors', icon: 'icon-palette' },
     { id: 'layout', label: 'Layout', icon: 'icon-columns-layout' },
+    { id: 'media', label: 'Media', icon: 'icon-image' },
+    { isHeader: true, label: 'HTML Controls' },
+    { id: 'tables', label: 'Tables', icon: 'icon-table' },
     { id: 'controls', label: 'Controls', icon: 'icon-sliders' },
     { id: 'buttons', label: 'Buttons', icon: 'icon-hand' },
-    { id: 'tables', label: 'Tables', icon: 'icon-table' },
-    { id: 'components', label: 'Components', icon: 'icon-cube' },
     { id: 'links', label: 'Links', icon: 'icon-link' },
-    { id: 'media', label: 'Media', icon: 'icon-image' },
+    { isHeader: true, label: 'Rich Components' },
+    { 
+      id: 'rich-components', 
+      label: 'Components', 
+      icon: 'icon-cube',
+      isExpanded: true,
+      children: [
+        { id: 'components', label: 'Overview', icon: 'icon-grid' },
+        { id: 'components-popover', label: 'Popover Menu', icon: 'icon-more-horizontal' },
+        { id: 'components-dropdown', label: 'Dropdown Menu', icon: 'icon-chevron-down' },
+        { id: 'components-switch', label: 'Switch', icon: 'icon-switch' },
+        { id: 'components-accordion', label: 'Accordion Group', icon: 'icon-add' },
+        { id: 'components-datepicker', label: 'Date Picker', icon: 'icon-calendar' },
+        { id: 'components-timepicker', label: 'Time Picker', icon: 'icon-clock' },
+      ]
+    },
   ];
 
   const handleSidebarSelect = (id) => {

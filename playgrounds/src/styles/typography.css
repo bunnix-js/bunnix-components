@@ -44,8 +44,7 @@ h6 {
  line-height: 1.4;
  font-weight: var(--font-bold); 
  color: var(--color-secondary);
- text-transform: uppercase; /* Distinct style for H6 */
- font-size: 0.85rem; /* Allow slightly smaller if uppercase, or keep 1rem if strict */
+ font-size: 0.85rem;
  letter-spacing: 0.05em;
 }
 
