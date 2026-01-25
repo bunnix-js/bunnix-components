@@ -24,6 +24,7 @@ import StacksPage from "./pages/components/Stacks.mjs";
 import GridPage from "./pages/components/Grid.mjs";
 import TablesComponentPage from "./pages/components/Tables.mjs";
 import CheckboxPage from "./pages/components/Checkbox.mjs";
+import ComboBoxPage from "./pages/components/ComboBox.mjs";
 
 const { div, h1 } = Bunnix;
 
@@ -48,17 +49,18 @@ export default function App() {
       icon: 'icon-cube',
       isExpanded: true,
       children: [
+        { id: 'components-text', label: 'Text', icon: 'icon-text' },
+        { id: 'components-icon', label: 'Icon', icon: 'icon-star' },
+        { id: 'components-button', label: 'Button', icon: 'icon-button' },
+        { id: 'components-checkbox', label: 'Checkbox', icon: 'icon-check' },
+        { id: 'components-input', label: 'Input Field', icon: 'icon-pencil' },
+        { id: 'components-combobox', label: 'ComboBox', icon: 'icon-chevron-down' },
+        { id: 'components-switch', label: 'Switch', icon: 'icon-toggle' },
         { id: 'components-popover', label: 'Popover Menu', icon: 'icon-more-horizontal' },
         { id: 'components-dropdown', label: 'Dropdown Menu', icon: 'icon-chevron-down' },
-        { id: 'components-switch', label: 'Switch', icon: 'icon-toggle' },
-        { id: 'components-input', label: 'Input Field', icon: 'icon-pencil' },
-        { id: 'components-checkbox', label: 'Checkbox', icon: 'icon-check' },
-        { id: 'components-button', label: 'Button', icon: 'icon-button' },
-        { id: 'components-icon', label: 'Icon', icon: 'icon-star' },
-        { id: 'components-text', label: 'Text', icon: 'icon-text' },
-        { id: 'components-stacks', label: 'Stacks', icon: 'icon-columns-layout' },
         { id: 'components-grid', label: 'Grid', icon: 'icon-grid' },
         { id: 'components-table', label: 'Table', icon: 'icon-table' },
+        { id: 'components-stacks', label: 'Stacks', icon: 'icon-columns-layout' },
         { id: 'components-accordion', label: 'Accordion Group', icon: 'icon-sections' },
         { id: 'components-datepicker', label: 'Date Picker', icon: 'icon-calendar' },
         { id: 'components-timepicker', label: 'Time Picker', icon: 'icon-clock' },
@@ -92,6 +94,7 @@ export default function App() {
       Show(page.map(v => v === 'components-switch'), () => SwitchPage()),
       Show(page.map(v => v === 'components-input'), () => InputFieldPage()),
       Show(page.map(v => v === 'components-checkbox'), () => CheckboxPage()),
+      Show(page.map(v => v === 'components-combobox'), () => ComboBoxPage()),
       Show(page.map(v => v === 'components-button'), () => ButtonPage()),
       Show(page.map(v => v === 'components-icon'), () => IconPage()),
       Show(page.map(v => v === 'components-text'), () => TextPage()),
