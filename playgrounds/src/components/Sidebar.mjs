@@ -30,7 +30,7 @@ export default function Sidebar({ items = [], selection, onSelect } = {}) {
     }
 
     if (item.isHeader) {
-      return div({ class: "px-base py-md select-none" }, 
+      return div({ class: "px-base py-md select-none sticky-top bg-alternate" }, 
         h6({ class: "no-margin text-tertiary font-bold" }, item.label)
       );
     }

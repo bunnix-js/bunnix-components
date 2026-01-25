@@ -79,6 +79,7 @@ a {
   width: var(--sidebar-width);
   background-color: var(--alternate-background-color);
   height: 100%;
+  overflow-y: auto;
 }
 
 .main-content {
@@ -267,4 +268,10 @@ a {
 
 .select-none {
   user-select: none;
+}
+
+.sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
