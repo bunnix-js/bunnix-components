@@ -7,8 +7,15 @@ import MediaPage from "./pages/Media.mjs";
 import LayoutPage from "./pages/Layout.mjs";
 import ButtonsPage from "./pages/Buttons.mjs";
 import TablesPage from "./pages/Tables.mjs";
-import ComponentsPage from "./pages/Components.mjs";
 import ControlsPage from "./pages/Controls.mjs";
+
+// Sub-component Pages
+import PopoverPage from "./pages/components/Popover.mjs";
+import DropdownPage from "./pages/components/Dropdown.mjs";
+import SwitchPage from "./pages/components/Switch.mjs";
+import AccordionPage from "./pages/components/Accordion.mjs";
+import DatePickerPage from "./pages/components/DatePicker.mjs";
+import TimePickerPage from "./pages/components/TimePicker.mjs";
 
 const { div, h1 } = Bunnix;
 
@@ -33,7 +40,6 @@ export default function App() {
       icon: 'icon-cube',
       isExpanded: true,
       children: [
-        { id: 'components', label: 'Overview', icon: 'icon-grid' },
         { id: 'components-popover', label: 'Popover Menu', icon: 'icon-more-horizontal' },
         { id: 'components-dropdown', label: 'Dropdown Menu', icon: 'icon-chevron-down' },
         { id: 'components-switch', label: 'Switch', icon: 'icon-switch' },
@@ -62,8 +68,16 @@ export default function App() {
       Show(page.map(v => v === 'layout'), LayoutPage()),
       Show(page.map(v => v === 'buttons'), ButtonsPage()),
       Show(page.map(v => v === 'tables'), TablesPage()),
-      Show(page.map(v => v === 'components'), ComponentsPage()),
       Show(page.map(v => v === 'controls'), ControlsPage()),
+      
+      // Sub-component Routes
+      Show(page.map(v => v === 'components-popover'), PopoverPage()),
+      Show(page.map(v => v === 'components-dropdown'), DropdownPage()),
+      Show(page.map(v => v === 'components-switch'), SwitchPage()),
+      Show(page.map(v => v === 'components-accordion'), AccordionPage()),
+      Show(page.map(v => v === 'components-datepicker'), DatePickerPage()),
+      Show(page.map(v => v === 'components-timepicker'), TimePickerPage()),
+
       Show(page.map(v => v === 'home'), div({ style: "padding: 2rem;" }, [
         h1("Welcome to the Design System Showcase"),
         div("Select an item from the sidebar to view components."),
