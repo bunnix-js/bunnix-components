@@ -9,7 +9,7 @@
   
   /* Modern CSS Anchor Positioning (Chrome/Edge) */
   position-anchor: var(--anchor-id);
-  position: absolute;
+  position: fixed;
   top: anchor(var(--anchor-id) bottom);
   left: anchor(var(--anchor-id) left);
   

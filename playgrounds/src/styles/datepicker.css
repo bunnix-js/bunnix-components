@@ -14,14 +14,14 @@
   overflow: visible;
   border: none;
   background: transparent;
-  
+
   /* Modern CSS Anchor Positioning */
   position-anchor: var(--anchor-id);
-  position: absolute;
+  position: fixed;
   top: anchor(var(--anchor-id) bottom);
   left: anchor(var(--anchor-id) left);
   width: auto;
-  
+
   /* Fallback for Safari */
   margin-top: var(--base-gap);
 }

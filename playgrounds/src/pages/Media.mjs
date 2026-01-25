@@ -3,7 +3,7 @@ const { div, h1, h5, p, span, hr } = Bunnix;
 
 const IconItem = (className) => {
   return div({ class: "card box gap-sm w-fit" }, [
-    span({ class: `icon ${className}` }),
+    span({ class: `icon icon-xl ${className}` }),
     span({ class: "text-mono text-sm" }, `.${className}`)
   ]);
 };
@@ -36,7 +36,11 @@ export default function MediaPage() {
           IconItem("icon-close"),
           IconItem("icon-success"),
           IconItem("icon-tag"),
-          IconItem("icon-cloud-up"),
+          IconItem("icon-cloud-upload"),
+          IconItem("icon-cloud-download"),
+          IconItem("icon-cloud"),
+          IconItem("icon-columns-layout"),
+          IconItem("icon-map"),
           IconItem("icon-switch"),
           IconItem("icon-attestation"),
           IconItem("icon-bell"),

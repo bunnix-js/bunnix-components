@@ -1,5 +1,5 @@
 import Bunnix, { ForEach, useMemo, useRef, useState } from "@bunnix/core";
-const { div, button, input, span } = Bunnix;
+const { div, button, span, hr } = Bunnix;
 
 const WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
@@ -9,20 +9,6 @@ const isSameDay = (a, b) =>
 const toMidnight = (date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
 const formatDate = (date, formatter) => (date ? formatter.format(date) : "");
-
-const parseDate = (value) => {
-  if (!value) return null;
-  const isoMatch = value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (isoMatch) {
-    const year = Number(isoMatch[1]);
-    const month = Number(isoMatch[2]) - 1;
-    const day = Number(isoMatch[3]);
-    const parsed = new Date(year, month, day);
-    if (!Number.isNaN(parsed.getTime())) return parsed;
-  }
-  const parsed = new Date(value);
-  return Number.isNaN(parsed.getTime()) ? null : parsed;
-};
 
 const buildCalendar = (viewDate) => {
   const year = viewDate.getFullYear();
@@ -117,29 +103,6 @@ export default function DatePicker({
     }
   };
 
-  const handleInput = (event) => {
-    const value = event.target.value;
-    inputValue.set(value);
-    if (range) {
-      const parts = value.split(" - ");
-      const start = parseDate(parts[0]);
-      const end = parts[1] ? parseDate(parts[1]) : null;
-      if (start) {
-        selectedStart.set(toMidnight(start));
-        selectedEnd.set(end ? toMidnight(end) : null);
-        viewDate.set(new Date(start.getFullYear(), start.getMonth(), 1));
-      }
-      return;
-    }
-    const parsed = parseDate(value);
-    if (parsed) {
-      const normalized = toMidnight(parsed);
-      selectedStart.set(normalized);
-      selectedEnd.set(null);
-      viewDate.set(new Date(parsed.getFullYear(), parsed.getMonth(), 1));
-    }
-  };
-
   const handleDayClick = (date) => {
     if (range) {
       const start = selectedStart.get();
@@ -174,25 +137,29 @@ export default function DatePicker({
     viewDate.set(new Date(today.getFullYear(), today.getMonth(), 1));
   };
 
+  // Reactive state for the trigger
+  const hasValue = inputValue.map(v => !!v);
+  const displayLabel = inputValue.map(v => v || placeholder);
+
   return div({ class: `datepicker-wrapper ${className}`.trim() }, [
-    input({
+    button({
       id: pickerId,
-      class: "datepicker-input",
+      class: "dropdown-trigger justify-start",
       style: `anchor-name: ${anchorName}`,
-      type: "text",
-      placeholder,
-      value: inputValue,
-      focus: openPopover,
-      click: openPopover,
-      input: handleInput
-    }),
+      click: openPopover
+    }, [
+      div({ class: "row-container items-center gap-sm no-margin" }, [
+        span({ class: "icon icon-calendar bg-primary" }),
+        span({ class: hasValue.map(h => h ? "" : "text-secondary") }, displayLabel)
+      ])
+    ]),
     div({
       ref: popoverRef,
       popover: "auto",
       class: "datepicker-popover",
       style: `--anchor-id: ${anchorName}`
     }, [
-      div({ class: "card column-container w-min-150 p-sm bg-base datepicker-card" }, [
+      div({ class: "card column-container shadow gap-sm w-min-150 p-sm bg-base datepicker-card" }, [
         div({ class: "row-container items-center justify-between datepicker-header" }, [
           button({ class: "btn btn-flat datepicker-nav", click: handlePrevMonth }, [
             span({ class: "icon icon-chevron-left bg-primary" })
@@ -234,6 +201,7 @@ export default function DatePicker({
             })
           ])
         ]),
+        hr({ class: "no-margin" }),
         div({ class: "row-container justify-center datepicker-footer" }, [
           button({ class: "btn btn-flat datepicker-action", click: handleToday }, "Today")
         ])

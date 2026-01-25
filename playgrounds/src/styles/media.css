@@ -25,11 +25,6 @@
   width: 2rem;
 }
 
-.icon-contact {
-  -webkit-mask-image: var(--svg-contact);
-  mask-image: var(--svg-contact);
-}
-
 .icon-at {
   -webkit-mask-image: var(--svg-at);
   mask-image: var(--svg-at);
@@ -60,6 +55,11 @@
   mask-image: var(--svg-add);
 }
 
+.icon-calendar {
+  -webkit-mask-image: var(--svg-calendar);
+  mask-image: var(--svg-calendar);
+}
+
 .icon-chevron-left {
   -webkit-mask-image: var(--svg-chevron-left);
   mask-image: var(--svg-chevron-left);
@@ -75,14 +75,19 @@
   mask-image: var(--svg-chevron-down);
 }
 
-.icon-duplicate {
-  -webkit-mask-image: var(--svg-duplicate);
-  mask-image: var(--svg-duplicate);
+.icon-clip {
+  -webkit-mask-image: var(--svg-clip);
+  mask-image: var(--svg-clip);
 }
 
 .icon-download {
   -webkit-mask-image: var(--svg-download);
   mask-image: var(--svg-download);
+}
+
+.icon-duplicate {
+  -webkit-mask-image: var(--svg-duplicate);
+  mask-image: var(--svg-duplicate);
 }
 
 .icon-gearshape {
@@ -125,9 +130,29 @@
   mask-image: var(--svg-tag);
 }
 
-.icon-cloud-up {
-  -webkit-mask-image: var(--svg-cloud-up);
-  mask-image: var(--svg-cloud-up);
+.icon-cloud-upload {
+  -webkit-mask-image: var(--svg-cloud-upload);
+  mask-image: var(--svg-cloud-upload);
+}
+
+.icon-cloud-download {
+  -webkit-mask-image: var(--svg-cloud-download);
+  mask-image: var(--svg-cloud-download);
+}
+
+.icon-cloud {
+  -webkit-mask-image: var(--svg-cloud);
+  mask-image: var(--svg-cloud);
+}
+
+.icon-columns-layout {
+  -webkit-mask-image: var(--svg-columns-layout);
+  mask-image: var(--svg-columns-layout);
+}
+
+.icon-map {
+  -webkit-mask-image: var(--svg-map);
+  mask-image: var(--svg-map);
 }
 
 .icon-switch {
@@ -200,6 +225,11 @@
   mask-image: var(--svg-file-html);
 }
 
+.icon-file {
+  -webkit-mask-image: var(--svg-file);
+  mask-image: var(--svg-file);
+}
+
 .icon-inbox {
   -webkit-mask-image: var(--svg-inbox);
   mask-image: var(--svg-inbox);
@@ -215,6 +245,16 @@
   mask-image: var(--svg-merge);
 }
 
+.icon-more-horizontal {
+  -webkit-mask-image: var(--svg-more-horizontal);
+  mask-image: var(--svg-more-horizontal);
+}
+
+.icon-more-vertical {
+  -webkit-mask-image: var(--svg-more-vertical);
+  mask-image: var(--svg-more-vertical);
+}
+
 .icon-script {
   -webkit-mask-image: var(--svg-script);
   mask-image: var(--svg-script);
@@ -225,6 +265,16 @@
   mask-image: var(--svg-search);
 }
 
+.icon-sliders {
+  -webkit-mask-image: var(--svg-sliders);
+  mask-image: var(--svg-sliders);
+}
+
+.icon-swap {
+  -webkit-mask-image: var(--svg-swap);
+  mask-image: var(--svg-swap);
+}
+
 .icon-timer {
   -webkit-mask-image: var(--svg-timer);
   mask-image: var(--svg-timer);
@@ -233,6 +283,11 @@
 .icon-trash {
   -webkit-mask-image: var(--svg-trash);
   mask-image: var(--svg-trash);
+}
+
+.icon-update-page {
+  -webkit-mask-image: var(--svg-update-page);
+  mask-image: var(--svg-update-page);
 }
 
 .icon-upload {
@@ -308,36 +363,6 @@
 .icon-alt {
   -webkit-mask-image: var(--svg-alt);
   mask-image: var(--svg-alt);
-}
-
-.icon-file {
-  -webkit-mask-image: var(--svg-file);
-  mask-image: var(--svg-file);
-}
-
-.icon-more-horizontal {
-  -webkit-mask-image: var(--svg-more-horizontal);
-  mask-image: var(--svg-more-horizontal);
-}
-
-.icon-more-vertical {
-  -webkit-mask-image: var(--svg-more-vertical);
-  mask-image: var(--svg-more-vertical);
-}
-
-.icon-sliders {
-  -webkit-mask-image: var(--svg-sliders);
-  mask-image: var(--svg-sliders);
-}
-
-.icon-swap {
-  -webkit-mask-image: var(--svg-swap);
-  mask-image: var(--svg-swap);
-}
-
-.icon-update-page {
-  -webkit-mask-image: var(--svg-update-page);
-  mask-image: var(--svg-update-page);
 }
 
 .swatch {

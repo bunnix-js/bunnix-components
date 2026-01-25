@@ -72,10 +72,15 @@
   --svg-close: url('../icons/close.svg');
   --svg-success: url('../icons/success.svg');
   --svg-tag: url('../icons/tag.svg');
-  --svg-cloud-up: url('../icons/cloud-up.svg');
+  --svg-cloud-upload: url('../icons/cloud-upload.svg');
+  --svg-cloud-download: url('../icons/cloud-download.svg');
+  --svg-cloud: url('../icons/cloud.svg');
+  --svg-columns-layout: url('../icons/columns-layout.svg');
+  --svg-map: url('../icons/map.svg');
   --svg-switch: url('../icons/switch.svg');
   --svg-attestation: url('../icons/attestation.svg');
   --svg-bell: url('../icons/bell.svg');
+  --svg-calendar: url('../icons/calendar.svg');
   --svg-check: url('../icons/check.svg');
   --svg-cube: url('../icons/cube.svg');
   --svg-globe: url('../icons/globe.svg');
