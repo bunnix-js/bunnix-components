@@ -100,6 +100,7 @@
 .icon-pin { -webkit-mask-image: var(--svg-pin); mask-image: var(--svg-pin); }
 .icon-question-circle { -webkit-mask-image: var(--svg-question-circle); mask-image: var(--svg-question-circle); }
 .icon-remove-circle { -webkit-mask-image: var(--svg-remove-circle); mask-image: var(--svg-remove-circle); }
+.icon-return-arrow { -webkit-mask-image: var(--svg-return-arrow); mask-image: var(--svg-return-arrow); }
 .icon-save { -webkit-mask-image: var(--svg-save); mask-image: var(--svg-save); }
 .icon-search { -webkit-mask-image: var(--svg-search); mask-image: var(--svg-search); }
 .icon-sections { -webkit-mask-image: var(--svg-sections); mask-image: var(--svg-sections); }

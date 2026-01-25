@@ -110,7 +110,10 @@ export default function Dialog() {
           }
         }, [
           confirmationText,
-          kbd({ class: "text-white text-sm whitespace-nowrap" }, "⏎ Enter")
+          kbd({ class: "text-white text-sm whitespace-nowrap" }, [
+            Icon({ name: "return-arrow", fill: "white" }),
+            "Enter"
+          ])
         ])
       ])
     ])
