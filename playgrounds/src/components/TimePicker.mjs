@@ -136,12 +136,10 @@ export default function TimePicker({
 
         hr({ class: "no-margin" }),
 
-        div({ class: "row-container justify-between items-center timepicker-footer" }, [
+        div({ class: "row-container justify-center items-center gap-md p-base shrink-0" }, [
           button({ class: "btn btn-flat", click: () => { isModified.set(false); closePopover(); } }, "Clear"),
-          div({ class: "row-container gap-sm no-margin" }, [
-            button({ class: "btn btn-flat", click: handleNow }, "Now"),
-            button({ class: "btn", click: closePopover }, "OK")
-          ])
+          button({ class: "btn btn-flat", click: handleNow }, "Now"),
+          button({ class: "btn", click: closePopover }, "OK")
         ])
       ])
     ])

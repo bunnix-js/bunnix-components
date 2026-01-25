@@ -45,16 +45,15 @@
   height: auto;
   display: flex;
   flex-direction: column;
-  gap: var(--base-gap);
   justify-content: flex-start;
   min-width: 280px;
+  align-items: stretch !important; /* Ensure children fill width */
 }
 
 .datepicker-header {
   width: 100%;
-  padding: 0 var(--base-padding);
-  margin-bottom: var(--base-gap);
-  justify-content: space-between;
+  padding: var(--base-padding);
+  margin-bottom: 0;
 }
 
 .datepicker-title {
@@ -74,6 +73,7 @@
   gap: calc(var(--base-gap) * 0.75);
   flex: 1;
   justify-content: center;
+  padding-bottom: var(--base-padding);
 }
 
 .datepicker-weekdays {
@@ -142,8 +142,4 @@
 
 .datepicker-action {
   padding: calc(var(--base-padding) * 0.4) var(--base-padding);
-}
-
-.datepicker-footer {
-  padding-bottom: calc(var(--base-padding) * 0.25);
 }

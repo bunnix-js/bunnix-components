@@ -133,8 +133,15 @@ export default function DatePicker({
 
   const handleToday = () => {
     const today = toMidnight(new Date());
-    setSelection(today, range ? null : null);
+    setSelection(today, null);
     viewDate.set(new Date(today.getFullYear(), today.getMonth(), 1));
+  };
+
+  const handleClear = () => {
+    selectedStart.set(null);
+    selectedEnd.set(null);
+    inputValue.set("");
+    closePopover();
   };
 
   // Single reactive source for the label text
@@ -169,8 +176,8 @@ export default function DatePicker({
       class: "datepicker-popover",
       style: `--anchor-id: ${anchorName}`
     }, [
-      div({ class: "card column-container shadow gap-sm w-min-150 p-sm bg-base datepicker-card" }, [
-        div({ class: "row-container items-center justify-between datepicker-header" }, [
+      div({ class: "card column-container shadow gap-0 p-0 bg-base datepicker-card" }, [
+        div({ class: "row-container items-center justify-between datepicker-header p-sm no-margin" }, [
           button({ class: "btn btn-flat datepicker-nav", click: handlePrevMonth }, [
             span({ class: "icon icon-chevron-left icon-base" })
           ]),
@@ -195,7 +202,6 @@ export default function DatePicker({
 
               const classNames = [
                 "datepicker-cell",
-                "p-xs",
                 cell.outside ? "is-outside" : "",
                 inRange ? "is-in-range" : "",
                 isStart ? "is-range-start" : "",
@@ -212,8 +218,10 @@ export default function DatePicker({
           ])
         ]),
         hr({ class: "no-margin" }),
-        div({ class: "row-container justify-center datepicker-footer" }, [
-          button({ class: "btn btn-flat datepicker-action", click: handleToday }, "Today")
+        div({ class: "row-container justify-center items-center gap-md p-base shrink-0 datepicker-footer" }, [
+          button({ class: "btn btn-flat", click: handleClear }, "Clear"),
+          button({ class: "btn btn-flat", click: handleToday }, "Today"),
+          button({ class: "btn", click: closePopover }, "OK")
         ])
       ])
     ])

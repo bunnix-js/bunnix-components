@@ -193,6 +193,10 @@ a {
   padding: calc(var(--base-padding) * 0.5);
 }
 
+.p-base {
+  padding: var(--base-padding) !important;
+}
+
 .p-0 {
   padding: 0;
 }

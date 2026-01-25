@@ -90,7 +90,3 @@ input.time-segment:focus {
   height: calc(var(--base-padding) * 5);
   line-height: 1;
 }
-
-.timepicker-footer {
-  padding: var(--base-padding);
-}
