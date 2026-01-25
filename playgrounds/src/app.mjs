@@ -21,6 +21,7 @@ import ButtonPage from "./pages/components/Button.mjs";
 import IconPage from "./pages/components/Icon.mjs";
 import TextPage from "./pages/components/Text.mjs";
 import StacksPage from "./pages/components/Stacks.mjs";
+import GridPage from "./pages/components/Grid.mjs";
 
 const { div, h1 } = Bunnix;
 
@@ -53,6 +54,7 @@ export default function App() {
         { id: 'components-icon', label: 'Icon', icon: 'icon-star' },
         { id: 'components-text', label: 'Text', icon: 'icon-text' },
         { id: 'components-stacks', label: 'Stacks', icon: 'icon-columns-layout' },
+        { id: 'components-grid', label: 'Grid', icon: 'icon-grid' },
         { id: 'components-accordion', label: 'Accordion Group', icon: 'icon-sections' },
         { id: 'components-datepicker', label: 'Date Picker', icon: 'icon-calendar' },
         { id: 'components-timepicker', label: 'Time Picker', icon: 'icon-clock' },
@@ -89,6 +91,7 @@ export default function App() {
       Show(page.map(v => v === 'components-icon'), IconPage()),
       Show(page.map(v => v === 'components-text'), TextPage()),
       Show(page.map(v => v === 'components-stacks'), StacksPage()),
+      Show(page.map(v => v === 'components-grid'), GridPage()),
       Show(page.map(v => v === 'components-accordion'), AccordionPage()),
       Show(page.map(v => v === 'components-datepicker'), DatePickerPage()),
       Show(page.map(v => v === 'components-timepicker'), TimePickerPage()),
