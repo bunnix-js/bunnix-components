@@ -28,7 +28,7 @@ export default function App() {
   const page = useState(initialPage);
 
   const sidebarItems = [
-    { id: 'typography', label: 'Typography', icon: 'icon-markup' },
+    { id: 'typography', label: 'Typography', icon: 'icon-text' },
     { id: 'colors', label: 'Colors', icon: 'icon-palette' },
     { id: 'layout', label: 'Layout', icon: 'icon-columns-layout' },
     { id: 'media', label: 'Media', icon: 'icon-image' },
@@ -50,7 +50,7 @@ export default function App() {
         { id: 'components-input', label: 'Input Field', icon: 'icon-pencil' },
         { id: 'components-button', label: 'Button', icon: 'icon-button' },
         { id: 'components-icon', label: 'Icon', icon: 'icon-star' },
-        { id: 'components-text', label: 'Text', icon: 'icon-markup' },
+        { id: 'components-text', label: 'Text', icon: 'icon-text' },
         { id: 'components-accordion', label: 'Accordion Group', icon: 'icon-sections' },
         { id: 'components-datepicker', label: 'Date Picker', icon: 'icon-calendar' },
         { id: 'components-timepicker', label: 'Time Picker', icon: 'icon-clock' },

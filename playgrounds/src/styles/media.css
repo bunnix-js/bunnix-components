@@ -100,9 +100,11 @@
 .icon-pin { -webkit-mask-image: var(--svg-pin); mask-image: var(--svg-pin); }
 .icon-question-circle { -webkit-mask-image: var(--svg-question-circle); mask-image: var(--svg-question-circle); }
 .icon-remove-circle { -webkit-mask-image: var(--svg-remove-circle); mask-image: var(--svg-remove-circle); }
+.icon-save { -webkit-mask-image: var(--svg-save); mask-image: var(--svg-save); }
 .icon-search { -webkit-mask-image: var(--svg-search); mask-image: var(--svg-search); }
 .icon-sections { -webkit-mask-image: var(--svg-sections); mask-image: var(--svg-sections); }
 .icon-send { -webkit-mask-image: var(--svg-send); mask-image: var(--svg-send); }
+.icon-share { -webkit-mask-image: var(--svg-share); mask-image: var(--svg-share); }
 .icon-shine { -webkit-mask-image: var(--svg-shine); mask-image: var(--svg-shine); }
 .icon-sliders { -webkit-mask-image: var(--svg-sliders); mask-image: var(--svg-sliders); }
 .icon-star { -webkit-mask-image: var(--svg-star); mask-image: var(--svg-star); }
@@ -113,6 +115,7 @@
 .icon-sync { -webkit-mask-image: var(--svg-sync); mask-image: var(--svg-sync); }
 .icon-table { -webkit-mask-image: var(--svg-table); mask-image: var(--svg-table); }
 .icon-tag { -webkit-mask-image: var(--svg-tag); mask-image: var(--svg-tag); }
+.icon-text { -webkit-mask-image: var(--svg-text); mask-image: var(--svg-text); }
 .icon-thumb-down { -webkit-mask-image: var(--svg-thumb-down); mask-image: var(--svg-thumb-down); }
 .icon-thumb-up { -webkit-mask-image: var(--svg-thumb-up); mask-image: var(--svg-thumb-up); }
 .icon-timer { -webkit-mask-image: var(--svg-timer); mask-image: var(--svg-timer); }
