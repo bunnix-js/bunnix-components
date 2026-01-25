@@ -11,6 +11,7 @@ const toMidnight = (date) => new Date(date.getFullYear(), date.getMonth(), date.
 const formatDate = (date, formatter) => (date ? formatter.format(date) : "");
 
 const buildCalendar = (viewDate) => {
+  if (!viewDate) return [];
   const year = viewDate.getFullYear();
   const month = viewDate.getMonth();
   const startOfMonth = new Date(year, month, 1);
@@ -54,13 +55,9 @@ export default function DatePicker({
   const pickerId = id || `datepicker-${Math.random().toString(36).slice(2, 8)}`;
   const anchorName = `--${pickerId}`;
 
-  const formatter = (() => {
-    try {
-      return new Intl.DateTimeFormat(undefined, { day: "2-digit", month: "2-digit", year: "numeric" });
-    } catch (error) {
-      return new Intl.DateTimeFormat(undefined, { day: "2-digit", month: "2-digit", year: "numeric" });
-    }
-  })();
+  const formatter = useMemo([], () => {
+    return new Intl.DateTimeFormat(undefined, { day: "2-digit", month: "2-digit", year: "numeric" });
+  });
 
   const selectedStart = useState(null);
   const selectedEnd = useState(null);
@@ -95,11 +92,11 @@ export default function DatePicker({
     selectedStart.set(start);
     selectedEnd.set(end);
     if (range) {
-      const startText = formatDate(start, formatter);
-      const endText = end ? formatDate(end, formatter) : "";
+      const startText = formatDate(start, formatter.get());
+      const endText = end ? formatDate(end, formatter.get()) : "";
       inputValue.set(endText ? `${startText} - ${endText}` : startText);
     } else {
-      inputValue.set(formatDate(start, formatter));
+      inputValue.set(formatDate(start, formatter.get()));
     }
   };
 
@@ -149,14 +146,14 @@ export default function DatePicker({
     if (v) return v;
     if (placeholder) return placeholder;
     
-    // Dynamic current date fallback
     const today = new Date();
+    const fmt = formatter.get();
     if (range) {
       const tomorrow = new Date(today);
       tomorrow.setDate(today.getDate() + 1);
-      return `${formatDate(today, formatter)} - ${formatDate(tomorrow, formatter)}`;
+      return `${formatDate(today, fmt)} - ${formatDate(tomorrow, fmt)}`;
     }
-    return formatDate(today, formatter);
+    return formatDate(today, fmt);
   });
 
   const hasValue = inputValue.map(v => !!v);
@@ -190,7 +187,7 @@ export default function DatePicker({
           div({ class: "datepicker-weekdays" }, WEEKDAYS.map((day) =>
             span({ class: "datepicker-weekday" }, day)
           )),
-          div({ class: "datepicker-grid" }, [
+          div({ class: "datepicker-grid" }, 
             ForEach(calendar, "key", (cell) => {
               const start = selectedStart.get();
               const end = selectedEnd.get();
@@ -215,7 +212,7 @@ export default function DatePicker({
                 click: () => handleDayClick(cell.date)
               }, cell.date.getDate().toString());
             })
-          ])
+          )
         ]),
         hr({ class: "no-margin" }),
         div({ class: "row-container justify-center items-center gap-md p-base shrink-0 datepicker-footer" }, [
