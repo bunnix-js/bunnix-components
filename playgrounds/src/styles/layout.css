@@ -345,6 +345,22 @@ a {
   left: var(--base-padding);
 }
 
+.top-lg {
+  top: calc(var(--base-padding) * 2);
+}
+
+.right-lg {
+  right: calc(var(--base-padding) * 2);
+}
+
+.bottom-lg {
+  bottom: calc(var(--base-padding) * 2);
+}
+
+.left-lg {
+  left: calc(var(--base-padding) * 2);
+}
+
 /* Popover Reset (opt-in) */
 .popover-base {
   margin: 0;

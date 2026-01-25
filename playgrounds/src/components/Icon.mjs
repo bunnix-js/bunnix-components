@@ -10,7 +10,8 @@ export default function Icon({
 } = {}) {
   // name is expected to be just the slug, e.g. "add" or "person"
   // but we handle "icon-name" too for backward compatibility
-  const iconName = name.startsWith("icon-") ? name : `icon-${name}`;
+  const safeName = typeof name === "string" ? name : "";
+  const iconName = safeName.startsWith("icon-") ? safeName : `icon-${safeName}`;
   
   // fill mapping: "base" -> "icon-base", "white" -> "icon-white", etc.
   const fillClass = fill.startsWith("icon-") ? fill : `icon-${fill}`;

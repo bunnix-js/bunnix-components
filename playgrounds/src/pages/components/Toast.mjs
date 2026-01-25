@@ -33,10 +33,10 @@ export default function ToastPage() {
           })
         ]),
         HStack({ alignment: "leading", gap: "regular" }, [
-          Button({ click: () => showToast({ message: "Saved successfully.", duration: 3, anchor: "topRight", size: sizeSelection.get() }) }, "Top Right"),
-          Button({ click: () => showToast({ message: "New message received.", duration: 3, anchor: "topLeft", size: sizeSelection.get() }) }, "Top Left"),
-          Button({ click: () => showToast({ message: "Export complete.", duration: 3, anchor: "bottomRight", size: sizeSelection.get() }) }, "Bottom Right"),
-          Button({ click: () => showToast({ message: "Offline mode enabled.", duration: 3, anchor: "bottomLeft", size: sizeSelection.get() }) }, "Bottom Left"),
+          Button({ click: () => showToast({ message: "Saved successfully.", duration: 5, anchor: "topRight", size: sizeSelection.get(), icon: "icon-success-circle" }) }, "Top Right"),
+          Button({ click: () => showToast({ message: "New message received.", duration: 5, anchor: "topLeft", size: sizeSelection.get(), icon: "icon-mail" }) }, "Top Left"),
+          Button({ click: () => showToast({ message: "Export complete.", duration: 5, anchor: "bottomRight", size: sizeSelection.get(), icon: "icon-download" }) }, "Bottom Right"),
+          Button({ click: () => showToast({ message: "Offline mode enabled.", duration: 5, anchor: "bottomLeft", size: sizeSelection.get(), icon: "icon-cloud" }) }, "Bottom Left"),
         ])
       ])
     ])

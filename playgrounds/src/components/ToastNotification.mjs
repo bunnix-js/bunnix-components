@@ -1,4 +1,5 @@
 import Bunnix, { useEffect, useRef, useState } from "@bunnix/core";
+import Icon from "./Icon.mjs";
 const { div, h4 } = Bunnix;
 
 const defaultToast = {
@@ -10,13 +11,14 @@ const defaultToast = {
 
 export const toastState = useState(defaultToast);
 
-export const showToast = ({ message, duration = 3, anchor = "topRight", size = "regular" } = {}) => {
+export const showToast = ({ message, duration = 3, anchor = "topRight", size = "regular", icon } = {}) => {
   toastState.set({
     open: true,
     message: message ?? "",
     size,
     duration,
-    anchor
+    anchor,
+    icon: icon ?? ""
   });
 };
 
@@ -59,16 +61,18 @@ export default function ToastNotification() {
 
   const anchorClass = toastState.map((value) => {
     const base = "fixed inset-auto z-99";
-    if (value.anchor === "topLeft") return `${base} top-md left-md`;
-    if (value.anchor === "bottomRight") return `${base} bottom-md right-md`;
-    if (value.anchor === "bottomLeft") return `${base} bottom-md left-md`;
-    return `${base} top-md right-md`;
+    if (value.anchor === "topLeft") return `${base} top-lg left-lg`;
+    if (value.anchor === "bottomRight") return `${base} bottom-lg right-lg`;
+    if (value.anchor === "bottomLeft") return `${base} bottom-lg left-lg`;
+    return `${base} top-lg right-lg`;
   });
 
-  const sizeClass = toastState.map((value) => {
-    if (value.size === "lg") return "p-lg";
-    if (value.size === "xl") return "p-xl";
-    return "p-base";
+  const cardClass = toastState.map((value) => {
+    const motionClass = value.anchor === "topLeft" || value.anchor === "bottomLeft"
+      ? "slide-in-left"
+      : "slide-in-right";
+    const sizeClass = value.size === "lg" ? "p-lg" : value.size === "xl" ? "p-xl" : "p-base";
+    return `box-capsule card shadow bg-base ${sizeClass} w-300 overflow-visible ${motionClass}`.trim();
   });
   const textSizeClass = toastState.map((value) => {
     if (value.size === "lg") return "text-lg";
@@ -81,8 +85,15 @@ export default function ToastNotification() {
     popover: "manual",
     class: anchorClass.map(cls => `popover-base ${cls} overflow-visible`)
   }, [
-    div({ class: sizeClass.map(cls => `box-capsule card shadow bg-base ${cls} w-300 overflow-visible`.trim()) }, [
-      h4({ class: textSizeClass.map(cls => `no-margin ${cls}`.trim()) }, toastState.map((value) => value.message))
+    div({ class: cardClass }, [
+      div({ class: "row-container items-center gap-sm no-margin" }, [
+        div({
+          class: toastState.map((value) =>
+            value.icon ? `icon ${value.icon} icon-base` : "hidden"
+          )
+        }),
+        h4({ class: textSizeClass.map(cls => `no-margin ${cls}`.trim()) }, toastState.map((value) => value.message))
+      ])
     ])
   ]);
 }
