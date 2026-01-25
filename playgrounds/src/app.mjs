@@ -16,6 +16,7 @@ import SwitchPage from "./pages/components/Switch.mjs";
 import AccordionPage from "./pages/components/Accordion.mjs";
 import DatePickerPage from "./pages/components/DatePicker.mjs";
 import TimePickerPage from "./pages/components/TimePicker.mjs";
+import InputFieldPage from "./pages/components/InputField.mjs";
 
 const { div, h1 } = Bunnix;
 
@@ -43,6 +44,7 @@ export default function App() {
         { id: 'components-popover', label: 'Popover Menu', icon: 'icon-more-horizontal' },
         { id: 'components-dropdown', label: 'Dropdown Menu', icon: 'icon-chevron-down' },
         { id: 'components-switch', label: 'Switch', icon: 'icon-toggle' },
+        { id: 'components-input', label: 'Input Field', icon: 'icon-pencil' },
         { id: 'components-accordion', label: 'Accordion Group', icon: 'icon-sections' },
         { id: 'components-datepicker', label: 'Date Picker', icon: 'icon-calendar' },
         { id: 'components-timepicker', label: 'Time Picker', icon: 'icon-clock' },
@@ -74,6 +76,7 @@ export default function App() {
       Show(page.map(v => v === 'components-popover'), PopoverPage()),
       Show(page.map(v => v === 'components-dropdown'), DropdownPage()),
       Show(page.map(v => v === 'components-switch'), SwitchPage()),
+      Show(page.map(v => v === 'components-input'), InputFieldPage()),
       Show(page.map(v => v === 'components-accordion'), AccordionPage()),
       Show(page.map(v => v === 'components-datepicker'), DatePickerPage()),
       Show(page.map(v => v === 'components-timepicker'), TimePickerPage()),

@@ -72,6 +72,12 @@ textarea::placeholder {
   opacity: 0.8;
 }
 
+/* Hide native datalist/date/time picker indicators */
+input::-webkit-calendar-picker-indicator {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
 textarea {
   min-height: 100px;
   resize: vertical;
