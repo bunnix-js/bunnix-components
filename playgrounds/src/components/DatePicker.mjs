@@ -170,7 +170,7 @@ export default function DatePicker({
     div({
       ref: popoverRef,
       popover: "auto",
-      class: "datepicker-popover",
+      class: "datepicker-popover popover-base",
       style: `--anchor-id: ${anchorName}`
     }, [
       div({ class: "card column-container shadow gap-0 p-0 bg-base datepicker-card" }, [

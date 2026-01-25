@@ -25,6 +25,8 @@ import GridPage from "./pages/components/Grid.mjs";
 import TablesComponentPage from "./pages/components/Tables.mjs";
 import CheckboxPage from "./pages/components/Checkbox.mjs";
 import ComboBoxPage from "./pages/components/ComboBox.mjs";
+import ToastPage from "./pages/components/Toast.mjs";
+import ToastNotification from "./components/ToastNotification.mjs";
 
 const { div, h1 } = Bunnix;
 
@@ -64,6 +66,7 @@ export default function App() {
         { id: 'components-accordion', label: 'Accordion Group', icon: 'icon-sections' },
         { id: 'components-datepicker', label: 'Date Picker', icon: 'icon-calendar' },
         { id: 'components-timepicker', label: 'Time Picker', icon: 'icon-clock' },
+        { id: 'components-toast', label: 'Toast', icon: 'icon-bell' },
       ]
     },
   ];
@@ -95,6 +98,7 @@ export default function App() {
       Show(page.map(v => v === 'components-input'), () => InputFieldPage()),
       Show(page.map(v => v === 'components-checkbox'), () => CheckboxPage()),
       Show(page.map(v => v === 'components-combobox'), () => ComboBoxPage()),
+      Show(page.map(v => v === 'components-toast'), () => ToastPage()),
       Show(page.map(v => v === 'components-button'), () => ButtonPage()),
       Show(page.map(v => v === 'components-icon'), () => IconPage()),
       Show(page.map(v => v === 'components-text'), () => TextPage()),
@@ -110,5 +114,6 @@ export default function App() {
         div("Select an item from the sidebar to view components."),
       ]))
     ]),
+    ToastNotification()
   ]);
 }

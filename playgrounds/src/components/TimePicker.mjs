@@ -106,7 +106,7 @@ export default function TimePicker({
     div({
       ref: popoverRef,
       popover: "auto",
-      class: "timepicker-popover",
+      class: "timepicker-popover popover-base",
       style: `--anchor-id: ${anchorName}`
     }, [
       div({ class: "card column-container shadow gap-0 p-0 bg-base timepicker-card" }, [

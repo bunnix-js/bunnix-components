@@ -44,7 +44,7 @@ export default function PopoverMenu({ trigger, items = [], id, align = "left", s
     div({
       ref: popoverRef,
       popover: "auto",
-      class: `menu-popover menu-anchor-${align}`, 
+      class: `menu-popover popover-base menu-anchor-${align}`, 
       style: `--anchor-id: ${anchorName}`
     }, [
       /* All design system styles go here to avoid overriding popover visibility */

@@ -67,7 +67,7 @@ export default function DropdownMenu({
     div({
       ref: popoverRef,
       popover: "auto",
-      class: `menu-popover menu-anchor-${align}`,
+      class: `menu-popover popover-base menu-anchor-${align}`,
       style: `--anchor-id: ${anchorName}`
     }, [
       div({ class: "card column-container shadow gap-sm w-min-150 p-sm bg-base" },

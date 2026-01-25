@@ -218,6 +218,14 @@ a {
   padding: var(--base-padding) !important;
 }
 
+.p-lg {
+  padding: calc(var(--base-padding) * 1.5) !important;
+}
+
+.p-xl {
+  padding: calc(var(--base-padding) * 2) !important;
+}
+
 .px-base {
   padding-left: var(--base-padding) !important;
   padding-right: var(--base-padding) !important;
@@ -310,4 +318,41 @@ a {
 
 .z-99 {
   z-index: 99 !important;
+}
+
+/* Position Utilities */
+.fixed {
+  position: fixed;
+}
+
+.inset-auto {
+  inset: auto;
+}
+
+.top-md {
+  top: var(--base-padding);
+}
+
+.right-md {
+  right: var(--base-padding);
+}
+
+.bottom-md {
+  bottom: var(--base-padding);
+}
+
+.left-md {
+  left: var(--base-padding);
+}
+
+/* Popover Reset (opt-in) */
+.popover-base {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+}
+
+.overflow-visible {
+  overflow: visible !important;
 }
