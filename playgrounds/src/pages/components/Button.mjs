@@ -21,6 +21,7 @@ export default function ButtonPage() {
           Button({ variant: "flat" }, "Flat"),
           Button({ variant: "outline" }, "Outline"),
           Button({ variant: "destructive" }, "Destructive"),
+          Button({ variant: "hyperlink" }, "Hyperlink"),
         ])
       ]),
 
