@@ -53,7 +53,13 @@ export default function TablesComponentPage() {
           data,
           key: "id",
           renderCell: renderStatus,
-          searchable: { field: "name", searchText }
+          searchable: { field: "name", searchText },
+          sortable: [
+            { field: "name", sortType: "string", sorted: true },
+            { field: "role", sortType: "string" },
+            { field: "location", sortType: "string" },
+            { field: "status", sortType: "string" }
+          ]
         })
       ]),
 

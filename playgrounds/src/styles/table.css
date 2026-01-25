@@ -57,3 +57,13 @@
 .table-interactive tbody tr {
   cursor: pointer;
 }
+
+.table-sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.table-sortable .table-sort-icon {
+  margin-left: var(--base-gap);
+  vertical-align: middle;
+}

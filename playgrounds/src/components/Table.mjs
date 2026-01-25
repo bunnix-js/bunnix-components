@@ -1,4 +1,4 @@
-import Bunnix, { ForEach, useMemo } from "@bunnix/core";
+import Bunnix, { ForEach, useMemo, useState } from "@bunnix/core";
 const { table, thead, tbody, tr, th, td, colgroup, col, span } = Bunnix;
 
 const normalizeKey = (value) =>
@@ -22,6 +22,37 @@ const resolveColumnWidth = (size) => {
   return size;
 };
 
+const stableSort = (rows, compare) =>
+  rows
+    .map((item, index) => ({ item, index }))
+    .sort((a, b) => {
+      const result = compare(a.item, b.item);
+      return result === 0 ? a.index - b.index : result;
+    })
+    .map((entry) => entry.item);
+
+const compareValues = (aValue, bValue, sortType) => {
+  const aEmpty = aValue == null || aValue === "";
+  const bEmpty = bValue == null || bValue === "";
+  if (aEmpty && bEmpty) return 0;
+  if (aEmpty) return 1;
+  if (bEmpty) return -1;
+
+  if (sortType === "number") {
+    const aNum = Number(aValue);
+    const bNum = Number(bValue);
+    return aNum - bNum;
+  }
+
+  if (sortType === "date") {
+    const aDate = new Date(aValue).getTime();
+    const bDate = new Date(bValue).getTime();
+    return aDate - bDate;
+  }
+
+  return String(aValue).localeCompare(String(bValue), undefined, { sensitivity: "base" });
+};
+
 export default function Table({
   columns = [],
   data = [],
@@ -29,6 +60,8 @@ export default function Table({
   renderCell,
   cell,
   searchable,
+  sortable = [],
+  sort,
   variant = "regular",
   interactive = false,
   class: className = ""
@@ -37,6 +70,16 @@ export default function Table({
   const searchField = searchable?.field;
   const searchText = searchable?.searchText;
   const searchTextState = searchText && typeof searchText.map === "function" ? searchText : null;
+  const sortableConfig = Array.isArray(sortable) ? sortable : [];
+  const initialSort = sortableConfig.find((entry) => entry.sorted);
+  const sortState = useState(
+    initialSort
+      ? {
+          field: initialSort.field,
+          direction: initialSort.direction === "desc" ? "desc" : "asc"
+        }
+      : null
+  );
 
   const variantClass = variant === "background"
     ? "table-bg"
@@ -57,19 +100,59 @@ export default function Table({
   const resolvedSearchText = searchTextState ? searchTextState.get() : searchText;
   const isDataState = data && typeof data.get === "function" && typeof data.map === "function";
 
-  const buildRows = (rows, textValue) =>
-    filterRows(rows, textValue).map((row, index) => ({
+  const applySort = (rows, sortValue) => {
+    if (!sortValue || !sortValue.field) return rows;
+    const sortableEntry = sortableConfig.find((entry) => entry.field === sortValue.field);
+    if (!sortableEntry) return rows;
+
+    const direction = sortValue.direction === "desc" ? -1 : 1;
+
+    if (sort) {
+      const comparator = sort(sortValue.field);
+      if (typeof comparator === "function") {
+        return stableSort(rows, (a, b) => comparator(a, b) * direction);
+      }
+    }
+
+    return stableSort(rows, (a, b) => {
+      const aValue = a && typeof a === "object" ? a[sortValue.field] : "";
+      const bValue = b && typeof b === "object" ? b[sortValue.field] : "";
+      return compareValues(aValue, bValue, sortableEntry?.sortType) * direction;
+    });
+  };
+
+  const buildRows = (rows, textValue, sortValue) =>
+    applySort(filterRows(rows, textValue), sortValue).map((row, index) => ({
       __key: (keyField && row && row[keyField] != null) ? row[keyField] : fallbackKey(row, index),
       __row: row
     }));
 
   const normalizedRows = isDataState
-    ? useMemo([data, searchTextState], (rows, textValue) =>
-        buildRows(rows, textValue)
+    ? useMemo([data, searchTextState, sortState], (rows, textValue, sortValue) =>
+        buildRows(rows, textValue, sortValue)
       )
-    : searchTextState
-      ? searchTextState.map((textValue) => buildRows(data, textValue))
-      : buildRows(data, resolvedSearchText);
+    : (searchTextState || sortState)
+      ? useMemo(
+          [searchTextState, sortState].filter(Boolean),
+          (...values) => {
+            const sortValue = values[values.length - 1];
+            const textValue = searchTextState ? values[0] : resolvedSearchText;
+            return buildRows(data, textValue, sortValue);
+          }
+        )
+      : buildRows(data, resolvedSearchText, sortState.get());
+
+  const handleSort = (field) => {
+    const current = sortState.get();
+    if (!current || current.field !== field) {
+      sortState.set({ field, direction: "asc" });
+      return;
+    }
+    sortState.set({
+      field,
+      direction: current.direction === "asc" ? "desc" : "asc"
+    });
+  };
 
   return table({ class: `table ${variantClass} ${interactiveClass} ${className}`.trim() }, [
     colgroup(
@@ -79,7 +162,30 @@ export default function Table({
     ),
     thead([
       tr(
-        columns.map((column) => th(column.label ?? column.field ?? ""))
+        columns.map((column) => {
+          const sortableEntry = sortableConfig.find((entry) => entry.field === column.field);
+          if (!sortableEntry) {
+            return th(column.label ?? column.field ?? "");
+          }
+          const iconClass = sortState.map((sortValue) => {
+            const isSorted = sortValue && sortValue.field === column.field;
+            const isAsc = isSorted && sortValue.direction === "asc";
+            return `icon icon-chevron-down table-sort-icon ${isSorted ? "icon-base" : "icon-tertiary"} ${isAsc ? "rotate-180" : ""}`.trim();
+          });
+
+          return th({
+            class: sortState.map((sortValue) => {
+              const isSorted = sortValue && sortValue.field === column.field;
+              return `table-sortable hoverable ${isSorted ? "is-sorted" : ""}`.trim();
+            }),
+            click: () => handleSort(column.field)
+          }, [
+            span({ class: "row-container items-center gap-xs w-full" }, [
+              span(column.label ?? column.field ?? ""),
+              span({ class: iconClass.map(cls => `${cls} ml-auto`.trim()) })
+            ])
+          ]);
+        })
       )
     ]),
     tbody([
