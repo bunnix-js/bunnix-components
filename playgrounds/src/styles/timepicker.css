@@ -1,0 +1,96 @@
+.timepicker-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.timepicker-trigger::after {
+  -webkit-mask-image: var(--svg-clock) !important;
+  mask-image: var(--svg-clock) !important;
+}
+
+[popover].timepicker-popover {
+  margin: 0;
+  padding: 0;
+  inset: auto;
+  overflow: visible;
+  border: none;
+  background: transparent;
+  position-anchor: var(--anchor-id);
+  position: fixed;
+  top: anchor(var(--anchor-id) bottom);
+  left: anchor(var(--anchor-id) left);
+  width: auto;
+  margin-top: var(--base-gap);
+}
+
+@position-try --time-flip-v {
+  top: auto;
+  bottom: anchor(var(--anchor-id) top);
+  left: anchor(var(--anchor-id) left);
+}
+
+[popover].timepicker-popover {
+  position-try-fallbacks: --time-flip-v;
+}
+
+.timepicker-card {
+  min-width: 240px; /* Proportional for H1 size */
+  overflow: hidden;
+}
+
+.timepicker-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--base-gap);
+  padding: var(--base-padding);
+  background-color: transparent;
+  border-radius: var(--base-radius) var(--base-radius) 0 0;
+}
+
+input.time-segment {
+  font-size: 2rem !important; /* H1 Equivalent */
+  font-weight: var(--font-bold) !important;
+  height: calc(var(--base-padding) * 5) !important;
+  width: calc(var(--base-padding) * 5) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: var(--base-radius);
+  cursor: pointer;
+  background: transparent !important;
+  border: 2px solid transparent !important;
+  color: var(--color-primary) !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  font-family: inherit !important;
+  appearance: none !important;
+  outline: none !important;
+  transition: all 0.2s ease;
+  box-sizing: border-box !important;
+}
+
+input.time-segment::-webkit-inner-spin-button,
+input.time-segment::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+input.time-segment:focus {
+  border-color: var(--accent-color) !important;
+  background-color: var(--highlight-background-color) !important;
+  color: var(--accent-color) !important;
+}
+
+.time-separator {
+  font-size: 1.75rem;
+  font-weight: var(--font-bold);
+  color: var(--color-tertiary);
+  display: flex;
+  align-items: center;
+  height: calc(var(--base-padding) * 5);
+  line-height: 1;
+}
+
+.timepicker-footer {
+  padding: var(--base-padding);
+}

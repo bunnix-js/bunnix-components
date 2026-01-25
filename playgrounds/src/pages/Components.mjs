@@ -4,6 +4,7 @@ import DropdownMenu from "../components/DropdownMenu.mjs";
 import ToggleSwitch from "../components/ToggleSwitch.mjs";
 import AccordionGroup from "../components/AccordionGroup.mjs";
 import DatePicker from "../components/DatePicker.mjs";
+import TimePicker from "../components/TimePicker.mjs";
 
 const { div, h1, h5, p, hr, span } = Bunnix;
 
@@ -163,6 +164,16 @@ export default function ComponentsPage() {
         div({ class: "grid-flow gap-md items-center" }, [
           DatePicker(),
           DatePicker({ range: true })
+        ])
+      ]),
+
+      hr(),
+
+      div({ class: "column-container gap-sm" }, [
+        h5("Time Picker"),
+        p("Segmented digital time picker with 24H format and 1-minute precision."),
+        div({ class: "grid-flow gap-md items-center" }, [
+          TimePicker()
         ])
       ]),
     ])
