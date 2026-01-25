@@ -131,20 +131,10 @@ export default function Table({
       __row: row
     }));
 
-  const normalizedRows = isDataState
-    ? useMemo([data, searchTextState, sortState], (rows, textValue, sortValue) =>
-        buildRows(rows, textValue, sortValue)
-      )
-    : (searchTextState || sortState)
-      ? useMemo(
-          [searchTextState, sortState].filter(Boolean),
-          (...values) => {
-            const sortValue = values[values.length - 1];
-            const textValue = searchTextState ? values[0] : resolvedSearchText;
-            return buildRows(data, textValue, sortValue);
-          }
-        )
-      : buildRows(data, resolvedSearchText, sortState.get());
+  const normalizedRows = useMemo(
+    [data, searchTextState ?? searchText, sortState],
+    (rows, textValue, sortValue) => buildRows(rows, textValue, sortValue)
+  );
 
   const visibleKeysState = normalizedRows && typeof normalizedRows.map === "function"
     ? normalizedRows.map((rows) => (rows || []).map((row) => row.__key))
