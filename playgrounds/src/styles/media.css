@@ -67,6 +67,7 @@
 .icon-folder { -webkit-mask-image: var(--svg-folder); mask-image: var(--svg-folder); }
 .icon-function { -webkit-mask-image: var(--svg-function); mask-image: var(--svg-function); }
 .icon-gear { -webkit-mask-image: var(--svg-gear); mask-image: var(--svg-gear); }
+.icon-gift { -webkit-mask-image: var(--svg-gift); mask-image: var(--svg-gift); }
 .icon-globe { -webkit-mask-image: var(--svg-globe); mask-image: var(--svg-globe); }
 .icon-grid { -webkit-mask-image: var(--svg-grid); mask-image: var(--svg-grid); }
 .icon-hand { -webkit-mask-image: var(--svg-hand); mask-image: var(--svg-hand); }
