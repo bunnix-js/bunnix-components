@@ -56,9 +56,9 @@ export default function DatePicker({
 
   const formatter = (() => {
     try {
-      return new Intl.DateTimeFormat(undefined, { dateStyle: "medium" });
+      return new Intl.DateTimeFormat(undefined, { day: "2-digit", month: "2-digit", year: "numeric" });
     } catch (error) {
-      return new Intl.DateTimeFormat(undefined, { year: "numeric", month: "short", day: "numeric" });
+      return new Intl.DateTimeFormat(undefined, { day: "2-digit", month: "2-digit", year: "numeric" });
     }
   })();
 
@@ -149,7 +149,7 @@ export default function DatePicker({
       click: openPopover
     }, [
       div({ class: "row-container items-center gap-sm no-margin" }, [
-        span({ class: "icon icon-calendar bg-base" }),
+        span({ class: "icon icon-calendar icon-base" }),
         span({ class: hasValue.map(h => h ? "" : "text-secondary") }, displayLabel)
       ])
     ]),
@@ -162,11 +162,11 @@ export default function DatePicker({
       div({ class: "card column-container shadow gap-sm w-min-150 p-sm bg-base datepicker-card" }, [
         div({ class: "row-container items-center justify-between datepicker-header" }, [
           button({ class: "btn btn-flat datepicker-nav", click: handlePrevMonth }, [
-            span({ class: "icon icon-chevron-left bg-base" })
+            span({ class: "icon icon-chevron-left icon-base" })
           ]),
           span({ class: "datepicker-title" }, monthLabel),
           button({ class: "btn btn-flat datepicker-nav", click: handleNextMonth }, [
-            span({ class: "icon icon-chevron-right bg-base" })
+            span({ class: "icon icon-chevron-right icon-base" })
           ])
         ]),
         div({ class: "datepicker-body" }, [

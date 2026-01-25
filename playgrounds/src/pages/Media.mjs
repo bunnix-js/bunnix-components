@@ -10,12 +10,12 @@ const IconItem = (className) => {
 
 export default function MediaPage() {
   const icons = [
-    "icon-add-circle", "icon-add", "icon-alt", "icon-at", "icon-attestation", "icon-bell",
-    "icon-bookmark", "icon-bot", "icon-calculate", "icon-calendar", "icon-chart", "icon-check",
+    "icon-add-circle", "icon-add", "icon-alt", "icon-archive", "icon-at", "icon-attestation", "icon-bell",
+    "icon-bookmark", "icon-bot", "icon-button", "icon-calculate", "icon-calendar", "icon-chart", "icon-check",
     "icon-chevron-down", "icon-chevron-left", "icon-chevron-right", "icon-clip", "icon-clock",
-    "icon-cloud",
+    "icon-close-circle", "icon-close", "icon-cloud-download", "icon-cloud-upload", "icon-cloud",
     "icon-columns-layout", "icon-command", "icon-cube", "icon-delete", "icon-dollar", "icon-download",
-    "icon-draw", "icon-duplicate", "icon-exclamation-mark", "icon-file-html", "icon-file", "icon-finger",
+    "icon-draw", "icon-duplicate", "icon-edit", "icon-exclamation-mark", "icon-eye-open", "icon-eye", "icon-file-html", "icon-file", "icon-finger",
     "icon-flag", "icon-folder", "icon-function", "icon-gear", "icon-gift", "icon-globe",
     "icon-grid", "icon-hand", "icon-heart", "icon-home",
     "icon-image", "icon-inbox", "icon-info", "icon-key", "icon-lamp", "icon-link", "icon-location",
@@ -23,7 +23,7 @@ export default function MediaPage() {
     "icon-more-horizontal", "icon-more-vertical", "icon-mouse", "icon-palette", "icon-password",
     "icon-pencil", "icon-people", "icon-person-add", "icon-person-remove", "icon-person", "icon-pin",
     "icon-question-circle", "icon-remove-circle", "icon-search", "icon-send",
-    "icon-shine", "icon-sliders", "icon-star", "icon-success-circle", "icon-swap", "icon-switch",
+    "icon-shine", "icon-sliders", "icon-star", "icon-storage", "icon-success-circle", "icon-swap", "icon-switch",
     "icon-sync", "icon-table", "icon-tag", "icon-thumb-down", "icon-thumb-up", "icon-timer",
     "icon-trash", "icon-update-page", "icon-upload", "icon-video", "icon-wallet", "icon-window"
   ];

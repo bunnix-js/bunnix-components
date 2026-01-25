@@ -56,11 +56,13 @@
   --svg-add-circle: url('../icons/add-circle.svg');
   --svg-add: url('../icons/add.svg');
   --svg-alt: url('../icons/alt.svg');
+  --svg-archive: url('../icons/archive.svg');
   --svg-at: url('../icons/at.svg');
   --svg-attestation: url('../icons/attestation.svg');
   --svg-bell: url('../icons/bell.svg');
   --svg-bookmark: url('../icons/bookmark.svg');
   --svg-bot: url('../icons/bot.svg');
+  --svg-button: url('../icons/button.svg');
   --svg-calculate: url('../icons/calculate.svg');
   --svg-calendar: url('../icons/calendar.svg');
   --svg-chart: url('../icons/chart.svg');
@@ -76,18 +78,24 @@
   --svg-cloud-upload: url('../icons/cloud-upload.svg');
   --svg-cloud: url('../icons/cloud.svg');
   --svg-columns-layout: url('../icons/columns-layout.svg');
+  --svg-command: url('../icons/command.svg');
   --svg-cube: url('../icons/cube.svg');
   --svg-delete: url('../icons/delete.svg');
   --svg-dollar: url('../icons/dollar.svg');
   --svg-download: url('../icons/download.svg');
+  --svg-draw: url('../icons/draw.svg');
   --svg-duplicate: url('../icons/duplicate.svg');
+  --svg-edit: url('../icons/edit.svg');
   --svg-exclamation-mark: url('../icons/exclamation-mark.svg');
+  --svg-eye-open: url('../icons/eye-open.svg');
+  --svg-eye: url('../icons/eye.svg');
   --svg-file-html: url('../icons/file-html.svg');
   --svg-file: url('../icons/file.svg');
   --svg-finger: url('../icons/finger.svg');
   --svg-flag: url('../icons/flag.svg');
   --svg-folder: url('../icons/folder.svg');
   --svg-function: url('../icons/function.svg');
+  --svg-gear: url('../icons/gear.svg');
   --svg-gift: url('../icons/gift.svg');
   --svg-globe: url('../icons/globe.svg');
   --svg-grid: url('../icons/grid.svg');
@@ -126,6 +134,7 @@
   --svg-shine: url('../icons/shine.svg');
   --svg-sliders: url('../icons/sliders.svg');
   --svg-star: url('../icons/star.svg');
+  --svg-storage: url('../icons/storage.svg');
   --svg-success-circle: url('../icons/success-circle.svg');
   --svg-swap: url('../icons/swap.svg');
   --svg-switch: url('../icons/switch.svg');
@@ -141,9 +150,6 @@
   --svg-video: url('../icons/video.svg');
   --svg-wallet: url('../icons/wallet.svg');
   --svg-window: url('../icons/window.svg');
-  --svg-command: url('../icons/command.svg');
-  --svg-draw: url('../icons/draw.svg');
-  --svg-gear: url('../icons/gear.svg');
 }
 
 @media (prefers-color-scheme: dark) {

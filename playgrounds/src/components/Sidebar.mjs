@@ -18,7 +18,7 @@ export default function Sidebar({ items = [], selection, onSelect } = {}) {
           click: () => handleClick(item.id)
         },
         a({ class: "link-flat", href: `#${item.id}`, click: () => handleClick(item.id) }, [
-          span({ class: isSelected.map(s => `icon ${item.icon} ${s ? 'bg-white' : 'bg-base'}`) }),
+          span({ class: isSelected.map(s => `icon ${item.icon} ${s ? 'bg-white' : 'icon-base'}`) }),
           h4({ class: "no-margin text-base font-inherit" }, item.label)
         ])
       ),

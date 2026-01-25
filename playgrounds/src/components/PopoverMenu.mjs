@@ -3,7 +3,7 @@ const { div, button, hr, span } = Bunnix;
 
 let menuCounter = 0;
 
-export default function PopoverMenu({ trigger, items = [], id, align = "left" }) {
+export default function PopoverMenu({ trigger, items = [], id, align = "left", size, class: className = "" }) {
   const popoverRef = useRef(null);
 
   const menuId = id || `menu-instance-${++menuCounter}`;
@@ -30,11 +30,14 @@ export default function PopoverMenu({ trigger, items = [], id, align = "left" })
     }
   };
 
+  const sizeClass = size === "lg" ? "btn-lg" : size === "xl" ? "btn-xl" : "";
+  const iconSizeClass = size === "lg" ? "icon-lg" : size === "xl" ? "icon-xl" : "";
+
   return div({ class: "menu-wrapper" }, [
     button({
       id: menuId,
       style: `anchor-name: ${anchorName}`,
-      class: "btn btn-flat",
+      class: `btn btn-flat ${sizeClass} ${className}`.trim(),
       click: handleToggle
     }, trigger),
 
@@ -51,10 +54,10 @@ export default function PopoverMenu({ trigger, items = [], id, align = "left" })
             return hr({ class: "no-margin" });
           }
           return button({
-            class: "btn btn-flat justify-start w-full",
+            class: `btn btn-flat justify-start w-full ${sizeClass}`.trim(),
             click: () => handleItemClick(item)
           }, [
-            item.icon ? span({ class: `icon ${item.icon} ${item.destructive ? 'bg-destructive' : 'bg-base'}` }) : null,
+            item.icon ? span({ class: `icon ${iconSizeClass} ${item.icon} ${item.destructive ? 'bg-destructive' : 'bg-primary'}`.trim() }) : null,
             item.title
           ]);
         })

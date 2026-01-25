@@ -37,11 +37,11 @@ export default function ButtonsPage() {
             "Create New"
           ]),
           button({ class: "btn-outline" }, [
-            span({ class: "icon icon-gear bg-base" }),
+            span({ class: "icon icon-gear icon-base" }),
             "Settings"
           ]),
           button({ class: "btn-flat" }, [
-            span({ class: "icon icon-logout bg-base" }),
+            span({ class: "icon icon-logout icon-base" }),
             "Log Out"
           ]),
           button({ class: "btn btn-lg" }, [
@@ -64,7 +64,7 @@ export default function ButtonsPage() {
             span({ class: "icon icon-person icon-xl bg-white" })
           ]),
           button({ class: "btn-flat" }, [
-            span({ class: "icon icon-close bg-base" }), // Tinted to match primary text of flat btn
+            span({ class: "icon icon-close icon-base" }), // Tinted to match primary text of flat btn
           ]),
         ])
       ]),

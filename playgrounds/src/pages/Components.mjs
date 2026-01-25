@@ -10,7 +10,7 @@ const { div, h1, h5, p, hr, span } = Bunnix;
 export default function ComponentsPage() {
   const primaryMenuItems = [
     { title: "Profile", icon: "icon-person", click: () => console.log("Profile clicked") },
-    { title: "Settings", icon: "icon-gearshape", click: () => console.log("Settings clicked") },
+    { title: "Settings", icon: "icon-gear", click: () => console.log("Settings clicked") },
     { isSeparator: true },
     { title: "Logout", icon: "icon-logout", destructive: true, click: () => console.log("Logout clicked") },
   ];
@@ -76,7 +76,7 @@ export default function ComponentsPage() {
           div({ class: "box w-fit p-0" }, [
             PopoverMenu({
               trigger: [
-                  span({ class: "icon icon-more-horizontal bg-base" }),
+                  span({ class: "icon icon-more-horizontal icon-base" }),
                   "User Menu"
               ],
               items: primaryMenuItems,
@@ -86,9 +86,10 @@ export default function ComponentsPage() {
 
           div({ class: "box w-fit p-0" }, [
             PopoverMenu({
-              trigger: span({ class: "icon icon-more-vertical bg-base" }),
+              trigger: span({ class: "icon icon-more-vertical icon-lg bg-primary" }),
               items: secondaryMenuItems,
-              align: "right"
+              align: "right",
+              size: "lg"
             })
           ]),
         ])

@@ -50,6 +50,14 @@ body {
   background-color: var(--background-color) !important;
 }
 
+.icon-base {
+  background-color: var(--color-primary) !important;
+}
+
+.fg-base, .fg-primary {
+  color: var(--color-primary) !important;
+}
+
 .bg-dimmed {
   background-color: var(--alternate-background-color) !important;
 }

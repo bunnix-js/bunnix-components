@@ -47,7 +47,7 @@ export default function LinksPage() {
         ]),
         div({ class: "box w-fit p-0" }, [
           a({ class: "link-flat", href: "#" }, [
-            span({ class: "icon icon-chevron-left bg-base" }),
+            span({ class: "icon icon-chevron-left icon-base" }),
             "Back to Home"
           ])
         ]),
@@ -74,7 +74,7 @@ export default function LinksPage() {
             "Download"
           ]),
           a({ class: "btn btn-lg btn-outline", href: "#" }, [
-            span({ class: "icon icon-gear bg-base" }),
+            span({ class: "icon icon-gear icon-base" }),
             "Large Settings"
           ]),
           a({ class: "btn btn-xl btn-destructive", href: "#" }, [

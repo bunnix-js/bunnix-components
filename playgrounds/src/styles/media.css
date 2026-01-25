@@ -29,11 +29,13 @@
 .icon-add-circle { -webkit-mask-image: var(--svg-add-circle); mask-image: var(--svg-add-circle); }
 .icon-add { -webkit-mask-image: var(--svg-add); mask-image: var(--svg-add); }
 .icon-alt { -webkit-mask-image: var(--svg-alt); mask-image: var(--svg-alt); }
+.icon-archive { -webkit-mask-image: var(--svg-archive); mask-image: var(--svg-archive); }
 .icon-at { -webkit-mask-image: var(--svg-at); mask-image: var(--svg-at); }
 .icon-attestation { -webkit-mask-image: var(--svg-attestation); mask-image: var(--svg-attestation); }
 .icon-bell { -webkit-mask-image: var(--svg-bell); mask-image: var(--svg-bell); }
 .icon-bookmark { -webkit-mask-image: var(--svg-bookmark); mask-image: var(--svg-bookmark); }
 .icon-bot { -webkit-mask-image: var(--svg-bot); mask-image: var(--svg-bot); }
+.icon-button { -webkit-mask-image: var(--svg-button); mask-image: var(--svg-button); }
 .icon-calculate { -webkit-mask-image: var(--svg-calculate); mask-image: var(--svg-calculate); }
 .icon-calendar { -webkit-mask-image: var(--svg-calendar); mask-image: var(--svg-calendar); }
 .icon-chart { -webkit-mask-image: var(--svg-chart); mask-image: var(--svg-chart); }
@@ -54,7 +56,10 @@
 .icon-dollar { -webkit-mask-image: var(--svg-dollar); mask-image: var(--svg-dollar); }
 .icon-download { -webkit-mask-image: var(--svg-download); mask-image: var(--svg-download); }
 .icon-duplicate { -webkit-mask-image: var(--svg-duplicate); mask-image: var(--svg-duplicate); }
+.icon-edit { -webkit-mask-image: var(--svg-edit); mask-image: var(--svg-edit); }
 .icon-exclamation-mark { -webkit-mask-image: var(--svg-exclamation-mark); mask-image: var(--svg-exclamation-mark); }
+.icon-eye-open { -webkit-mask-image: var(--svg-eye-open); mask-image: var(--svg-eye-open); }
+.icon-eye { -webkit-mask-image: var(--svg-eye); mask-image: var(--svg-eye); }
 .icon-file-html { -webkit-mask-image: var(--svg-file-html); mask-image: var(--svg-file-html); }
 .icon-file { -webkit-mask-image: var(--svg-file); mask-image: var(--svg-file); }
 .icon-finger { -webkit-mask-image: var(--svg-finger); mask-image: var(--svg-finger); }
@@ -99,6 +104,7 @@
 .icon-shine { -webkit-mask-image: var(--svg-shine); mask-image: var(--svg-shine); }
 .icon-sliders { -webkit-mask-image: var(--svg-sliders); mask-image: var(--svg-sliders); }
 .icon-star { -webkit-mask-image: var(--svg-star); mask-image: var(--svg-star); }
+.icon-storage { -webkit-mask-image: var(--svg-storage); mask-image: var(--svg-storage); }
 .icon-success-circle { -webkit-mask-image: var(--svg-success-circle); mask-image: var(--svg-success-circle); }
 .icon-swap { -webkit-mask-image: var(--svg-swap); mask-image: var(--svg-swap); }
 .icon-switch { -webkit-mask-image: var(--svg-switch); mask-image: var(--svg-switch); }

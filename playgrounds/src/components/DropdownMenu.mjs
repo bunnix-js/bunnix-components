@@ -17,6 +17,8 @@ export default function DropdownMenu({
   
   const initialItem = items.find(item => item.selected) || null;
   const selectedItem = useState(initialItem);
+  const hasSelection = selectedItem.map(s => !!s);
+  const currentTitle = selectedItem.map(s => s ? s.title : placeholder);
 
   const handleToggle = () => {
     const popover = popoverRef.current;
@@ -54,12 +56,12 @@ export default function DropdownMenu({
       span({ 
         class: selectedItem.map(s => {
           if (!s?.icon) return "hidden";
-          const tint = s.destructive ? "bg-destructive" : "bg-base";
+          const tint = s.destructive ? "bg-destructive" : "bg-primary";
           return `icon ${iconSizeClass} ${s.icon} ${tint}`.trim();
         })
       }),
-      // Reactive Title: reactive string child
-      selectedItem.map(s => s ? s.title : span({ class: "text-secondary" }, placeholder))
+      // Reactive Title: text with dimmed style when empty
+      span({ class: hasSelection.map(selected => selected ? "" : "text-secondary") }, currentTitle)
     ]),
 
     div({
@@ -80,7 +82,12 @@ export default function DropdownMenu({
             class: isCurrent.map(active => `btn btn-flat justify-start w-full ${itemSizeClass} ${active ? 'selected' : ''}`.trim()),
             click: () => handleItemClick(item)
           }, [
-            span({ class: `icon ${iconSizeClass} ${item.icon} ${item.destructive ? 'bg-destructive' : 'bg-base'}` }),
+            span({
+              class: isCurrent.map(active => {
+                const tint = active ? "bg-white" : item.destructive ? "bg-destructive" : "bg-primary";
+                return `icon ${iconSizeClass} ${item.icon} ${tint}`.trim();
+              })
+            }),
             item.title
           ]);
         })
