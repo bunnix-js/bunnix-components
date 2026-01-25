@@ -26,6 +26,13 @@ export default function InputFieldPage() {
           ]),
           div({ class: "w-300" }, [
             InputField({ 
+              type: "search",
+              label: "Search Input", 
+              placeholder: "Search..."
+            })
+          ]),
+          div({ class: "w-300" }, [
+            InputField({ 
               type: "email", 
               label: "Email Input", 
               placeholder: "user@example.com" 

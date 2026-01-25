@@ -30,6 +30,7 @@ export default function ControlsPage() {
       PageSection({ title: "Textual Inputs", stickyOffset: headerOffset }, [
         div({ class: "grid-flow gap-md" }, [
           FormControl("Text Input", input({ type: "text", placeholder: "Type something..." })),
+          FormControl("Search Input", input({ type: "search", placeholder: "Search..." })),
           FormControl("Email Input", input({ type: "email", placeholder: "user@example.com" })),
           FormControl("Password", input({ type: "password", value: "password123" })),
           FormControl("Number Input", input({ type: "number", value: "42" })),
