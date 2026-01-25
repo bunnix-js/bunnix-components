@@ -9,6 +9,25 @@ const IconItem = (className) => {
 };
 
 export default function MediaPage() {
+  const icons = [
+    "icon-add-circle", "icon-add", "icon-alt", "icon-at", "icon-attestation", "icon-bell",
+    "icon-bookmark", "icon-bot", "icon-calculate", "icon-calendar", "icon-chart", "icon-check",
+    "icon-chevron-down", "icon-chevron-left", "icon-chevron-right", "icon-clip", "icon-clock",
+    "icon-cloud",
+    "icon-columns-layout", "icon-command", "icon-cube", "icon-delete", "icon-dollar", "icon-download",
+    "icon-draw", "icon-duplicate", "icon-exclamation-mark", "icon-file-html", "icon-file", "icon-finger",
+    "icon-flag", "icon-folder", "icon-function", "icon-gear", "icon-gift", "icon-globe",
+    "icon-grid", "icon-hand", "icon-heart", "icon-home",
+    "icon-image", "icon-inbox", "icon-info", "icon-key", "icon-lamp", "icon-link", "icon-location",
+    "icon-locker", "icon-login", "icon-logout", "icon-mail", "icon-map", "icon-markup", "icon-merge",
+    "icon-more-horizontal", "icon-more-vertical", "icon-mouse", "icon-palette", "icon-password",
+    "icon-pencil", "icon-people", "icon-person-add", "icon-person-remove", "icon-person", "icon-pin",
+    "icon-question-circle", "icon-remove-circle", "icon-search", "icon-send",
+    "icon-shine", "icon-sliders", "icon-star", "icon-success-circle", "icon-swap", "icon-switch",
+    "icon-sync", "icon-table", "icon-tag", "icon-thumb-down", "icon-thumb-up", "icon-timer",
+    "icon-trash", "icon-update-page", "icon-upload", "icon-video", "icon-wallet", "icon-window"
+  ];
+
   return div({ class: "column-container page-layout" }, [
     h1("Media & Icons"),
     p("Core system icons managed via CSS variables and mask-image for easy recoloring."),
@@ -17,73 +36,7 @@ export default function MediaPage() {
     div({ class: "column-container gap-md" }, [
       div({ class: "column-container gap-sm" }, [
         h5("Available Icons"),
-        div({ class: "grid-flow gap-md" }, [
-          IconItem("icon-home"),
-          IconItem("icon-person"),
-          IconItem("icon-people"),
-          IconItem("icon-add"),
-          IconItem("icon-at"),
-          IconItem("icon-info"),
-          IconItem("icon-chevron-left"),
-          IconItem("icon-chevron-right"),
-          IconItem("icon-duplicate"),
-          IconItem("icon-download"),
-          IconItem("icon-gearshape"),
-          IconItem("icon-pencil"),
-          IconItem("icon-sign-out"),
-          IconItem("icon-star"),
-          IconItem("icon-sync"),
-          IconItem("icon-close"),
-          IconItem("icon-success"),
-          IconItem("icon-tag"),
-          IconItem("icon-cloud-upload"),
-          IconItem("icon-cloud-download"),
-          IconItem("icon-cloud"),
-          IconItem("icon-columns-layout"),
-          IconItem("icon-map"),
-          IconItem("icon-switch"),
-          IconItem("icon-attestation"),
-          IconItem("icon-bell"),
-          IconItem("icon-check"),
-          IconItem("icon-cube"),
-          IconItem("icon-globe"),
-          IconItem("icon-key"),
-          IconItem("icon-link"),
-          IconItem("icon-mail"),
-          IconItem("icon-bookmark"),
-          IconItem("icon-bot"),
-          IconItem("icon-chart"),
-          IconItem("icon-clock"),
-          IconItem("icon-file-html"),
-          IconItem("icon-inbox"),
-          IconItem("icon-markup"),
-          IconItem("icon-merge"),
-          IconItem("icon-script"),
-          IconItem("icon-search"),
-          IconItem("icon-timer"),
-          IconItem("icon-trash"),
-          IconItem("icon-upload"),
-          IconItem("icon-video"),
-          IconItem("icon-heart"),
-          IconItem("icon-heart-fill"),
-          IconItem("icon-heart-stack"),
-          IconItem("icon-locker"),
-          IconItem("icon-pin"),
-          IconItem("icon-table"),
-          IconItem("icon-close-circle"),
-          IconItem("icon-lamp"),
-          IconItem("icon-question-circle"),
-          IconItem("icon-window"),
-          IconItem("icon-dollar"),
-          IconItem("icon-palette"),
-          IconItem("icon-alt"),
-          IconItem("icon-file"),
-          IconItem("icon-more-horizontal"),
-          IconItem("icon-more-vertical"),
-          IconItem("icon-sliders"),
-          IconItem("icon-swap"),
-          IconItem("icon-update-page"),
-        ]),
+        div({ class: "grid-flow gap-md" }, icons.map(icon => IconItem(icon))),
       ]),
 
       div({ class: "column-container gap-sm" }, [
@@ -109,15 +62,15 @@ export default function MediaPage() {
         p("Icons inherit the background color context or can be explicitly colored."),
         div({ class: "grid-flow gap-md" }, [
            div({ class: "card box gap-sm w-fit text-accent" }, [
-            span({ class: "icon icon-home bg-accent" }),
+            span({ class: "icon icon-xl icon-home bg-accent" }),
             span("Accent Color")
           ]),
           div({ class: "card box gap-sm w-fit text-secondary" }, [
-            span({ class: "icon icon-people icon-lg bg-secondary" }),
+            span({ class: "icon icon-xl icon-people bg-secondary" }),
              span("Secondary Large")
           ]),
            div({ class: "card box gap-sm w-fit text-accent-dimmed" }, [
-            span({ class: "icon icon-star icon-xl bg-accent-dimmed" }),
+            span({ class: "icon icon-xl icon-star bg-accent-dimmed" }),
              span("Dimmed Star")
           ]),
         ])

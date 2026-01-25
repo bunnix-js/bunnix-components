@@ -12,7 +12,7 @@ export default function ComponentsPage() {
     { title: "Profile", icon: "icon-person", click: () => console.log("Profile clicked") },
     { title: "Settings", icon: "icon-gearshape", click: () => console.log("Settings clicked") },
     { isSeparator: true },
-    { title: "Logout", icon: "icon-sign-out", destructive: true, click: () => console.log("Logout clicked") },
+    { title: "Logout", icon: "icon-logout", destructive: true, click: () => console.log("Logout clicked") },
   ];
 
   const secondaryMenuItems = [
