@@ -170,7 +170,7 @@ export default function Table({
           const iconClass = sortState.map((sortValue) => {
             const isSorted = sortValue && sortValue.field === column.field;
             const isAsc = isSorted && sortValue.direction === "asc";
-            return `icon icon-chevron-down table-sort-icon ${isSorted ? "icon-base" : "icon-tertiary"} ${isAsc ? "rotate-180" : ""}`.trim();
+            return `icon icon-chevron-down table-sort-icon ${isSorted ? "icon-base" : "icon-quaternary"} ${isAsc ? "rotate-180" : ""}`.trim();
           });
 
           return th({

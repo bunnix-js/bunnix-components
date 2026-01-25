@@ -29,6 +29,10 @@ body {
   color: var(--color-tertiary);
 }
 
+.text-quaternary {
+  color: var(--color-quaternary);
+}
+
 .text-destructive {
   color: var(--color-destructive);
 }
@@ -68,6 +72,10 @@ body {
 
 .icon-tertiary {
   background-color: var(--color-tertiary) !important;
+}
+
+.icon-quaternary {
+  background-color: var(--color-quaternary) !important;
 }
 
 .icon-destructive {

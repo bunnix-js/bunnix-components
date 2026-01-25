@@ -8,6 +8,7 @@
   --color-primary-dimmed: #444;
   --color-secondary: #666;
   --color-tertiary: #999;
+  --color-quaternary: #b3b3b3;
   --color-destructive: #d73a49;
   --color-destructive-dimmed: #b31d28;
   --color-success: #2da44e;
@@ -163,6 +164,7 @@
     --color-primary-dimmed: #eee;
     --color-secondary: #ccc;
     --color-tertiary: #888;
+    --color-quaternary: #666;
     --color-destructive: #f85149;
     --color-destructive-dimmed: #da3633;
     --color-success: #3fb950;
@@ -185,6 +187,7 @@
     --color-primary-dimmed: light-dark(#444, #eee);
     --color-secondary: light-dark(#666, #ccc);
     --color-tertiary: light-dark(#999, #888);
+    --color-quaternary: light-dark(#b3b3b3, #666);
     --color-destructive: light-dark(#d73a49, #f85149);
     --color-destructive-dimmed: light-dark(#b31d28, #da3633);
     --color-success: light-dark(#2da44e, #3fb950);
