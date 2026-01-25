@@ -161,8 +161,8 @@ export default function ComponentsPage() {
         h5("Date Picker"),
         p("Custom date picker with dropdown-like behavior and locale formatting."),
         div({ class: "grid-flow gap-md items-center" }, [
-          DatePicker({ placeholder: "Select date" }),
-          DatePicker({ placeholder: "Select range", range: true })
+          DatePicker(),
+          DatePicker({ range: true })
         ])
       ]),
     ])

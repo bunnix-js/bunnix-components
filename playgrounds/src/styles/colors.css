@@ -25,6 +25,10 @@ body {
   color: var(--color-secondary);
 }
 
+.text-tertiary {
+  color: var(--color-tertiary);
+}
+
 .text-destructive {
   color: var(--color-destructive);
 }
@@ -56,6 +60,10 @@ body {
 
 .fg-base, .fg-primary {
   color: var(--color-primary) !important;
+}
+
+.fg-tertiary {
+  color: var(--color-tertiary) !important;
 }
 
 .bg-dimmed {

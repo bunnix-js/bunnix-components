@@ -46,7 +46,7 @@ const buildCalendar = (viewDate) => {
 
 export default function DatePicker({
   id,
-  placeholder = "Select date",
+  placeholder,
   range = false,
   class: className = ""
 } = {}) {
@@ -137,21 +137,31 @@ export default function DatePicker({
     viewDate.set(new Date(today.getFullYear(), today.getMonth(), 1));
   };
 
-  // Reactive state for the trigger
+  // Single reactive source for the label text
+  const displayLabel = inputValue.map(v => {
+    if (v) return v;
+    if (placeholder) return placeholder;
+    
+    // Dynamic current date fallback
+    const today = new Date();
+    if (range) {
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1);
+      return `${formatDate(today, formatter)} - ${formatDate(tomorrow, formatter)}`;
+    }
+    return formatDate(today, formatter);
+  });
+
   const hasValue = inputValue.map(v => !!v);
-  const displayLabel = inputValue.map(v => v || placeholder);
 
   return div({ class: `datepicker-wrapper ${className}`.trim() }, [
     button({
       id: pickerId,
-      class: "dropdown-trigger justify-start",
+      class: "dropdown-trigger datepicker-trigger justify-start",
       style: `anchor-name: ${anchorName}`,
       click: openPopover
     }, [
-      div({ class: "row-container items-center gap-sm no-margin" }, [
-        span({ class: "icon icon-calendar icon-base" }),
-        span({ class: hasValue.map(h => h ? "" : "text-secondary") }, displayLabel)
-      ])
+      span({ class: hasValue.map(h => h ? "" : "text-tertiary") }, displayLabel)
     ]),
     div({
       ref: popoverRef,
