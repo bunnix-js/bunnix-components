@@ -1,7 +1,8 @@
 import Bunnix from "@bunnix/core";
+import PageHeader from "../../components/PageHeader.mjs";
 import AccordionGroup from "../../components/AccordionGroup.mjs";
 
-const { div, h1, h5, p, hr } = Bunnix;
+const { div, h5, p, hr } = Bunnix;
 
 export default function AccordionPage() {
   const accordionItems = [
@@ -25,15 +26,17 @@ export default function AccordionPage() {
     },
     {
       title: "How to signal expansion?",
-      icon: "icon-add",
+      icon: "icon-sections",
       description:
         "Use a clear icon with a rotation or state change so users can immediately read the toggle action."
     }
   ];
 
   return div({ class: "column-container page-layout" }, [
-    h1("Accordion Group"),
-    p("Collapsible sections built with design system spacing, colors, and icons."),
+    PageHeader({ 
+      title: "Accordion Group", 
+      description: "Collapsible sections built with design system spacing, colors, and icons." 
+    }),
     hr(),
 
     div({ class: "column-container gap-sm" }, [

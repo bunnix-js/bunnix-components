@@ -1,5 +1,6 @@
 import Bunnix from "@bunnix/core";
-const { div, h1, h5, p, span, hr, table, thead, tbody, tr, th, td } = Bunnix;
+import PageHeader from "../components/PageHeader.mjs";
+const { div, h5, p, span, hr, table, thead, tbody, tr, th, td } = Bunnix;
 
 const SampleTable = (className = "") => {
   return table({ class: `table ${className}` }, [
@@ -22,7 +23,7 @@ const SampleTable = (className = "") => {
         td("Jane Smith"),
         td("Designer"),
         td([
-            span({ class: "bg-secondary p-xs rounded-sm text-white text-sm" }, "Offline")
+            span({ class: "bg-dimmed p-xs rounded-sm text-primary text-sm" }, "Offline")
         ])
       ]),
       tr([
@@ -38,8 +39,10 @@ const SampleTable = (className = "") => {
 
 export default function TablesPage() {
   return div({ class: "column-container page-layout" }, [
-    h1("Tables"),
-    p("Data display components."),
+    PageHeader({ 
+      title: "Tables", 
+      description: "Data display components." 
+    }),
     hr(),
     
     div({ class: "column-container gap-md" }, [

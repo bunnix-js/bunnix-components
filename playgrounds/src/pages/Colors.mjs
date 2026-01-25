@@ -1,11 +1,12 @@
 import Bunnix from "@bunnix/core";
-const { div, h1, h5, p, span, hr } = Bunnix;
+import PageHeader from "../components/PageHeader.mjs";
+const { div, h5, p, span, hr } = Bunnix;
 
 const ColorSwatch = (name, variable) => {
   return div({ class: "card box gap-md" }, [
-    div({ 
+    div({
       class: "swatch",
-      style: `background-color: var(${variable});` 
+      style: `background-color: var(${variable});`
     }),
     div({ class: "column-container gap-sm" }, [
       h5({ class: "no-margin" }, name),
@@ -16,9 +17,12 @@ const ColorSwatch = (name, variable) => {
 
 export default function ColorsPage() {
   return div({ class: "column-container page-layout" }, [
-    h1("Colors"),
-    p("The color palette used across the design system."),
-    
+    PageHeader({
+      title: "Colors",
+      description: "The color palette used across the design system."
+    }),
+
+    hr(),
     div({ class: "column-container gap-md" }, [
       ColorSwatch("Primary", "--color-primary"),
       ColorSwatch("Primary Dimmed", "--color-primary-dimmed"),

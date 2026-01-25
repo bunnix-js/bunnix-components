@@ -1,7 +1,8 @@
 import Bunnix from "@bunnix/core";
+import PageHeader from "../../components/PageHeader.mjs";
 import DropdownMenu from "../../components/DropdownMenu.mjs";
 
-const { div, h1, h5, p, hr } = Bunnix;
+const { div, h5, p, hr } = Bunnix;
 
 export default function DropdownPage() {
   const languageOptions = [
@@ -18,8 +19,10 @@ export default function DropdownPage() {
   ];
 
   return div({ class: "column-container page-layout" }, [
-    h1("Dropdown Menu"),
-    p("A selection control that combines 'select' appearance with the power of the Popover API."),
+    PageHeader({ 
+      title: "Dropdown Menu", 
+      description: "A selection control that combines 'select' appearance with the power of the Popover API." 
+    }),
     hr(),
 
     div({ class: "column-container gap-md" }, [

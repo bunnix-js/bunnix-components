@@ -217,6 +217,18 @@ a {
   padding-bottom: calc(var(--base-gap) * 2);
 }
 
+.pb-lg {
+  padding-bottom: calc(var(--base-gap) * 4) !important;
+}
+
+.pb-md {
+  padding-bottom: calc(var(--base-gap) * 2) !important;
+}
+
+.pt-md {
+  padding-top: calc(var(--base-gap) * 2) !important;
+}
+
 .pl-md {
   padding-left: calc(var(--base-padding) * 1.5) !important;
 }

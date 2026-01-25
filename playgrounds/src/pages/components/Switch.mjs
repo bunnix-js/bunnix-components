@@ -1,12 +1,15 @@
 import Bunnix from "@bunnix/core";
+import PageHeader from "../../components/PageHeader.mjs";
 import ToggleSwitch from "../../components/ToggleSwitch.mjs";
 
-const { div, h1, h5, p, hr } = Bunnix;
+const { div, h5, p, hr } = Bunnix;
 
 export default function SwitchPage() {
   return div({ class: "column-container page-layout" }, [
-    h1("Switch"),
-    p("A highly customizable toggle control built with semantic design system utilities."),
+    PageHeader({ 
+      title: "Switch", 
+      description: "A highly customizable toggle control built with semantic design system utilities." 
+    }),
     hr(),
 
     div({ class: "column-container gap-md" }, [

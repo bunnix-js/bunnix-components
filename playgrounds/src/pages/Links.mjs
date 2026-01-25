@@ -1,10 +1,13 @@
 import Bunnix from "@bunnix/core";
-const { div, h1, h5, p, span, a, hr } = Bunnix;
+import PageHeader from "../components/PageHeader.mjs";
+const { div, h5, p, span, a, hr } = Bunnix;
 
 export default function LinksPage() {
   return div({ class: "column-container page-layout" }, [
-    h1("Links"),
-    p("Different styles of hyperlinks used in the system."),
+    PageHeader({ 
+      title: "Links", 
+      description: "Different styles of hyperlinks used in the system." 
+    }),
     hr(),
     
     div({ class: "column-container gap-md" }, [

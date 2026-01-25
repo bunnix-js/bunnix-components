@@ -1,12 +1,15 @@
 import Bunnix from "@bunnix/core";
+import PageHeader from "../../components/PageHeader.mjs";
 import DatePicker from "../../components/DatePicker.mjs";
 
-const { div, h1, h5, p, hr } = Bunnix;
+const { div, h5, p, hr } = Bunnix;
 
 export default function DatePickerPage() {
   return div({ class: "column-container page-layout" }, [
-    h1("Date Picker"),
-    p("Custom date selection component with dynamic current-date placeholders and locale formatting."),
+    PageHeader({ 
+      title: "Date Picker", 
+      description: "Custom date selection component with dynamic current-date placeholders and locale formatting." 
+    }),
     hr(),
 
     div({ class: "column-container gap-md" }, [

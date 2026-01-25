@@ -1,7 +1,8 @@
 import Bunnix from "@bunnix/core";
+import PageHeader from "../../components/PageHeader.mjs";
 import PopoverMenu from "../../components/PopoverMenu.mjs";
 
-const { div, h1, h5, p, hr, span } = Bunnix;
+const { div, h5, p, hr, span } = Bunnix;
 
 export default function PopoverPage() {
   const primaryMenuItems = [
@@ -19,8 +20,10 @@ export default function PopoverPage() {
   ];
 
   return div({ class: "column-container page-layout" }, [
-    h1("Popover Menu"),
-    p("A versatile floating menu component using the modern Popover API and CSS Anchor Positioning."),
+    PageHeader({ 
+      title: "Popover Menu", 
+      description: "A versatile floating menu component using the modern Popover API and CSS Anchor Positioning." 
+    }),
     hr(),
 
     div({ class: "column-container gap-sm" }, [

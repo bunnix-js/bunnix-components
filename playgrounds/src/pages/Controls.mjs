@@ -1,5 +1,6 @@
 import Bunnix from "@bunnix/core";
-const { div, h1, h5, p, span, hr, input, textarea, label, select, option } = Bunnix;
+import PageHeader from "../components/PageHeader.mjs";
+const { div, h5, p, span, hr, input, textarea, label, select, option } = Bunnix;
 
 const FormControl = (labelText, inputElement) => {
   return div({ class: "column-container w-300" }, [
@@ -17,8 +18,10 @@ const SelectionControl = (labelText, inputElement) => {
 
 export default function ControlsPage() {
   return div({ class: "column-container page-layout" }, [
-    h1("Controls"),
-    p("Form inputs and interactive control elements."),
+    PageHeader({ 
+      title: "Controls", 
+      description: "Form inputs and interactive control elements." 
+    }),
     hr(),
     
     div({ class: "column-container gap-md" }, [

@@ -1,12 +1,15 @@
 import Bunnix from "@bunnix/core";
+import PageHeader from "../../components/PageHeader.mjs";
 import TimePicker from "../../components/TimePicker.mjs";
 
-const { div, h1, h5, p, hr } = Bunnix;
+const { div, h5, p, hr } = Bunnix;
 
 export default function TimePickerPage() {
   return div({ class: "column-container page-layout" }, [
-    h1("Time Picker"),
-    p("Digital time picker focusing on rapid entry through direct typing and validated masking."),
+    PageHeader({ 
+      title: "Time Picker", 
+      description: "Digital time picker focusing on rapid entry through direct typing and validated masking." 
+    }),
     hr(),
 
     div({ class: "column-container gap-sm" }, [

@@ -1,5 +1,6 @@
 import Bunnix from "@bunnix/core";
-const { div, h1, h5, p, span, hr } = Bunnix;
+import PageHeader from "../components/PageHeader.mjs";
+const { div, h5, p, span, hr } = Bunnix;
 
 const IconItem = (className) => {
   return div({ class: "card box gap-sm w-fit" }, [
@@ -29,8 +30,10 @@ export default function MediaPage() {
   ];
 
   return div({ class: "column-container page-layout" }, [
-    h1("Media & Icons"),
-    p("Core system icons managed via CSS variables and mask-image for easy recoloring."),
+    PageHeader({ 
+      title: "Media & Icons", 
+      description: "Core system icons managed via CSS variables and mask-image for easy recoloring." 
+    }),
     hr(),
     
     div({ class: "column-container gap-md" }, [

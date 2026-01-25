@@ -1,10 +1,13 @@
 import Bunnix from "@bunnix/core";
-const { div, h1, h5, p, span, hr, button } = Bunnix;
+import PageHeader from "../components/PageHeader.mjs";
+const { div, h5, p, span, hr, button } = Bunnix;
 
 export default function ButtonsPage() {
   return div({ class: "column-container page-layout" }, [
-    h1("Buttons"),
-    p("Interactive elements for user actions."),
+    PageHeader({ 
+      title: "Buttons", 
+      description: "Interactive elements for user actions." 
+    }),
     hr(),
     
     div({ class: "column-container gap-md" }, [

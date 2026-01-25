@@ -1,5 +1,6 @@
 import Bunnix from "@bunnix/core";
-const { div, h1, h5, p, span, hr } = Bunnix;
+import PageHeader from "../components/PageHeader.mjs";
+const { div, h5, p, span, hr } = Bunnix;
 
 const ClassExample = (className, description, exampleContent) => {
   return div({ class: "column-container gap-sm" }, [
@@ -15,8 +16,10 @@ const ClassExample = (className, description, exampleContent) => {
 
 export default function LayoutPage() {
   return div({ class: "column-container page-layout" }, [
-    h1("Layout"),
-    p("Utility classes for structuring the application layout."),
+    PageHeader({ 
+      title: "Layout", 
+      description: "Utility classes for structuring the application layout." 
+    }),
     hr(),
     
     div({ class: "column-container gap-md" }, [
