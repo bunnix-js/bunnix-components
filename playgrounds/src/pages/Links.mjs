@@ -41,13 +41,13 @@ export default function LinksPage() {
         ]),
         div({ class: "box w-fit p-0" }, [
           a({ class: "link-destructive", href: "#" }, [
-            span({ class: "icon icon-sign-out bg-destructive" }),
+            span({ class: "icon icon-logout bg-destructive" }),
             "Sign Out"
           ])
         ]),
         div({ class: "box w-fit p-0" }, [
           a({ class: "link-flat", href: "#" }, [
-            span({ class: "icon icon-chevron-left bg-primary" }),
+            span({ class: "icon icon-chevron-left bg-base" }),
             "Back to Home"
           ])
         ]),
@@ -74,11 +74,11 @@ export default function LinksPage() {
             "Download"
           ]),
           a({ class: "btn btn-lg btn-outline", href: "#" }, [
-            span({ class: "icon icon-gearshape bg-primary" }),
+            span({ class: "icon icon-gear bg-base" }),
             "Large Settings"
           ]),
           a({ class: "btn btn-xl btn-destructive", href: "#" }, [
-            span({ class: "icon icon-sign-out icon-xl bg-white" }),
+            span({ class: "icon icon-logout icon-xl bg-white" }),
             "Log Out"
           ]),
         ])

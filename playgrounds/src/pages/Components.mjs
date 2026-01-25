@@ -76,7 +76,7 @@ export default function ComponentsPage() {
           div({ class: "box w-fit p-0" }, [
             PopoverMenu({
               trigger: [
-                  span({ class: "icon icon-more-horizontal bg-primary" }),
+                  span({ class: "icon icon-more-horizontal bg-base" }),
                   "User Menu"
               ],
               items: primaryMenuItems,
@@ -86,7 +86,7 @@ export default function ComponentsPage() {
 
           div({ class: "box w-fit p-0" }, [
             PopoverMenu({
-              trigger: span({ class: "icon icon-more-vertical bg-primary" }),
+              trigger: span({ class: "icon icon-more-vertical bg-base" }),
               items: secondaryMenuItems,
               align: "right"
             })

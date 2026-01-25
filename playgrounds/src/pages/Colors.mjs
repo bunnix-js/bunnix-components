@@ -48,8 +48,7 @@ export default function ColorsPage() {
     hr(),
     h5("Background Color Utilities"),
     div({ class: "grid-flow gap-md" }, [
-      div({ class: "bg-primary text-white p-sm rounded" }, ".bg-primary"),
-      div({ class: "bg-secondary text-white p-sm rounded" }, ".bg-secondary"),
+      div({ class: "bg-dimmed text-primary p-sm rounded" }, ".bg-dimmed"),
       div({ class: "bg-destructive text-white p-sm rounded" }, ".bg-destructive"),
       div({ class: "bg-destructive-dimmed text-white p-sm rounded" }, ".bg-destructive-dimmed"),
       div({ class: "bg-accent text-white p-sm rounded" }, ".bg-accent"),

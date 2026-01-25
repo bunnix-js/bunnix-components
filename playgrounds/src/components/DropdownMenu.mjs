@@ -18,12 +18,6 @@ export default function DropdownMenu({
   const initialItem = items.find(item => item.selected) || null;
   const selectedItem = useState(initialItem);
 
-  // Computed signals for the trigger's internal state
-  const hasSelection = selectedItem.map(s => !!s);
-  const currentTitle = selectedItem.map(s => s ? s.title : placeholder);
-  const currentIcon = selectedItem.map(s => s ? s.icon : "");
-  const isDestructive = selectedItem.map(s => s ? !!s.destructive : false);
-
   const handleToggle = () => {
     const popover = popoverRef.current;
     if (!popover) return;
@@ -56,17 +50,16 @@ export default function DropdownMenu({
       class: `dropdown-trigger justify-start ${sizeClass} ${className}`.trim(),
       click: handleToggle
     }, [
-      // The "fixed" elements with reactive attributes/content
-      div({ class: "row-container items-center gap-sm no-margin" }, [
-        // Icon span: fixed element, reactive class attribute
-        span({ 
-          class: useMemo([currentIcon, isDestructive], (icon, destructive) => 
-            `icon ${iconSizeClass} ${icon} ${destructive ? 'bg-destructive' : 'bg-primary'} ${!icon ? 'hidden' : ''}`.trim()
-          ) 
-        }),
-        // Title: reactive text content
-        span({ class: hasSelection.map(sel => sel ? "" : "text-secondary") }, currentTitle)
-      ])
+      // Reactive Icon: stable element, reactive class
+      span({ 
+        class: selectedItem.map(s => {
+          if (!s?.icon) return "hidden";
+          const tint = s.destructive ? "bg-destructive" : "bg-base";
+          return `icon ${iconSizeClass} ${s.icon} ${tint}`.trim();
+        })
+      }),
+      // Reactive Title: reactive string child
+      selectedItem.map(s => s ? s.title : span({ class: "text-secondary" }, placeholder))
     ]),
 
     div({
@@ -82,16 +75,12 @@ export default function DropdownMenu({
           }
           
           const isCurrent = selectedItem.map(s => s?.title === item.title);
-          const iconTint = isCurrent.map(active => {
-            if (active) return "bg-white";
-            return item.destructive ? "bg-destructive" : "bg-primary";
-          });
           
           return button({
             class: isCurrent.map(active => `btn btn-flat justify-start w-full ${itemSizeClass} ${active ? 'selected' : ''}`.trim()),
             click: () => handleItemClick(item)
           }, [
-            span({ class: iconTint.map(tint => `icon ${iconSizeClass} ${item.icon} ${tint}`.trim()) }),
+            span({ class: `icon ${iconSizeClass} ${item.icon} ${item.destructive ? 'bg-destructive' : 'bg-base'}` }),
             item.title
           ]);
         })

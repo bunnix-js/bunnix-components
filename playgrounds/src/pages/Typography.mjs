@@ -22,25 +22,25 @@ export default function TypographyPage() {
     h5("Utilities"),
     div({ class: "column-container gap-md" }, [
       div({ class: "row-container gap-md items-center" }, [
-        span({ class: "text-mono text-sm bg-secondary text-white p-xs rounded-sm" }, ".text-mono"),
+        span({ class: "text-mono text-sm bg-dimmed text-primary p-xs rounded-sm" }, ".text-mono"),
         span({ class: "text-mono" }, "Monospace font stack")
       ]),
       div({ class: "row-container gap-md items-center" }, [
-        span({ class: "text-mono text-sm bg-secondary text-white p-xs rounded-sm" }, ".text-sm"),
+        span({ class: "text-mono text-sm bg-dimmed text-primary p-xs rounded-sm" }, ".text-sm"),
         span({ class: "text-sm" }, "Small font size")
       ]),
       div({ class: "row-container gap-md items-center" }, [
-        span({ class: "text-mono text-sm bg-secondary text-white p-xs rounded-sm" }, ".text-base"),
+        span({ class: "text-mono text-sm bg-dimmed text-primary p-xs rounded-sm" }, ".text-base"),
         span({ class: "text-base" }, "Base font size")
       ]),
       div({ class: "row-container gap-md items-center" }, [
-        span({ class: "text-mono text-sm bg-secondary text-white p-xs rounded-sm" }, ".whitespace-nowrap"),
+        span({ class: "text-mono text-sm bg-dimmed text-primary p-xs rounded-sm" }, ".whitespace-nowrap"),
         div({ class: "w-150 border-dashed p-xs overflow-hidden" }, [
             span({ class: "whitespace-nowrap" }, "This text will not wrap even if it hits the end of the container")
         ])
       ]),
       div({ class: "row-container gap-md items-center" }, [
-        span({ class: "text-mono text-sm bg-secondary text-white p-xs rounded-sm" }, ".text-destructive"),
+        span({ class: "text-mono text-sm bg-dimmed text-primary p-xs rounded-sm" }, ".text-destructive"),
         span({ class: "text-destructive" }, "This is a destructive message or warning.")
       ]),
     ])

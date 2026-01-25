@@ -66,7 +66,7 @@ export default function MediaPage() {
             span("Accent Color")
           ]),
           div({ class: "card box gap-sm w-fit text-secondary" }, [
-            span({ class: "icon icon-xl icon-people bg-secondary" }),
+            span({ class: "icon icon-xl icon-people bg-dimmed" }),
              span("Secondary Large")
           ]),
            div({ class: "card box gap-sm w-fit text-accent-dimmed" }, [

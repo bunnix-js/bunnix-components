@@ -16,12 +16,28 @@ export default function App() {
   const initialPage = window.location.hash.replace('#', '') || 'home';
   const page = useState(initialPage);
 
+  const sidebarItems = [
+    { id: 'typography', label: 'Typography', icon: 'icon-markup' },
+    { id: 'colors', label: 'Colors', icon: 'icon-palette' },
+    { id: 'layout', label: 'Layout', icon: 'icon-columns-layout' },
+    { id: 'controls', label: 'Controls', icon: 'icon-sliders' },
+    { id: 'buttons', label: 'Buttons', icon: 'icon-hand' },
+    { id: 'tables', label: 'Tables', icon: 'icon-table' },
+    { id: 'components', label: 'Components', icon: 'icon-cube' },
+    { id: 'links', label: 'Links', icon: 'icon-link' },
+    { id: 'media', label: 'Media', icon: 'icon-image' },
+  ];
+
   const handleSidebarSelect = (id) => {
     page.set(id);
   };
 
   return div({ class: "main-container row-container" }, [
-    Sidebar({ selection: initialPage, onSelect: handleSidebarSelect }),
+    Sidebar({ 
+      items: sidebarItems,
+      selection: initialPage, 
+      onSelect: handleSidebarSelect 
+    }),
     div({ class: "main-content" }, [
       Show(page.map(v => v === 'typography'), TypographyPage()),
       Show(page.map(v => v === 'colors'), ColorsPage()),

@@ -54,7 +54,7 @@ export default function PopoverMenu({ trigger, items = [], id, align = "left" })
             class: "btn btn-flat justify-start w-full",
             click: () => handleItemClick(item)
           }, [
-            item.icon ? span({ class: `icon ${item.icon} ${item.destructive ? 'bg-destructive' : 'bg-primary'}` }) : null,
+            item.icon ? span({ class: `icon ${item.icon} ${item.destructive ? 'bg-destructive' : 'bg-base'}` }) : null,
             item.title
           ]);
         })

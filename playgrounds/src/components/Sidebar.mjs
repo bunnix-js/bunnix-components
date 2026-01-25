@@ -1,7 +1,7 @@
 import Bunnix, { useState } from "@bunnix/core";
-const { div, a, span, hr, h4 } = Bunnix;
+const { div, a, span, h4 } = Bunnix;
 
-export default function Sidebar({ selection, onSelect } = {}) {
+export default function Sidebar({ items = [], selection, onSelect } = {}) {
   const selected = useState(selection ?? 'home');
 
   const handleClick = (id) => {
@@ -9,38 +9,25 @@ export default function Sidebar({ selection, onSelect } = {}) {
     if (onSelect) onSelect(id);
   };
 
-  const renderItem = (id, label) => {
-    const isSelected = selected.map(v => v === id);
+  const renderItem = (item) => {
+    const isSelected = selected.map(v => v === item.id);
 
     return div({ class: "box-sm" },
       div({
           class: isSelected.map(s => `box-capsule hoverable ${s ? 'selected' : ''}`),
-          click: () => handleClick(id)
+          click: () => handleClick(item.id)
         },
-        a({ class: "link-flat", href: `#${id}`, click: () => handleClick(id) }, [
-          h4({ style: "margin: 0; font-size: inherit; font-weight: inherit;" }, label)
+        a({ class: "link-flat", href: `#${item.id}`, click: () => handleClick(item.id) }, [
+          span({ class: isSelected.map(s => `icon ${item.icon} ${s ? 'bg-white' : 'bg-base'}`) }),
+          h4({ class: "no-margin text-base font-inherit" }, item.label)
         ])
       ),
     );
   };
 
-
   return div({ class: "sidebar" }, [
-    div(
-      { class: "box hoverable" },
-      a({ class: "link-flat", href: "#" }, [span({ class: "icon icon-person" }), "Profile"]),
+    div({ class: "column-container py-xs" }, 
+      items.map(item => renderItem(item))
     ),
-    hr(),
-    div({ class: "column-container" }, [
-      renderItem('typography', 'Typography'),
-      renderItem('colors', 'Colors'),
-      renderItem('layout', 'Layout'),
-      renderItem('controls', 'Controls'),
-      renderItem('buttons', 'Buttons'),
-      renderItem('tables', 'Tables'),
-      renderItem('components', 'Components'),
-      renderItem('links', 'Links'),
-      renderItem('media', 'Media'),
-    ]),
   ]);
 }

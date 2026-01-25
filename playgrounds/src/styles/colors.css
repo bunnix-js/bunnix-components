@@ -46,12 +46,12 @@ body {
 }
 
 /* Background Color Utilities (useful for icon masking) */
-.bg-primary {
-  background-color: var(--color-primary) !important;
+.bg-base {
+  background-color: var(--background-color) !important;
 }
 
-.bg-secondary {
-  background-color: var(--color-secondary) !important;
+.bg-dimmed {
+  background-color: var(--alternate-background-color) !important;
 }
 
 .bg-destructive {

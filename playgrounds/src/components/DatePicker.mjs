@@ -149,7 +149,7 @@ export default function DatePicker({
       click: openPopover
     }, [
       div({ class: "row-container items-center gap-sm no-margin" }, [
-        span({ class: "icon icon-calendar bg-primary" }),
+        span({ class: "icon icon-calendar bg-base" }),
         span({ class: hasValue.map(h => h ? "" : "text-secondary") }, displayLabel)
       ])
     ]),
@@ -162,11 +162,11 @@ export default function DatePicker({
       div({ class: "card column-container shadow gap-sm w-min-150 p-sm bg-base datepicker-card" }, [
         div({ class: "row-container items-center justify-between datepicker-header" }, [
           button({ class: "btn btn-flat datepicker-nav", click: handlePrevMonth }, [
-            span({ class: "icon icon-chevron-left bg-primary" })
+            span({ class: "icon icon-chevron-left bg-base" })
           ]),
           span({ class: "datepicker-title" }, monthLabel),
           button({ class: "btn btn-flat datepicker-nav", click: handleNextMonth }, [
-            span({ class: "icon icon-chevron-right bg-primary" })
+            span({ class: "icon icon-chevron-right bg-base" })
           ])
         ]),
         div({ class: "datepicker-body" }, [

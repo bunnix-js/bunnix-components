@@ -4,7 +4,7 @@ const { div, h1, h5, p, span, hr } = Bunnix;
 const ClassExample = (className, description, exampleContent) => {
   return div({ class: "column-container gap-sm" }, [
     div({ class: "row-container gap-sm items-center" }, [
-        span({ class: "text-mono text-sm bg-secondary text-white p-xs rounded-sm" }, `.${className}`),
+        span({ class: "text-mono text-sm bg-dimmed text-primary p-xs rounded-sm" }, `.${className}`),
         span({ class: "text-secondary text-sm" }, description)
     ]),
     div({ class: "box w-fit w-300 bg-alternate rounded" }, [

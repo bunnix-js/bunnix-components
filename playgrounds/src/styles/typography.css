@@ -61,6 +61,12 @@ h6 {
   font-size: 1rem;
 }
 
+.font-inherit {
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
 .whitespace-nowrap {
   white-space: nowrap;
 }
