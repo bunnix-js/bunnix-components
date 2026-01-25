@@ -53,3 +53,7 @@
 .table-hover-rows tr:hover td {
   background-color: var(--highlight-background-color);
 }
+
+.table-interactive tbody tr {
+  cursor: pointer;
+}
