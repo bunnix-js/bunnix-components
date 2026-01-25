@@ -1,10 +1,13 @@
 import Bunnix from "@bunnix/core";
 import PageHeader from "../../components/PageHeader.mjs";
+import PageSection from "../../components/PageSection.mjs";
 import PopoverMenu from "../../components/PopoverMenu.mjs";
 
-const { div, h5, p, hr, span } = Bunnix;
+const { div, h5, p, span } = Bunnix;
 
 export default function PopoverPage() {
+  const headerOffset = "6rem";
+
   const primaryMenuItems = [
     { title: "Profile", icon: "icon-person", click: () => console.log("Profile clicked") },
     { title: "Settings", icon: "icon-gear", click: () => console.log("Settings clicked") },
@@ -24,32 +27,30 @@ export default function PopoverPage() {
       title: "Popover Menu", 
       description: "A versatile floating menu component using the modern Popover API and CSS Anchor Positioning." 
     }),
-    hr(),
 
-    div({ class: "column-container gap-sm" }, [
-      h5("Multi-Instance Alignment"),
-      p("Independent instances with distinct alignment and content."),
+    div({ class: "column-container gap-md" }, [
+      PageSection({ title: "Multi-Instance Alignment", stickyOffset: headerOffset }, [
+        div({ class: "row-container gap-md" }, [
+          div({ class: "box w-fit p-0" }, [
+            PopoverMenu({
+              trigger: [
+                  span({ class: "icon icon-more-horizontal icon-base" }),
+                  "Left Aligned"
+              ],
+              items: primaryMenuItems,
+              align: "left"
+            })
+          ]),
 
-      div({ class: "row-container gap-md" }, [
-        div({ class: "box w-fit p-0" }, [
-          PopoverMenu({
-            trigger: [
-                span({ class: "icon icon-more-horizontal icon-base" }),
-                "Left Aligned"
-            ],
-            items: primaryMenuItems,
-            align: "left"
-          })
-        ]),
-
-        div({ class: "box w-fit p-0" }, [
-          PopoverMenu({
-            trigger: span({ class: "icon icon-more-vertical icon-lg fg-primary" }),
-            items: secondaryMenuItems,
-            align: "right",
-            size: "lg"
-          })
-        ]),
+          div({ class: "box w-fit p-0" }, [
+            PopoverMenu({
+              trigger: span({ class: "icon icon-more-vertical icon-lg fg-primary" }),
+              items: secondaryMenuItems,
+              align: "right",
+              size: "lg"
+            })
+          ]),
+        ])
       ])
     ])
   ]);

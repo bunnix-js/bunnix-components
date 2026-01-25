@@ -1,5 +1,6 @@
 import Bunnix from "@bunnix/core";
 import PageHeader from "../components/PageHeader.mjs";
+import PageSection from "../components/PageSection.mjs";
 const { div, h5, p, span, hr, table, thead, tbody, tr, th, td } = Bunnix;
 
 const SampleTable = (className = "") => {
@@ -38,36 +39,40 @@ const SampleTable = (className = "") => {
 };
 
 export default function TablesPage() {
+  const headerOffset = "6rem";
+
   return div({ class: "column-container page-layout" }, [
     PageHeader({ 
       title: "Tables", 
-      description: "Data display components." 
+      description: "Data display components for structured information." 
     }),
-    hr(),
     
     div({ class: "column-container gap-md" }, [
-      div({ class: "column-container gap-sm" }, [
-        h5("Default (Clean)"),
-        SampleTable()
+      PageSection({ title: "Visual Variants", stickyOffset: headerOffset }, [
+        div({ class: "column-container gap-md" }, [
+          div({ class: "column-container gap-sm" }, [
+            h5({ class: "text-tertiary text-sm" }, "Default (Clean)"),
+            SampleTable()
+          ]),
+
+          div({ class: "column-container gap-sm" }, [
+            h5({ class: "text-tertiary text-sm" }, "With Background (.table-bg)"),
+            SampleTable("table-bg")
+          ]),
+
+          div({ class: "column-container gap-sm" }, [
+            h5({ class: "text-tertiary text-sm" }, "Bordered (.table-bordered)"),
+            SampleTable("table-bordered")
+          ]),
+        ])
       ]),
 
-      div({ class: "column-container gap-sm" }, [
-        h5("With Background (.table-bg)"),
-        SampleTable("table-bg")
-      ]),
-
-      div({ class: "column-container gap-sm" }, [
-        h5("Bordered (.table-bordered)"),
-        SampleTable("table-bordered")
-      ]),
-
-      hr(),
-      h5("Interactive Modifiers"),
-      
-      div({ class: "column-container gap-sm" }, [
-        h5("Hover Rows (.table-hover-rows)"),
-        p("Highlights the row under the cursor."),
-        SampleTable("table-hover-rows")
+      PageSection({ title: "Interactive Modifiers", stickyOffset: headerOffset }, [
+        div({ class: "column-container gap-sm" }, [
+          h5({ class: "text-tertiary text-sm" }, "Hover Rows (.table-hover-rows)"),
+          p("Highlights the row under the cursor."),
+          SampleTable("table-hover-rows")
+        ])
       ]),
     ])
   ]);

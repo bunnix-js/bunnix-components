@@ -1,5 +1,6 @@
 import Bunnix from "@bunnix/core";
 import PageHeader from "../components/PageHeader.mjs";
+import PageSection from "../components/PageSection.mjs";
 const { div, h5, p, span, hr, input, textarea, label, select, option } = Bunnix;
 
 const FormControl = (labelText, inputElement) => {
@@ -17,26 +18,25 @@ const SelectionControl = (labelText, inputElement) => {
 };
 
 export default function ControlsPage() {
+  const headerOffset = "6rem";
+
   return div({ class: "column-container page-layout" }, [
     PageHeader({ 
       title: "Controls", 
       description: "Form inputs and interactive control elements." 
     }),
-    hr(),
     
     div({ class: "column-container gap-md" }, [
-      div({ class: "column-container gap-sm" }, [
-        h5("Textual Inputs"),
+      PageSection({ title: "Textual Inputs", stickyOffset: headerOffset }, [
         div({ class: "grid-flow gap-md" }, [
           FormControl("Text Input", input({ type: "text", placeholder: "Type something..." })),
           FormControl("Email Input", input({ type: "email", placeholder: "user@example.com" })),
           FormControl("Password", input({ type: "password", value: "password123" })),
           FormControl("Number Input", input({ type: "number", value: "42" })),
-        ]),
+        ])
       ]),
 
-      div({ class: "column-container gap-sm" }, [
-        h5("Select Menu"),
+      PageSection({ title: "Select Menu", stickyOffset: headerOffset }, [
         div({ class: "grid-flow gap-md" }, [
           FormControl("Dropdown", select([
             option({ value: "1" }, "Option 1"),
@@ -46,56 +46,57 @@ export default function ControlsPage() {
           FormControl("Disabled Select", select({ disabled: true }, [
             option("Disabled Choice")
           ])),
-        ]),
+        ])
       ]),
 
-      div({ class: "row-container gap-lg" }, [
-        div({ class: "column-container gap-sm" }, [
-          h5("Checkboxes"),
+      PageSection({ title: "Selection Controls", stickyOffset: headerOffset }, [
+        div({ class: "row-container gap-lg" }, [
           div({ class: "column-container gap-sm" }, [
-            SelectionControl("Remember me", input({ type: "checkbox", checked: true })),
-            SelectionControl("Subscribe to newsletter", input({ type: "checkbox" })),
-            SelectionControl("Disabled Checkbox", input({ type: "checkbox", disabled: true })),
-          ])
-        ]),
+            h5({ class: "text-tertiary text-sm" }, "Checkboxes"),
+            div({ class: "column-container gap-sm" }, [
+              SelectionControl("Remember me", input({ type: "checkbox", checked: true })),
+              SelectionControl("Subscribe to newsletter", input({ type: "checkbox" })),
+              SelectionControl("Disabled Checkbox", input({ type: "checkbox", disabled: true })),
+            ])
+          ]),
 
-        div({ class: "column-container gap-sm" }, [
-          h5("Radio Buttons"),
           div({ class: "column-container gap-sm" }, [
-            SelectionControl("Option A", input({ type: "radio", name: "radio-group", checked: true })),
-            SelectionControl("Option B", input({ type: "radio", name: "radio-group" })),
-            SelectionControl("Disabled Radio", input({ type: "radio", disabled: true })),
-          ])
-        ]),
+            h5({ class: "text-tertiary text-sm" }, "Radio Buttons"),
+            div({ class: "column-container gap-sm" }, [
+              SelectionControl("Option A", input({ type: "radio", name: "radio-group", checked: true })),
+              SelectionControl("Option B", input({ type: "radio", name: "radio-group" })),
+              SelectionControl("Disabled Radio", input({ type: "radio", disabled: true })),
+            ])
+          ]),
+        ])
       ]),
 
-      div({ class: "column-container gap-sm" }, [
-        h5("DateTime Inputs"),
+      PageSection({ title: "DateTime Inputs", stickyOffset: headerOffset }, [
         div({ class: "grid-flow gap-md" }, [
           FormControl("Date", input({ type: "date" })),
           FormControl("Time", input({ type: "time" })),
           FormControl("DateTime Local", input({ type: "datetime-local" })),
-        ]),
+        ])
       ]),
 
-      div({ class: "column-container gap-sm" }, [
-        h5("Sizes"),
-        div({ class: "grid-flow gap-md items-center" }, [
-          FormControl("Default", input({ type: "text", placeholder: "Default size" })),
-          FormControl("Large (.input-lg)", input({ class: "input-lg", type: "text", placeholder: "Large input" })),
-          FormControl("Extra Large (.input-xl)", input({ class: "input-xl", type: "text", placeholder: "Extra large input" })),
-        ]),
-        div({ class: "grid-flow gap-md items-center" }, [
-          FormControl("Large Select", select({ class: "input-lg" }, [option("Option 1")])),
-          FormControl("Extra Large Select", select({ class: "input-xl" }, [option("Option 1")])),
-        ]),
+      PageSection({ title: "Sizes", stickyOffset: headerOffset }, [
+        div({ class: "column-container gap-md" }, [
+          div({ class: "grid-flow gap-md items-center" }, [
+            FormControl("Default", input({ type: "text", placeholder: "Default size" })),
+            FormControl("Large (.input-lg)", input({ class: "input-lg", type: "text", placeholder: "Large input" })),
+            FormControl("Extra Large (.input-xl)", input({ class: "input-xl", type: "text", placeholder: "Extra large input" })),
+          ]),
+          div({ class: "grid-flow gap-md items-center" }, [
+            FormControl("Large Select", select({ class: "input-lg" }, [option("Option 1")])),
+            FormControl("Extra Large Select", select({ class: "input-xl" }, [option("Option 1")])),
+          ]),
+        ])
       ]),
 
-      div({ class: "column-container gap-sm" }, [
-        h5("Text Area"),
+      PageSection({ title: "Text Area", stickyOffset: headerOffset }, [
         div({ class: "w-full" }, [
           FormControl("Comments", textarea({ placeholder: "Tell us more..." })),
-        ]),
+        ])
       ]),
     ])
   ]);

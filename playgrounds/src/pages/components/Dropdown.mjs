@@ -1,10 +1,13 @@
 import Bunnix from "@bunnix/core";
 import PageHeader from "../../components/PageHeader.mjs";
+import PageSection from "../../components/PageSection.mjs";
 import DropdownMenu from "../../components/DropdownMenu.mjs";
 
-const { div, h5, p, hr } = Bunnix;
+const { div, p } = Bunnix;
 
 export default function DropdownPage() {
+  const headerOffset = "6rem";
+
   const languageOptions = [
     { title: "English", icon: "icon-globe" },
     { title: "Portuguese", icon: "icon-globe", selected: true },
@@ -23,11 +26,9 @@ export default function DropdownPage() {
       title: "Dropdown Menu", 
       description: "A selection control that combines 'select' appearance with the power of the Popover API." 
     }),
-    hr(),
 
     div({ class: "column-container gap-md" }, [
-      div({ class: "column-container gap-sm" }, [
-        h5("Standard Selection"),
+      PageSection({ title: "Standard Selection", stickyOffset: headerOffset }, [
         div({ class: "row-container gap-md" }, [
           div({ class: "box w-fit p-0" }, [
             DropdownMenu({
@@ -45,10 +46,7 @@ export default function DropdownPage() {
         ])
       ]),
 
-      hr(),
-
-      div({ class: "column-container gap-sm" }, [
-        h5("Actions & Destructive States"),
+      PageSection({ title: "Actions & Destructive States", stickyOffset: headerOffset }, [
         div({ class: "row-container gap-md" }, [
           div({ class: "box w-fit p-0" }, [
             DropdownMenu({

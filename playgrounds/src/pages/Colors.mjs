@@ -1,12 +1,13 @@
 import Bunnix from "@bunnix/core";
 import PageHeader from "../components/PageHeader.mjs";
-const { div, h5, p, span, hr } = Bunnix;
+import PageSection from "../components/PageSection.mjs";
+const { div, h5, span, hr } = Bunnix;
 
 const ColorSwatch = (name, variable) => {
   return div({ class: "card box gap-md" }, [
-    div({
+    div({ 
       class: "swatch",
-      style: `background-color: var(${variable});`
+      style: `background-color: var(${variable});` 
     }),
     div({ class: "column-container gap-sm" }, [
       h5({ class: "no-margin" }, name),
@@ -16,49 +17,54 @@ const ColorSwatch = (name, variable) => {
 };
 
 export default function ColorsPage() {
+  const headerOffset = "6rem";
+
   return div({ class: "column-container page-layout" }, [
-    PageHeader({
-      title: "Colors",
-      description: "The color palette used across the design system."
+    PageHeader({ 
+      title: "Colors", 
+      description: "The color palette used across the design system." 
     }),
-
-    hr(),
+    
     div({ class: "column-container gap-md" }, [
-      ColorSwatch("Primary", "--color-primary"),
-      ColorSwatch("Primary Dimmed", "--color-primary-dimmed"),
-      ColorSwatch("Secondary", "--color-secondary"),
-      ColorSwatch("Destructive", "--color-destructive"),
-      ColorSwatch("Destructive Dimmed", "--color-destructive-dimmed"),
-      ColorSwatch("Accent", "--accent-color"),
-      ColorSwatch("Accent Dimmed", "--accent-color-dimmed"),
-      ColorSwatch("Border", "--border-color"),
-      ColorSwatch("Background", "--background-color"),
-      ColorSwatch("Alternate Background", "--alternate-background-color"),
-      ColorSwatch("Highlight Background", "--highlight-background-color"),
-    ]),
+      PageSection({ title: "Core Palette", stickyOffset: headerOffset }, [
+        div({ class: "column-container gap-md" }, [
+          ColorSwatch("Primary", "--color-primary"),
+          ColorSwatch("Primary Dimmed", "--color-primary-dimmed"),
+          ColorSwatch("Secondary", "--color-secondary"),
+          ColorSwatch("Destructive", "--color-destructive"),
+          ColorSwatch("Destructive Dimmed", "--color-destructive-dimmed"),
+          ColorSwatch("Accent", "--accent-color"),
+          ColorSwatch("Accent Dimmed", "--accent-color-dimmed"),
+          ColorSwatch("Border", "--border-color"),
+          ColorSwatch("Background", "--background-color"),
+          ColorSwatch("Alternate Background", "--alternate-background-color"),
+          ColorSwatch("Highlight Background", "--highlight-background-color"),
+        ])
+      ]),
 
-    hr(),
-    h5("Text Color Utilities"),
-    div({ class: "grid-flow gap-md" }, [
-      div({ class: "text-primary" }, ".text-primary"),
-      div({ class: "text-primary-dimmed" }, ".text-primary-dimmed"),
-      div({ class: "text-secondary" }, ".text-secondary"),
-      div({ class: "text-destructive" }, ".text-destructive"),
-      div({ class: "text-destructive-dimmed" }, ".text-destructive-dimmed"),
-      div({ class: "text-accent" }, ".text-accent"),
-      div({ class: "text-accent-dimmed" }, ".text-accent-dimmed"),
-    ]),
+      PageSection({ title: "Text Color Utilities", stickyOffset: headerOffset }, [
+        div({ class: "grid-flow gap-md" }, [
+          div({ class: "text-primary" }, ".text-primary"),
+          div({ class: "text-primary-dimmed" }, ".text-primary-dimmed"),
+          div({ class: "text-secondary" }, ".text-secondary"),
+          div({ class: "text-destructive" }, ".text-destructive"),
+          div({ class: "text-destructive-dimmed" }, ".text-destructive-dimmed"),
+          div({ class: "text-accent" }, ".text-accent"),
+          div({ class: "text-accent-dimmed" }, ".text-accent-dimmed"),
+        ])
+      ]),
 
-    hr(),
-    h5("Background Color Utilities"),
-    div({ class: "grid-flow gap-md" }, [
-      div({ class: "bg-dimmed text-primary p-sm rounded" }, ".bg-dimmed"),
-      div({ class: "bg-destructive text-white p-sm rounded" }, ".bg-destructive"),
-      div({ class: "bg-destructive-dimmed text-white p-sm rounded" }, ".bg-destructive-dimmed"),
-      div({ class: "bg-accent text-white p-sm rounded" }, ".bg-accent"),
-      div({ class: "bg-accent-dimmed text-white p-sm rounded" }, ".bg-accent-dimmed"),
-      div({ class: "bg-alternate text-primary p-sm rounded" }, ".bg-alternate"),
-      div({ class: "bg-highlight text-primary p-sm rounded" }, ".bg-highlight"),
+      PageSection({ title: "Background Color Utilities", stickyOffset: headerOffset }, [
+        div({ class: "grid-flow gap-md" }, [
+          div({ class: "bg-dimmed text-primary p-sm rounded" }, ".bg-dimmed"),
+          div({ class: "bg-destructive text-white p-sm rounded" }, ".bg-destructive"),
+          div({ class: "bg-destructive-dimmed text-white p-sm rounded" }, ".bg-destructive-dimmed"),
+          div({ class: "bg-accent text-white p-sm rounded" }, ".bg-accent"),
+          div({ class: "bg-accent-dimmed text-white p-sm rounded" }, ".bg-accent-dimmed"),
+          div({ class: "bg-alternate text-primary p-sm rounded" }, ".bg-alternate"),
+          div({ class: "bg-highlight text-primary p-sm rounded" }, ".bg-highlight"),
+        ])
+      ])
     ])
   ]);
 }

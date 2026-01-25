@@ -1,10 +1,13 @@
 import Bunnix from "@bunnix/core";
 import PageHeader from "../../components/PageHeader.mjs";
+import PageSection from "../../components/PageSection.mjs";
 import AccordionGroup from "../../components/AccordionGroup.mjs";
 
-const { div, h5, p, hr } = Bunnix;
+const { div } = Bunnix;
 
 export default function AccordionPage() {
+  const headerOffset = "6rem";
+
   const accordionItems = [
     {
       title: "What's an accordion?",
@@ -37,10 +40,11 @@ export default function AccordionPage() {
       title: "Accordion Group", 
       description: "Collapsible sections built with design system spacing, colors, and icons." 
     }),
-    hr(),
 
     div({ class: "column-container gap-sm" }, [
-      AccordionGroup({ items: accordionItems })
+      PageSection({ title: "Multi-Item Group", stickyOffset: headerOffset }, [
+        AccordionGroup({ items: accordionItems })
+      ])
     ])
   ]);
 }

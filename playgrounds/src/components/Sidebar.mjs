@@ -14,8 +14,14 @@ export default function Sidebar({ items = [], selection, onSelect } = {}) {
   
   const expanded = useState(initialExpanded);
 
-  const handleClick = (id) => {
+  const handleClick = (id, href) => {
     selected.set(id);
+    if (href !== null) {
+      const target = href ?? `#${id}`;
+      if (target && window?.location) {
+        window.location.hash = target;
+      }
+    }
     if (onSelect) onSelect(id);
   };
 
@@ -43,7 +49,7 @@ export default function Sidebar({ items = [], selection, onSelect } = {}) {
       if (hasChildren) {
         toggleExpand(item.id);
       } else {
-        handleClick(item.id);
+        handleClick(item.id, item.href);
       }
     };
 

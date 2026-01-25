@@ -1,31 +1,29 @@
 import Bunnix from "@bunnix/core";
 import PageHeader from "../../components/PageHeader.mjs";
+import PageSection from "../../components/PageSection.mjs";
 import DatePicker from "../../components/DatePicker.mjs";
 
-const { div, h5, p, hr } = Bunnix;
+const { div, p } = Bunnix;
 
 export default function DatePickerPage() {
+  const headerOffset = "6rem";
+
   return div({ class: "column-container page-layout" }, [
     PageHeader({ 
       title: "Date Picker", 
       description: "Custom date selection component with dynamic current-date placeholders and locale formatting." 
     }),
-    hr(),
 
     div({ class: "column-container gap-md" }, [
-      div({ class: "column-container gap-sm" }, [
-        h5("Single Date"),
-        p("A standard single date selection with quick-actions."),
+      PageSection({ title: "Single Date", stickyOffset: headerOffset }, [
+        p({ class: "pb-sm" }, "A standard single date selection with quick-actions."),
         div({ class: "grid-flow gap-md items-center" }, [
           DatePicker()
         ])
       ]),
 
-      hr(),
-
-      div({ class: "column-container gap-sm" }, [
-        h5("Date Range"),
-        p("Select a start and end date with intuitive highlighting."),
+      PageSection({ title: "Date Range", stickyOffset: headerOffset }, [
+        p({ class: "pb-sm" }, "Select a start and end date with intuitive highlighting."),
         div({ class: "grid-flow gap-md items-center" }, [
           DatePicker({ range: true })
         ])

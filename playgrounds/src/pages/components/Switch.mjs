@@ -1,20 +1,21 @@
 import Bunnix from "@bunnix/core";
 import PageHeader from "../../components/PageHeader.mjs";
+import PageSection from "../../components/PageSection.mjs";
 import ToggleSwitch from "../../components/ToggleSwitch.mjs";
 
-const { div, h5, p, hr } = Bunnix;
+const { div } = Bunnix;
 
 export default function SwitchPage() {
+  const headerOffset = "6rem";
+
   return div({ class: "column-container page-layout" }, [
     PageHeader({ 
       title: "Switch", 
       description: "A highly customizable toggle control built with semantic design system utilities." 
     }),
-    hr(),
 
     div({ class: "column-container gap-md" }, [
-      div({ class: "column-container gap-sm" }, [
-        h5("Variants"),
+      PageSection({ title: "Sizing Variants", stickyOffset: headerOffset }, [
         div({ class: "row-container gap-md items-center" }, [
           ToggleSwitch({ labelText: "Notifications", checked: true }),
           ToggleSwitch({ labelText: "Large", size: "lg" }),
