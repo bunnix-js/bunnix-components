@@ -31,7 +31,7 @@ export default function App() {
     { isHeader: true, label: 'HTML Controls' },
     { id: 'tables', label: 'Tables', icon: 'icon-table' },
     { id: 'controls', label: 'Controls', icon: 'icon-sliders' },
-    { id: 'buttons', label: 'Buttons', icon: 'icon-hand' },
+    { id: 'buttons', label: 'Buttons', icon: 'icon-button' },
     { id: 'links', label: 'Links', icon: 'icon-link' },
     { isHeader: true, label: 'Rich Components' },
     { 
@@ -42,8 +42,8 @@ export default function App() {
       children: [
         { id: 'components-popover', label: 'Popover Menu', icon: 'icon-more-horizontal' },
         { id: 'components-dropdown', label: 'Dropdown Menu', icon: 'icon-chevron-down' },
-        { id: 'components-switch', label: 'Switch', icon: 'icon-switch' },
-        { id: 'components-accordion', label: 'Accordion Group', icon: 'icon-add' },
+        { id: 'components-switch', label: 'Switch', icon: 'icon-toggle' },
+        { id: 'components-accordion', label: 'Accordion Group', icon: 'icon-sections' },
         { id: 'components-datepicker', label: 'Date Picker', icon: 'icon-calendar' },
         { id: 'components-timepicker', label: 'Time Picker', icon: 'icon-clock' },
       ]

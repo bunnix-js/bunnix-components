@@ -100,6 +100,7 @@
 .icon-question-circle { -webkit-mask-image: var(--svg-question-circle); mask-image: var(--svg-question-circle); }
 .icon-remove-circle { -webkit-mask-image: var(--svg-remove-circle); mask-image: var(--svg-remove-circle); }
 .icon-search { -webkit-mask-image: var(--svg-search); mask-image: var(--svg-search); }
+.icon-sections { -webkit-mask-image: var(--svg-sections); mask-image: var(--svg-sections); }
 .icon-send { -webkit-mask-image: var(--svg-send); mask-image: var(--svg-send); }
 .icon-shine { -webkit-mask-image: var(--svg-shine); mask-image: var(--svg-shine); }
 .icon-sliders { -webkit-mask-image: var(--svg-sliders); mask-image: var(--svg-sliders); }
@@ -114,6 +115,7 @@
 .icon-thumb-down { -webkit-mask-image: var(--svg-thumb-down); mask-image: var(--svg-thumb-down); }
 .icon-thumb-up { -webkit-mask-image: var(--svg-thumb-up); mask-image: var(--svg-thumb-up); }
 .icon-timer { -webkit-mask-image: var(--svg-timer); mask-image: var(--svg-timer); }
+.icon-toggle { -webkit-mask-image: var(--svg-toggle); mask-image: var(--svg-toggle); }
 .icon-trash { -webkit-mask-image: var(--svg-trash); mask-image: var(--svg-trash); }
 .icon-update-page { -webkit-mask-image: var(--svg-update-page); mask-image: var(--svg-update-page); }
 .icon-upload { -webkit-mask-image: var(--svg-upload); mask-image: var(--svg-upload); }

@@ -22,9 +22,9 @@ export default function MediaPage() {
     "icon-locker", "icon-login", "icon-logout", "icon-mail", "icon-map", "icon-markup", "icon-merge",
     "icon-more-horizontal", "icon-more-vertical", "icon-mouse", "icon-palette", "icon-password",
     "icon-pencil", "icon-people", "icon-person-add", "icon-person-remove", "icon-person", "icon-pin",
-    "icon-question-circle", "icon-remove-circle", "icon-search", "icon-send",
+    "icon-question-circle", "icon-remove-circle", "icon-search", "icon-sections", "icon-send",
     "icon-shine", "icon-sliders", "icon-star", "icon-storage", "icon-success-circle", "icon-swap", "icon-switch",
-    "icon-sync", "icon-table", "icon-tag", "icon-thumb-down", "icon-thumb-up", "icon-timer",
+    "icon-sync", "icon-table", "icon-tag", "icon-thumb-down", "icon-thumb-up", "icon-timer", "icon-toggle",
     "icon-trash", "icon-update-page", "icon-upload", "icon-video", "icon-wallet", "icon-window"
   ];
 
