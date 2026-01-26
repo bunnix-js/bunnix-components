@@ -20,6 +20,7 @@ import InputFieldPage from "./pages/components/InputField.mjs";
 import ButtonPage from "./pages/components/Button.mjs";
 import IconPage from "./pages/components/Icon.mjs";
 import TextPage from "./pages/components/Text.mjs";
+import SearchBoxPage from "./pages/components/SearchBox.mjs";
 import StacksPage from "./pages/components/Stacks.mjs";
 import GridPage from "./pages/components/Grid.mjs";
 import TablesComponentPage from "./pages/components/Tables.mjs";
@@ -62,6 +63,7 @@ export default function App() {
         { id: "components-text", label: "Text", icon: "icon-text" },
         { id: "components-icon", label: "Icon", icon: "icon-star" },
         { id: "components-button", label: "Button", icon: "icon-button" },
+        { id: "components-searchbox", label: "Search Box", icon: "icon-search" },
         { id: "components-checkbox", label: "Checkbox", icon: "icon-check" },
         { id: "components-input", label: "Input Field", icon: "icon-pencil" },
         {
@@ -117,6 +119,7 @@ export default function App() {
       items: sidebarItems,
       selection: initialPage,
       onSelect: handleSidebarSelect,
+      searchable: true
     }),
     div({ class: "main-content column-container" }, [
       // Navigation component
@@ -127,7 +130,7 @@ export default function App() {
             h2({ class: "whitespace-nowrap" }, "Bunnix Components"),
           ]),
         trailing: () => [
-          Button({ type: "link", href: "/", variant: "flat" }, [
+          Button({ type: "button", variant: "flat", click: () => handleSidebarSelect("home") }, [
             Icon({ name: "icon-home", class: "icon-secondary" }),
           ]),
           Button(
@@ -224,6 +227,10 @@ export default function App() {
         Show(
           page.map((v) => v === "components-text"),
           () => TextPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-searchbox"),
+          () => SearchBoxPage(),
         ),
         Show(
           page.map((v) => v === "components-stacks"),

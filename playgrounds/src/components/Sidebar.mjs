@@ -1,8 +1,16 @@
-import Bunnix, { useState, Show } from "@bunnix/core";
+import Bunnix, { useMemo, useState, ForEach, Show } from "@bunnix/core";
+import SearchBox from "./SearchBox.mjs";
 const { div, a, span, h4, h6, hr } = Bunnix;
 
-export default function Sidebar({ items = [], selection, onSelect } = {}) {
+export default function Sidebar({
+  items = [],
+  selection,
+  onSelect,
+  searchable = false,
+  searchProps = {}
+} = {}) {
   const selected = useState(selection ?? 'home');
+  const searchValue = useState("");
 
   // Initialize expanded state from items' isExpanded property
   const initialExpanded = items.reduce((acc, item) => {
@@ -31,6 +39,7 @@ export default function Sidebar({ items = [], selection, onSelect } = {}) {
   };
 
   const renderItem = (item, isChild = false) => {
+    const isSearching = (searchValue.get() ?? "").trim() !== "";
     if (item.isSeparator) {
       return div({ class: "py-xs px-base" }, hr({ class: "no-margin" }));
     }
@@ -43,10 +52,13 @@ export default function Sidebar({ items = [], selection, onSelect } = {}) {
 
     const hasChildren = item.children && item.children.length > 0;
     const isSelected = selected.map(v => v === item.id);
-    const isExpanded = expanded.map(ex => !!ex[item.id]);
+    const isExpanded = useMemo(
+      [expanded, searchValue],
+      (ex, query) => (String(query ?? "").trim() ? true : !!ex[item.id])
+    );
 
     const handleItemClick = (e) => {
-      if (hasChildren) {
+      if (hasChildren && !isSearching) {
         toggleExpand(item.id);
       } else {
         handleClick(item.id, item.href);
@@ -74,9 +86,84 @@ export default function Sidebar({ items = [], selection, onSelect } = {}) {
     ]);
   };
 
+  const filterSidebarItems = (rawItems, query) => {
+    if (!query) return rawItems;
+    const normalized = query.trim().toLowerCase();
+    if (!normalized) return rawItems;
+
+    const filterItem = (item) => {
+      if (item.isHeader || item.isSeparator) return item;
+      const label = (item.label ?? "").toLowerCase();
+      const hasChildren = item.children && item.children.length > 0;
+      if (hasChildren) {
+        const filteredChildren = item.children.map(child => filterItem(child)).filter(Boolean);
+        const matched = label.includes(normalized) || filteredChildren.length > 0;
+        if (!matched) return null;
+        return { ...item, children: filteredChildren };
+      }
+      return label.includes(normalized) ? item : null;
+    };
+
+    const result = [];
+    let currentHeader = null;
+    let currentGroup = [];
+    const flush = () => {
+      if (currentHeader) {
+        if (currentGroup.length > 0) {
+          result.push(currentHeader, ...currentGroup);
+        }
+      } else if (currentGroup.length > 0) {
+        result.push(...currentGroup);
+      }
+      currentHeader = null;
+      currentGroup = [];
+    };
+
+    for (const item of rawItems) {
+      if (item.isHeader) {
+        flush();
+        currentHeader = item;
+        continue;
+      }
+      if (item.isSeparator) {
+        if (currentGroup.length > 0) {
+          currentGroup.push(item);
+        }
+        continue;
+      }
+      const filtered = filterItem(item);
+      if (filtered) {
+        currentGroup.push(filtered);
+      }
+    }
+    flush();
+    return result;
+  };
+
+  const filteredItems = useMemo(
+    [items, searchValue],
+    (list, query) => filterSidebarItems(list, (query ?? "").trim())
+  );
+
+  const content = [];
+  if (searchable) {
+    content.push(div({ class: "px-base py-xs" },
+      SearchBox({
+        placeholder: "Search",
+        variant: "rounded",
+        class: "w-full",
+        value: searchValue.get(),
+        input: (event) => {
+          const value = event?.target?.value ?? "";
+          searchValue.set(value);
+        },
+        ...searchProps
+      })
+    ));
+  }
+  content.push(ForEach(filteredItems, "id", (item) => renderItem(item)));
+
   return div({ class: "sidebar" }, [
-    div({ class: "column-container py-xs" },
-      items.map(item => renderItem(item))
-    ),
+    div({ class: "column-container py-xs" }, content),
   ]);
 }

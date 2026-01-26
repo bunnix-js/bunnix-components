@@ -81,6 +81,20 @@ export default function InputFieldPage() {
         ])
       ]),
 
+      PageSection({ title: "Rounded Variant", stickyOffset: headerOffset }, [
+        div({ class: "grid-flow gap-md items-center" }, [
+          div({ class: "w-300" }, [
+            InputField({ label: "Rounded", variant: "rounded", placeholder: "Rounded input" })
+          ]),
+          div({ class: "w-300" }, [
+            InputField({ label: "Rounded Large", variant: "rounded", class: "input-lg", placeholder: "Rounded large" })
+          ]),
+          div({ class: "w-300" }, [
+            InputField({ label: "Rounded Extra Large", variant: "rounded", class: "input-xl", placeholder: "Rounded XL" })
+          ]),
+        ])
+      ]),
+
       PageSection({ title: "States", stickyOffset: headerOffset }, [
         div({ class: "w-300" }, [
           InputField({ 

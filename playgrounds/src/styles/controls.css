@@ -51,6 +51,31 @@ select {
   background-size: 1rem;
 }
 
+.input-search {
+  position: relative;
+  width: 100%;
+}
+
+.input-search .icon {
+  position: absolute;
+  left: var(--base-padding);
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.input-search input {
+  padding-left: calc(var(--base-padding) * 2 + 1rem);
+}
+
+.input-search .input-lg {
+  padding-left: calc(var(--base-padding) * 2.25 + 1rem) !important;
+}
+
+.input-search .input-xl {
+  padding-left: calc(var(--base-padding) * 2.5 + 1rem) !important;
+}
+
 input:focus,
 textarea:focus,
 select:focus {
