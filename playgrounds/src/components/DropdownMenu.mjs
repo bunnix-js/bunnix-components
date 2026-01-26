@@ -9,6 +9,7 @@ export default function DropdownMenu({
   align = "left",
   placeholder = "Select option...",
   size,
+  onSelect,
   class: className = ""
 }) {
   const popoverRef = useRef(null);
@@ -32,9 +33,8 @@ export default function DropdownMenu({
 
   const handleItemClick = (item) => {
     selectedItem.set(item);
-    if (item?.click) {
-      item.click();
-    }
+    if (item?.click) item.click();
+    if (onSelect) onSelect(item);
     const popover = popoverRef.current;
     if (popover) {
       popover.hidePopover();

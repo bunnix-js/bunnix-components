@@ -26,7 +26,7 @@ export default function SearchBoxPage() {
       PageSection({ title: "Variants", stickyOffset: headerOffset }, [
         div({ class: "grid-flow gap-md" }, [
           div({ class: "w-300" }, [
-            SearchBox({ placeholder: "Regular", input: (e) => searchValue.set(e.target.value) })
+            SearchBox({ placeholder: "Regular", onInput: (e) => searchValue.set(e.target.value) })
           ]),
           div({ class: "w-300" }, [
             SearchBox({ placeholder: "Rounded", variant: "rounded" })
@@ -49,11 +49,11 @@ export default function SearchBoxPage() {
       PageSection({ title: "Controlled", stickyOffset: headerOffset }, [
         p({ class: "pb-sm" }, "SearchBox supports value binding for filtering."),
         div({ class: "w-300" }, [
-          SearchBox({
-            value: searchValue,
-            placeholder: "Type to update state",
-            input: (e) => searchValue.set(e.target.value)
-          })
+            SearchBox({
+              value: searchValue,
+              placeholder: "Type to update state",
+              onInput: (e) => searchValue.set(e.target.value)
+            })
         ])
       ]),
       PageSection({ title: "Dataset Search", stickyOffset: headerOffset }, [
@@ -63,7 +63,7 @@ export default function SearchBoxPage() {
             data: dataset,
             value: searchValue,
             placeholder: "Search components...",
-            input: (e) => searchValue.set(e.target.value)
+            onInput: (e) => searchValue.set(e.target.value)
           })
         ])
       ])

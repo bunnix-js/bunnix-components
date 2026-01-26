@@ -6,6 +6,7 @@ export default function Sidebar({
   items = [],
   selection,
   onSelect,
+  onItemSelect,
   searchable = false,
   searchProps = {}
 } = {}) {
@@ -31,6 +32,7 @@ export default function Sidebar({
       }
     }
     if (onSelect) onSelect(id);
+    if (onItemSelect) onItemSelect(id);
   };
 
   const toggleExpand = (id) => {
@@ -153,7 +155,7 @@ export default function Sidebar({
         variant: "rounded",
         class: "w-full",
         value: searchValue.get(),
-        input: (event) => {
+        onInput: (event) => {
           const value = event?.target?.value ?? "";
           searchValue.set(value);
         },

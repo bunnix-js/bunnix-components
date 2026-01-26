@@ -1,5 +1,5 @@
 import Bunnix, { useRef, useEffect } from "@bunnix/core";
-const { div, label, input, datalist, option, span } = Bunnix;
+const { div, label, input: inputEl, datalist, option, span } = Bunnix;
 
 export default function InputField({
   class: className = "",
@@ -10,10 +10,16 @@ export default function InputField({
   label: labelText,
   disabled = false,
   suggestions = [],
-  input: onInput,
-  change: onChange,
-  focus: onFocus,
-  blur: onBlur,
+  onInput,
+  onChange,
+  onFocus,
+  onBlur,
+  onKeyDown,
+  input,
+  change,
+  focus,
+  blur,
+  keydown,
   ...rest
 } = {}) {
   const inputRef = useRef(null);
@@ -28,17 +34,24 @@ export default function InputField({
   const variantClass = variant === "rounded" ? "rounded-full" : "";
   const combinedClass = `${className} ${variantClass}`.trim();
 
-  const inputElement = input({
+  const handleInput = onInput ?? input;
+  const handleChange = onChange ?? change;
+  const handleFocus = onFocus ?? focus;
+  const handleBlur = onBlur ?? blur;
+  const handleKeyDown = onKeyDown ?? keydown;
+
+  const inputElement = inputEl({
     ref: inputRef,
     type,
     value: value ?? "",
     placeholder: placeholder ?? "", // Ensure placeholder is never undefined to avoid "false" text
     disabled,
     class: `input ${combinedClass}`.trim(),
-    input: onInput,
-    change: onChange,
-    focus: onFocus,
-    blur: onBlur,
+    input: handleInput,
+    change: handleChange,
+    focus: handleFocus,
+    blur: handleBlur,
+    keydown: handleKeyDown,
     ...rest
   });
 

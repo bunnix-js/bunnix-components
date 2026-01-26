@@ -7,6 +7,7 @@ export default function Button({
   size,
   href,
   disabled = false,
+  onClick,
   click,
   class: className = "",
   ...rest
@@ -16,7 +17,7 @@ export default function Button({
   const disabledState = disabled && typeof disabled.map === "function" ? disabled : null;
   const resolvedVariant = variantState ? variantState.get() : variant;
   const isHyperlink = resolvedVariant === "hyperlink";
-  const handler = click;
+  const handler = onClick ?? click;
 
   const buildClass = (variantValue, sizeValue, disabledValue) => {
     const baseClass = isHyperlink ? "" : "btn";

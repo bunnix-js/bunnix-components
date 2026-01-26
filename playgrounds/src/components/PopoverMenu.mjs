@@ -3,7 +3,15 @@ const { div, button, hr, span } = Bunnix;
 
 let menuCounter = 0;
 
-export default function PopoverMenu({ trigger, items = [], id, align = "left", size, class: className = "" }) {
+export default function PopoverMenu({
+  trigger,
+  items = [],
+  id,
+  align = "left",
+  size,
+  onSelect,
+  class: className = ""
+}) {
   const popoverRef = useRef(null);
 
   const menuId = id || `menu-instance-${++menuCounter}`;
@@ -21,9 +29,8 @@ export default function PopoverMenu({ trigger, items = [], id, align = "left", s
   };
 
   const handleItemClick = (item) => {
-    if (item?.click) {
-      item.click();
-    }
+    if (item?.click) item.click();
+    if (onSelect) onSelect(item);
     const popover = popoverRef.current;
     if (popover) {
       popover.hidePopover();

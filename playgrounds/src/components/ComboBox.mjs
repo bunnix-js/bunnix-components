@@ -6,17 +6,19 @@ export default function ComboBox({
   selection,
   size,
   class: className = "",
+  onChange,
   change,
   ...rest
 } = {}, children) {
   const sizeClass = size === "lg" ? "input-lg" : size === "xl" ? "input-xl" : "";
   const selectionState = selection && typeof selection.map === "function" ? selection : null;
+  const handleChangeExternal = onChange ?? change;
 
   const handleChange = (event) => {
     if (selectionState) {
       selectionState.set(event.target.value);
     }
-    if (change) change(event);
+    if (handleChangeExternal) handleChangeExternal(event);
   };
 
   const resolvedChildren = children ?? options.map((opt) => {

@@ -1,5 +1,5 @@
 import Bunnix from "@bunnix/core";
-import InputField from "./InputField.mjs";
+import SearchBox from "./SearchBox.mjs";
 
 const { nav, div, h2 } = Bunnix;
 
@@ -10,6 +10,10 @@ export default function NavigationBar({
   leading,
   trailing,
   searchable = false,
+  searchData,
+  searchValue,
+  onSearchInput,
+  onSearchSelect,
   searchProps = {},
   class: className = "",
   ...rest
@@ -29,10 +33,14 @@ export default function NavigationBar({
     leadingNode && div({ class: "shrink-0" }, leadingNode),
     div({ class: "w-full" }),
     trailingNode && div({ class: "shrink-0" }, trailingNode),
-    searchable && InputField({
-      type: "search",
+    searchable && SearchBox({
+      data: searchData,
+      value: searchValue,
+      onInput: onSearchInput,
+      onSelect: onSearchSelect,
       placeholder: "Search components",
-      class: "rounded-full w-300",
+      variant: "rounded",
+      class: "w-300",
       ...searchProps
     })
   ]);

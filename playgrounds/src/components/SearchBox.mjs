@@ -13,10 +13,12 @@ export default function SearchBox({
   data,
   value,
   placeholder = "Search",
+  onInput,
   input,
   size,
   variant = "regular",
   class: className = "",
+  onSelect,
   select,
   ...rest
 } = {}) {
@@ -24,12 +26,15 @@ export default function SearchBox({
   const variantClass = variant === "rounded" ? "rounded-full" : "";
   const combinedClass = `${sizeClass} ${variantClass} ${className}`.trim();
 
+  const handleInputExternal = onInput ?? input;
+  const handleSelectExternal = onSelect ?? select;
+
   if (!Array.isArray(data)) {
     return InputField({
       type: "search",
       value,
       placeholder,
-      input,
+      onInput: handleInputExternal,
       class: combinedClass,
       ...rest
     });
@@ -89,7 +94,7 @@ export default function SearchBox({
     } else {
       internalValue.set(next);
     }
-    if (input) input(event);
+    if (handleInputExternal) handleInputExternal(event);
   };
 
   const handleSelect = (item) => {
@@ -101,7 +106,7 @@ export default function SearchBox({
     } else {
       internalValue.set(next);
     }
-    if (select) select(item);
+    if (handleSelectExternal) handleSelectExternal(item);
     const popover = popoverRef.current;
     if (popover && popover.matches(":popover-open")) {
       popover.hidePopover();
@@ -151,7 +156,7 @@ export default function SearchBox({
         type: "search",
         value: currentValue,
         placeholder,
-        input: handleInput,
+        onInput: handleInput,
         class: combinedClass,
         keydown: handleKeyDown,
         style: `anchor-name: ${anchorName}`,
