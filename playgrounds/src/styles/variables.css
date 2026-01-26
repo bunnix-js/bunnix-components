@@ -12,6 +12,7 @@
   --color-destructive: #d73a49;
   --color-destructive-dimmed: #b31d28;
   --color-success: #2da44e;
+  --color-info: #f2994a;
   --accent-color: #007bff;
   --accent-color-dimmed: #0069d9;
 
@@ -176,6 +177,7 @@
     --color-destructive: #f85149;
     --color-destructive-dimmed: #da3633;
     --color-success: #3fb950;
+    --color-info: #f2994a;
     --accent-color: #007bff;
     --accent-color-dimmed: #0069d9;
 
@@ -199,6 +201,7 @@
     --color-destructive: light-dark(#d73a49, #f85149);
     --color-destructive-dimmed: light-dark(#b31d28, #da3633);
     --color-success: light-dark(#2da44e, #3fb950);
+    --color-info: light-dark(#f2994a, #f2994a);
     --accent-color: light-dark(#007bff, #007bff);
     --accent-color-dimmed: light-dark(#0069d9, #0069d9);
 

@@ -5,6 +5,7 @@ import Table from "../../components/Table.mjs";
 import Text from "../../components/Text.mjs";
 import InputField from "../../components/InputField.mjs";
 import VStack from "../../components/VStack.mjs";
+import Badge from "../../components/Badge.mjs";
 
 const { div, h5, p, span } = Bunnix;
 
@@ -29,11 +30,12 @@ export default function TablesComponentPage() {
   const renderStatus = (_columnIndex, field, row) => {
     if (field !== "status") return undefined;
     const tone = row.status === "Active"
-      ? "bg-success text-white"
+      ? "success"
       : row.status === "On Leave"
-        ? "bg-accent text-white"
-        : "bg-dimmed text-primary";
-    return span({ class: `${tone} p-xs rounded-sm text-sm` }, row.status);
+        ? "accent"
+        : "dimmed";
+    const variant = row.status === "Offline" ? "soft" : "solid";
+    return Badge({ tone, variant, size: "xs" }, row.status);
   };
 
   return div({ class: "column-container page-layout" }, [

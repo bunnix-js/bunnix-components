@@ -70,6 +70,14 @@ a {
   align-items: center;
 }
 
+.relative {
+  position: relative;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
 .grid-flow {
   display: flex;
   flex-wrap: wrap;

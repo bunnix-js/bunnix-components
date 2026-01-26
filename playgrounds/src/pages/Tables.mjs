@@ -1,6 +1,7 @@
 import Bunnix from "@bunnix/core";
 import PageHeader from "../components/PageHeader.mjs";
 import PageSection from "../components/PageSection.mjs";
+import Badge from "../components/Badge.mjs";
 const { div, h5, p, span, hr, table, thead, tbody, tr, th, td } = Bunnix;
 
 const SampleTable = (className = "") => {
@@ -17,21 +18,21 @@ const SampleTable = (className = "") => {
         td("John Doe"),
         td("Developer"),
         td([
-            span({ class: "bg-success p-xs rounded-sm text-white text-sm" }, "Active")
+            Badge({ tone: "success", size: "xs" }, "Active")
         ])
       ]),
       tr([
         td("Jane Smith"),
         td("Designer"),
         td([
-            span({ class: "bg-dimmed p-xs rounded-sm text-primary text-sm" }, "Offline")
+            Badge({ tone: "dimmed", variant: "soft", size: "xs" }, "Offline")
         ])
       ]),
       tr([
         td("Bob Johnson"),
         td("Manager"),
         td([
-            span({ class: "bg-accent p-xs rounded-sm text-white text-sm" }, "On Leave")
+            Badge({ tone: "accent", size: "xs" }, "On Leave")
         ])
       ])
     ])

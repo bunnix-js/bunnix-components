@@ -21,6 +21,7 @@ import ButtonPage from "./pages/components/Button.mjs";
 import IconPage from "./pages/components/Icon.mjs";
 import TextPage from "./pages/components/Text.mjs";
 import SearchBoxPage from "./pages/components/SearchBox.mjs";
+import BadgePage from "./pages/components/Badge.mjs";
 import StacksPage from "./pages/components/Stacks.mjs";
 import GridPage from "./pages/components/Grid.mjs";
 import TablesComponentPage from "./pages/components/Tables.mjs";
@@ -63,6 +64,7 @@ export default function App() {
         { id: "components-text", label: "Text", icon: "icon-text" },
         { id: "components-icon", label: "Icon", icon: "icon-star" },
         { id: "components-button", label: "Button", icon: "icon-button" },
+        { id: "components-badge", label: "Badge", icon: "icon-tag" },
         { id: "components-searchbox", label: "Search Box", icon: "icon-search" },
         { id: "components-checkbox", label: "Check Box", icon: "icon-check" },
         { id: "components-input", label: "Input Field", icon: "icon-pencil" },
@@ -231,6 +233,10 @@ export default function App() {
         Show(
           page.map((v) => v === "components-searchbox"),
           () => SearchBoxPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-badge"),
+          () => BadgePage(),
         ),
         Show(
           page.map((v) => v === "components-stacks"),
