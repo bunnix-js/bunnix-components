@@ -29,7 +29,7 @@ export default function MediaPage() {
     "icon-pencil", "icon-people", "icon-person-add", "icon-person-remove", "icon-person", "icon-pin",
     "icon-question-circle", "icon-remove-circle", "icon-return-arrow", "icon-save", "icon-search", "icon-sections", "icon-send", "icon-share",
     "icon-shine", "icon-sliders", "icon-star", "icon-storage", "icon-success-circle", "icon-swap", "icon-switch",
-    "icon-sync", "icon-table", "icon-tag", "icon-text", "icon-thumb-down", "icon-thumb-up", "icon-timer", "icon-toggle",
+    "icon-sync", "icon-table", "icon-tag", "icon-text", "icon-terminal", "icon-thumb-down", "icon-thumb-up", "icon-timer", "icon-toggle",
     "icon-trash", "icon-update-page", "icon-upload", "icon-video", "icon-wallet", "icon-window"
   ];
 

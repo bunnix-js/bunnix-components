@@ -36,7 +36,7 @@
   --font-family: 'Inter', 'Roboto', system-ui, sans-serif;
   --font-bold: 600;
   --font-semibold: 500;
-  --font-size: 15px;
+  --font-size: 14px;
   --font-size-sm: 13px;
 
   /* Switch */
@@ -147,6 +147,7 @@
   --svg-table: url('../icons/table.svg');
   --svg-tag: url('../icons/tag.svg');
   --svg-text: url('../icons/text.svg');
+  --svg-terminal: url('../icons/terminal.svg');
   --svg-thumb-down: url('../icons/thumb-down.svg');
   --svg-thumb-up: url('../icons/thumb-up.svg');
   --svg-timer: url('../icons/timer.svg');

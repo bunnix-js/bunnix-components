@@ -4,6 +4,8 @@ import PageSection from "../../components/PageSection.mjs";
 import Button from "../../components/Button.mjs";
 import Text from "../../components/Text.mjs";
 import HStack from "../../components/HStack.mjs";
+import VStack from "../../components/VStack.mjs";
+import InputField from "../../components/InputField.mjs";
 import { showDialog } from "../../components/Dialog.mjs";
 
 const { div } = Bunnix;
@@ -11,11 +13,12 @@ const { div } = Bunnix;
 export default function DialogPage() {
   const headerOffset = "6rem";
   const status = Bunnix.useState("No action yet.");
+  const email = Bunnix.useState("");
 
   return div({ class: "column-container page-layout" }, [
     PageHeader({
       title: "Dialog",
-      description: "Modal confirmations using Popover API and design system components."
+      description: "Modal confirmations using the Dialog API and design system components."
     }),
     div({ class: "column-container gap-md" }, [
       PageSection({ title: "Example", stickyOffset: headerOffset }, [
@@ -45,7 +48,34 @@ export default function DialogPage() {
                 }
               }
             })
-          }, "Restore")
+          }, "Restore"),
+          Button({
+            click: () => {
+              email.set("");
+              showDialog({
+                title: "Share access",
+                confirmation: {
+                  text: "Invite",
+                  disabled: true,
+                  action: () => status.set("Invitation sent.")
+                },
+                content: ({ setConfirmDisabled }) => VStack({ gap: "regular", class: "w-full" }, [
+                  Text({ type: "paragraph", class: "text-secondary" }, "Invite a teammate to this project."),
+                  InputField({
+                    label: "Email address",
+                    placeholder: "name@company.com",
+                    type: "email",
+                    value: email,
+                    input: (event) => {
+                      const value = event?.target?.value ?? "";
+                      email.set(value);
+                      setConfirmDisabled(!value);
+                    }
+                  })
+                ])
+              });
+            }
+          }, "Custom Content")
         ]),
         Text({ type: "paragraph", class: "text-secondary" }, status)
       ])

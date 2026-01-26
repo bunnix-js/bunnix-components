@@ -1,4 +1,4 @@
-import Bunnix, { useEffect, useRef, useState } from "@bunnix/core";
+import Bunnix, { useEffect, useRef, useState, Show } from "@bunnix/core";
 import VStack from "./VStack.mjs";
 import HStack from "./HStack.mjs";
 import Button from "./Button.mjs";
@@ -14,17 +14,19 @@ const defaultDialog = {
   confirmation: {
     text: "Confirm",
     action: null,
-    variant: "regular"
+    variant: "regular",
+    disabled: false
   },
   extra: {
     text: "",
     action: null
-  }
+  },
+  content: null
 };
 
 export const dialogState = useState(defaultDialog);
 
-export const showDialog = ({ title, message, confirmation } = {}) => {
+export const showDialog = ({ title, message, confirmation, content } = {}) => {
   dialogState.set({
     open: true,
     title: title ?? "",
@@ -32,12 +34,14 @@ export const showDialog = ({ title, message, confirmation } = {}) => {
     confirmation: {
       text: confirmation?.text ?? defaultDialog.confirmation.text,
       action: confirmation?.action ?? null,
-      variant: confirmation?.variant ?? defaultDialog.confirmation.variant
+      variant: confirmation?.variant ?? defaultDialog.confirmation.variant,
+      disabled: confirmation?.disabled ?? defaultDialog.confirmation.disabled
     },
     extra: {
       text: confirmation?.extra?.text ?? defaultDialog.extra.text,
       action: confirmation?.extra?.action ?? null
-    }
+    },
+    content: content ?? null
   });
 };
 
@@ -47,6 +51,16 @@ export const hideDialog = () => {
 
 export default function Dialog() {
   const dialogRef = useRef(null);
+  const setConfirmDisabled = (disabled) => {
+    const current = dialogState.get();
+    dialogState.set({
+      ...current,
+      confirmation: {
+        ...current.confirmation,
+        disabled: !!disabled
+      }
+    });
+  };
 
   useEffect((value) => {
     const element = dialogRef.current;
@@ -63,7 +77,12 @@ export default function Dialog() {
 
   const confirmationText = dialogState.map((value) => value.confirmation?.text ?? defaultDialog.confirmation.text);
   const confirmationVariant = dialogState.map((value) => value.confirmation?.variant ?? defaultDialog.confirmation.variant);
+  const confirmationDisabled = dialogState.map((value) => !!value.confirmation?.disabled);
   const extraText = dialogState.map((value) => value.extra?.text ?? "");
+  const showExtra = dialogState.map((value) => !!value.extra?.text);
+  const showContent = dialogState.map((value) => typeof value.content === "function");
+  const showMessage = dialogState.map((value) => !!value.message && typeof value.content !== "function");
+  const showBody = dialogState.map((value) => !!value.message || typeof value.content === "function");
 
   return dialog({
     ref: dialogRef,
@@ -72,7 +91,7 @@ export default function Dialog() {
       hideDialog();
     }
   }, [
-    VStack({ gap: "regular", class: "card shadow bg-base w-300 p-lg" }, [
+    VStack({ gap: "regular", class: "box-capsule shadow bg-base w-full max-w-400 p-lg items-stretch" }, [
       HStack({ alignment: "leading", gap: "small", class: "items-center w-full" }, [
         Text({ type: "heading4", class: "no-margin" }, dialogState.map((value) => value.title)),
         div({ class: "spacer-h" }),
@@ -82,12 +101,19 @@ export default function Dialog() {
           click: hideDialog
         }, Icon({ name: "close" }))
       ]),
-      Text({ type: "paragraph", class: "text-secondary whitespace-pre-line" }, dialogState.map((value) => value.message)),
-      hr({ class: "no-margin" }),
+      Text({
+        type: "paragraph",
+        color: "secondary",
+        class: showMessage.map((value) => `whitespace-pre-line ${value ? "" : "hidden"}`.trim())
+      }, dialogState.map((value) => value.message)),
+      Show(showContent, () => {
+        const current = dialogState.get();
+        if (typeof current.content !== "function") return null;
+        return div({ class: "column-container gap-sm" }, current.content({ setConfirmDisabled }));
+      }),
       HStack({ alignment: "trailing", gap: "regular", class: "w-full" }, [
-        Button({
+        Show(showExtra, () => Button({
           variant: "flat",
-          class: extraText.map((value) => (value ? "" : "hidden")),
           click: () => {
             const current = dialogState.get();
             const action = current.extra?.action;
@@ -96,10 +122,11 @@ export default function Dialog() {
             }
             hideDialog();
           }
-        }, extraText),
+        }, extraText)),
         Button({
           autofocus: true,
           variant: confirmationVariant,
+          disabled: confirmationDisabled,
           click: () => {
             const current = dialogState.get();
             const action = current.confirmation?.action;

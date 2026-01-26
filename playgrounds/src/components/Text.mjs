@@ -25,10 +25,14 @@ export default function Text({
   // Design mapping: mono -> text-mono, regular -> ""
   const designClass = design === "mono" ? "text-mono" : "";
   
-  const combinedClass = `${colorClass} ${designClass} ${className}`.trim();
+  const isState = className && typeof className.map === "function";
 
-  return tag({ 
-    class: combinedClass, 
-    ...rest 
+  const combinedClass = isState
+    ? className.map((value) => `${colorClass} ${designClass} ${value}`.trim())
+    : `${colorClass} ${designClass} ${className}`.trim();
+
+  return tag({
+    class: combinedClass,
+    ...rest
   }, children);
 }

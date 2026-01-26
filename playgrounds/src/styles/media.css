@@ -117,6 +117,7 @@
 .icon-table { -webkit-mask-image: var(--svg-table); mask-image: var(--svg-table); }
 .icon-tag { -webkit-mask-image: var(--svg-tag); mask-image: var(--svg-tag); }
 .icon-text { -webkit-mask-image: var(--svg-text); mask-image: var(--svg-text); }
+.icon-terminal { -webkit-mask-image: var(--svg-terminal); mask-image: var(--svg-terminal); }
 .icon-thumb-down { -webkit-mask-image: var(--svg-thumb-down); mask-image: var(--svg-thumb-down); }
 .icon-thumb-up { -webkit-mask-image: var(--svg-thumb-up); mask-image: var(--svg-thumb-up); }
 .icon-timer { -webkit-mask-image: var(--svg-timer); mask-image: var(--svg-timer); }

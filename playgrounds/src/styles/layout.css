@@ -130,6 +130,10 @@ a {
   align-items: flex-end;
 }
 
+.items-stretch {
+  align-items: stretch;
+}
+
 .justify-start {
   justify-content: flex-start !important;
   text-align: left;
@@ -180,6 +184,10 @@ a {
 
 .w-300 {
   min-width: 300px;
+}
+
+.max-w-400 {
+  max-width: 400px;
 }
 
 .w-150 {
