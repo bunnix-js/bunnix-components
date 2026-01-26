@@ -6,14 +6,14 @@
   overflow: visible;
   border: none;
   background: transparent;
-  
+
   /* Modern CSS Anchor Positioning (Chrome/Edge) */
   position-anchor: var(--anchor-id);
   position: fixed;
   top: anchor(var(--anchor-id) bottom);
   left: anchor(var(--anchor-id) left);
-  
-  /* Fallback for Safari/Firefox: 
+
+  /* Fallback for Safari/Firefox:
      Since .menu-wrapper is relative, this puts it below the button
   */
   margin-top: var(--base-gap);
@@ -73,7 +73,7 @@
   appearance: none;
   background-color: var(--background-color);
   border: 1px solid var(--border-color);
-  border-radius: var(--base-radius);
+  border-radius: var(--min-control-radius);
   color: var(--color-primary);
   font-family: var(--font-family);
   font-size: var(--font-size);

@@ -3,7 +3,7 @@ const { div, a, span, h4, h6, hr } = Bunnix;
 
 export default function Sidebar({ items = [], selection, onSelect } = {}) {
   const selected = useState(selection ?? 'home');
-  
+
   // Initialize expanded state from items' isExpanded property
   const initialExpanded = items.reduce((acc, item) => {
     if (item.children && item.isExpanded) {
@@ -11,7 +11,7 @@ export default function Sidebar({ items = [], selection, onSelect } = {}) {
     }
     return acc;
   }, {});
-  
+
   const expanded = useState(initialExpanded);
 
   const handleClick = (id, href) => {
@@ -36,7 +36,7 @@ export default function Sidebar({ items = [], selection, onSelect } = {}) {
     }
 
     if (item.isHeader) {
-      return div({ class: "px-base py-md select-none sticky-top bg-alternate" }, 
+      return div({ class: "px-base py-md select-none sticky-top bg-alternate" },
         h6({ class: "no-margin text-tertiary font-bold" }, item.label)
       );
     }
@@ -56,26 +56,26 @@ export default function Sidebar({ items = [], selection, onSelect } = {}) {
     return div({ class: "column-container" }, [
       div({ class: `box-sm ${isChild ? "pl-md" : ""}` },
         div({
-            class: isSelected.map(s => `box-capsule hoverable ${s ? 'selected' : ''}`),
+            class: isSelected.map(s => `box-control hoverable ${s ? 'selected' : ''}`),
             click: handleItemClick
           }, [
           div({ class: "row-container items-center gap-sm no-margin w-full" }, [
             span({ class: isSelected.map(s => `icon ${item.icon} ${s ? 'bg-white' : 'icon-base'}`) }),
             h4({ class: "no-margin text-base font-inherit" }, item.label),
-            hasChildren && span({ 
-              class: isExpanded.map(ex => `icon icon-chevron-down ml-auto transition-transform ${ex ? 'rotate-180' : 'icon-base'}`) 
+            hasChildren && span({
+              class: isExpanded.map(ex => `icon icon-chevron-down ml-auto transition-transform ${ex ? 'rotate-180' : 'icon-base'}`)
             })
           ])
         ])
       ),
-      hasChildren && Show(isExpanded, div({ class: "column-container py-xs" }, 
+      hasChildren && Show(isExpanded, div({ class: "column-container py-xs" },
         item.children.map(child => renderItem(child, true))
       ))
     ]);
   };
 
   return div({ class: "sidebar" }, [
-    div({ class: "column-container py-xs" }, 
+    div({ class: "column-container py-xs" },
       items.map(item => renderItem(item))
     ),
   ]);

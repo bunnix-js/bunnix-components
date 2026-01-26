@@ -72,7 +72,7 @@ export default function ToastNotification() {
       ? "slide-in-left"
       : "slide-in-right";
     const sizeClass = value.size === "lg" ? "p-lg" : value.size === "xl" ? "p-xl" : "p-base";
-    return `box-capsule card shadow bg-base ${sizeClass} w-300 overflow-visible ${motionClass}`.trim();
+    return `box-control card shadow bg-base ${sizeClass} w-300 overflow-visible ${motionClass}`.trim();
   });
   const textSizeClass = toastState.map((value) => {
     if (value.size === "lg") return "text-lg";

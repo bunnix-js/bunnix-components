@@ -8,10 +8,11 @@ button,
   justify-content: center;
   gap: var(--base-gap);
   padding: calc(var(--base-padding) * 0.5) var(--base-padding);
-  border-radius: var(--base-radius);
+  border-radius: var(--min-control-radius);
   font-family: var(--font-family);
   font-size: var(--font-size);
   font-weight: var(--font-semibold);
+  min-height: var(--min-control-height);
   line-height: 1;
   box-sizing: border-box;
   transition: opacity 0.2s, background-color 0.2s;

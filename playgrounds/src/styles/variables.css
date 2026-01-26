@@ -24,12 +24,16 @@
   --body-margin: 0;
   --base-margin: .15rem;
   --base-gap: .5rem;
-  --base-radius: 6px;
-  --base-padding: 12px;
+  --base-radius: 1rem;
+  --base-padding: .75rem;
+
+  /* Controls */
+  --min-control-height: 34px;
+  --min-control-radius: calc(var(--base-radius) * 0.6);
 
   /* Sidebar */
   --sidebar-width: 280px;
-  --sidebar-padding: 8px;
+  --sidebar-padding: var(--base-padding);
   --sidebar-gap: 1px;
 
   /* Typography */

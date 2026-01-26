@@ -46,6 +46,12 @@ a {
   border-radius: var(--base-radius);
 }
 
+.box-control {
+  width: 100%;
+  padding: calc(var(--base-padding) * 0.5) var(--base-padding);
+  border-radius: var(--min-control-radius);
+}
+
 /* New Layout Classes */
 .main-container {
   display: flex;
@@ -98,7 +104,7 @@ a {
 .card {
   align-items: center;
   border: 1px solid var(--border-color);
-  border-radius: var(--base-radius);
+  border-radius: var(--min-control-radius);
   padding: calc(var(--base-padding) * 0.5);
 }
 

@@ -145,7 +145,7 @@ export default function DatePicker({
   const displayLabel = inputValue.map(v => {
     if (v) return v;
     if (placeholder) return placeholder;
-    
+
     const today = new Date();
     const fmt = formatter.get();
     if (range) {
@@ -187,7 +187,7 @@ export default function DatePicker({
           div({ class: "datepicker-weekdays" }, WEEKDAYS.map((day) =>
             span({ class: "datepicker-weekday" }, day)
           )),
-          div({ class: "datepicker-grid" }, 
+          div({ class: "datepicker-grid" },
             ForEach(calendar, "key", (cell) => {
               const start = selectedStart.get();
               const end = selectedEnd.get();
