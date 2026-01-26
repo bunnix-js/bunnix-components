@@ -66,16 +66,16 @@ export default function MediaPage() {
         p({ class: "pb-sm" }, "Icons inherit the background color context or can be explicitly colored."),
         div({ class: "grid-flow gap-md" }, [
            div({ class: "card box gap-sm w-fit text-accent" }, [
-            span({ class: "icon icon-xl icon-home bg-accent" }),
+            span({ class: "icon icon-xl icon-home icon-accent" }),
             span("Accent Color")
           ]),
           div({ class: "card box gap-sm w-fit text-secondary" }, [
-            span({ class: "icon icon-xl icon-people bg-dimmed" }),
+            span({ class: "icon icon-xl icon-people icon-secondary" }),
              span("Secondary Large")
           ]),
-           div({ class: "card box gap-sm w-fit text-accent-dimmed" }, [
-            span({ class: "icon icon-xl icon-star bg-accent-dimmed" }),
-             span("Dimmed Star")
+           div({ class: "card box gap-sm w-fit text-destructive" }, [
+            span({ class: "icon icon-xl icon-star icon-destructive" }),
+             span("Destructive Star")
           ]),
         ])
       ])

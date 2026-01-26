@@ -42,7 +42,7 @@ h5 {
 h6 {
  font-size: 1rem;
  line-height: 1.4;
- font-weight: var(--font-bold); 
+ font-weight: var(--font-bold);
  color: var(--color-secondary);
  font-size: 0.85rem;
  letter-spacing: 0.05em;
@@ -83,9 +83,9 @@ h6 {
 }
 
 .label {
-  font-size: var(--font-size-sm);
+  display: block;
+  font-size: var(--font-size);
   font-weight: var(--font-semibold);
   color: var(--color-secondary);
-  display: block;
-  margin-bottom: 0.25rem;
+  margin-bottom: var(--base-gap);
 }
