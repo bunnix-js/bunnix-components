@@ -28,49 +28,83 @@ import ComboBoxPage from "./pages/components/ComboBox.mjs";
 import ToastPage from "./pages/components/Toast.mjs";
 import ToastNotification from "./components/ToastNotification.mjs";
 import DialogPage from "./pages/components/Dialog.mjs";
-import Dialog from "./components/Dialog.mjs";
+import Dialog, { showDialog } from "./components/Dialog.mjs";
+import HStack from "./components/HStack.mjs";
+import Button from "./components/Button.mjs";
+import Icon from "./components/Icon.mjs";
+import NavigationBar from "./components/NavigationBar.mjs";
 
-const { div, h1 } = Bunnix;
+import BunnixLogo from "./images/bunnix-transparent-regular.png";
+
+const { div, span, h1, h2, img } = Bunnix;
 
 export default function App() {
-  const initialPage = window.location.hash.replace('#', '') || 'home';
+  const initialPage = window.location.hash.replace("#", "") || "home";
   const page = useState(initialPage);
 
   const sidebarItems = [
-    { id: 'typography', label: 'Typography', icon: 'icon-text' },
-    { id: 'colors', label: 'Colors', icon: 'icon-palette' },
-    { id: 'layout', label: 'Layout', icon: 'icon-columns-layout' },
-    { id: 'media', label: 'Media', icon: 'icon-image' },
-    { isHeader: true, label: 'HTML Controls' },
-    { id: 'tables', label: 'Tables', icon: 'icon-table' },
-    { id: 'controls', label: 'Controls', icon: 'icon-sliders' },
-    { id: 'buttons', label: 'Buttons', icon: 'icon-button' },
-    { id: 'links', label: 'Links', icon: 'icon-link' },
-    { isHeader: true, label: 'Rich Components' },
-    { 
-      id: 'rich-components', 
-      label: 'Components', 
-      icon: 'icon-cube',
+    { id: "typography", label: "Typography", icon: "icon-text" },
+    { id: "colors", label: "Colors", icon: "icon-palette" },
+    { id: "layout", label: "Layout", icon: "icon-columns-layout" },
+    { id: "media", label: "Media", icon: "icon-image" },
+    { isHeader: true, label: "HTML Controls" },
+    { id: "tables", label: "Tables", icon: "icon-table" },
+    { id: "controls", label: "Controls", icon: "icon-sliders" },
+    { id: "buttons", label: "Buttons", icon: "icon-button" },
+    { id: "links", label: "Links", icon: "icon-link" },
+    { isHeader: true, label: "Rich Components" },
+    {
+      id: "rich-components",
+      label: "Components",
+      icon: "icon-cube",
       isExpanded: true,
       children: [
-        { id: 'components-text', label: 'Text', icon: 'icon-text' },
-        { id: 'components-icon', label: 'Icon', icon: 'icon-star' },
-        { id: 'components-button', label: 'Button', icon: 'icon-button' },
-        { id: 'components-checkbox', label: 'Checkbox', icon: 'icon-check' },
-        { id: 'components-input', label: 'Input Field', icon: 'icon-pencil' },
-        { id: 'components-combobox', label: 'ComboBox', icon: 'icon-chevron-down' },
-        { id: 'components-switch', label: 'Switch', icon: 'icon-toggle' },
-        { id: 'components-popover', label: 'Popover Menu', icon: 'icon-more-horizontal' },
-        { id: 'components-dropdown', label: 'Dropdown Menu', icon: 'icon-chevron-down' },
-        { id: 'components-grid', label: 'Grid', icon: 'icon-grid' },
-        { id: 'components-table', label: 'Table', icon: 'icon-table' },
-        { id: 'components-stacks', label: 'Stacks', icon: 'icon-columns-layout' },
-        { id: 'components-accordion', label: 'Accordion Group', icon: 'icon-sections' },
-        { id: 'components-datepicker', label: 'Date Picker', icon: 'icon-calendar' },
-        { id: 'components-timepicker', label: 'Time Picker', icon: 'icon-clock' },
-        { id: 'components-toast', label: 'Toast', icon: 'icon-bell' },
-        { id: 'components-dialog', label: 'Dialog', icon: 'icon-window' },
-      ]
+        { id: "components-text", label: "Text", icon: "icon-text" },
+        { id: "components-icon", label: "Icon", icon: "icon-star" },
+        { id: "components-button", label: "Button", icon: "icon-button" },
+        { id: "components-checkbox", label: "Checkbox", icon: "icon-check" },
+        { id: "components-input", label: "Input Field", icon: "icon-pencil" },
+        {
+          id: "components-combobox",
+          label: "ComboBox",
+          icon: "icon-chevron-down",
+        },
+        { id: "components-switch", label: "Switch", icon: "icon-toggle" },
+        {
+          id: "components-popover",
+          label: "Popover Menu",
+          icon: "icon-more-horizontal",
+        },
+        {
+          id: "components-dropdown",
+          label: "Dropdown Menu",
+          icon: "icon-chevron-down",
+        },
+        { id: "components-grid", label: "Grid", icon: "icon-grid" },
+        { id: "components-table", label: "Table", icon: "icon-table" },
+        {
+          id: "components-stacks",
+          label: "Stacks",
+          icon: "icon-columns-layout",
+        },
+        {
+          id: "components-accordion",
+          label: "Accordion Group",
+          icon: "icon-sections",
+        },
+        {
+          id: "components-datepicker",
+          label: "Date Picker",
+          icon: "icon-calendar",
+        },
+        {
+          id: "components-timepicker",
+          label: "Time Picker",
+          icon: "icon-clock",
+        },
+        { id: "components-toast", label: "Toast", icon: "icon-bell" },
+        { id: "components-dialog", label: "Dialog", icon: "icon-window" },
+      ],
     },
   ];
 
@@ -79,46 +113,158 @@ export default function App() {
   };
 
   return div({ class: "main-container row-container" }, [
-    Sidebar({ 
+    Sidebar({
       items: sidebarItems,
-      selection: initialPage, 
-      onSelect: handleSidebarSelect 
+      selection: initialPage,
+      onSelect: handleSidebarSelect,
     }),
-    div({ class: "main-content" }, [
-      Show(page.map(v => v === 'typography'), () => TypographyPage()),
-      Show(page.map(v => v === 'colors'), () => ColorsPage()),
-      Show(page.map(v => v === 'links'), () => LinksPage()),
-      Show(page.map(v => v === 'media'), () => MediaPage()),
-      Show(page.map(v => v === 'layout'), () => LayoutPage()),
-      Show(page.map(v => v === 'buttons'), () => ButtonsPage()),
-      Show(page.map(v => v === 'tables'), () => TablesPage()),
-      Show(page.map(v => v === 'controls'), () => ControlsPage()),
-      
-      // Sub-component Routes
-      Show(page.map(v => v === 'components-popover'), () => PopoverPage()),
-      Show(page.map(v => v === 'components-dropdown'), () => DropdownPage()),
-      Show(page.map(v => v === 'components-switch'), () => SwitchPage()),
-      Show(page.map(v => v === 'components-input'), () => InputFieldPage()),
-      Show(page.map(v => v === 'components-checkbox'), () => CheckboxPage()),
-      Show(page.map(v => v === 'components-combobox'), () => ComboBoxPage()),
-      Show(page.map(v => v === 'components-toast'), () => ToastPage()),
-      Show(page.map(v => v === 'components-button'), () => ButtonPage()),
-      Show(page.map(v => v === 'components-icon'), () => IconPage()),
-      Show(page.map(v => v === 'components-text'), () => TextPage()),
-      Show(page.map(v => v === 'components-stacks'), () => StacksPage()),
-      Show(page.map(v => v === 'components-grid'), () => GridPage()),
-      Show(page.map(v => v === 'components-table'), () => TablesComponentPage()),
-      Show(page.map(v => v === 'components-accordion'), () => AccordionPage()),
-      Show(page.map(v => v === 'components-datepicker'), () => DatePickerPage()),
-      Show(page.map(v => v === 'components-timepicker'), () => TimePickerPage()),
-      Show(page.map(v => v === 'components-dialog'), () => DialogPage()),
+    div({ class: "main-content column-container" }, [
+      // Navigation component
+      NavigationBar({
+        title: () =>
+          HStack({ alignment: "middle", gap: "small", class: "items-center" }, [
+            img({ src: BunnixLogo, alt: "Bunnix Logo", class: "w-40 h-40" }),
+            h2({ class: "whitespace-nowrap" }, "Bunnix Components"),
+          ]),
+        trailing: () => [
+          Button({ type: "link", href: "/", variant: "flat" }, [
+            Icon({ name: "icon-home", class: "icon-secondary" }),
+          ]),
+          Button(
+            {
+              type: "button",
+              variant: "flat",
+              click: () =>
+                showDialog({
+                  title: "Bunnix Components Showcase",
+                  message: [
+                    "Welcome to the Bunnix Components Showcase!",
+                    "",
+                    "Explore a wide range of UI components designed to enhance your web applications.",
+                    "Feel free to explore and use them in your projects."
+                  ].join("\n"),
+                }),
+            },
+            [Icon({ name: "icon-question-circle", class: "icon-secondary" })],
+          ),
+        ],
+        searchable: false,
+      }),
+      div([
+        Show(
+          page.map((v) => v === "typography"),
+          () => TypographyPage(),
+        ),
+        Show(
+          page.map((v) => v === "colors"),
+          () => ColorsPage(),
+        ),
+        Show(
+          page.map((v) => v === "links"),
+          () => LinksPage(),
+        ),
+        Show(
+          page.map((v) => v === "media"),
+          () => MediaPage(),
+        ),
+        Show(
+          page.map((v) => v === "layout"),
+          () => LayoutPage(),
+        ),
+        Show(
+          page.map((v) => v === "buttons"),
+          () => ButtonsPage(),
+        ),
+        Show(
+          page.map((v) => v === "tables"),
+          () => TablesPage(),
+        ),
+        Show(
+          page.map((v) => v === "controls"),
+          () => ControlsPage(),
+        ),
 
-      Show(page.map(v => v === 'home'), () => div({ style: "padding: 2rem;" }, [
-        h1("Welcome to the Design System Showcase"),
-        div("Select an item from the sidebar to view components."),
-      ]))
+        // Sub-component Routes
+        Show(
+          page.map((v) => v === "components-popover"),
+          () => PopoverPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-dropdown"),
+          () => DropdownPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-switch"),
+          () => SwitchPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-input"),
+          () => InputFieldPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-checkbox"),
+          () => CheckboxPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-combobox"),
+          () => ComboBoxPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-toast"),
+          () => ToastPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-button"),
+          () => ButtonPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-icon"),
+          () => IconPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-text"),
+          () => TextPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-stacks"),
+          () => StacksPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-grid"),
+          () => GridPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-table"),
+          () => TablesComponentPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-accordion"),
+          () => AccordionPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-datepicker"),
+          () => DatePickerPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-timepicker"),
+          () => TimePickerPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-dialog"),
+          () => DialogPage(),
+        ),
+
+        Show(
+          page.map((v) => v === "home"),
+          () =>
+            div({ style: "padding: 2rem;" }, [
+              h1("Welcome to the Design System Showcase"),
+              div("Select an item from the sidebar to view components."),
+            ]),
+        ),
+      ]),
     ]),
     ToastNotification(),
-    Dialog()
+    Dialog(),
   ]);
 }

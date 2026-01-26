@@ -2,10 +2,10 @@
   background-color: currentColor; /* Inherit text color for masking */
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  -webkit-mask-size: 1rem 1rem;
-  mask-size: 1rem 1rem;
-  height: 1rem;
-  width: 1rem;
+  -webkit-mask-size: 1.2rem 1.2rem;
+  mask-size: 1.2rem 1.2rem;
+  height: 1.2rem;
+  width: 1.2rem;
   display: inline-block;
   vertical-align: text-bottom;
 }
@@ -16,6 +16,13 @@
   mask-size: .85rem .85rem;
   height: .85rem;
   width: .85rem;
+}
+
+.icon-sm {
+  -webkit-mask-size: 1rem 1rem;
+  mask-size: 1rem 1rem;
+  height: 1rem;
+  width: 1rem;
 }
 
 .icon-lg {

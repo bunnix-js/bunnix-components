@@ -2,6 +2,7 @@ import Bunnix, { useRef, useEffect } from "@bunnix/core";
 const { div, label, input, datalist, option } = Bunnix;
 
 export default function InputField({
+  class: className = "",
   type = "text",
   value,
   placeholder,
@@ -23,7 +24,7 @@ export default function InputField({
     }
   }, inputRef);
 
-  return div({ class: "column-container w-full no-margin" }, [
+  return div({ class: `column-container no-margin shrink-0` }, [
     labelText && label({ class: "label select-none" }, labelText),
     input({
       ref: inputRef,
@@ -31,14 +32,14 @@ export default function InputField({
       value: value ?? "",
       placeholder: placeholder ?? "", // Ensure placeholder is never undefined to avoid "false" text
       disabled,
-      class: "input",
+      class: `input ${className}`,
       input: onInput,
       change: onChange,
       focus: onFocus,
       blur: onBlur,
       ...rest
     }),
-    listId && datalist({ id: listId }, 
+    listId && datalist({ id: listId },
       suggestions.map(s => option({ value: s }))
     )
   ]);

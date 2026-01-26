@@ -10,7 +10,7 @@ export default function PageSection({ title, stickyOffset = 0, gap = "regular" }
 
   return div({ class: "column-container no-margin" }, [
     div({
-      class: "sticky-top bg-base pt-sm pb-sm",
+      class: "pt-sm pb-sm",
       style: ` --sticky-offset: ${stickyOffset}`
     }, [
       h5({ class: "no-margin select-none" }, title)

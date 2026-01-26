@@ -12,7 +12,7 @@ const defaultDialog = {
   title: "",
   message: "",
   confirmation: {
-    text: "Confirm",
+    text: "",
     action: null,
     variant: "regular",
     disabled: false
@@ -78,6 +78,7 @@ export default function Dialog() {
   const confirmationText = dialogState.map((value) => value.confirmation?.text ?? defaultDialog.confirmation.text);
   const confirmationVariant = dialogState.map((value) => value.confirmation?.variant ?? defaultDialog.confirmation.variant);
   const confirmationDisabled = dialogState.map((value) => !!value.confirmation?.disabled);
+  const showConfirmation = dialogState.map((value) => !!value.confirmation?.text);
   const extraText = dialogState.map((value) => value.extra?.text ?? "");
   const showExtra = dialogState.map((value) => !!value.extra?.text);
   const showContent = dialogState.map((value) => typeof value.content === "function");
@@ -93,8 +94,9 @@ export default function Dialog() {
     keydown: (event) => {
       if (event?.key !== "Enter") return;
       const current = dialogState.get();
+      const hasConfirmation = !!current?.confirmation?.text;
       const isDisabled = !!current?.confirmation?.disabled;
-      if (isDisabled) {
+      if (!hasConfirmation || isDisabled) {
         event.preventDefault();
         event.stopPropagation();
         return;
@@ -139,7 +141,7 @@ export default function Dialog() {
             hideDialog();
           }
         }, extraText)),
-        Button({
+        Show(showConfirmation, () => Button({
           autofocus: true,
           variant: confirmationVariant,
           disabled: confirmationDisabled,
@@ -157,7 +159,7 @@ export default function Dialog() {
             Icon({ name: "return-arrow", fill: "white", size: "xs" }),
             "Enter"
           ])
-        ])
+        ]))
       ])
     ])
   ]);
