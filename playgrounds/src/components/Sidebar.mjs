@@ -1,5 +1,6 @@
 import Bunnix, { useMemo, useState, ForEach, Show } from "@bunnix/core";
 import SearchBox from "./SearchBox.mjs";
+import Badge from "./Badge.mjs";
 const { div, a, span, h4, h6, hr } = Bunnix;
 
 export default function Sidebar({
@@ -76,6 +77,21 @@ export default function Sidebar({
           div({ class: "row-container items-center gap-sm no-margin w-full" }, [
             span({ class: isSelected.map(s => `icon ${item.icon} ${s ? 'bg-white' : 'icon-base'}`) }),
             h4({ class: "no-margin text-base font-inherit" }, item.label),
+            (item.badge || hasChildren) ? div({ class: "spacer-h" }) : null,
+            (() => {
+              if (!item.badge) return null;
+              if (typeof item.badge === "string" || typeof item.badge === "number") {
+                return Badge({ tone: "accent", size: "xs", shape: "capsule" }, String(item.badge));
+              }
+              const value = item.badge.value;
+              if (value === undefined || value === null || value === "") return null;
+              return Badge({
+                tone: item.badge.tone || "accent",
+                variant: item.badge.variant || "solid",
+                size: item.badge.size || "xs",
+                shape: "capsule"
+              }, String(value));
+            })(),
             hasChildren && span({
               class: isExpanded.map(ex => `icon icon-chevron-down ml-auto transition-transform ${ex ? 'rotate-180' : 'icon-base'}`)
             })

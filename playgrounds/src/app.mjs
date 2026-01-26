@@ -64,7 +64,7 @@ export default function App() {
         { id: "components-text", label: "Text", icon: "icon-text" },
         { id: "components-icon", label: "Icon", icon: "icon-star" },
         { id: "components-button", label: "Button", icon: "icon-button" },
-        { id: "components-badge", label: "Badge", icon: "icon-tag" },
+        { id: "components-badge", label: "Badge", icon: "icon-tag", badge: { value: "New", tone: "dimmed", variant: "solid" } },
         { id: "components-searchbox", label: "Search Box", icon: "icon-search" },
         { id: "components-checkbox", label: "Check Box", icon: "icon-check" },
         { id: "components-input", label: "Input Field", icon: "icon-pencil" },
