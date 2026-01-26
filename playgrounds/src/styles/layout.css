@@ -58,7 +58,6 @@ a {
   height: 100dvh; /* Dynamic viewport height for mobile support */
   width: 100vw;
   gap: var(--sidebar-gap, 1px);
-  background: var(--border-color);
   overflow: hidden; /* Prevent scroll on the container itself */
 }
 
@@ -83,14 +82,12 @@ a {
   display: flex;
   flex-direction: column;
   width: var(--sidebar-width);
-  background-color: var(--alternate-background-color);
   height: 100%;
   overflow-y: auto;
 }
 
 .main-content {
   flex: 1;
-  background-color: var(--background-color); /* Explicit base background */
   height: 100%;
   overflow-y: auto;
 }

@@ -29,7 +29,7 @@
 
   /* Controls */
   --min-control-height: 34px;
-  --min-control-radius: calc(var(--base-radius) * 0.6);
+  --min-control-radius: calc(var(--base-radius) * 0.4);
 
   /* Sidebar */
   --sidebar-width: 280px;
