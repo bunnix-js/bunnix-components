@@ -45,7 +45,7 @@ export default function Sidebar({
     }
 
     if (item.isHeader) {
-      return div({ class: "px-base py-md select-none sticky-top" },
+      return div({ class: "row-container px-base py-md select-none sticky-top" },
         h6({ class: "no-margin text-tertiary font-bold" }, item.label)
       );
     }

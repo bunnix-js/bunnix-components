@@ -27,6 +27,23 @@ export default function DatePickerPage() {
         div({ class: "grid-flow gap-md items-center" }, [
           DatePicker({ range: true })
         ])
+      ]),
+
+      PageSection({ title: "Rounded Variant", stickyOffset: headerOffset }, [
+        p({ class: "pb-sm" }, "Rounded trigger style for compact layouts."),
+        div({ class: "grid-flow gap-md items-center" }, [
+          DatePicker({ variant: "rounded" }),
+          DatePicker({ range: true, variant: "rounded" })
+        ])
+      ]),
+
+      PageSection({ title: "Sizes", stickyOffset: headerOffset }, [
+        p({ class: "pb-sm" }, "Size variants for the trigger control."),
+        div({ class: "grid-flow gap-md items-center" }, [
+          DatePicker({ size: "regular" }),
+          DatePicker({ size: "lg" }),
+          DatePicker({ size: "xl" })
+        ])
       ])
     ])
   ]);

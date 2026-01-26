@@ -1,4 +1,5 @@
 import Bunnix, { ForEach, useMemo, useRef, useState } from "@bunnix/core";
+import Icon from "./Icon.mjs";
 const { div, button, span, hr } = Bunnix;
 
 const WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
@@ -49,6 +50,8 @@ export default function DatePicker({
   id,
   placeholder,
   range = false,
+  variant = "regular",
+  size = "regular",
   class: className = ""
 } = {}) {
   const popoverRef = useRef(null);
@@ -158,14 +161,27 @@ export default function DatePicker({
 
   const hasValue = inputValue.map(v => !!v);
 
+  const variantClass = variant === "rounded" ? "rounded-full" : "";
+  const triggerSizeClass = size === "xl"
+    ? "dropdown-xl"
+    : size === "lg"
+      ? "dropdown-lg"
+      : "";
+  const iconSizeClass = size === "xl"
+    ? "icon-xl"
+    : size === "lg"
+      ? "icon-lg"
+      : "";
+
   return div({ class: `datepicker-wrapper ${className}`.trim() }, [
     button({
       id: pickerId,
-      class: "dropdown-trigger datepicker-trigger justify-start",
+      class: `dropdown-trigger datepicker-trigger justify-start ${variantClass} ${triggerSizeClass} no-chevron`.trim(),
       style: `anchor-name: ${anchorName}`,
       click: openPopover
     }, [
-      span({ class: hasValue.map(h => h ? "" : "text-tertiary") }, displayLabel)
+      span({ class: hasValue.map(h => h ? "" : "text-tertiary") }, displayLabel),
+      Icon({ name: "calendar", fill: "quaternary", size: iconSizeClass || undefined, class: "ml-auto" })
     ]),
     div({
       ref: popoverRef,

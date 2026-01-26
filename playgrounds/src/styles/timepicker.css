@@ -3,11 +3,6 @@
   display: inline-block;
 }
 
-.timepicker-trigger::after {
-  -webkit-mask-image: var(--svg-clock) !important;
-  mask-image: var(--svg-clock) !important;
-}
-
 [popover].timepicker-popover {
   margin: 0;
   padding: 0;

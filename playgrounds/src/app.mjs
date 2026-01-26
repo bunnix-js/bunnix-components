@@ -37,7 +37,7 @@ import NavigationBar from "./components/NavigationBar.mjs";
 
 import BunnixLogo from "./images/bunnix-transparent-regular.png";
 
-const { div, span, h1, h2, img } = Bunnix;
+const { div, h1, h2, img } = Bunnix;
 
 export default function App() {
   const initialPage = window.location.hash.replace("#", "") || "home";
@@ -64,11 +64,11 @@ export default function App() {
         { id: "components-icon", label: "Icon", icon: "icon-star" },
         { id: "components-button", label: "Button", icon: "icon-button" },
         { id: "components-searchbox", label: "Search Box", icon: "icon-search" },
-        { id: "components-checkbox", label: "Checkbox", icon: "icon-check" },
+        { id: "components-checkbox", label: "Check Box", icon: "icon-check" },
         { id: "components-input", label: "Input Field", icon: "icon-pencil" },
         {
           id: "components-combobox",
-          label: "ComboBox",
+          label: "Combo Box",
           icon: "icon-chevron-down",
         },
         { id: "components-switch", label: "Switch", icon: "icon-toggle" },

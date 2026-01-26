@@ -7,11 +7,6 @@
   cursor: pointer;
 }
 
-.datepicker-trigger::after {
-  -webkit-mask-image: var(--svg-calendar) !important;
-  mask-image: var(--svg-calendar) !important;
-}
-
 [popover].datepicker-popover {
   margin: 0;
   padding: 0;

@@ -20,6 +20,22 @@ export default function TimePickerPage() {
         div({ class: "grid-flow gap-md items-center" }, [
           TimePicker()
         ])
+      ]),
+
+      PageSection({ title: "Rounded Variant", stickyOffset: headerOffset }, [
+        p({ class: "pb-sm" }, "Rounded trigger style for compact layouts."),
+        div({ class: "grid-flow gap-md items-center" }, [
+          TimePicker({ variant: "rounded" })
+        ])
+      ]),
+
+      PageSection({ title: "Sizes", stickyOffset: headerOffset }, [
+        p({ class: "pb-sm" }, "Size variants for the trigger control."),
+        div({ class: "grid-flow gap-md items-center" }, [
+          TimePicker({ size: "regular" }),
+          TimePicker({ size: "lg" }),
+          TimePicker({ size: "xl" })
+        ])
       ])
     ])
   ]);

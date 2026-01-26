@@ -8,6 +8,14 @@ const { div, p } = Bunnix;
 export default function SearchBoxPage() {
   const headerOffset = "6rem";
   const searchValue = Bunnix.useState("");
+  const dataset = [
+    { key: "button", title: "Button", snippet: "Primary, secondary, and icon button styles.", icon: "button" },
+    { key: "checkbox", title: "Checkbox", snippet: "Selection control with multiple states.", icon: "check" },
+    { key: "input", title: "Input Field", snippet: "Text input with labels and suggestions.", icon: "pencil" },
+    { key: "datepicker", title: "Date Picker", snippet: "Calendar selection with range support.", icon: "calendar" },
+    { key: "timepicker", title: "Time Picker", snippet: "24-hour time selection with segments.", icon: "clock" },
+    { key: "toast", title: "Toast", snippet: "Transient status notifications.", icon: "bell" }
+  ];
 
   return div({ class: "column-container page-layout" }, [
     PageHeader({
@@ -44,6 +52,17 @@ export default function SearchBoxPage() {
           SearchBox({
             value: searchValue,
             placeholder: "Type to update state",
+            input: (e) => searchValue.set(e.target.value)
+          })
+        ])
+      ]),
+      PageSection({ title: "Dataset Search", stickyOffset: headerOffset }, [
+        p({ class: "pb-sm" }, "Filters a dataset and shows up to five matches in a popover."),
+        div({ class: "w-300" }, [
+          SearchBox({
+            data: dataset,
+            value: searchValue,
+            placeholder: "Search components...",
             input: (e) => searchValue.set(e.target.value)
           })
         ])

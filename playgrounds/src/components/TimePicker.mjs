@@ -1,4 +1,5 @@
 import Bunnix, { useRef, useState, useMemo } from "@bunnix/core";
+import Icon from "./Icon.mjs";
 const { div, button, span, hr, input } = Bunnix;
 
 const formatSegment = (val) => val.toString().padStart(2, '0');
@@ -6,6 +7,8 @@ const formatSegment = (val) => val.toString().padStart(2, '0');
 export default function TimePicker({
   id,
   placeholder,
+  variant = "regular",
+  size = "regular",
   class: className = ""
 } = {}) {
   const popoverRef = useRef(null);
@@ -49,7 +52,7 @@ export default function TimePicker({
     }
     hour.set(raw);
     isModified.set(true);
-    
+
     // Auto-focus minutes if we have 2 digits or a digit that can't be leading (3-9)
     if (raw.length === 2 || (raw.length === 1 && parseInt(raw, 10) > 2)) {
       minuteInputRef.current?.focus();
@@ -82,7 +85,7 @@ export default function TimePicker({
     const mm = m === "" ? "00" : m.padStart(2, '0');
     return `${hh}:${hh === h ? '' : ''}${mm}`; // Trigger re-render correctly
   });
-  
+
   // Refined display label using state directly for consistency
   const finalLabel = useMemo([hour, minute, isModified], (h, m, mod) => {
     if (!mod && placeholder) return placeholder;
@@ -93,14 +96,27 @@ export default function TimePicker({
 
   const hasValue = isModified.map(m => !!m);
 
+  const variantClass = variant === "rounded" ? "rounded-full" : "";
+  const triggerSizeClass = size === "xl"
+    ? "dropdown-xl"
+    : size === "lg"
+      ? "dropdown-lg"
+      : "";
+  const iconSizeClass = size === "xl"
+    ? "icon-xl"
+    : size === "lg"
+      ? "icon-lg"
+      : "";
+
   return div({ class: `timepicker-wrapper ${className}`.trim() }, [
     button({
       id: pickerId,
-      class: "dropdown-trigger timepicker-trigger justify-start",
+      class: `dropdown-trigger timepicker-trigger justify-start ${variantClass} ${triggerSizeClass} no-chevron`.trim(),
       style: `anchor-name: ${anchorName}`,
       click: openPopover
     }, [
-      span({ class: hasValue.map(h => h ? "" : "text-tertiary") }, finalLabel)
+      span({ class: hasValue.map(h => h ? "" : "text-tertiary") }, finalLabel),
+      Icon({ name: "clock", fill: "quaternary", size: iconSizeClass || undefined, class: "ml-auto" })
     ]),
 
     div({
@@ -111,7 +127,7 @@ export default function TimePicker({
     }, [
       div({ class: "card column-container shadow gap-0 p-0 bg-base timepicker-card" }, [
         div({ class: "timepicker-display" }, [
-          input({ 
+          input({
             ref: hourInputRef,
             type: "text",
             class: "time-segment",
@@ -122,7 +138,7 @@ export default function TimePicker({
             focus: (e) => e.target.select()
           }),
           span({ class: "time-separator" }, ":"),
-          input({ 
+          input({
             ref: minuteInputRef,
             type: "text",
             class: "time-segment",
