@@ -107,7 +107,7 @@ export default function Dialog() {
       hideDialog();
     }
   }, [
-    VStack({ gap: "regular", class: "box-capsule shadow bg-base w-full max-w-400 p-lg items-stretch" }, [
+    VStack({ gap: "regular", class: "box-capsule shadow bg-base w-full max-w-400 p-lg items-stretch dialog-appear" }, [
       HStack({ alignment: "leading", gap: "small", class: "items-center w-full" }, [
         Text({ type: "heading4", class: "no-margin" }, dialogState.map((value) => value.title)),
         div({ class: "spacer-h" }),

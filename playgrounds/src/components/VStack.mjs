@@ -1,12 +1,18 @@
 import Bunnix from "@bunnix/core";
 const { div } = Bunnix;
 
-export default function VStack({
-  alignment = "leading",
-  gap = "regular",
-  class: className = "",
-  ...rest
-} = {}, children) {
+export default function VStack(props = {}, children) {
+  if (props === null || props === undefined || Array.isArray(props) || typeof props !== "object") {
+    children = props;
+    props = {};
+  }
+
+  const {
+    alignment = "leading",
+    gap = "regular",
+    class: className = "",
+    ...rest
+  } = props;
   // For VStack, alignment controls the vertical distribution (main axis)
   const alignmentMap = {
     leading: "justify-start",

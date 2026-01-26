@@ -33,11 +33,11 @@
   --sidebar-gap: 1px;
 
   /* Typography */
-  --font-family: 'Inter', 'Roboto', system-ui, sans-serif;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   --font-bold: 600;
   --font-semibold: 500;
   --font-size: 14px;
-  --font-size-sm: 13px;
+  --font-size-sm: 12px;
   --font-size-xs: 10px;
 
   /* Switch */
