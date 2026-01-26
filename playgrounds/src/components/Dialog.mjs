@@ -93,10 +93,18 @@ export default function Dialog() {
     keydown: (event) => {
       if (event?.key !== "Enter") return;
       const current = dialogState.get();
-      if (current?.confirmation?.disabled) {
+      const isDisabled = !!current?.confirmation?.disabled;
+      if (isDisabled) {
         event.preventDefault();
         event.stopPropagation();
+        return;
       }
+      event.preventDefault();
+      const action = current?.confirmation?.action;
+      if (typeof action === "function") {
+        action();
+      }
+      hideDialog();
     }
   }, [
     VStack({ gap: "regular", class: "box-capsule shadow bg-base w-full max-w-400 p-lg items-stretch" }, [
