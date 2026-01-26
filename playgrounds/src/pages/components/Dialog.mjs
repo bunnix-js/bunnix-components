@@ -7,6 +7,7 @@ import HStack from "../../components/HStack.mjs";
 import VStack from "../../components/VStack.mjs";
 import InputField from "../../components/InputField.mjs";
 import { showDialog } from "../../components/Dialog.mjs";
+import Container from "../../components/Container.mjs";
 
 const { div } = Bunnix;
 
@@ -15,7 +16,7 @@ export default function DialogPage() {
   const status = Bunnix.useState("No action yet.");
   const email = Bunnix.useState("");
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({
       title: "Dialog",
       description: "Modal confirmations using the Dialog API and design system components."

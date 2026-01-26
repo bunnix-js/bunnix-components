@@ -2,6 +2,7 @@ import Bunnix from "@bunnix/core";
 import PageHeader from "../../components/PageHeader.mjs";
 import PageSection from "../../components/PageSection.mjs";
 import PopoverMenu from "../../components/PopoverMenu.mjs";
+import Container from "../../components/Container.mjs";
 
 const { div, h5, p, span } = Bunnix;
 
@@ -22,7 +23,7 @@ export default function PopoverPage() {
     { title: "Delete", icon: "icon-trash", destructive: true, click: () => console.log("Delete clicked") },
   ];
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({ 
       title: "Popover Menu", 
       description: "A versatile floating menu component using the modern Popover API and CSS Anchor Positioning." 

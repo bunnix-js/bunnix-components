@@ -2,6 +2,7 @@ import Bunnix from "@bunnix/core";
 import PageHeader from "../components/PageHeader.mjs";
 import PageSection from "../components/PageSection.mjs";
 import Badge from "../components/Badge.mjs";
+import Container from "../components/Container.mjs";
 const { div, h5, p, span, hr, table, thead, tbody, tr, th, td } = Bunnix;
 
 const SampleTable = (className = "") => {
@@ -42,7 +43,7 @@ const SampleTable = (className = "") => {
 export default function TablesPage() {
   const headerOffset = "6rem";
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({ 
       title: "Tables", 
       description: "Data display components for structured information." 

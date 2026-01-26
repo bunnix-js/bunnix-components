@@ -4,13 +4,14 @@ import PageSection from "../../components/PageSection.mjs";
 import Badge from "../../components/Badge.mjs";
 import Button from "../../components/Button.mjs";
 import Icon from "../../components/Icon.mjs";
+import Container from "../../components/Container.mjs";
 
 const { div } = Bunnix;
 
 export default function BadgePage() {
   const headerOffset = "6rem";
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({
       title: "Badge",
       description: "Compact status and metadata labels with tone, size, and variant options."

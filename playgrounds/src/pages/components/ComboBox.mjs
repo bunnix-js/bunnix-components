@@ -2,6 +2,7 @@ import Bunnix, { useState } from "@bunnix/core";
 import PageHeader from "../../components/PageHeader.mjs";
 import PageSection from "../../components/PageSection.mjs";
 import ComboBox from "../../components/ComboBox.mjs";
+import Container from "../../components/Container.mjs";
 
 const { div, p } = Bunnix;
 
@@ -15,7 +16,7 @@ export default function ComboBoxPage() {
     { value: "Orange", label: "Orange" }
   ];
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({
       title: "ComboBox",
       description: "Native select input wrapped with design system sizing and state binding."

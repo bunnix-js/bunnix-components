@@ -1,6 +1,7 @@
 import Bunnix from "@bunnix/core";
 import PageHeader from "../components/PageHeader.mjs";
 import PageSection from "../components/PageSection.mjs";
+import Container from "../components/Container.mjs";
 const { div, h5, span, hr } = Bunnix;
 
 const ColorSwatch = (name, variable) => {
@@ -19,7 +20,7 @@ const ColorSwatch = (name, variable) => {
 export default function ColorsPage() {
   const headerOffset = "6rem";
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({ 
       title: "Colors", 
       description: "The color palette used across the design system." 

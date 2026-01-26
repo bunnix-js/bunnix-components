@@ -4,6 +4,7 @@ import PageSection from "../../components/PageSection.mjs";
 import ToggleSwitch from "../../components/ToggleSwitch.mjs";
 import Button from "../../components/Button.mjs";
 import HStack from "../../components/HStack.mjs";
+import Container from "../../components/Container.mjs";
 
 const { div } = Bunnix;
 
@@ -11,7 +12,7 @@ export default function SwitchPage() {
   const headerOffset = "6rem";
   const enabled = useState(false);
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({ 
       title: "Switch", 
       description: "A highly customizable toggle control built with semantic design system utilities." 

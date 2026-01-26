@@ -2,13 +2,14 @@ import Bunnix from "@bunnix/core";
 import PageHeader from "../../components/PageHeader.mjs";
 import PageSection from "../../components/PageSection.mjs";
 import TimePicker from "../../components/TimePicker.mjs";
+import Container from "../../components/Container.mjs";
 
 const { div, p } = Bunnix;
 
 export default function TimePickerPage() {
   const headerOffset = "6rem";
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({ 
       title: "Time Picker", 
       description: "Digital time picker focusing on rapid entry through direct typing and validated masking." 

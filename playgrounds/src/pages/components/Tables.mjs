@@ -6,6 +6,7 @@ import Text from "../../components/Text.mjs";
 import InputField from "../../components/InputField.mjs";
 import VStack from "../../components/VStack.mjs";
 import Badge from "../../components/Badge.mjs";
+import Container from "../../components/Container.mjs";
 
 const { div, h5, p, span } = Bunnix;
 
@@ -38,7 +39,7 @@ export default function TablesComponentPage() {
     return Badge({ tone, variant, size: "xs" }, row.status);
   };
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({
       title: "Table",
       description: "Composable data tables with column sizing, variants, and custom cell rendering."

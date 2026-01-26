@@ -2,13 +2,14 @@ import Bunnix from "@bunnix/core";
 import PageHeader from "../../components/PageHeader.mjs";
 import PageSection from "../../components/PageSection.mjs";
 import InputField from "../../components/InputField.mjs";
+import Container from "../../components/Container.mjs";
 
 const { div, p } = Bunnix;
 
 export default function InputFieldPage() {
   const headerOffset = "6rem";
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({ 
       title: "Input Field", 
       description: "A semantic wrapper for standard HTML inputs with label and suggestion support." 

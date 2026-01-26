@@ -2,13 +2,14 @@ import Bunnix from "@bunnix/core";
 import PageHeader from "../../components/PageHeader.mjs";
 import PageSection from "../../components/PageSection.mjs";
 import Text from "../../components/Text.mjs";
+import Container from "../../components/Container.mjs";
 
 const { div, p, span } = Bunnix;
 
 export default function TextPage() {
   const headerOffset = "6rem";
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({ 
       title: "Text", 
       description: "A polymorphic typography component for semantic text rendering." 

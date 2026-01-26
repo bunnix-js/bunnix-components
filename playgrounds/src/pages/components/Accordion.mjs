@@ -2,6 +2,7 @@ import Bunnix from "@bunnix/core";
 import PageHeader from "../../components/PageHeader.mjs";
 import PageSection from "../../components/PageSection.mjs";
 import AccordionGroup from "../../components/AccordionGroup.mjs";
+import Container from "../../components/Container.mjs";
 
 const { div } = Bunnix;
 
@@ -35,7 +36,7 @@ export default function AccordionPage() {
     }
   ];
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({ 
       title: "Accordion Group", 
       description: "Collapsible sections built with design system spacing, colors, and icons." 

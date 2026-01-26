@@ -1,6 +1,7 @@
 import Bunnix, { useRef, useState, useEffect, useMemo } from "@bunnix/core";
 import PageHeader from "../components/PageHeader.mjs";
 import PageSection from "../components/PageSection.mjs";
+import Container from "../components/Container.mjs";
 const { div, p, span, hr } = Bunnix;
 
 const IconItem = (className) => {
@@ -33,7 +34,7 @@ export default function MediaPage() {
     "icon-trash", "icon-update-page", "icon-upload", "icon-video", "icon-wallet", "icon-window"
   ];
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({
       ref: headerRef,
       title: "Media & Icons",

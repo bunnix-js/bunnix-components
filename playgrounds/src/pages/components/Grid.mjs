@@ -2,6 +2,7 @@ import Bunnix from "@bunnix/core";
 import PageHeader from "../../components/PageHeader.mjs";
 import PageSection from "../../components/PageSection.mjs";
 import Grid from "../../components/Grid.mjs";
+import Container from "../../components/Container.mjs";
 
 const { div, span } = Bunnix;
 
@@ -10,7 +11,7 @@ const Item = (text) => div({ class: "bg-accent p-sm rounded text-white text-cent
 export default function GridPage() {
   const headerOffset = "6rem";
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({ 
       title: "Grid", 
       description: "Standardized grid containers for flexible and fixed multi-column layouts." 

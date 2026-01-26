@@ -5,6 +5,7 @@ import Checkbox from "../../components/Checkbox.mjs";
 import RadioCheckbox from "../../components/RadioCheckbox.mjs";
 import Button from "../../components/Button.mjs";
 import HStack from "../../components/HStack.mjs";
+import Container from "../../components/Container.mjs";
 
 const { div, p } = Bunnix;
 
@@ -12,7 +13,7 @@ export default function CheckboxPage() {
   const headerOffset = "6rem";
   const agreed = useState(false);
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({
       title: "Checkbox",
       description: "Selection controls built with the Checkbox component."

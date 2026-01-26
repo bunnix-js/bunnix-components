@@ -3,6 +3,7 @@ import PageHeader from "../../components/PageHeader.mjs";
 import PageSection from "../../components/PageSection.mjs";
 import HStack from "../../components/HStack.mjs";
 import VStack from "../../components/VStack.mjs";
+import Container from "../../components/Container.mjs";
 
 const { div, span } = Bunnix;
 
@@ -11,7 +12,7 @@ const Box = (text) => div({ class: "bg-accent p-sm rounded text-white" }, text);
 export default function StacksPage() {
   const headerOffset = "6rem";
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({ 
       title: "Stacks", 
       description: "Primitive layout containers for consistent horizontal and vertical distribution." 

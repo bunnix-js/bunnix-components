@@ -34,6 +34,7 @@ import Dialog, { showDialog } from "./components/Dialog.mjs";
 import HStack from "./components/HStack.mjs";
 import Button from "./components/Button.mjs";
 import Icon from "./components/Icon.mjs";
+import Container from "./components/Container.mjs";
 import NavigationBar from "./components/NavigationBar.mjs";
 
 import BunnixLogo from "./images/bunnix-transparent-regular.png";
@@ -116,14 +117,14 @@ export default function App() {
     page.set(id);
   };
 
-  return div({ class: "main-container row-container" }, [
+  return Container({ type: "main", direction: "horizontal" }, [
     Sidebar({
       items: sidebarItems,
       selection: initialPage,
       onSelect: handleSidebarSelect,
       searchable: true
     }),
-    div({ class: "main-content column-container" }, [
+    Container({ type: "content", direction: "vertical" }, [
       // Navigation component
       NavigationBar({
         title: () =>

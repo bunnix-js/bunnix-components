@@ -2,13 +2,14 @@ import Bunnix from "@bunnix/core";
 import PageHeader from "../../components/PageHeader.mjs";
 import PageSection from "../../components/PageSection.mjs";
 import Button from "../../components/Button.mjs";
+import Container from "../../components/Container.mjs";
 
 const { div, p, span } = Bunnix;
 
 export default function ButtonPage() {
   const headerOffset = "6rem";
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({ 
       title: "Button", 
       description: "Standard action elements with multiple variants and support for link types." 

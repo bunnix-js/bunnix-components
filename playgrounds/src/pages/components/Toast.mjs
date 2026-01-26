@@ -5,6 +5,7 @@ import Button from "../../components/Button.mjs";
 import HStack from "../../components/HStack.mjs";
 import ComboBox from "../../components/ComboBox.mjs";
 import { showToast } from "../../components/ToastNotification.mjs";
+import Container from "../../components/Container.mjs";
 
 const { div, p } = Bunnix;
 
@@ -17,7 +18,7 @@ export default function ToastPage() {
   ];
   const sizeSelection = Bunnix.useState("regular");
 
-  return div({ class: "column-container page-layout" }, [
+  return Container({ type: "page", direction: "vertical" }, [
     PageHeader({
       title: "Toast Notification",
       description: "Transient feedback messages that appear in a corner and auto-dismiss."
