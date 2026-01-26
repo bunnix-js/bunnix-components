@@ -91,6 +91,7 @@ kbd {
   padding: calc(var(--base-padding) * 0.25) calc(var(--base-padding) * 0.4);
   border-radius: calc(var(--base-radius) * 0.5);
   background-color: color-mix(in srgb, var(--background-color) 15%, transparent);
+  font-size: var(--font-size-xs) !important;
 }
 
 /* Control Sizes */

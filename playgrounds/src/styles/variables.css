@@ -38,6 +38,7 @@
   --font-semibold: 500;
   --font-size: 14px;
   --font-size-sm: 13px;
+  --font-size-xs: 10px;
 
   /* Switch */
   --switch-track-w: 2.75rem;

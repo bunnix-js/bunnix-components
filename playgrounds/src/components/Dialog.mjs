@@ -89,6 +89,14 @@ export default function Dialog() {
     class: "dialog-base dialog-backdrop fixed inset-0 w-full h-full row-container items-center justify-center",
     cancel: () => {
       hideDialog();
+    },
+    keydown: (event) => {
+      if (event?.key !== "Enter") return;
+      const current = dialogState.get();
+      if (current?.confirmation?.disabled) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
     }
   }, [
     VStack({ gap: "regular", class: "box-capsule shadow bg-base w-full max-w-400 p-lg items-stretch" }, [
@@ -138,7 +146,7 @@ export default function Dialog() {
         }, [
           confirmationText,
           kbd({ class: "text-white text-sm whitespace-nowrap" }, [
-            Icon({ name: "return-arrow", fill: "white" }),
+            Icon({ name: "return-arrow", fill: "white", size: "xs" }),
             "Enter"
           ])
         ])
