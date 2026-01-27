@@ -1,0 +1,78 @@
+.table {
+  width: 100%;
+  border-collapse: separate; /* Required for border-radius */
+  border-spacing: 0;
+  text-align: left;
+}
+
+.table th,
+.table td {
+  padding: var(--base-padding);
+  vertical-align: middle;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table th {
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+}
+
+/* Remove bottom border from last row */
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Variant: With Background */
+.table-bg {
+  background-color: var(--alternate-background-color);
+}
+
+/* Variant: Bordered (Outer border + rounded) */
+.table-bordered {
+  border: 1px solid var(--border-color);
+  border-radius: var(--base-radius);
+  /* Ensure background colors don't bleed */
+  overflow: hidden; 
+}
+
+/* Ensure border works with radius on table element */
+.table-bordered th:first-child {
+  border-top-left-radius: var(--base-radius);
+}
+.table-bordered th:last-child {
+  border-top-right-radius: var(--base-radius);
+}
+.table-bordered tr:last-child td:first-child {
+  border-bottom-left-radius: var(--base-radius);
+}
+.table-bordered tr:last-child td:last-child {
+  border-bottom-right-radius: var(--base-radius);
+}
+
+/* Modifier: Hover Rows */
+.table-hover-rows tr:hover td {
+  background-color: var(--highlight-background-color);
+}
+
+.table-interactive tbody tr {
+  cursor: pointer;
+}
+
+.table-sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.table-sortable .table-sort-icon {
+  margin-left: var(--base-gap);
+  vertical-align: middle;
+}
+
+.table-checkbox-cell {
+  text-align: center;
+  width: 40px;
+}
+
+.table-checkbox {
+  gap: 0;
+}

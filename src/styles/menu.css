@@ -1,0 +1,168 @@
+/* Modern Popover Logic with Dynamic Anchoring */
+[popover].menu-popover {
+  margin: 0;
+  padding: 0;
+  inset: auto;
+  overflow: visible;
+  border: none;
+  background: transparent;
+
+  /* Modern CSS Anchor Positioning (Chrome/Edge) */
+  position-anchor: var(--anchor-id);
+  position: fixed;
+  top: anchor(var(--anchor-id) bottom);
+  left: anchor(var(--anchor-id) left);
+
+  /* Fallback for Safari/Firefox:
+     Since .menu-wrapper is relative, this puts it below the button
+  */
+  margin-top: var(--base-gap);
+}
+
+/* Custom Try States to prevent horizontal shifting */
+@position-try --flip-v {
+  top: auto;
+  bottom: anchor(var(--anchor-id) top);
+  left: anchor(var(--anchor-id) left);
+}
+
+@position-try --flip-v-right {
+  top: auto;
+  bottom: anchor(var(--anchor-id) top);
+  right: anchor(var(--anchor-id) right);
+}
+
+[popover].menu-popover {
+  position-try-fallbacks: --flip-v, --flip-v-right;
+}
+
+/* Alignment Modifiers for Menu */
+.menu-anchor-right {
+  left: auto !important;
+  right: anchor(var(--anchor-id) right) !important;
+}
+
+.menu-anchor-left {
+  left: anchor(var(--anchor-id) left) !important;
+  right: auto !important;
+}
+
+[popover].menu-popover {
+  position-try-fallbacks: --flip-v, --flip-v-right;
+  position-try-order: most-height;
+}
+
+[popover].menu-popover.match-anchor {
+  min-width: anchor-size(var(--anchor-id) width);
+  width: anchor-size(var(--anchor-id) width);
+  max-width: anchor-size(var(--anchor-id) width);
+}
+
+[popover].menu-popover .selected .icon {
+  background-color: white !important;
+}
+
+[popover].menu-popover .selected,
+[popover].menu-popover .selected .text-secondary,
+[popover].menu-popover .selected .text-sm,
+[popover].menu-popover .selected .text-base {
+  color: white !important;
+}
+
+[popover].menu-popover.menu-anchor-right {
+  position-try-fallbacks: --flip-v-right, --flip-v;
+}
+
+[popover].menu-popover.menu-anchor-left {
+  position-try-fallbacks: --flip-v, --flip-v-right;
+}
+
+[popover]:popover-open {
+  display: flex;
+}
+
+.menu-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-trigger {
+  appearance: none;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--min-control-radius);
+  color: var(--color-primary);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: var(--font-regular);
+  padding: calc(var(--base-padding) * 0.5) var(--base-padding);
+  padding-right: calc(var(--base-padding) * 3) !important;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--base-gap);
+  cursor: pointer;
+  min-width: 150px;
+  text-align: left;
+  position: relative;
+}
+
+.dropdown-trigger.dropdown-lg {
+  padding: calc(var(--base-padding) * 0.75) calc(var(--base-padding) * 1.25);
+  padding-right: calc(var(--base-padding) * 3.25) !important;
+  font-size: 1.1rem;
+}
+
+.dropdown-trigger.dropdown-xl {
+  padding: var(--base-padding) calc(var(--base-padding) * 1.5);
+  padding-right: calc(var(--base-padding) * 3.5) !important;
+  font-size: 1.2rem;
+}
+
+.dropdown-trigger::after {
+  content: "";
+  position: absolute;
+  right: var(--base-padding);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1rem;
+  height: 1rem;
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg-chevron-down);
+  mask-image: var(--svg-chevron-down);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.dropdown-trigger.no-chevron::after {
+  display: none;
+}
+
+.dropdown-trigger.no-chevron {
+  padding-right: var(--base-padding) !important;
+}
+
+.dropdown-trigger.dropdown-lg::after {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.dropdown-trigger.dropdown-xl::after {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.dropdown-trigger:focus {
+  border-color: var(--accent-color);
+}
+
+.dropdown-trigger:hover {
+  background-color: var(--highlight-background-color);
+}
+
+.menu-wrapper:has([popover]:popover-open) > .btn,
+.menu-wrapper:has([popover]:popover-open) > .dropdown-trigger {
+  background-color: var(--highlight-background-color) !important;
+}

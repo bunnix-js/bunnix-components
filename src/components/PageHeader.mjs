@@ -1,0 +1,13 @@
+import Bunnix from "@bunnix/core";
+const { div, h1, p } = Bunnix;
+
+export default function PageHeader({ title, description } = {}) {
+  return div({
+    class: "row-container no-margin"
+  }, [
+    div({ class: "column-container gap-xs flex-1" }, [
+      h1({ class: "no-margin" }, title),
+      p({ class: "text-secondary no-margin" }, description)
+    ])
+  ]);
+}

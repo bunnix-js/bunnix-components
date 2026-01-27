@@ -1,0 +1,53 @@
+{
+  "name": "@bunnix/components",
+  "version": "0.9.0",
+  "description": "Bunnix components: a set of bunnix ready components for modern web apps.",
+  "keywords": [
+    "bunnix",
+    "componentes",
+    "reactive",
+    "stateful",
+    "web",
+    "app"
+  ],
+  "homepage": "https://github.com/bunnix-js/bunnix-components#readme",
+  "bugs": {
+    "url": "https://github.com/bunnix-js/bunnix-components/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bunnix-js/bunnix-components.git"
+  },
+  "license": "ISC",
+  "author": "@bunnix",
+  "type": "module",
+  "main": "src/index.mjs",
+  "style": "src/styles.css",
+  "types": "@types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./@types/index.d.ts",
+      "default": "./src/index.mjs"
+    },
+    "./styles": "./src/styles.css",
+    "./styles.css": "./src/styles.css",
+    "./icons/*": "./src/icons/*"
+  },
+  "sideEffects": [
+    "./src/styles.css",
+    "./src/styles/*.css"
+  ],
+  "files": [
+    "src",
+    "@types"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "peerDependencies": {
+    "@bunnix/core": "^0.9.4"
+  },
+  "devDependencies": {
+    "@bunnix/core": "^0.9.4"
+  }
+}

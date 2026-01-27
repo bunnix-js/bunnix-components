@@ -1,0 +1,16 @@
+.hoverable {
+  cursor: pointer;
+}
+
+.hoverable:hover {
+  background-color: var(--highlight-background-color);
+}
+
+.selected {
+  background-color: var(--accent-color) !important;
+  color: white !important;
+}
+
+.selected a {
+  color: white !important;
+}

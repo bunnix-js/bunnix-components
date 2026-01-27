@@ -1,0 +1,444 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: var(--body-margin);
+  height: 100vh; /* Ensure body takes full height for layout */
+}
+
+a {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--base-gap);
+}
+
+.spacer-h {
+  margin: 0 auto;
+  flex: 1;
+}
+
+.spacer-v {
+  margin: auto 0;
+  flex: 1;
+}
+
+.box {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: var(--base-padding);
+  gap: var(--base-gap);
+}
+
+.box-sm {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: calc(var(--base-padding) * 0.25) var(--base-padding);
+  gap: var(--base-gap);
+}
+
+.box-capsule {
+  width: 100%;
+  padding: calc(var(--base-padding) * 0.5) var(--base-padding);
+  border-radius: var(--base-radius);
+}
+
+.box-control {
+  width: 100%;
+  padding: calc(var(--base-padding) * 0.5) var(--base-padding);
+  border-radius: var(--min-control-radius);
+}
+
+/* New Layout Classes */
+.main-container {
+  display: flex;
+  height: 100dvh; /* Dynamic viewport height for mobile support */
+  width: 100vw;
+}
+
+.column-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.row-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.relative {
+  position: relative;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.grid-flow {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: var(--base-gap);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-width);
+  height: 100%;
+  overflow-y: auto;
+}
+
+.main-content {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+}
+
+nav,
+.nav {
+  display: flex;
+  flex-direction: row;
+  padding: var(--base-padding);
+}
+
+/* Utilities created for Colors Page refactor */
+.page-layout {
+  gap: var(--base-padding);
+  padding: var(--base-padding);
+}
+
+.card {
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-radius: var(--min-control-radius);
+  padding: calc(var(--base-padding) * 0.5);
+}
+
+.gap-xs {
+  gap: calc(var(--base-gap) * 0.5);
+}
+
+.gap-sm {
+  gap: var(--base-gap);
+}
+
+.gap-md {
+  gap: calc(var(--base-gap) * 2);
+}
+
+.gap-lg {
+  gap: calc(var(--base-gap) * 3);
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-end {
+  align-items: flex-end;
+}
+
+.items-stretch {
+  align-items: stretch;
+}
+
+.justify-start {
+  justify-content: flex-start !important;
+  text-align: left;
+}
+
+.justify-center {
+  justify-content: center !important;
+  text-align: center;
+}
+
+.justify-end {
+  justify-content: flex-end !important;
+  text-align: right;
+}
+
+.shrink-0 {
+  flex-shrink: 0;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.m-md {
+  margin: var(--base-padding);
+}
+
+.w-fit {
+  width: fit-content;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.shadow {
+  box-shadow: var(--shadow-base);
+}
+
+/* New Utilities for Layout Page */
+.w-full {
+  width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.w-300 {
+  min-width: 300px;
+}
+
+.w-200 {
+  min-width: 200px;
+}
+
+.max-w-100 {
+  max-width: 100px;
+}
+
+.max-w-200 {
+  max-width: 200px;
+}
+
+.max-w-300 {
+  max-width: 300px;
+}
+
+.max-w-400 {
+  max-width: 400px;
+}
+
+.w-150 {
+  width: 150px;
+}
+
+.w-min-150 {
+  min-width: 150px;
+}
+
+.w-40 {
+  width: 40px;
+}
+
+.h-40 {
+  height: 40px;
+}
+
+.h-200 {
+  height: 200px;
+}
+
+.p-xs {
+  padding: calc(var(--base-padding) * 0.15) calc(var(--base-padding) * 0.5);
+}
+
+.p-sm {
+  padding: calc(var(--base-padding) * 0.5);
+}
+
+.pt-sm {
+  padding-top: calc(var(--base-padding) * 0.5) !important;
+}
+
+.pb-sm {
+  padding-bottom: calc(var(--base-padding) * 0.5) !important;
+}
+
+.p-base {
+  padding: var(--base-padding) !important;
+}
+
+.p-lg {
+  padding: calc(var(--base-padding) * 1.5) !important;
+}
+
+.p-xl {
+  padding: calc(var(--base-padding) * 2) !important;
+}
+
+.px-base {
+  padding-left: var(--base-padding) !important;
+  padding-right: var(--base-padding) !important;
+}
+
+.p-0 {
+  padding: 0;
+}
+
+.py-xs {
+  padding-top: calc(var(--base-gap) * 0.5);
+  padding-bottom: calc(var(--base-gap) * 0.5);
+}
+
+.py-md {
+  padding-top: calc(var(--base-gap) * 2);
+  padding-bottom: calc(var(--base-gap) * 2);
+}
+
+.pb-lg {
+  padding-bottom: calc(var(--base-gap) * 4) !important;
+}
+
+.pb-md {
+  padding-bottom: calc(var(--base-gap) * 2) !important;
+}
+
+.pt-md {
+  padding-top: calc(var(--base-gap) * 2) !important;
+}
+
+.pl-md {
+  padding-left: calc(var(--base-padding) * 1.5) !important;
+}
+
+.pr-md {
+  padding-right: calc(var(--base-padding) * 1.5) !important;
+}
+
+.px-md {
+  padding-left: calc(var(--base-padding) * 1.5) !important;
+  padding-right: calc(var(--base-padding) * 1.5) !important;
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.transition-transform {
+  transition: transform 0.2s ease;
+}
+
+.rounded {
+  border-radius: var(--base-radius);
+}
+
+.rounded-sm {
+  border-radius: calc(var(--base-radius) * 0.5);
+}
+
+.rounded-full {
+  border-radius: 1rem !important;
+}
+
+.border-dashed {
+  border: 1px dashed var(--border-color);
+}
+
+.border-solid {
+  border: 1px solid var(--border-color);
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.select-none {
+  user-select: none;
+}
+
+.sticky-top {
+  position: sticky;
+  top: var(--sticky-offset, 0);
+  z-index: 10;
+}
+
+.z-99 {
+  z-index: 99 !important;
+}
+
+/* Position Utilities */
+.fixed {
+  position: fixed;
+}
+
+.inset-auto {
+  inset: auto;
+}
+
+.inset-0 {
+  inset: 0;
+}
+
+.top-md {
+  top: var(--base-padding);
+}
+
+.right-md {
+  right: var(--base-padding);
+}
+
+.bottom-md {
+  bottom: var(--base-padding);
+}
+
+.left-md {
+  left: var(--base-padding);
+}
+
+.top-lg {
+  top: calc(var(--base-padding) * 2);
+}
+
+.right-lg {
+  right: calc(var(--base-padding) * 2);
+}
+
+.bottom-lg {
+  bottom: calc(var(--base-padding) * 2);
+}
+
+.left-lg {
+  left: calc(var(--base-padding) * 2);
+}
+
+/* Popover Reset (opt-in) */
+.popover-base {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+}
+
+.dialog-base {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  display: none;
+}
+
+.dialog-base[open] {
+  display: flex;
+}
+
+.dialog-backdrop::backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.overflow-visible {
+  overflow: visible !important;
+}
