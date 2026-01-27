@@ -2,6 +2,7 @@ export { default as AccordionGroup } from "./components/AccordionGroup.mjs";
 export { default as Badge } from "./components/Badge.mjs";
 export { default as Button } from "./components/Button.mjs";
 export { default as Checkbox } from "./components/Checkbox.mjs";
+export { default as CodeBlock } from "./components/CodeBlock.mjs";
 export { default as ComboBox } from "./components/ComboBox.mjs";
 export { default as Container } from "./components/Container.mjs";
 export { default as DatePicker } from "./components/DatePicker.mjs";

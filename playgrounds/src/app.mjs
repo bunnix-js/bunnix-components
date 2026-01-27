@@ -29,6 +29,7 @@ import CheckboxPage from "./pages/components/Checkbox.mjs";
 import ComboBoxPage from "./pages/components/ComboBox.mjs";
 import ToastPage from "./pages/components/Toast.mjs";
 import DialogPage from "./pages/components/Dialog.mjs";
+import CodeBlockPage from "./pages/components/CodeBlock.mjs";
 import { ToastNotification } from "@bunnix/components";
 import { Dialog, showDialog } from "@bunnix/components";
 import { HStack } from "@bunnix/components";
@@ -87,6 +88,7 @@ export default function App() {
         },
         { id: "components-grid", label: "Grid", icon: "icon-grid" },
         { id: "components-table", label: "Table", icon: "icon-table" },
+        { id: "components-codeblock", label: "Code Block", icon: "icon-terminal" },
         {
           id: "components-stacks",
           label: "Stacks",
@@ -266,6 +268,10 @@ export default function App() {
         Show(
           page.map((v) => v === "components-dialog"),
           () => DialogPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-codeblock"),
+          () => CodeBlockPage(),
         ),
 
         Show(
