@@ -10,7 +10,14 @@ export default function ComboBox({
   change,
   ...rest
 } = {}, children) {
-  const sizeClass = size === "lg" ? "input-lg" : size === "xl" ? "input-xl" : "";
+  const normalizeSize = (value) => {
+    if (!value || value === "default" || value === "regular" || value === "md") return "md";
+    if (value === "sm") return "sm";
+    if (value === "lg" || value === "xl") return value;
+    return value;
+  };
+  const normalizedSize = normalizeSize(size);
+  const sizeClass = normalizedSize === "lg" ? "input-lg" : normalizedSize === "xl" ? "input-xl" : "";
   const selectionState = selection && typeof selection.map === "function" ? selection : null;
   const handleChangeExternal = onChange ?? change;
 

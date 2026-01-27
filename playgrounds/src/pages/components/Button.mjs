@@ -28,7 +28,7 @@ export default function ButtonPage() {
 
       PageSection({ title: "Sizes", stickyOffset: headerOffset }, [
         div({ class: "grid-flow gap-md items-center" }, [
-          Button({ size: "default" }, "Default"),
+          Button({ size: "md" }, "Default"),
           Button({ size: "lg" }, "Large"),
           Button({ size: "xl" }, "Extra Large"),
         ])

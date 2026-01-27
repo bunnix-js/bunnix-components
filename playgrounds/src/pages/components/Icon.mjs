@@ -36,7 +36,7 @@ export default function IconPage() {
       PageSection({ title: "Sizes", stickyOffset: headerOffset }, [
         div({ class: "grid-flow gap-md items-center" }, [
           div({ class: "column-container items-center gap-xs" }, [
-            Icon({ name: "star", size: "default" }),
+            Icon({ name: "star", size: "md" }),
             span({ class: "text-sm text-secondary" }, "Default (1rem)")
           ]),
           div({ class: "column-container items-center gap-xs" }, [

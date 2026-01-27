@@ -12,6 +12,13 @@ export default function DropdownMenu({
   onSelect,
   class: className = ""
 }) {
+  const normalizeSize = (value) => {
+    if (!value || value === "default" || value === "regular" || value === "md") return "md";
+    if (value === "sm") return "sm";
+    if (value === "lg" || value === "xl") return value;
+    return value;
+  };
+  const normalizedSize = normalizeSize(size);
   const popoverRef = useRef(null);
   const dropdownId = id || `dropdown-instance-${++dropdownCounter}`;
   const anchorName = `--${dropdownId}`;
@@ -41,9 +48,15 @@ export default function DropdownMenu({
     }
   };
 
-  const sizeClass = size === "lg" ? "dropdown-lg" : size === "xl" ? "dropdown-xl" : "";
-  const itemSizeClass = size === "lg" ? "btn-lg" : size === "xl" ? "btn-xl" : "";
-  const iconSizeClass = size === "lg" ? "icon-lg" : size === "xl" ? "icon-xl" : "";
+  const sizeClass = normalizedSize === "lg" ? "dropdown-lg" : normalizedSize === "xl" ? "dropdown-xl" : "";
+  const itemSizeClass = normalizedSize === "lg" ? "btn-lg" : normalizedSize === "xl" ? "btn-xl" : "";
+  const iconSizeClass = normalizedSize === "sm"
+    ? "icon-sm"
+    : normalizedSize === "lg"
+      ? "icon-lg"
+      : normalizedSize === "xl"
+        ? "icon-xl"
+        : "";
 
   return div({ class: "menu-wrapper" }, [
     button({

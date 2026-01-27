@@ -8,7 +8,7 @@ export default function TimePicker({
   id,
   placeholder,
   variant = "regular",
-  size = "regular",
+  size = "md",
   class: className = ""
 } = {}) {
   const popoverRef = useRef(null);
@@ -96,17 +96,26 @@ export default function TimePicker({
 
   const hasValue = isModified.map(m => !!m);
 
+  const normalizeSize = (value) => {
+    if (!value || value === "default" || value === "regular" || value === "md") return "md";
+    if (value === "sm") return "sm";
+    if (value === "lg" || value === "xl") return value;
+    return value;
+  };
+  const normalizedSize = normalizeSize(size);
   const variantClass = variant === "rounded" ? "rounded-full" : "";
-  const triggerSizeClass = size === "xl"
+  const triggerSizeClass = normalizedSize === "xl"
     ? "dropdown-xl"
-    : size === "lg"
+    : normalizedSize === "lg"
       ? "dropdown-lg"
       : "";
-  const iconSizeClass = size === "xl"
-    ? "icon-xl"
-    : size === "lg"
-      ? "icon-lg"
-      : "";
+  const iconSizeValue = normalizedSize === "sm"
+    ? "sm"
+    : normalizedSize === "lg"
+      ? "lg"
+      : normalizedSize === "xl"
+        ? "xl"
+        : undefined;
 
   return div({ class: `timepicker-wrapper ${className}`.trim() }, [
     button({
@@ -116,7 +125,7 @@ export default function TimePicker({
       click: openPopover
     }, [
       span({ class: hasValue.map(h => h ? "" : "text-tertiary") }, finalLabel),
-      Icon({ name: "clock", fill: "quaternary", size: iconSizeClass || undefined, class: "ml-auto" })
+      Icon({ name: "clock", fill: "quaternary", size: iconSizeValue, class: "ml-auto" })
     ]),
 
     div({

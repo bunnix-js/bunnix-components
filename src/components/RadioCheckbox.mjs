@@ -10,7 +10,14 @@ export default function RadioCheckbox({
   class: className = "",
   ...inputProps
 }) {
-  const sizeClass = size === "lg" ? "checkbox-lg" : size === "xl" ? "checkbox-xl" : "";
+  const normalizeSize = (value) => {
+    if (!value || value === "default" || value === "regular" || value === "md") return "md";
+    if (value === "sm") return "sm";
+    if (value === "lg" || value === "xl") return value;
+    return value;
+  };
+  const normalizedSize = normalizeSize(size);
+  const sizeClass = normalizedSize === "lg" ? "checkbox-lg" : normalizedSize === "xl" ? "checkbox-xl" : "";
   const nativeChange = onChange ?? inputProps.change;
   const checkHandler = onCheck ?? check;
 

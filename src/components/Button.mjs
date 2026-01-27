@@ -12,6 +12,13 @@ export default function Button({
   class: className = "",
   ...rest
 } = {}, children) {
+  const normalizeSize = (value) => {
+    if (!value || value === "default" || value === "regular" || value === "md") return "md";
+    if (value === "sm") return "sm";
+    if (value === "lg" || value === "xl") return value;
+    return value;
+  };
+
   const variantState = variant && typeof variant.map === "function" ? variant : null;
   const sizeState = size && typeof size.map === "function" ? size : null;
   const disabledState = disabled && typeof disabled.map === "function" ? disabled : null;
@@ -20,9 +27,12 @@ export default function Button({
   const handler = onClick ?? click;
 
   const buildClass = (variantValue, sizeValue, disabledValue) => {
+    const normalizedSize = normalizeSize(sizeValue);
     const baseClass = isHyperlink ? "" : "btn";
     const variantClass = (isHyperlink || variantValue === "regular") ? "" : `btn-${variantValue}`;
-    const sizeClass = (!isHyperlink && sizeValue && sizeValue !== "default") ? `btn-${sizeValue}` : "";
+    const sizeClass = (!isHyperlink && normalizedSize && normalizedSize !== "md" && (normalizedSize === "lg" || normalizedSize === "xl"))
+      ? `btn-${normalizedSize}`
+      : "";
     const disabledClass = disabledValue ? "btn-disabled" : "";
     return `${baseClass} ${variantClass} ${sizeClass} ${disabledClass} ${className}`.trim();
   };

@@ -11,11 +11,17 @@ const defaultToast = {
 
 export const toastState = useState(defaultToast);
 
-export const showToast = ({ message, duration = 3, anchor = "topRight", size = "regular", icon } = {}) => {
+export const showToast = ({ message, duration = 3, anchor = "topRight", size = "md", icon } = {}) => {
+  const normalizeSize = (value) => {
+    if (!value || value === "default" || value === "regular" || value === "md") return "md";
+    if (value === "sm") return "sm";
+    if (value === "lg" || value === "xl") return value;
+    return value;
+  };
   toastState.set({
     open: true,
     message: message ?? "",
-    size,
+    size: normalizeSize(size),
     duration,
     anchor,
     icon: icon ?? ""

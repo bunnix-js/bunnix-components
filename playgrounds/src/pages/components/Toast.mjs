@@ -12,11 +12,12 @@ const { div, p } = Bunnix;
 export default function ToastPage() {
   const headerOffset = "6rem";
   const sizes = [
-    { value: "regular", label: "Regular" },
+    { value: "sm", label: "Small" },
+    { value: "md", label: "Medium" },
     { value: "lg", label: "Large" },
     { value: "xl", label: "Extra Large" }
   ];
-  const sizeSelection = Bunnix.useState("regular");
+  const sizeSelection = Bunnix.useState("md");
 
   return Container({ type: "page", direction: "vertical" }, [
     PageHeader({

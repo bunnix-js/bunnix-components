@@ -3,6 +3,8 @@ import InputField from "./InputField.mjs";
 import Icon from "./Icon.mjs";
 
 const sizeClassMap = {
+  sm: "",
+  md: "",
   lg: "input-lg",
   xl: "input-xl"
 };
@@ -22,7 +24,14 @@ export default function SearchBox({
   select,
   ...rest
 } = {}) {
-  const sizeClass = sizeClassMap[size] || "";
+  const normalizeSize = (value) => {
+    if (!value || value === "default" || value === "regular" || value === "md") return "md";
+    if (value === "sm") return "sm";
+    if (value === "lg" || value === "xl") return value;
+    return value;
+  };
+  const normalizedSize = normalizeSize(size);
+  const sizeClass = sizeClassMap[normalizedSize] || "";
   const variantClass = variant === "rounded" ? "rounded-full" : "";
   const combinedClass = `${sizeClass} ${variantClass} ${className}`.trim();
 
@@ -113,8 +122,14 @@ export default function SearchBox({
     }
   };
 
-  const itemSizeClass = size === "lg" ? "btn-lg" : size === "xl" ? "btn-xl" : "";
-  const iconSizeClass = size === "lg" ? "icon-lg" : size === "xl" ? "icon-xl" : "";
+  const itemSizeClass = normalizedSize === "lg" ? "btn-lg" : normalizedSize === "xl" ? "btn-xl" : "";
+  const iconSizeValue = normalizedSize === "sm"
+    ? "sm"
+    : normalizedSize === "lg"
+      ? "lg"
+      : normalizedSize === "xl"
+        ? "xl"
+        : undefined;
   const hasResults = indexedData.map((list) => (list || []).length > 0);
 
   const handleKeyDown = (event) => {
@@ -178,7 +193,7 @@ export default function SearchBox({
             click: () => handleSelect(item)
           }, [
             item.icon
-              ? Icon({ name: item.icon, fill: "tertiary", size: iconSizeClass })
+              ? Icon({ name: item.icon, fill: "tertiary", size: iconSizeValue })
               : null,
             div({ class: "column-container gap-xs" }, [
               span({ class: "text-base" }, item.title ?? ""),

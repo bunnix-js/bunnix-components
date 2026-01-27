@@ -41,7 +41,7 @@ export default function DatePickerPage() {
       PageSection({ title: "Sizes", stickyOffset: headerOffset }, [
         p({ class: "pb-sm" }, "Size variants for the trigger control."),
         div({ class: "grid-flow gap-md items-center" }, [
-          DatePicker({ size: "regular" }),
+          DatePicker({ size: "md" }),
           DatePicker({ size: "lg" }),
           DatePicker({ size: "xl" })
         ])

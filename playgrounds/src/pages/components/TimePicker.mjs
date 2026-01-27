@@ -33,7 +33,7 @@ export default function TimePickerPage() {
       PageSection({ title: "Sizes", stickyOffset: headerOffset }, [
         p({ class: "pb-sm" }, "Size variants for the trigger control."),
         div({ class: "grid-flow gap-md items-center" }, [
-          TimePicker({ size: "regular" }),
+          TimePicker({ size: "md" }),
           TimePicker({ size: "lg" }),
           TimePicker({ size: "xl" })
         ])

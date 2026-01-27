@@ -9,7 +9,7 @@ export interface BaseProps {
 export interface ButtonProps extends BaseProps {
   type?: string;
   variant?: string;
-  size?: string;
+  size?: "sm" | "md" | "lg" | "xl" | string;
   href?: string;
   disabled?: boolean;
   onClick?: (event?: any) => void;
@@ -19,7 +19,7 @@ export interface ButtonProps extends BaseProps {
 export interface IconProps extends BaseProps {
   name?: string;
   fill?: string;
-  size?: string;
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | string;
 }
 
 export interface TextProps extends BaseProps {
@@ -67,6 +67,41 @@ export interface InputFieldProps extends BaseProps {
   keydown?: (event?: any) => void;
 }
 
+export interface ComboBoxOption {
+  value: string;
+  label?: string;
+}
+
+export interface ComboBoxProps extends BaseProps {
+  options?: Array<string | ComboBoxOption>;
+  selection?: any;
+  size?: "sm" | "md" | "lg" | "xl" | string;
+  onChange?: (event?: any) => void;
+  change?: (event?: any) => void;
+}
+
+export interface CheckboxProps extends BaseProps {
+  labelText?: string;
+  size?: "sm" | "md" | "lg" | "xl" | string;
+  onCheck?: (checked: boolean) => void;
+  check?: (checked: boolean) => void;
+  onChange?: (event?: any) => void;
+}
+
+export interface RadioCheckboxProps extends BaseProps {
+  labelText?: string;
+  size?: "sm" | "md" | "lg" | "xl" | string;
+  onCheck?: (checked: boolean) => void;
+  check?: (checked: boolean) => void;
+  onChange?: (event?: any) => void;
+}
+
+export interface ToggleSwitchProps extends BaseProps {
+  labelText?: string;
+  size?: "sm" | "md" | "lg" | "xl" | string;
+  onChange?: (event?: any) => void;
+}
+
 export interface SearchBoxItem {
   title?: string;
   snippet?: string;
@@ -80,7 +115,7 @@ export interface SearchBoxProps extends BaseProps {
   placeholder?: string;
   onInput?: (event?: any) => void;
   input?: (event?: any) => void;
-  size?: "lg" | "xl" | string;
+  size?: "sm" | "md" | "lg" | "xl" | string;
   variant?: "regular" | "rounded" | string;
   onSelect?: (item?: SearchBoxItem) => void;
   select?: (item?: SearchBoxItem) => void;
@@ -120,6 +155,49 @@ export interface NavigationBarProps extends BaseProps {
   searchProps?: Record<string, unknown>;
 }
 
+export interface DatePickerProps extends BaseProps {
+  id?: string;
+  placeholder?: string;
+  range?: boolean;
+  variant?: "regular" | "rounded" | string;
+  size?: "sm" | "md" | "lg" | "xl" | string;
+}
+
+export interface TimePickerProps extends BaseProps {
+  id?: string;
+  placeholder?: string;
+  variant?: "regular" | "rounded" | string;
+  size?: "sm" | "md" | "lg" | "xl" | string;
+}
+
+export interface DropdownMenuItem {
+  title?: string;
+  icon?: string;
+  destructive?: boolean;
+  isSeparator?: boolean;
+  selected?: boolean;
+  click?: () => void;
+  [key: string]: unknown;
+}
+
+export interface DropdownMenuProps extends BaseProps {
+  items?: DropdownMenuItem[];
+  id?: string;
+  align?: "left" | "right" | string;
+  placeholder?: string;
+  size?: "sm" | "md" | "lg" | "xl" | string;
+  onSelect?: (item?: DropdownMenuItem) => void;
+}
+
+export interface PopoverMenuProps extends BaseProps {
+  trigger?: BunnixChildren;
+  items?: DropdownMenuItem[];
+  id?: string;
+  align?: "left" | "right" | string;
+  size?: "sm" | "md" | "lg" | "xl" | string;
+  onSelect?: (item?: DropdownMenuItem) => void;
+}
+
 export interface DialogConfirmation {
   text?: string;
   action?: () => void;
@@ -139,7 +217,7 @@ export interface ToastOptions {
   message?: string;
   duration?: number;
   anchor?: "topRight" | "topLeft" | "bottomRight" | "bottomLeft" | string;
-  size?: "regular" | "lg" | "xl" | string;
+  size?: "sm" | "md" | "lg" | "xl" | string;
   icon?: string;
 }
 
@@ -148,12 +226,12 @@ export type Component<P = BaseProps> = (props?: P, children?: BunnixChildren) =>
 export const AccordionGroup: Component<BaseProps>;
 export const Badge: Component<BadgeProps>;
 export const Button: Component<ButtonProps>;
-export const Checkbox: Component<BaseProps>;
-export const ComboBox: Component<BaseProps>;
+export const Checkbox: Component<CheckboxProps>;
+export const ComboBox: Component<ComboBoxProps>;
 export const Container: Component<ContainerProps>;
-export const DatePicker: Component<BaseProps>;
+export const DatePicker: Component<DatePickerProps>;
 export const Dialog: Component<BaseProps>;
-export const DropdownMenu: Component<BaseProps>;
+export const DropdownMenu: Component<DropdownMenuProps>;
 export const Grid: Component<BaseProps>;
 export const HStack: Component<StackProps>;
 export const Icon: Component<IconProps>;
@@ -161,15 +239,15 @@ export const InputField: Component<InputFieldProps>;
 export const NavigationBar: Component<NavigationBarProps>;
 export const PageHeader: Component<BaseProps>;
 export const PageSection: Component<BaseProps>;
-export const PopoverMenu: Component<BaseProps>;
-export const RadioCheckbox: Component<BaseProps>;
+export const PopoverMenu: Component<PopoverMenuProps>;
+export const RadioCheckbox: Component<RadioCheckboxProps>;
 export const SearchBox: Component<SearchBoxProps>;
 export const Sidebar: Component<SidebarProps>;
 export const Table: Component<BaseProps>;
 export const Text: Component<TextProps>;
-export const TimePicker: Component<BaseProps>;
+export const TimePicker: Component<TimePickerProps>;
 export const ToastNotification: Component<BaseProps>;
-export const ToggleSwitch: Component<BaseProps>;
+export const ToggleSwitch: Component<ToggleSwitchProps>;
 export const VStack: Component<StackProps>;
 
 export const dialogState: any;

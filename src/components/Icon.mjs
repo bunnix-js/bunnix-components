@@ -16,7 +16,12 @@ export default function Icon({
   // fill mapping: "base" -> "icon-base", "white" -> "icon-white", etc.
   const fillClass = fill.startsWith("icon-") ? fill : `icon-${fill}`;
   
-  const sizeClass = size ? `icon-${size}` : "";
+  const normalizeSize = (value) => {
+    if (!value || value === "default" || value === "regular" || value === "md") return "";
+    if (typeof value === "string" && value.startsWith("icon-")) return value;
+    return `icon-${value}`;
+  };
+  const sizeClass = normalizeSize(size);
   
   const combinedClass = `icon ${iconName} ${fillClass} ${sizeClass} ${className}`.trim();
 
