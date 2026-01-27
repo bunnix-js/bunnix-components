@@ -16,3 +16,35 @@ Example:
   --base-radius: 12px;
 }
 ```
+
+## Common Tokens
+
+Colors:
+
+- `--color-primary`, `--color-primary-dimmed`
+- `--color-secondary`, `--color-tertiary`, `--color-quaternary`
+- `--color-destructive`, `--color-destructive-dimmed`
+- `--color-success`, `--color-info`
+- `--accent-color`, `--accent-color-dimmed`
+
+Surfaces:
+
+- `--background-color`
+- `--alternate-background-color`
+- `--highlight-background-color`
+- `--border-color`
+- `--shadow-base`
+
+Spacing & radius:
+
+- `--base-padding`
+- `--base-gap`
+- `--base-radius`
+- `--min-control-height`
+- `--min-control-radius`
+
+Typography:
+
+- `--font-family`
+- `--font-regular`, `--font-semibold`, `--font-bold`
+- `--font-size`, `--font-size-sm`, `--font-size-xs`

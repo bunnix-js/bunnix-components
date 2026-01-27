@@ -77,6 +77,21 @@ showToast({ message: "Saved successfully", icon: "success-circle" });
 
 SVG icons are shipped with the package and referenced by CSS variables. If your bundler rewrites asset URLs, make sure it processes CSS `url(...)` values from `@bunnix/components`.
 
+## Theming
+
+Override CSS variables after importing the stylesheet:
+
+```css
+:root {
+  --accent-color: #2563eb;
+  --background-color: #ffffff;
+  --border-color: #e5e7eb;
+  --base-padding: 0.75rem;
+  --base-gap: 0.6rem;
+  --font-family: "Inter", system-ui, sans-serif;
+}
+```
+
 ## CSS modifiers (utilities)
 
 You can compose your own UI using the same CSS utilities the components use:
