@@ -2,6 +2,13 @@
 
 Design system + UI components for Bunnix projects. This package ships ESM source with CSS + icon assets and is intended for modern, module-based builds (webpack/vite/rollup/etc).
 
+Disclaimer:
+- This project is currently in **alpha release candidate**. APIs and components may change until the first stable release.
+- Icon usage & attribution:
+  - COLLECTION: Framework7 Line Icons — LICENSE: MIT License — AUTHOR: framework7io
+  - COLLECTION: Iconcino Interface Icons — LICENSE: CC0 1.0 — AUTHOR: Gabriele Malaspina
+  - Sources (copy/paste): `https://framework7.io/icons/` and `https://iconcino.com/`
+
 ## Install
 
 ```bash

@@ -12,7 +12,6 @@ const { div, p } = Bunnix;
 export default function ToastPage() {
   const headerOffset = "6rem";
   const sizes = [
-    { value: "sm", label: "Small" },
     { value: "md", label: "Medium" },
     { value: "lg", label: "Large" },
     { value: "xl", label: "Extra Large" }

@@ -14,7 +14,7 @@ export const toastState = useState(defaultToast);
 export const showToast = ({ message, duration = 3, anchor = "topRight", size = "md", icon } = {}) => {
   const normalizeSize = (value) => {
     if (!value || value === "default" || value === "regular" || value === "md") return "md";
-    if (value === "sm") return "sm";
+    if (value === "sm") return "md";
     if (value === "lg" || value === "xl") return value;
     return value;
   };

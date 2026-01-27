@@ -1,0 +1,56 @@
+docs:
+  - title: Getting Started
+    items:
+      - title: Home
+        url: /bunnix-components/
+      - title: Install
+        url: /bunnix-components/getting-started
+      - title: Usage
+        url: /bunnix-components/usage
+      - title: CSS & Assets
+        url: /bunnix-components/css
+      - title: Icons
+        url: /bunnix-components/icons
+
+  - title: Components
+    items:
+      - title: Container
+        url: /bunnix-components/components/container
+      - title: Button
+        url: /bunnix-components/components/button
+      - title: Icon
+        url: /bunnix-components/components/icon
+      - title: Input Field
+        url: /bunnix-components/components/input-field
+      - title: Search Box
+        url: /bunnix-components/components/search-box
+      - title: Badge
+        url: /bunnix-components/components/badge
+      - title: Table
+        url: /bunnix-components/components/table
+      - title: Dialog
+        url: /bunnix-components/components/dialog
+      - title: Toast
+        url: /bunnix-components/components/toast
+      - title: Date Picker
+        url: /bunnix-components/components/date-picker
+      - title: Time Picker
+        url: /bunnix-components/components/time-picker
+
+  - title: Design System
+    items:
+      - title: Tokens
+        url: /bunnix-components/design-system/tokens
+      - title: Utilities
+        url: /bunnix-components/design-system/utilities
+      - title: Theming
+        url: /bunnix-components/design-system/theming
+
+  - title: Guides
+    items:
+      - title: Webpack
+        url: /bunnix-components/guides/webpack
+      - title: Custom Components
+        url: /bunnix-components/guides/custom-components
+      - title: Playground
+        url: /bunnix-components/playground

@@ -1,0 +1,13 @@
+title: Bunnix Components
+description: Design system + UI components for Bunnix
+theme: jekyll-theme-minimal
+url: https://bunnix-js.github.io/bunnix-components
+baseurl: /bunnix-components
+markdown: kramdown
+nav:
+  - title: Home
+    url: /
+  - title: Documentation
+    url: /bunnix-components/
+  - title: GitHub
+    url: https://github.com/bunnix-js/bunnix-components

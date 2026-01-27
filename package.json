@@ -42,7 +42,7 @@
     "@types"
   ],
   "scripts": {
-    "test": "npm test"
+    "test": "node --test"
   },
   "peerDependencies": {
     "@bunnix/core": "^0.9.4"

@@ -98,7 +98,7 @@ export default function TimePicker({
 
   const normalizeSize = (value) => {
     if (!value || value === "default" || value === "regular" || value === "md") return "md";
-    if (value === "sm") return "sm";
+    if (value === "sm") return "md";
     if (value === "lg" || value === "xl") return value;
     return value;
   };

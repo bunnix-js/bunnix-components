@@ -160,14 +160,14 @@ export interface DatePickerProps extends BaseProps {
   placeholder?: string;
   range?: boolean;
   variant?: "regular" | "rounded" | string;
-  size?: "sm" | "md" | "lg" | "xl" | string;
+  size?: "md" | "lg" | "xl" | string;
 }
 
 export interface TimePickerProps extends BaseProps {
   id?: string;
   placeholder?: string;
   variant?: "regular" | "rounded" | string;
-  size?: "sm" | "md" | "lg" | "xl" | string;
+  size?: "md" | "lg" | "xl" | string;
 }
 
 export interface DropdownMenuItem {
@@ -217,7 +217,7 @@ export interface ToastOptions {
   message?: string;
   duration?: number;
   anchor?: "topRight" | "topLeft" | "bottomRight" | "bottomLeft" | string;
-  size?: "sm" | "md" | "lg" | "xl" | string;
+  size?: "md" | "lg" | "xl" | string;
   icon?: string;
 }
 
