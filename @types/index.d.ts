@@ -67,6 +67,13 @@ export interface InputFieldProps extends BaseProps {
   keydown?: (event?: any) => void;
 }
 
+export interface CodeBlockProps extends BaseProps {
+  html?: string;
+  language?: string;
+  overflowX?: "auto" | "scroll" | "hidden" | string;
+  wrap?: boolean;
+}
+
 export interface ComboBoxOption {
   value: string;
   label?: string;
@@ -227,6 +234,7 @@ export const AccordionGroup: Component<BaseProps>;
 export const Badge: Component<BadgeProps>;
 export const Button: Component<ButtonProps>;
 export const Checkbox: Component<CheckboxProps>;
+export const CodeBlock: Component<CodeBlockProps>;
 export const ComboBox: Component<ComboBoxProps>;
 export const Container: Component<ContainerProps>;
 export const DatePicker: Component<DatePickerProps>;

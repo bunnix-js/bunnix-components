@@ -299,6 +299,31 @@ kbd {
   font-size: var(--font-size-xs) !important;
 }
 
+/* Code Block */
+.codeblock {
+  width: 100%;
+}
+
+.codeblock-pre {
+  margin: 0;
+  padding: var(--base-padding);
+  border-radius: var(--min-control-radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--alternate-background-color);
+}
+
+.codeblock-pre code {
+  display: block;
+  font-family: monospace;
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  white-space: pre;
+}
+
+.codeblock-pre.codeblock-wrap code {
+  white-space: pre-wrap;
+}
+
 /* Control Sizes */
 .input-lg {
   padding: calc(var(--base-padding) * 0.75) calc(var(--base-padding) * 1.25) !important;

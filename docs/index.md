@@ -49,6 +49,7 @@ Button({ variant: "regular" }, [
 
 ### Components
 
+- [Code Block](./components/code-block.md)
 - [Button](./components/button.md)
 - [Icon](./components/icon.md)
 - [Input Field](./components/input-field.md)

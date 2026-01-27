@@ -20,6 +20,7 @@
     "webpack-dev-server": "^5.2.3"
   },
   "dependencies": {
-    "@bunnix/core": "^0.9.4"
+    "@bunnix/core": "^0.9.4",
+    "prismjs": "^1.30.0"
   }
 }

@@ -16,6 +16,8 @@ docs:
     items:
       - title: Container
         url: /bunnix-components/components/container
+      - title: Code Block
+        url: /bunnix-components/components/code-block
       - title: Button
         url: /bunnix-components/components/button
       - title: Icon
