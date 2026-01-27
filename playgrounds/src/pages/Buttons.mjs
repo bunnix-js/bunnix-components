@@ -1,7 +1,7 @@
 import Bunnix from "@bunnix/core";
-import PageHeader from "../components/PageHeader.mjs";
-import PageSection from "../components/PageSection.mjs";
-import Container from "../components/Container.mjs";
+import { PageHeader } from "@bunnix/components";
+import { PageSection } from "@bunnix/components";
+import { Container } from "@bunnix/components";
 const { div, h5, p, span, hr, button } = Bunnix;
 
 export default function ButtonsPage() {

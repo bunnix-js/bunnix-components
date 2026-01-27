@@ -1,8 +1,8 @@
 import Bunnix, { useState } from "@bunnix/core";
-import PageHeader from "../../components/PageHeader.mjs";
-import PageSection from "../../components/PageSection.mjs";
-import ComboBox from "../../components/ComboBox.mjs";
-import Container from "../../components/Container.mjs";
+import { PageHeader } from "@bunnix/components";
+import { PageSection } from "@bunnix/components";
+import { ComboBox } from "@bunnix/components";
+import { Container } from "@bunnix/components";
 
 const { div, p } = Bunnix;
 

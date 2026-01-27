@@ -1,5 +1,5 @@
 import Bunnix, { useState, Show } from "@bunnix/core";
-import Sidebar from "./components/Sidebar.mjs";
+import { Sidebar } from "@bunnix/components";
 import TypographyPage from "./pages/Typography.mjs";
 import ColorsPage from "./pages/Colors.mjs";
 import LinksPage from "./pages/Links.mjs";
@@ -28,14 +28,14 @@ import TablesComponentPage from "./pages/components/Tables.mjs";
 import CheckboxPage from "./pages/components/Checkbox.mjs";
 import ComboBoxPage from "./pages/components/ComboBox.mjs";
 import ToastPage from "./pages/components/Toast.mjs";
-import ToastNotification from "./components/ToastNotification.mjs";
 import DialogPage from "./pages/components/Dialog.mjs";
-import Dialog, { showDialog } from "./components/Dialog.mjs";
-import HStack from "./components/HStack.mjs";
-import Button from "./components/Button.mjs";
-import Icon from "./components/Icon.mjs";
-import Container from "./components/Container.mjs";
-import NavigationBar from "./components/NavigationBar.mjs";
+import { ToastNotification } from "@bunnix/components";
+import { Dialog, showDialog } from "@bunnix/components";
+import { HStack } from "@bunnix/components";
+import { Button } from "@bunnix/components";
+import { Icon } from "@bunnix/components";
+import { Container } from "@bunnix/components";
+import { NavigationBar } from "@bunnix/components";
 
 import BunnixLogo from "./images/bunnix-transparent-regular.png";
 

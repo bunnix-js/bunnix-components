@@ -22,10 +22,32 @@
   "author": "@bunnix",
   "type": "module",
   "main": "src/index.mjs",
+  "style": "src/styles.css",
+  "types": "@types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./@types/index.d.ts",
+      "default": "./src/index.mjs"
+    },
+    "./styles": "./src/styles.css",
+    "./styles.css": "./src/styles.css",
+    "./icons/*": "./src/icons/*"
+  },
+  "sideEffects": [
+    "./src/styles.css",
+    "./src/styles/*.css"
+  ],
+  "files": [
+    "src",
+    "@types"
+  ],
   "scripts": {
     "test": "npm test"
   },
+  "peerDependencies": {
+    "@bunnix/core": "^0.9.4"
+  },
   "devDependencies": {
-    "@bunnix/core": "file:../bunnix"
+    "@bunnix/core": "^0.9.4"
   }
 }

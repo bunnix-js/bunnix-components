@@ -1,9 +1,9 @@
 import Bunnix from "@bunnix/core";
-import PageHeader from "../../components/PageHeader.mjs";
-import PageSection from "../../components/PageSection.mjs";
-import HStack from "../../components/HStack.mjs";
-import VStack from "../../components/VStack.mjs";
-import Container from "../../components/Container.mjs";
+import { PageHeader } from "@bunnix/components";
+import { PageSection } from "@bunnix/components";
+import { HStack } from "@bunnix/components";
+import { VStack } from "@bunnix/components";
+import { Container } from "@bunnix/components";
 
 const { div, span } = Bunnix;
 

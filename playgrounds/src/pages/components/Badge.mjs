@@ -1,10 +1,10 @@
 import Bunnix from "@bunnix/core";
-import PageHeader from "../../components/PageHeader.mjs";
-import PageSection from "../../components/PageSection.mjs";
-import Badge from "../../components/Badge.mjs";
-import Button from "../../components/Button.mjs";
-import Icon from "../../components/Icon.mjs";
-import Container from "../../components/Container.mjs";
+import { PageHeader } from "@bunnix/components";
+import { PageSection } from "@bunnix/components";
+import { Badge } from "@bunnix/components";
+import { Button } from "@bunnix/components";
+import { Icon } from "@bunnix/components";
+import { Container } from "@bunnix/components";
 
 const { div } = Bunnix;
 

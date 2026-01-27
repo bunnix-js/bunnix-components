@@ -1,10 +1,10 @@
 import Bunnix, { useState } from "@bunnix/core";
-import PageHeader from "../../components/PageHeader.mjs";
-import PageSection from "../../components/PageSection.mjs";
-import ToggleSwitch from "../../components/ToggleSwitch.mjs";
-import Button from "../../components/Button.mjs";
-import HStack from "../../components/HStack.mjs";
-import Container from "../../components/Container.mjs";
+import { PageHeader } from "@bunnix/components";
+import { PageSection } from "@bunnix/components";
+import { ToggleSwitch } from "@bunnix/components";
+import { Button } from "@bunnix/components";
+import { HStack } from "@bunnix/components";
+import { Container } from "@bunnix/components";
 
 const { div } = Bunnix;
 

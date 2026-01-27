@@ -1,8 +1,8 @@
 import Bunnix from "@bunnix/core";
-import PageHeader from "../../components/PageHeader.mjs";
-import PageSection from "../../components/PageSection.mjs";
-import Text from "../../components/Text.mjs";
-import Container from "../../components/Container.mjs";
+import { PageHeader } from "@bunnix/components";
+import { PageSection } from "@bunnix/components";
+import { Text } from "@bunnix/components";
+import { Container } from "@bunnix/components";
 
 const { div, p, span } = Bunnix;
 

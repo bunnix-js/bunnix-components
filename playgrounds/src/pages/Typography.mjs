@@ -1,7 +1,7 @@
 import Bunnix from "@bunnix/core";
-import PageHeader from "../components/PageHeader.mjs";
-import PageSection from "../components/PageSection.mjs";
-import Container from "../components/Container.mjs";
+import { PageHeader } from "@bunnix/components";
+import { PageSection } from "@bunnix/components";
+import { Container } from "@bunnix/components";
 const { div, h1, h2, h3, h4, h5, h6, p, span } = Bunnix;
 
 export default function TypographyPage() {

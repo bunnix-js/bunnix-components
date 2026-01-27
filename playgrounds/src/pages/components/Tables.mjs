@@ -1,12 +1,12 @@
 import Bunnix, { useState } from "@bunnix/core";
-import PageHeader from "../../components/PageHeader.mjs";
-import PageSection from "../../components/PageSection.mjs";
-import Table from "../../components/Table.mjs";
-import Text from "../../components/Text.mjs";
-import InputField from "../../components/InputField.mjs";
-import VStack from "../../components/VStack.mjs";
-import Badge from "../../components/Badge.mjs";
-import Container from "../../components/Container.mjs";
+import { PageHeader } from "@bunnix/components";
+import { PageSection } from "@bunnix/components";
+import { Table } from "@bunnix/components";
+import { Text } from "@bunnix/components";
+import { InputField } from "@bunnix/components";
+import { VStack } from "@bunnix/components";
+import { Badge } from "@bunnix/components";
+import { Container } from "@bunnix/components";
 
 const { div, h5, p, span } = Bunnix;
 

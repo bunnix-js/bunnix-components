@@ -1,13 +1,13 @@
 import Bunnix from "@bunnix/core";
-import PageHeader from "../../components/PageHeader.mjs";
-import PageSection from "../../components/PageSection.mjs";
-import Button from "../../components/Button.mjs";
-import Text from "../../components/Text.mjs";
-import HStack from "../../components/HStack.mjs";
-import VStack from "../../components/VStack.mjs";
-import InputField from "../../components/InputField.mjs";
-import { showDialog } from "../../components/Dialog.mjs";
-import Container from "../../components/Container.mjs";
+import { PageHeader } from "@bunnix/components";
+import { PageSection } from "@bunnix/components";
+import { Button } from "@bunnix/components";
+import { Text } from "@bunnix/components";
+import { HStack } from "@bunnix/components";
+import { VStack } from "@bunnix/components";
+import { InputField } from "@bunnix/components";
+import { showDialog } from "@bunnix/components";
+import { Container } from "@bunnix/components";
 
 const { div } = Bunnix;
 
