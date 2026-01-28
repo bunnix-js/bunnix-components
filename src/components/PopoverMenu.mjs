@@ -11,7 +11,7 @@ export default function PopoverMenu({
   size,
   onSelect,
   class: className = ""
-}) {
+} = {}, children) {
   const normalizeSize = (value) => {
     if (!value || value === "default" || value === "regular" || value === "md") return "md";
     if (value === "sm") return "sm";
@@ -53,13 +53,19 @@ export default function PopoverMenu({
         ? "icon-xl"
         : "";
 
+  const resolvedTrigger = (children === undefined || children === null) ? trigger : children;
+  const triggerProps = {
+    id: menuId,
+    style: `anchor-name: ${anchorName}`,
+    class: `btn btn-flat ${sizeClass} ${className}`.trim(),
+    click: handleToggle
+  };
+  const triggerContent = typeof resolvedTrigger === "function"
+    ? resolvedTrigger(triggerProps)
+    : resolvedTrigger;
+
   return div({ class: "menu-wrapper" }, [
-    button({
-      id: menuId,
-      style: `anchor-name: ${anchorName}`,
-      class: `btn btn-flat ${sizeClass} ${className}`.trim(),
-      click: handleToggle
-    }, trigger),
+    button(triggerProps, triggerContent),
 
     div({
       ref: popoverRef,

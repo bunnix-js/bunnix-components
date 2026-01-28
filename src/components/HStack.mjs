@@ -20,6 +20,7 @@ export default function HStack(props = {}, children) {
   };
 
   const gapMap = {
+    xsmall: "gap-xs",
     small: "gap-sm",
     regular: "gap-md",
     large: "gap-lg"

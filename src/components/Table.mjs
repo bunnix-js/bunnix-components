@@ -66,6 +66,7 @@ export default function Table({
   sort,
   variant = "regular",
   interactive = false,
+  hideHeaders = false,
   class: className = ""
 } = {}) {
   const renderer = renderCell || cell;
@@ -177,6 +178,46 @@ export default function Table({
     });
   };
 
+  const header = hideHeaders
+    ? null
+    : thead([
+        tr(
+          [
+            selectionEnabled ? th({ class: "table-checkbox-cell" }, [
+              Checkbox({
+                class: "table-checkbox",
+                checked: isAllSelected,
+                change: handleToggleAll
+              })
+            ]) : null,
+            ...columns.map((column) => {
+              const sortableEntry = sortableConfig.find((entry) => entry.field === column.field);
+              if (!sortableEntry) {
+                return th(column.label ?? column.field ?? "");
+              }
+              const iconClass = sortState.map((sortValue) => {
+                const isSorted = sortValue && sortValue.field === column.field;
+                const isAsc = isSorted && sortValue.direction === "asc";
+                return `icon icon-chevron-down table-sort-icon ${isSorted ? "icon-base" : "icon-quaternary"} ${isAsc ? "rotate-180" : ""}`.trim();
+              });
+
+              return th({
+                class: sortState.map((sortValue) => {
+                  const isSorted = sortValue && sortValue.field === column.field;
+                  return `table-sortable hoverable ${isSorted ? "is-sorted" : ""}`.trim();
+                }),
+                click: () => handleSort(column.field)
+              }, [
+                span({ class: "row-container items-center gap-xs w-full" }, [
+                  span(column.label ?? column.field ?? ""),
+                  span({ class: iconClass.map((cls) => `${cls} ml-auto`.trim()) })
+                ])
+              ]);
+            })
+          ].filter(Boolean)
+        )
+      ]);
+
   return table({ class: `table ${variantClass} ${interactiveClass} ${className}`.trim() }, [
     colgroup(
       [
@@ -184,43 +225,7 @@ export default function Table({
         ...columns.map((column) => col({ style: `width: ${resolveColumnWidth(column.size)};` }))
       ].filter(Boolean)
     ),
-    thead([
-      tr(
-        [
-          selectionEnabled ? th({ class: "table-checkbox-cell" }, [
-            Checkbox({
-              class: "table-checkbox",
-              checked: isAllSelected,
-              change: handleToggleAll
-            })
-          ]) : null,
-          ...columns.map((column) => {
-            const sortableEntry = sortableConfig.find((entry) => entry.field === column.field);
-            if (!sortableEntry) {
-              return th(column.label ?? column.field ?? "");
-            }
-            const iconClass = sortState.map((sortValue) => {
-              const isSorted = sortValue && sortValue.field === column.field;
-              const isAsc = isSorted && sortValue.direction === "asc";
-              return `icon icon-chevron-down table-sort-icon ${isSorted ? "icon-base" : "icon-quaternary"} ${isAsc ? "rotate-180" : ""}`.trim();
-            });
-
-            return th({
-              class: sortState.map((sortValue) => {
-                const isSorted = sortValue && sortValue.field === column.field;
-                return `table-sortable hoverable ${isSorted ? "is-sorted" : ""}`.trim();
-              }),
-              click: () => handleSort(column.field)
-            }, [
-              span({ class: "row-container items-center gap-xs w-full" }, [
-                span(column.label ?? column.field ?? ""),
-                span({ class: iconClass.map(cls => `${cls} ml-auto`.trim()) })
-              ])
-            ]);
-          })
-        ].filter(Boolean)
-      )
-    ]),
+    header,
     tbody([
       ForEach(normalizedRows, "__key", (item, rowIndex) => {
         const row = item.__row;

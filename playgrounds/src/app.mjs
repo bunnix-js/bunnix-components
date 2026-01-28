@@ -30,6 +30,7 @@ import ComboBoxPage from "./pages/components/ComboBox.mjs";
 import ToastPage from "./pages/components/Toast.mjs";
 import DialogPage from "./pages/components/Dialog.mjs";
 import CodeBlockPage from "./pages/components/CodeBlock.mjs";
+import CardPage from "./pages/components/Card.mjs";
 import { ToastNotification } from "@bunnix/components";
 import { Dialog, showDialog } from "@bunnix/components";
 import { HStack } from "@bunnix/components";
@@ -66,6 +67,7 @@ export default function App() {
         { id: "components-text", label: "Text", icon: "icon-text" },
         { id: "components-icon", label: "Icon", icon: "icon-star" },
         { id: "components-button", label: "Button", icon: "icon-button" },
+        { id: "components-card", label: "Card", icon: "icon-window" },
         { id: "components-badge", label: "Badge", icon: "icon-tag", badge: { value: "New", tone: "dimmed", variant: "solid" } },
         { id: "components-searchbox", label: "Search Box", icon: "icon-search" },
         { id: "components-checkbox", label: "Check Box", icon: "icon-check" },
@@ -224,6 +226,10 @@ export default function App() {
         Show(
           page.map((v) => v === "components-button"),
           () => ButtonPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-card"),
+          () => CardPage(),
         ),
         Show(
           page.map((v) => v === "components-icon"),

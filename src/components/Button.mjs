@@ -34,7 +34,7 @@ export default function Button({
       ? `btn-${normalizedSize}`
       : "";
     const disabledClass = disabledValue ? "btn-disabled" : "";
-    return `${baseClass} ${variantClass} ${sizeClass} ${disabledClass} ${className}`.trim();
+    return `row-container justify-start shrink-0 no-selectable ${baseClass} ${variantClass} ${sizeClass} ${disabledClass} ${className}`.trim();
   };
 
   const combinedClass = variantState

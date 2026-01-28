@@ -26,6 +26,7 @@ export interface TextProps extends BaseProps {
   type?: "text" | "paragraph" | "heading1" | "heading2" | "heading3" | "heading4" | string;
   color?: string;
   design?: "regular" | "mono" | string;
+  wrap?: "wrap" | "nowrap" | string;
 }
 
 export interface ContainerProps extends BaseProps {
@@ -33,9 +34,14 @@ export interface ContainerProps extends BaseProps {
   direction?: "horizontal" | "vertical" | string;
 }
 
+export interface CardProps extends BaseProps {
+  direction?: "horizontal" | "vertical" | string;
+  alignment?: "leading" | "middle" | "trailing" | string;
+}
+
 export interface StackProps extends BaseProps {
   alignment?: "leading" | "middle" | "trailing" | string;
-  gap?: "small" | "regular" | "large" | string;
+  gap?: "xs" | "small" | "regular" | "large" | string;
 }
 
 export interface BadgeProps extends BaseProps {
@@ -143,15 +149,17 @@ export interface SidebarItem {
 
 export interface SidebarProps extends BaseProps {
   items?: SidebarItem[];
-  selection?: string;
+  selection?: string | any;
   onSelect?: (id?: string) => void;
   onItemSelect?: (id?: string) => void;
   searchable?: boolean;
   searchProps?: Record<string, unknown>;
+  leading?: BunnixChildren | (() => BunnixChildren);
+  trailing?: BunnixChildren | (() => BunnixChildren);
 }
 
 export interface NavigationBarProps extends BaseProps {
-  title?: string | (() => BunnixChildren);
+  title?: string | any;
   leading?: BunnixChildren | (() => BunnixChildren);
   trailing?: BunnixChildren | (() => BunnixChildren);
   searchable?: boolean;
@@ -228,11 +236,40 @@ export interface ToastOptions {
   icon?: string;
 }
 
+export interface PageHeaderProps extends BaseProps {
+  title?: string;
+  description?: string;
+  trailing?: BunnixChildren | (() => BunnixChildren);
+}
+
+export interface PageSectionProps extends BaseProps {
+  title?: string;
+  stickyOffset?: string | number;
+  gap?: "small" | "regular" | "large" | string;
+  trailing?: BunnixChildren | (() => BunnixChildren);
+}
+
+export interface TableProps extends BaseProps {
+  columns?: Array<any>;
+  data?: Array<any> | any;
+  key?: string;
+  renderCell?: (columnIndex: number, field: string, row: any, column?: any) => any;
+  cell?: (columnIndex: number, field: string, row: any, column?: any) => any;
+  searchable?: { field?: string; searchText?: any };
+  sortable?: Array<any>;
+  selection?: (keys: Array<string>) => void;
+  sort?: (field?: string) => ((a: any, b: any) => number) | null;
+  variant?: "regular" | "background" | "bordered" | string;
+  interactive?: boolean;
+  hideHeaders?: boolean;
+}
+
 export type Component<P = BaseProps> = (props?: P, children?: BunnixChildren) => any;
 
 export const AccordionGroup: Component<BaseProps>;
 export const Badge: Component<BadgeProps>;
 export const Button: Component<ButtonProps>;
+export const Card: Component<CardProps>;
 export const Checkbox: Component<CheckboxProps>;
 export const CodeBlock: Component<CodeBlockProps>;
 export const ComboBox: Component<ComboBoxProps>;
@@ -245,13 +282,13 @@ export const HStack: Component<StackProps>;
 export const Icon: Component<IconProps>;
 export const InputField: Component<InputFieldProps>;
 export const NavigationBar: Component<NavigationBarProps>;
-export const PageHeader: Component<BaseProps>;
-export const PageSection: Component<BaseProps>;
+export const PageHeader: Component<PageHeaderProps>;
+export const PageSection: Component<PageSectionProps>;
 export const PopoverMenu: Component<PopoverMenuProps>;
 export const RadioCheckbox: Component<RadioCheckboxProps>;
 export const SearchBox: Component<SearchBoxProps>;
 export const Sidebar: Component<SidebarProps>;
-export const Table: Component<BaseProps>;
+export const Table: Component<TableProps>;
 export const Text: Component<TextProps>;
 export const TimePicker: Component<TimePickerProps>;
 export const ToastNotification: Component<BaseProps>;

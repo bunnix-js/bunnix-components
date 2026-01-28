@@ -1,13 +1,20 @@
 import Bunnix from "@bunnix/core";
 const { span, p, h1, h2, h3, h4 } = Bunnix;
 
-export default function Text({
-  type = "text",
-  color = "primary",
-  design = "regular",
-  class: className = "",
-  ...rest
-} = {}, children) {
+export default function Text(props = {}, children) {
+  if (props === null || props === undefined || Array.isArray(props) || typeof props !== "object") {
+    children = props;
+    props = {};
+  }
+
+  const {
+    type = "text",
+    color = "primary",
+    design = "regular",
+    wrap,
+    class: className = "",
+    ...rest
+  } = props;
   const tagMap = {
     text: span,
     paragraph: p,
@@ -27,9 +34,15 @@ export default function Text({
   
   const isState = className && typeof className.map === "function";
 
+  const wrapClass = wrap === "nowrap"
+    ? "whitespace-nowrap"
+    : wrap === "wrap"
+      ? ""
+      : "";
+
   const combinedClass = isState
-    ? className.map((value) => `${colorClass} ${designClass} ${value}`.trim())
-    : `${colorClass} ${designClass} ${className}`.trim();
+    ? className.map((value) => `${colorClass} ${designClass} ${wrapClass} ${value}`.trim())
+    : `${colorClass} ${designClass} ${wrapClass} ${className}`.trim();
 
   return tag({
     class: combinedClass,

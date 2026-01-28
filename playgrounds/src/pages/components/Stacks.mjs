@@ -39,7 +39,7 @@ export default function StacksPage() {
       PageSection({ title: "VStack (Vertical)", stickyOffset: headerOffset }, [
         div({ class: "grid-flow gap-lg" }, [
           div({ class: "column-container gap-sm" }, [
-            span({ class: "text-sm text-tertiary" }, "Leading (Top)"),
+            span({ class: "text-sm text-tertiary" }, "Leading (Left)"),
             VStack({ alignment: "leading", class: "h-200 border-dashed p-sm" }, [ Box("Item 1"), Box("Longer Item 2"), Box("Item 3") ])
           ]),
           div({ class: "column-container gap-sm" }, [
@@ -47,7 +47,7 @@ export default function StacksPage() {
             VStack({ alignment: "middle", class: "h-200 border-dashed p-sm" }, [ Box("Item 1"), Box("Longer Item 2"), Box("Item 3") ])
           ]),
           div({ class: "column-container gap-sm" }, [
-            span({ class: "text-sm text-tertiary" }, "Trailing (Bottom)"),
+            span({ class: "text-sm text-tertiary" }, "Trailing (Right)"),
             VStack({ alignment: "trailing", class: "h-200 border-dashed p-sm" }, [ Box("Item 1"), Box("Longer Item 2"), Box("Item 3") ])
           ]),
         ])

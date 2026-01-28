@@ -4,18 +4,32 @@ import Badge from "./Badge.mjs";
 const { div, a, span, h4, h6, hr } = Bunnix;
 
 export default function Sidebar({
-  items = [],
+  items,
   selection,
   onSelect,
   onItemSelect,
   searchable = false,
-  searchProps = {}
+  searchProps = {},
+  leading,
+  trailing,
+  class: className = ""
 } = {}) {
-  const selected = useState(selection ?? 'home');
+  const selectionState = selection
+    && typeof selection.map === "function"
+    && typeof selection.get === "function"
+    && typeof selection.set === "function"
+    ? selection
+    : null;
+  const selected = selectionState ?? useState(selection ?? "home");
   const searchValue = useState("");
 
+  const resolveItems = (value) => {
+    const resolved = value && typeof value.get === "function" ? value.get() : value;
+    return Array.isArray(resolved) ? resolved : [];
+  };
+
   // Initialize expanded state from items' isExpanded property
-  const initialExpanded = items.reduce((acc, item) => {
+  const initialExpanded = resolveItems(items).reduce((acc, item) => {
     if (item.children && item.isExpanded) {
       acc[item.id] = true;
     }
@@ -48,8 +62,8 @@ export default function Sidebar({
     }
 
     if (item.isHeader) {
-      return div({ class: "row-container px-base py-md select-none sticky-top" },
-        h6({ class: "no-margin text-tertiary font-bold" }, item.label)
+      return div({ class: "row-container px-base py-sm pt-md select-none sticky-top" },
+        span({ class: "no-margin text-tertiary text-sm bold text-uppercase no-selectable" }, item.label)
       );
     }
 
@@ -69,13 +83,13 @@ export default function Sidebar({
     };
 
     return div({ class: "column-container" }, [
-      div({ class: `box-sm ${isChild ? "pl-md" : ""}` },
+      div({ class: `box-sm no-selectable ${isChild ? "pl-md" : ""}` },
         div({
             class: isSelected.map(s => `box-control hoverable ${s ? 'selected' : ''}`),
             click: handleItemClick
           }, [
           div({ class: "row-container items-center gap-sm no-margin w-full" }, [
-            span({ class: isSelected.map(s => `icon ${item.icon} ${s ? 'bg-white' : 'icon-base'}`) }),
+            item.icon ? span({ class: isSelected.map(s => `icon ${item.icon} ${s ? 'bg-white' : 'icon-base'}`) }) : null,
             h4({ class: "no-margin text-base font-inherit" }, item.label),
             (item.badge || hasChildren) ? div({ class: "spacer-h" }) : null,
             (() => {
@@ -105,9 +119,10 @@ export default function Sidebar({
   };
 
   const filterSidebarItems = (rawItems, query) => {
-    if (!query) return rawItems;
+    const list = Array.isArray(rawItems) ? rawItems : [];
+    if (!query) return list;
     const normalized = query.trim().toLowerCase();
-    if (!normalized) return rawItems;
+    if (!normalized) return list;
 
     const filterItem = (item) => {
       if (item.isHeader || item.isSeparator) return item;
@@ -137,7 +152,7 @@ export default function Sidebar({
       currentGroup = [];
     };
 
-    for (const item of rawItems) {
+    for (const item of list) {
       if (item.isHeader) {
         flush();
         currentHeader = item;
@@ -160,8 +175,13 @@ export default function Sidebar({
 
   const filteredItems = useMemo(
     [items, searchValue],
-    (list, query) => filterSidebarItems(list, (query ?? "").trim())
+    (list, query) => {
+      return filterSidebarItems(resolveItems(list), (query ?? "").trim());
+    }
   );
+
+  const leadingContent = typeof leading === "function" ? leading() : leading;
+  const trailingContent = typeof trailing === "function" ? trailing() : trailing;
 
   const content = [];
   if (searchable) {
@@ -179,9 +199,15 @@ export default function Sidebar({
       })
     ));
   }
+  if (leadingContent) {
+    content.push(div({ class: "px-base py-xs" }, leadingContent));
+  }
   content.push(ForEach(filteredItems, "id", (item) => renderItem(item)));
+  if (trailingContent) {
+    content.push(div({ class: "px-base py-xs" }, trailingContent));
+  }
 
-  return div({ class: "sidebar" }, [
+  return div({ class: `sidebar ${className}` }, [
     div({ class: "column-container py-xs" }, content),
   ]);
 }

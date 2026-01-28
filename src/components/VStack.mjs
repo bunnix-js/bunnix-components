@@ -13,14 +13,15 @@ export default function VStack(props = {}, children) {
     class: className = "",
     ...rest
   } = props;
-  // For VStack, alignment controls the vertical distribution (main axis)
+  // For VStack, alignment controls horizontal alignment (cross axis)
   const alignmentMap = {
-    leading: "justify-start",
-    middle: "justify-center",
-    trailing: "justify-end"
+    leading: "items-start",
+    middle: "items-center",
+    trailing: "items-end"
   };
 
   const gapMap = {
+    xsmall: "gap-xs",
     small: "gap-sm",
     regular: "gap-md",
     large: "gap-lg"

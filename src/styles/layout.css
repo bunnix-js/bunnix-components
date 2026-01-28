@@ -116,7 +116,7 @@ nav,
   align-items: center;
   border: 1px solid var(--border-color);
   border-radius: var(--min-control-radius);
-  padding: calc(var(--base-padding) * 0.5);
+  padding: var(--base-padding);
 }
 
 .gap-xs {
@@ -239,6 +239,14 @@ nav,
   height: 40px;
 }
 
+.w-24 {
+  width: 24px;
+}
+
+.h-24 {
+  height: 24px;
+}
+
 .h-200 {
   height: 200px;
 }
@@ -283,6 +291,11 @@ nav,
 .py-xs {
   padding-top: calc(var(--base-gap) * 0.5);
   padding-bottom: calc(var(--base-gap) * 0.5);
+}
+
+.py-sm {
+  padding-top: calc(var(--base-gap) * 0.8);
+  padding-bottom: calc(var(--base-gap) * 0.8);
 }
 
 .py-md {
@@ -337,6 +350,10 @@ nav,
 
 .rounded-full {
   border-radius: 1rem !important;
+}
+
+.rounded-circle {
+  border-radius: 9999px;
 }
 
 .border-dashed {

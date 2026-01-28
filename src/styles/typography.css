@@ -71,6 +71,26 @@ h6 {
   font-size: 1.25rem;
 }
 
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.bold {
+  font-weight: var(--font-bold);
+}
+
+.semibold {
+  font-weight: var(--font-semibold);
+}
+
 .font-inherit {
   font-weight: inherit;
   font-size: inherit;
@@ -83,6 +103,11 @@ h6 {
 
 .whitespace-pre-line {
   white-space: pre-line;
+}
+
+.no-selectable {
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .label {
