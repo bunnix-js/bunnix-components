@@ -18,7 +18,7 @@ export default function ToastPage() {
   ];
   const sizeSelection = Bunnix.useState("md");
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({
       title: "Toast Notification",
       description: "Transient feedback messages that appear in a corner and auto-dismiss."

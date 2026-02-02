@@ -153,17 +153,14 @@ nav,
 
 .justify-start {
   justify-content: flex-start !important;
-  text-align: left;
 }
 
 .justify-center {
   justify-content: center !important;
-  text-align: center;
 }
 
 .justify-end {
   justify-content: flex-end !important;
-  text-align: right;
 }
 
 .shrink-0 {
@@ -191,6 +188,10 @@ nav,
 }
 
 /* New Utilities for Layout Page */
+.flex-1 {
+  flex: 1;
+}
+
 .w-full {
   width: 100%;
 }
@@ -205,6 +206,10 @@ nav,
 
 .w-200 {
   min-width: 200px;
+}
+
+.w-400 {
+  min-width: 400px;
 }
 
 .max-w-100 {
@@ -257,6 +262,10 @@ nav,
 
 .p-sm {
   padding: calc(var(--base-padding) * 0.5);
+}
+
+.p-md {
+  padding: var(--base-padding);
 }
 
 .pt-sm {
@@ -372,6 +381,22 @@ nav,
   overflow: auto;
 }
 
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.overflow-y-hidden {
+  overflow-y: hidden;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
 .select-none {
   user-select: none;
 }
@@ -379,6 +404,12 @@ nav,
 .sticky-top {
   position: sticky;
   top: var(--sticky-offset, 0);
+  z-index: 10;
+}
+
+.sticky-bottom {
+  position: sticky;
+  bottom: var(--sticky-offset, 0);
   z-index: 10;
 }
 
@@ -440,7 +471,7 @@ nav,
 }
 
 .dialog-base {
-  margin: 0;
+  margin: auto;
   padding: 0;
   border: none;
   outline: none;

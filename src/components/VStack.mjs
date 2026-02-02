@@ -1,7 +1,7 @@
 import Bunnix from "@bunnix/core";
 const { div } = Bunnix;
 
-export default function VStack(props = {}, children) {
+export default function VStack(props = {}, ...children) {
   if (props === null || props === undefined || Array.isArray(props) || typeof props !== "object") {
     children = props;
     props = {};
@@ -32,5 +32,5 @@ export default function VStack(props = {}, children) {
   return div({
     class: combinedClass,
     ...rest
-  }, children);
+  }, ...children);
 }

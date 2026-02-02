@@ -36,7 +36,7 @@ export default function AccordionPage() {
     }
   ];
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Accordion Group", 
       description: "Collapsible sections built with design system spacing, colors, and icons." 

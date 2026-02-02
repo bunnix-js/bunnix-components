@@ -9,7 +9,7 @@ const { div, p, span } = Bunnix;
 export default function ButtonPage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Button", 
       description: "Standard action elements with multiple variants and support for link types." 

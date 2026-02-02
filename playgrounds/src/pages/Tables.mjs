@@ -43,7 +43,7 @@ const SampleTable = (className = "") => {
 export default function TablesPage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Tables", 
       description: "Data display components for structured information." 

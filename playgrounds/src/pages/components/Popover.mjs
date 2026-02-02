@@ -23,10 +23,10 @@ export default function PopoverPage() {
     { title: "Delete", icon: "icon-trash", destructive: true, click: () => console.log("Delete clicked") },
   ];
 
-  return Container({ type: "page", direction: "vertical" }, [
-    PageHeader({ 
-      title: "Popover Menu", 
-      description: "A versatile floating menu component using the modern Popover API and CSS Anchor Positioning." 
+  return Container({ type: "page", direction: "column" }, [
+    PageHeader({
+      title: "Popover Menu",
+      description: "A versatile floating menu component using the modern Popover API and CSS Anchor Positioning."
     }),
 
     div({ class: "column-container gap-md" }, [
@@ -38,15 +38,15 @@ export default function PopoverPage() {
                   span({ class: "icon icon-more-horizontal icon-base" }),
                   "Left Aligned"
               ],
-              items: primaryMenuItems,
+              menuItems: primaryMenuItems,
               align: "left"
             })
           ]),
 
           div({ class: "box w-fit p-0" }, [
             PopoverMenu({
-              trigger: span({ class: "icon icon-more-vertical icon-lg fg-primary" }),
-              items: secondaryMenuItems,
+              trigger: () => span({ class: "icon icon-more-vertical icon-lg fg-primary" }),
+              menuItems: secondaryMenuItems,
               align: "right",
               size: "lg"
             })

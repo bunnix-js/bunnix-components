@@ -1,15 +1,16 @@
-import Bunnix from "@bunnix/core";
+import Bunnix, { useState } from "@bunnix/core";
 import { PageHeader } from "@bunnix/components";
 import { PageSection } from "@bunnix/components";
 import { Text } from "@bunnix/components";
 import { Container } from "@bunnix/components";
+import { Button } from "@bunnix/components";
 
 const { div, p, span } = Bunnix;
 
 export default function TextPage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Text", 
       description: "A polymorphic typography component for semantic text rendering." 
@@ -49,6 +50,46 @@ export default function TextPage() {
         p({ class: "pb-sm" }, "When props are omitted, it defaults to a primary-colored span."),
         div({ class: "card box bg-dimmed" }, [
           Text({}, "I am a default Text component.")
+        ])
+      ]),
+
+      PageSection({ title: "State Binding", stickyOffset: headerOffset }, [
+        p({ class: "pb-sm" }, "Text component supports automatic state binding. Pass a Bunnix.State directly and it will reactively update."),
+        div({ class: "column-container gap-md" }, [
+          div({ class: "card box bg-dimmed column-container gap-sm" }, [
+            p({ class: "text-sm text-secondary no-margin" }, "Case 1: Direct state - Text(state)"),
+            (() => {
+              const counter = useState(0);
+              return div({ class: "row-container gap-sm align-center" }, [
+                Text(counter),
+                Button({ 
+                  variant: "primary", 
+                  size: "sm",
+                  onclick: () => counter.set(counter.get() + 1)
+                }, "Increment")
+              ]);
+            })()
+          ]),
+          
+          div({ class: "card box bg-dimmed column-container gap-sm" }, [
+            p({ class: "text-sm text-secondary no-margin" }, "Case 2: Direct string - Text('Value')"),
+            Text("Static text value")
+          ]),
+          
+          div({ class: "card box bg-dimmed column-container gap-sm" }, [
+            p({ class: "text-sm text-secondary no-margin" }, "Case 3: With props - Text({ color: 'accent' }, state)"),
+            (() => {
+              const message = useState("Dynamic message");
+              return div({ class: "column-container gap-sm" }, [
+                Text({ color: "accent", weight: "bold" }, message),
+                Button({ 
+                  variant: "secondary", 
+                  size: "sm",
+                  onclick: () => message.set(`Updated at ${new Date().toLocaleTimeString()}`)
+                }, "Update Message")
+              ]);
+            })()
+          ])
         ])
       ])
     ])

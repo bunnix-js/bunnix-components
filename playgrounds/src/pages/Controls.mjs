@@ -21,7 +21,7 @@ const SelectionControl = (labelText, inputElement) => {
 export default function ControlsPage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Controls", 
       description: "Form inputs and interactive control elements." 

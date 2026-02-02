@@ -22,7 +22,7 @@ export default function DropdownPage() {
     { title: "Delete", icon: "icon-trash", destructive: true },
   ];
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Dropdown Menu", 
       description: "A selection control that combines 'select' appearance with the power of the Popover API." 

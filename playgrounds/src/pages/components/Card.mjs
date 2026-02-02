@@ -15,7 +15,7 @@ const SampleCard = ({ title, body, className = "", direction, alignment } = {}) 
 export default function CardPage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({
       title: "Card",
       description: "A simple layout wrapper that maps to the design system card surface."
@@ -45,7 +45,7 @@ export default function CardPage() {
               span("Row layout using the card surface.")
             ])
           ]),
-          Card({ direction: "vertical", class: "box" }, [
+          Card({ direction: "column", class: "box" }, [
             span({ class: "text-sm text-tertiary" }, "Vertical"),
             span("Column layout using the card surface.")
           ])
@@ -78,21 +78,21 @@ export default function CardPage() {
           SampleCard({
             title: "Leading (Column)",
             body: "items-start when direction is vertical.",
-            direction: "vertical",
+            direction: "column",
             alignment: "leading",
             className: "box"
           }),
           SampleCard({
             title: "Middle (Column)",
             body: "items-center when direction is vertical.",
-            direction: "vertical",
+            direction: "column",
             alignment: "middle",
             className: "box"
           }),
           SampleCard({
             title: "Trailing (Column)",
             body: "items-end when direction is vertical.",
-            direction: "vertical",
+            direction: "column",
             alignment: "trailing",
             className: "box"
           })

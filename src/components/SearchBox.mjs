@@ -1,13 +1,7 @@
 import Bunnix, { ForEach, useEffect, useMemo, useRef, useState } from "@bunnix/core";
+import { clampSize } from "../utils/sizeUtils.mjs";
 import InputField from "./InputField.mjs";
 import Icon from "./Icon.mjs";
-
-const sizeClassMap = {
-  sm: "",
-  md: "",
-  lg: "input-lg",
-  xl: "input-xl"
-};
 
 const { div, button, span } = Bunnix;
 
@@ -24,14 +18,10 @@ export default function SearchBox({
   select,
   ...rest
 } = {}) {
-  const normalizeSize = (value) => {
-    if (!value || value === "default" || value === "regular" || value === "md") return "md";
-    if (value === "sm") return "sm";
-    if (value === "lg" || value === "xl") return value;
-    return value;
-  };
+  // SearchBox supports all sizes
+  const normalizeSize = (value) => clampSize(value, ["xs", "sm", "md", "lg", "xl"], "md");
   const normalizedSize = normalizeSize(size);
-  const sizeClass = sizeClassMap[normalizedSize] || "";
+  const sizeClass = normalizedSize === "xl" ? "input-xl" : normalizedSize === "lg" ? "input-lg" : "";
   const variantClass = variant === "rounded" ? "rounded-full" : "";
   const combinedClass = `${sizeClass} ${variantClass} ${className}`.trim();
 

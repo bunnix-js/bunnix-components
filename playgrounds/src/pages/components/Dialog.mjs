@@ -16,7 +16,7 @@ export default function DialogPage() {
   const status = Bunnix.useState("No action yet.");
   const email = Bunnix.useState("");
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({
       title: "Dialog",
       description: "Modal confirmations using the Dialog API and design system components."

@@ -13,7 +13,7 @@ export default function CheckboxPage() {
   const headerOffset = "6rem";
   const agreed = useState(false);
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({
       title: "Checkbox",
       description: "Selection controls built with the Checkbox component."

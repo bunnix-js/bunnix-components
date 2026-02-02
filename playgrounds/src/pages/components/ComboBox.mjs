@@ -16,7 +16,7 @@ export default function ComboBoxPage() {
     { value: "Orange", label: "Orange" }
   ];
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({
       title: "ComboBox",
       description: "Native select input wrapped with design system sizing and state binding."

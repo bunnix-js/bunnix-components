@@ -51,7 +51,9 @@ const compareValues = (aValue, bValue, sortType) => {
     return aDate - bDate;
   }
 
-  return String(aValue).localeCompare(String(bValue), undefined, { sensitivity: "base" });
+  return String(aValue).localeCompare(String(bValue), undefined, {
+    sensitivity: "base",
+  });
 };
 
 export default function Table({
@@ -67,47 +69,58 @@ export default function Table({
   variant = "regular",
   interactive = false,
   hideHeaders = false,
-  class: className = ""
+  class: className = "",
 } = {}) {
   const renderer = renderCell || cell;
   const searchField = searchable?.field;
   const searchText = searchable?.searchText;
-  const searchTextState = searchText && typeof searchText.map === "function" ? searchText : null;
+  const searchTextState =
+    searchText && typeof searchText.map === "function" ? searchText : null;
   const sortableConfig = Array.isArray(sortable) ? sortable : [];
   const initialSort = sortableConfig.find((entry) => entry.sorted);
   const sortState = useState(
     initialSort
       ? {
           field: initialSort.field,
-          direction: initialSort.direction === "desc" ? "desc" : "asc"
+          direction: initialSort.direction === "desc" ? "desc" : "asc",
         }
-      : null
+      : null,
   );
   const selectionEnabled = typeof selection === "function";
   const selectedKeys = useState([]);
 
-  const variantClass = variant === "background"
-    ? "table-bg"
-    : variant === "bordered"
-      ? "table-bordered"
-      : "";
-  const interactiveClass = interactive ? "table-hover-rows table-interactive" : "";
+  const variantClass =
+    variant === "background"
+      ? "table-bg"
+      : variant === "bordered"
+        ? "table-bordered"
+        : "";
+  const interactiveClass = interactive
+    ? "table-hover-rows table-interactive"
+    : "";
 
   const filterRows = (rows, textValue) => {
     if (!searchField || textValue == null || textValue === "") return rows;
     const needle = String(textValue).toLowerCase();
     return (rows || []).filter((row) => {
       const value = row && typeof row === "object" ? row[searchField] : "";
-      return String(value ?? "").toLowerCase().includes(needle);
+      return String(value ?? "")
+        .toLowerCase()
+        .includes(needle);
     });
   };
 
-  const resolvedSearchText = searchTextState ? searchTextState.get() : searchText;
-  const isDataState = data && typeof data.get === "function" && typeof data.map === "function";
+  const resolvedSearchText = searchTextState
+    ? searchTextState.get()
+    : searchText;
+  const isDataState =
+    data && typeof data.get === "function" && typeof data.map === "function";
 
   const applySort = (rows, sortValue) => {
     if (!sortValue || !sortValue.field) return rows;
-    const sortableEntry = sortableConfig.find((entry) => entry.field === sortValue.field);
+    const sortableEntry = sortableConfig.find(
+      (entry) => entry.field === sortValue.field,
+    );
     if (!sortableEntry) return rows;
 
     const direction = sortValue.direction === "desc" ? -1 : 1;
@@ -128,22 +141,28 @@ export default function Table({
 
   const buildRows = (rows, textValue, sortValue) =>
     applySort(filterRows(rows, textValue), sortValue).map((row, index) => ({
-      __key: (keyField && row && row[keyField] != null) ? row[keyField] : fallbackKey(row, index),
-      __row: row
+      __key:
+        keyField && row && row[keyField] != null
+          ? row[keyField]
+          : fallbackKey(row, index),
+      __row: row,
     }));
 
   const normalizedRows = useMemo(
     [data, searchTextState ?? searchText, sortState],
-    (rows, textValue, sortValue) => buildRows(rows, textValue, sortValue)
+    (rows, textValue, sortValue) => buildRows(rows, textValue, sortValue),
   );
 
-  const visibleKeysState = normalizedRows && typeof normalizedRows.map === "function"
-    ? normalizedRows.map((rows) => (rows || []).map((row) => row.__key))
-    : null;
+  const visibleKeysState =
+    normalizedRows && typeof normalizedRows.map === "function"
+      ? normalizedRows.map((rows) => (rows || []).map((row) => row.__key))
+      : null;
 
   const isAllSelected = visibleKeysState
-    ? useMemo([selectedKeys, visibleKeysState], (keys, visible) =>
-        visible.length > 0 && visible.every((key) => keys.includes(key))
+    ? useMemo(
+        [selectedKeys, visibleKeysState],
+        (keys, visible) =>
+          visible.length > 0 && visible.every((key) => keys.includes(key)),
       )
     : selectedKeys.map((keys) => keys.length > 0);
 
@@ -174,7 +193,7 @@ export default function Table({
     }
     sortState.set({
       field,
-      direction: current.direction === "asc" ? "desc" : "asc"
+      direction: current.direction === "asc" ? "desc" : "asc",
     });
   };
 
@@ -183,15 +202,19 @@ export default function Table({
     : thead([
         tr(
           [
-            selectionEnabled ? th({ class: "table-checkbox-cell" }, [
-              Checkbox({
-                class: "table-checkbox",
-                checked: isAllSelected,
-                change: handleToggleAll
-              })
-            ]) : null,
+            selectionEnabled
+              ? th({ class: "table-checkbox-cell" }, [
+                  Checkbox({
+                    class: "table-checkbox",
+                    checked: isAllSelected,
+                    change: handleToggleAll,
+                  }),
+                ])
+              : null,
             ...columns.map((column) => {
-              const sortableEntry = sortableConfig.find((entry) => entry.field === column.field);
+              const sortableEntry = sortableConfig.find(
+                (entry) => entry.field === column.field,
+              );
               if (!sortableEntry) {
                 return th(column.label ?? column.field ?? "");
               }
@@ -201,59 +224,80 @@ export default function Table({
                 return `icon icon-chevron-down table-sort-icon ${isSorted ? "icon-base" : "icon-quaternary"} ${isAsc ? "rotate-180" : ""}`.trim();
               });
 
-              return th({
-                class: sortState.map((sortValue) => {
-                  const isSorted = sortValue && sortValue.field === column.field;
-                  return `table-sortable hoverable ${isSorted ? "is-sorted" : ""}`.trim();
-                }),
-                click: () => handleSort(column.field)
-              }, [
-                span({ class: "row-container items-center gap-xs w-full" }, [
-                  span(column.label ?? column.field ?? ""),
-                  span({ class: iconClass.map((cls) => `${cls} ml-auto`.trim()) })
-                ])
-              ]);
-            })
-          ].filter(Boolean)
-        )
+              return th(
+                {
+                  class: sortState.map((sortValue) => {
+                    const isSorted =
+                      sortValue && sortValue.field === column.field;
+                    return `table-sortable hoverable ${isSorted ? "is-sorted" : ""}`.trim();
+                  }),
+                  click: () => handleSort(column.field),
+                },
+                [
+                  span({ class: "row-container items-center gap-xs w-full" }, [
+                    span(column.label ?? column.field ?? ""),
+                    span({
+                      class: iconClass.map((cls) => `${cls} ml-auto`.trim()),
+                    }),
+                  ]),
+                ],
+              );
+            }),
+          ].filter(Boolean),
+        ),
       ]);
 
-  return table({ class: `table ${variantClass} ${interactiveClass} ${className}`.trim() }, [
-    colgroup(
-      [
-        selectionEnabled ? col({ style: "width: 40px;" }) : null,
-        ...columns.map((column) => col({ style: `width: ${resolveColumnWidth(column.size)};` }))
-      ].filter(Boolean)
-    ),
-    header,
-    tbody([
-      ForEach(normalizedRows, "__key", (item, rowIndex) => {
-        const row = item.__row;
-        return tr(
-          [
-            selectionEnabled ? td({ class: "table-checkbox-cell" }, [
-              Checkbox({
-                class: "table-checkbox",
-                checked: selectedKeys.map((keys) => keys.includes(item.__key)),
-                change: () => handleToggleRow(item.__key)
-              })
-            ]) : null,
-            ...columns.map((column, columnIndex) => {
-              if (renderer) {
-                const rendered = renderer(columnIndex, column.field, row, column);
-                if (rendered !== undefined && rendered !== null) {
-                  return td(rendered);
+  return table(
+    { class: `table ${variantClass} ${interactiveClass} ${className}`.trim() },
+    [
+      colgroup(
+        [
+          selectionEnabled ? col({ style: "width: 40px;" }) : null,
+          ...columns.map((column) =>
+            col({ style: `width: ${resolveColumnWidth(column.size)};` }),
+          ),
+        ].filter(Boolean),
+      ),
+      header,
+      tbody([
+        ForEach(normalizedRows, "__key", (item, rowIndex) => {
+          const row = item.__row;
+          return tr(
+            [
+              selectionEnabled
+                ? td({ class: "table-checkbox-cell" }, [
+                    Checkbox({
+                      class: "table-checkbox",
+                      checked: selectedKeys.map((keys) =>
+                        keys.includes(item.__key),
+                      ),
+                      change: () => handleToggleRow(item.__key),
+                    }),
+                  ])
+                : null,
+              ...columns.map((column, columnIndex) => {
+                if (renderer) {
+                  const rendered = renderer(
+                    columnIndex,
+                    column.field,
+                    row,
+                    column,
+                  );
+                  if (rendered !== undefined && rendered !== null) {
+                    return td(rendered);
+                  }
                 }
-              }
-              const value = row && typeof row === "object" ? row[column.field] : "";
-              if (value && typeof value.map === "function") {
-                return td(value.map((val) => span(val)));
-              }
-              return td(String(value ?? ""));
-            })
-          ].filter(Boolean)
-        );
-      })
-    ])
-  ]);
+                const value =
+                  row && typeof row === "object" ? row[column.field] : "";
+                if (value && typeof value.map === "function") {
+                  return td(value.map((val) => span(val)));
+                }
+                return td(String(value ?? ""));
+              }),
+            ].filter(Boolean),
+          );
+        }),
+      ]),
+    ],
+  );
 }

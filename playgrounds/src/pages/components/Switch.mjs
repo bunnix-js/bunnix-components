@@ -12,7 +12,7 @@ export default function SwitchPage() {
   const headerOffset = "6rem";
   const enabled = useState(false);
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Switch", 
       description: "A highly customizable toggle control built with semantic design system utilities." 

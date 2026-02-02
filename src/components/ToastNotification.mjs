@@ -1,4 +1,5 @@
 import Bunnix, { useEffect, useRef, useState } from "@bunnix/core";
+import { clampSize } from "../utils/sizeUtils.mjs";
 import Icon from "./Icon.mjs";
 const { div, h4 } = Bunnix;
 
@@ -12,12 +13,8 @@ const defaultToast = {
 export const toastState = useState(defaultToast);
 
 export const showToast = ({ message, duration = 3, anchor = "topRight", size = "md", icon } = {}) => {
-  const normalizeSize = (value) => {
-    if (!value || value === "default" || value === "regular" || value === "md") return "md";
-    if (value === "sm") return "md";
-    if (value === "lg" || value === "xl") return value;
-    return value;
-  };
+  // ToastNotification does not support sm size (clamps to md)
+  const normalizeSize = (value) => clampSize(value, ["xs", "md", "lg", "xl"], "md");
   toastState.set({
     open: true,
     message: message ?? "",
@@ -77,13 +74,14 @@ export default function ToastNotification() {
     const motionClass = value.anchor === "topLeft" || value.anchor === "bottomLeft"
       ? "slide-in-left"
       : "slide-in-right";
-    const sizeClass = value.size === "lg" ? "p-lg" : value.size === "xl" ? "p-xl" : "p-base";
+    const sizeClass = value.size === "xl" ? "p-xl" : value.size === "lg" ? "p-lg" : value.size === "md" ? "p-base" : "p-sm";
     return `box-control card shadow bg-base ${sizeClass} w-300 overflow-visible ${motionClass}`.trim();
   });
   const textSizeClass = toastState.map((value) => {
-    if (value.size === "lg") return "text-lg";
     if (value.size === "xl") return "text-xl";
-    return "text-base";
+    if (value.size === "lg") return "text-lg";
+    if (value.size === "md") return "text-base";
+    return "text-sm";
   });
 
   return div({

@@ -23,15 +23,17 @@ export interface IconProps extends BaseProps {
 }
 
 export interface TextProps extends BaseProps {
-  type?: "text" | "paragraph" | "heading1" | "heading2" | "heading3" | "heading4" | string;
-  color?: string;
-  design?: "regular" | "mono" | string;
-  wrap?: "wrap" | "nowrap" | string;
+  type?: "text" | "paragraph" | "heading1" | "heading2" | "heading3" | "heading4";
+  color?: "primary" | "secondary" | "accent" | "success" | "warning" | "danger" | "info" | (string & {});
+  design?: "regular" | "mono";
+  weight?: "regular" | "semibold" | "bold";
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  wrap?: "wrap" | "nowrap";
 }
 
 export interface ContainerProps extends BaseProps {
-  type?: "main" | "content" | "page" | string;
-  direction?: "horizontal" | "vertical" | string;
+  type?: "main" | "content" | "page" | (string & {});
+  direction?: "row" | "column" | (string & {});
 }
 
 export interface CardProps extends BaseProps {
@@ -39,14 +41,20 @@ export interface CardProps extends BaseProps {
   alignment?: "leading" | "middle" | "trailing" | string;
 }
 
-export interface StackProps extends BaseProps {
-  alignment?: "leading" | "middle" | "trailing" | string;
-  gap?: "xs" | "small" | "regular" | "large" | string;
+export interface HStackProps extends BaseProps {
+  alignment?: "leading" | "middle" | "trailing" | (string & {});
+  verticalAlignment?: "top" | "center" | "bottom" | (string & {});
+  gap?: "xsmall" | "small" | "regular" | "large" | (string & {});
+}
+
+export interface VStackProps extends BaseProps {
+  alignment?: "leading" | "middle" | "trailing" | (string & {});
+  gap?: "xsmall" | "small" | "regular" | "large" | (string & {});
 }
 
 export interface BadgeProps extends BaseProps {
   tone?: "base" | "success" | "info" | "warning" | "danger" | "accent" | "dimmed" | string;
-  size?: "xs" | "sm" | "md" | string;
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | string;
   variant?: "solid" | "soft" | "outline" | string;
   icon?: string;
   overlap?: boolean;
@@ -56,6 +64,7 @@ export interface BadgeProps extends BaseProps {
 export interface InputFieldProps extends BaseProps {
   type?: string;
   variant?: "regular" | "rounded" | string;
+  size?: "md" | "lg" | "xl" | string;
   value?: string;
   placeholder?: string;
   label?: string;
@@ -88,14 +97,14 @@ export interface ComboBoxOption {
 export interface ComboBoxProps extends BaseProps {
   options?: Array<string | ComboBoxOption>;
   selection?: any;
-  size?: "sm" | "md" | "lg" | "xl" | string;
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | string;
   onChange?: (event?: any) => void;
   change?: (event?: any) => void;
 }
 
 export interface CheckboxProps extends BaseProps {
   labelText?: string;
-  size?: "sm" | "md" | "lg" | "xl" | string;
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | string;
   onCheck?: (checked: boolean) => void;
   check?: (checked: boolean) => void;
   onChange?: (event?: any) => void;
@@ -103,7 +112,7 @@ export interface CheckboxProps extends BaseProps {
 
 export interface RadioCheckboxProps extends BaseProps {
   labelText?: string;
-  size?: "sm" | "md" | "lg" | "xl" | string;
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | string;
   onCheck?: (checked: boolean) => void;
   check?: (checked: boolean) => void;
   onChange?: (event?: any) => void;
@@ -111,7 +120,7 @@ export interface RadioCheckboxProps extends BaseProps {
 
 export interface ToggleSwitchProps extends BaseProps {
   labelText?: string;
-  size?: "sm" | "md" | "lg" | "xl" | string;
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | string;
   onChange?: (event?: any) => void;
 }
 
@@ -128,7 +137,7 @@ export interface SearchBoxProps extends BaseProps {
   placeholder?: string;
   onInput?: (event?: any) => void;
   input?: (event?: any) => void;
-  size?: "sm" | "md" | "lg" | "xl" | string;
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | string;
   variant?: "regular" | "rounded" | string;
   onSelect?: (item?: SearchBoxItem) => void;
   select?: (item?: SearchBoxItem) => void;
@@ -175,14 +184,14 @@ export interface DatePickerProps extends BaseProps {
   placeholder?: string;
   range?: boolean;
   variant?: "regular" | "rounded" | string;
-  size?: "md" | "lg" | "xl" | string;
+  size?: "xs" | "md" | "lg" | "xl" | string;
 }
 
 export interface TimePickerProps extends BaseProps {
   id?: string;
   placeholder?: string;
   variant?: "regular" | "rounded" | string;
-  size?: "md" | "lg" | "xl" | string;
+  size?: "xs" | "md" | "lg" | "xl" | string;
 }
 
 export interface DropdownMenuItem {
@@ -200,13 +209,13 @@ export interface DropdownMenuProps extends BaseProps {
   id?: string;
   align?: "left" | "right" | string;
   placeholder?: string;
-  size?: "sm" | "md" | "lg" | "xl" | string;
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | string;
   onSelect?: (item?: DropdownMenuItem) => void;
 }
 
 export interface PopoverMenuProps extends BaseProps {
-  trigger?: BunnixChildren;
-  items?: DropdownMenuItem[];
+  trigger?: BunnixChildren | (() => BunnixChildren);
+  menuItems?: DropdownMenuItem[];
   id?: string;
   align?: "left" | "right" | string;
   size?: "sm" | "md" | "lg" | "xl" | string;
@@ -232,7 +241,7 @@ export interface ToastOptions {
   message?: string;
   duration?: number;
   anchor?: "topRight" | "topLeft" | "bottomRight" | "bottomLeft" | string;
-  size?: "md" | "lg" | "xl" | string;
+  size?: "xs" | "md" | "lg" | "xl" | string;
   icon?: string;
 }
 
@@ -249,14 +258,32 @@ export interface PageSectionProps extends BaseProps {
   trailing?: BunnixChildren | (() => BunnixChildren);
 }
 
+export interface TableColumn {
+  field: string;
+  label: string;
+  size?: "auto" | number | string;
+}
+
+export interface TableSortableConfig {
+  field: string;
+  sortType?: "string" | "number" | "date";
+  sorted?: boolean;
+  direction?: "asc" | "desc";
+}
+
+export interface TableSearchableConfig {
+  field: string;
+  searchText?: string | any;
+}
+
 export interface TableProps extends BaseProps {
-  columns?: Array<any>;
+  columns?: Array<TableColumn>;
   data?: Array<any> | any;
   key?: string;
-  renderCell?: (columnIndex: number, field: string, row: any, column?: any) => any;
-  cell?: (columnIndex: number, field: string, row: any, column?: any) => any;
-  searchable?: { field?: string; searchText?: any };
-  sortable?: Array<any>;
+  renderCell?: (columnIndex: number, field: string, row: any, column?: TableColumn) => any;
+  cell?: (columnIndex: number, field: string, row: any, column?: TableColumn) => any;
+  searchable?: TableSearchableConfig;
+  sortable?: Array<TableSortableConfig>;
   selection?: (keys: Array<string>) => void;
   sort?: (field?: string) => ((a: any, b: any) => number) | null;
   variant?: "regular" | "background" | "bordered" | string;
@@ -278,7 +305,7 @@ export const DatePicker: Component<DatePickerProps>;
 export const Dialog: Component<BaseProps>;
 export const DropdownMenu: Component<DropdownMenuProps>;
 export const Grid: Component<BaseProps>;
-export const HStack: Component<StackProps>;
+export const HStack: Component<HStackProps>;
 export const Icon: Component<IconProps>;
 export const InputField: Component<InputFieldProps>;
 export const NavigationBar: Component<NavigationBarProps>;
@@ -293,7 +320,7 @@ export const Text: Component<TextProps>;
 export const TimePicker: Component<TimePickerProps>;
 export const ToastNotification: Component<BaseProps>;
 export const ToggleSwitch: Component<ToggleSwitchProps>;
-export const VStack: Component<StackProps>;
+export const VStack: Component<VStackProps>;
 
 export const dialogState: any;
 export function showDialog(options?: ShowDialogOptions): void;

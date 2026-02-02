@@ -9,7 +9,7 @@ const { div, p } = Bunnix;
 export default function InputFieldPage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Input Field", 
       description: "A semantic wrapper for standard HTML inputs with label and suggestion support." 

@@ -7,7 +7,7 @@ const { div, h5, p, span, a, hr } = Bunnix;
 export default function LinksPage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Links", 
       description: "Different styles of hyperlinks used in the system." 

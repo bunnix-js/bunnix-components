@@ -1,4 +1,5 @@
 import Bunnix from "@bunnix/core";
+import { clampSize } from "../utils/sizeUtils.mjs";
 const { select, option } = Bunnix;
 
 export default function ComboBox({
@@ -10,14 +11,10 @@ export default function ComboBox({
   change,
   ...rest
 } = {}, children) {
-  const normalizeSize = (value) => {
-    if (!value || value === "default" || value === "regular" || value === "md") return "md";
-    if (value === "sm") return "sm";
-    if (value === "lg" || value === "xl") return value;
-    return value;
-  };
+  // ComboBox supports all sizes
+  const normalizeSize = (value) => clampSize(value, ["xs", "sm", "md", "lg", "xl"], "md");
   const normalizedSize = normalizeSize(size);
-  const sizeClass = normalizedSize === "lg" ? "input-lg" : normalizedSize === "xl" ? "input-xl" : "";
+  const sizeClass = normalizedSize === "xl" ? "input-xl" : normalizedSize === "lg" ? "input-lg" : "";
   const selectionState = selection && typeof selection.map === "function" ? selection : null;
   const handleChangeExternal = onChange ?? change;
 

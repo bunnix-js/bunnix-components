@@ -13,7 +13,10 @@ const resolveNode = (node) => {
   return typeof node === "function" ? node() : node;
 };
 
-const isState = (value) => value && typeof value.get === "function" && typeof value.subscribe === "function";
+const isState = (value) =>
+  value &&
+  typeof value.get === "function" &&
+  typeof value.subscribe === "function";
 
 export default function NavigationBar({
   title,
@@ -35,7 +38,7 @@ export default function NavigationBar({
           ? String(value)
           : value;
       })
-    : (title === null || title === undefined)
+    : title === null || title === undefined
       ? ""
       : typeof title === "string" || typeof title === "number"
         ? String(title)
@@ -45,23 +48,30 @@ export default function NavigationBar({
   const leadingNode = resolveNode(leading);
   const trailingNode = resolveNode(trailing);
 
-  return nav({
-    class: `navigation-bar row-container items-center gap-md w-full sticky-top bg-base ${className}`.trim(),
-    ...rest
-  }, [
-    titleNode,
-    leadingNode && div({ class: "shrink-0 row-container items-center" }, leadingNode),
-    div({ class: "w-full" }),
-    trailingNode && div({ class: "shrink-0 row-container items-center" }, trailingNode),
-    searchable && SearchBox({
-      data: searchData,
-      value: searchValue,
-      onInput: onSearchInput,
-      onSelect: onSearchSelect,
-      placeholder: "Search components",
-      variant: "rounded",
-      class: "w-300",
-      ...searchProps
-    })
-  ]);
+  return nav(
+    {
+      class:
+        `navigation-bar row-container items-center gap-md w-full sticky-top bg-base ${className}`.trim(),
+      ...rest,
+    },
+    [
+      title ? titleNode : null,
+      leadingNode &&
+        div({ class: "shrink-0 row-container items-center" }, leadingNode),
+      div({ class: "w-full" }),
+      trailingNode &&
+        div({ class: "shrink-0 row-container items-center" }, trailingNode),
+      searchable &&
+        SearchBox({
+          data: searchData,
+          value: searchValue,
+          onInput: onSearchInput,
+          onSelect: onSearchSelect,
+          placeholder: "Search components",
+          variant: "rounded",
+          class: "w-300",
+          ...searchProps,
+        }),
+    ],
+  );
 }

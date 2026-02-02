@@ -6,25 +6,26 @@ const { div, a, span, h4, h6, hr } = Bunnix;
 export default function Sidebar({
   items,
   selection,
-  onSelect,
   onItemSelect,
   searchable = false,
   searchProps = {},
   leading,
   trailing,
-  class: className = ""
+  class: className = "",
 } = {}) {
-  const selectionState = selection
-    && typeof selection.map === "function"
-    && typeof selection.get === "function"
-    && typeof selection.set === "function"
-    ? selection
-    : null;
+  const selectionState =
+    selection &&
+    typeof selection.map === "function" &&
+    typeof selection.get === "function" &&
+    typeof selection.set === "function"
+      ? selection
+      : null;
   const selected = selectionState ?? useState(selection ?? "home");
   const searchValue = useState("");
 
   const resolveItems = (value) => {
-    const resolved = value && typeof value.get === "function" ? value.get() : value;
+    const resolved =
+      value && typeof value.get === "function" ? value.get() : value;
     return Array.isArray(resolved) ? resolved : [];
   };
 
@@ -46,7 +47,6 @@ export default function Sidebar({
         window.location.hash = target;
       }
     }
-    if (onSelect) onSelect(id);
     if (onItemSelect) onItemSelect(id);
   };
 
@@ -62,16 +62,22 @@ export default function Sidebar({
     }
 
     if (item.isHeader) {
-      return div({ class: "row-container px-base py-sm pt-md select-none sticky-top" },
-        span({ class: "no-margin text-tertiary text-sm bold text-uppercase no-selectable" }, item.label)
+      return div(
+        { class: "row-container px-base py-sm pt-md select-none sticky-top" },
+        span(
+          {
+            class:
+              "no-margin text-tertiary text-sm bold text-uppercase no-selectable",
+          },
+          item.label,
+        ),
       );
     }
 
     const hasChildren = item.children && item.children.length > 0;
-    const isSelected = selected.map(v => v === item.id);
-    const isExpanded = useMemo(
-      [expanded, searchValue],
-      (ex, query) => (String(query ?? "").trim() ? true : !!ex[item.id])
+    const isSelected = selected.map((v) => v === item.id);
+    const isExpanded = useMemo([expanded, searchValue], (ex, query) =>
+      String(query ?? "").trim() ? true : !!ex[item.id],
     );
 
     const handleItemClick = (e) => {
@@ -83,38 +89,73 @@ export default function Sidebar({
     };
 
     return div({ class: "column-container" }, [
-      div({ class: `box-sm no-selectable ${isChild ? "pl-md" : ""}` },
-        div({
-            class: isSelected.map(s => `box-control hoverable ${s ? 'selected' : ''}`),
-            click: handleItemClick
-          }, [
-          div({ class: "row-container items-center gap-sm no-margin w-full" }, [
-            item.icon ? span({ class: isSelected.map(s => `icon ${item.icon} ${s ? 'bg-white' : 'icon-base'}`) }) : null,
-            h4({ class: "no-margin text-base font-inherit" }, item.label),
-            (item.badge || hasChildren) ? div({ class: "spacer-h" }) : null,
-            (() => {
-              if (!item.badge) return null;
-              if (typeof item.badge === "string" || typeof item.badge === "number") {
-                return Badge({ tone: "accent", size: "xs", shape: "capsule" }, String(item.badge));
-              }
-              const value = item.badge.value;
-              if (value === undefined || value === null || value === "") return null;
-              return Badge({
-                tone: item.badge.tone || "accent",
-                variant: item.badge.variant || "solid",
-                size: item.badge.size || "xs",
-                shape: "capsule"
-              }, String(value));
-            })(),
-            hasChildren && span({
-              class: isExpanded.map(ex => `icon icon-chevron-down ml-auto transition-transform ${ex ? 'rotate-180' : 'icon-base'}`)
-            })
-          ])
-        ])
+      div(
+        { class: `box-sm no-selectable ${isChild ? "pl-md" : ""}` },
+        div(
+          {
+            class: isSelected.map(
+              (s) => `box-control hoverable ${s ? "selected" : ""}`,
+            ),
+            click: handleItemClick,
+          },
+          [
+            div(
+              { class: "row-container items-center gap-sm no-margin w-full" },
+              [
+                item.icon
+                  ? span({
+                      class: isSelected.map(
+                        (s) =>
+                          `icon ${item.icon} ${s ? "bg-white" : "icon-base"}`,
+                      ),
+                    })
+                  : null,
+                h4({ class: "no-margin text-base font-inherit" }, item.label),
+                item.badge || hasChildren ? div({ class: "spacer-h" }) : null,
+                (() => {
+                  if (!item.badge) return null;
+                  if (
+                    typeof item.badge === "string" ||
+                    typeof item.badge === "number"
+                  ) {
+                    return Badge(
+                      { tone: "accent", size: "xs", shape: "capsule" },
+                      String(item.badge),
+                    );
+                  }
+                  const value = item.badge.value;
+                  if (value === undefined || value === null || value === "")
+                    return null;
+                  return Badge(
+                    {
+                      tone: item.badge.tone || "accent",
+                      variant: item.badge.variant || "solid",
+                      size: item.badge.size || "xs",
+                      shape: "capsule",
+                    },
+                    String(value),
+                  );
+                })(),
+                hasChildren &&
+                  span({
+                    class: isExpanded.map(
+                      (ex) =>
+                        `icon icon-chevron-down ml-auto transition-transform ${ex ? "rotate-180" : "icon-base"}`,
+                    ),
+                  }),
+              ],
+            ),
+          ],
+        ),
       ),
-      hasChildren && Show(isExpanded, div({ class: "column-container py-xs" },
-        item.children.map(child => renderItem(child, true))
-      ))
+      hasChildren &&
+        Show(
+          isExpanded,
+          div(
+            { class: "column-container py-xs" },
+            item.children.map((child) => renderItem(child, true)),
+          ),
+        ),
     ]);
   };
 
@@ -129,8 +170,11 @@ export default function Sidebar({
       const label = (item.label ?? "").toLowerCase();
       const hasChildren = item.children && item.children.length > 0;
       if (hasChildren) {
-        const filteredChildren = item.children.map(child => filterItem(child)).filter(Boolean);
-        const matched = label.includes(normalized) || filteredChildren.length > 0;
+        const filteredChildren = item.children
+          .map((child) => filterItem(child))
+          .filter(Boolean);
+        const matched =
+          label.includes(normalized) || filteredChildren.length > 0;
         if (!matched) return null;
         return { ...item, children: filteredChildren };
       }
@@ -173,31 +217,32 @@ export default function Sidebar({
     return result;
   };
 
-  const filteredItems = useMemo(
-    [items, searchValue],
-    (list, query) => {
-      return filterSidebarItems(resolveItems(list), (query ?? "").trim());
-    }
-  );
+  const filteredItems = useMemo([items, searchValue], (list, query) => {
+    return filterSidebarItems(resolveItems(list), (query ?? "").trim());
+  });
 
   const leadingContent = typeof leading === "function" ? leading() : leading;
-  const trailingContent = typeof trailing === "function" ? trailing() : trailing;
+  const trailingContent =
+    typeof trailing === "function" ? trailing() : trailing;
 
   const content = [];
   if (searchable) {
-    content.push(div({ class: "px-base py-xs" },
-      SearchBox({
-        placeholder: "Search",
-        variant: "rounded",
-        class: "w-full",
-        value: searchValue.get(),
-        onInput: (event) => {
-          const value = event?.target?.value ?? "";
-          searchValue.set(value);
-        },
-        ...searchProps
-      })
-    ));
+    content.push(
+      div(
+        { class: "px-base py-xs" },
+        SearchBox({
+          placeholder: "Search",
+          variant: "rounded",
+          class: "w-full",
+          value: searchValue.get(),
+          onInput: (event) => {
+            const value = event?.target?.value ?? "";
+            searchValue.set(value);
+          },
+          ...searchProps,
+        }),
+      ),
+    );
   }
   if (leadingContent) {
     content.push(div({ class: "px-base py-xs" }, leadingContent));

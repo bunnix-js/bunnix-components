@@ -12,7 +12,7 @@ const Box = (text) => div({ class: "bg-accent p-sm rounded text-white" }, text);
 export default function StacksPage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Stacks", 
       description: "Primitive layout containers for consistent horizontal and vertical distribution." 
@@ -49,6 +49,41 @@ export default function StacksPage() {
           div({ class: "column-container gap-sm" }, [
             span({ class: "text-sm text-tertiary" }, "Trailing (Right)"),
             VStack({ alignment: "trailing", class: "h-200 border-dashed p-sm" }, [ Box("Item 1"), Box("Longer Item 2"), Box("Item 3") ])
+          ]),
+        ])
+      ]),
+
+      PageSection({ title: "HStack Vertical Alignment", stickyOffset: headerOffset }, [
+        div({ class: "column-container gap-md" }, [
+          div({ class: "column-container gap-sm" }, [
+            span({ class: "text-sm text-tertiary" }, "Top Alignment"),
+            div({ class: "h-200 border-dashed p-sm" }, [
+              HStack({ verticalAlignment: "top" }, [ 
+                Box("Short"), 
+                div({ class: "bg-accent p-sm rounded text-white", style: "height: 80px; display: flex; align-items: center;" }, "Tall Item"),
+                Box("Short") 
+              ])
+            ])
+          ]),
+          div({ class: "column-container gap-sm" }, [
+            span({ class: "text-sm text-tertiary" }, "Center Alignment (Default)"),
+            div({ class: "h-200 border-dashed p-sm" }, [
+              HStack({ verticalAlignment: "center" }, [ 
+                Box("Short"), 
+                div({ class: "bg-accent p-sm rounded text-white", style: "height: 80px; display: flex; align-items: center;" }, "Tall Item"),
+                Box("Short") 
+              ])
+            ])
+          ]),
+          div({ class: "column-container gap-sm" }, [
+            span({ class: "text-sm text-tertiary" }, "Bottom Alignment"),
+            div({ class: "h-200 border-dashed p-sm" }, [
+              HStack({ verticalAlignment: "bottom" }, [ 
+                Box("Short"), 
+                div({ class: "bg-accent p-sm rounded text-white", style: "height: 80px; display: flex; align-items: center;" }, "Tall Item"),
+                Box("Short") 
+              ])
+            ])
           ]),
         ])
       ]),

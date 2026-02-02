@@ -39,7 +39,7 @@ export default function TablesComponentPage() {
     return Badge({ tone, variant, size: "xs" }, row.status);
   };
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({
       title: "Table",
       description: "Composable data tables with column sizing, variants, and custom cell rendering."

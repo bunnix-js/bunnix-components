@@ -19,7 +19,7 @@ const ClassExample = (className, description, exampleContent) => {
 export default function LayoutPage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Layout", 
       description: "Utility classes for structuring the application layout." 

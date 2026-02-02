@@ -11,7 +11,7 @@ const { div } = Bunnix;
 export default function BadgePage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({
       title: "Badge",
       description: "Compact status and metadata labels with tone, size, and variant options."

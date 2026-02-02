@@ -18,7 +18,7 @@ export default function SearchBoxPage() {
     { key: "toast", title: "Toast", snippet: "Transient status notifications.", icon: "bell" }
   ];
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({
       title: "Search Box",
       description: "Search input with icon, sizing options, and rounded variant."

@@ -1,4 +1,5 @@
 import Bunnix, { useRef, useState, useMemo } from "@bunnix/core";
+import { clampSize } from "../utils/sizeUtils.mjs";
 const { div, button, hr, span } = Bunnix;
 
 let dropdownCounter = 0;
@@ -12,12 +13,8 @@ export default function DropdownMenu({
   onSelect,
   class: className = ""
 }) {
-  const normalizeSize = (value) => {
-    if (!value || value === "default" || value === "regular" || value === "md") return "md";
-    if (value === "sm") return "sm";
-    if (value === "lg" || value === "xl") return value;
-    return value;
-  };
+  // DropdownMenu supports all sizes
+  const normalizeSize = (value) => clampSize(value, ["xs", "sm", "md", "lg", "xl"], "md");
   const normalizedSize = normalizeSize(size);
   const popoverRef = useRef(null);
   const dropdownId = id || `dropdown-instance-${++dropdownCounter}`;

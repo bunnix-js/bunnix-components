@@ -1,10 +1,12 @@
 import Bunnix, { useRef, useEffect } from "@bunnix/core";
+import { clampSize } from "../utils/sizeUtils.mjs";
 const { div, label, input: inputEl, datalist, option, span } = Bunnix;
 
 export default function InputField({
   class: className = "",
   type = "text",
   variant = "regular",
+  size,
   value,
   placeholder,
   label: labelText,
@@ -25,6 +27,11 @@ export default function InputField({
   const inputRef = useRef(null);
   const listId = suggestions.length > 0 ? `list-${Math.random().toString(36).slice(2, 8)}` : null;
 
+  // InputField supports md, lg, xl (no xs, sm)
+  const normalizeSize = (value) => clampSize(value, ["md", "lg", "xl"], "md");
+  const normalizedSize = normalizeSize(size);
+  const sizeClass = normalizedSize === "xl" ? "input-xl" : normalizedSize === "lg" ? "input-lg" : "";
+
   useEffect((el) => {
     if (el && listId) {
       el.setAttribute('list', listId);
@@ -32,7 +39,7 @@ export default function InputField({
   }, inputRef);
 
   const variantClass = variant === "rounded" ? "rounded-full" : "";
-  const combinedClass = `${className} ${variantClass}`.trim();
+  const combinedClass = `${className} ${sizeClass} ${variantClass}`.trim();
 
   const handleInput = onInput ?? input;
   const handleChange = onChange ?? change;
@@ -55,15 +62,15 @@ export default function InputField({
     ...rest
   });
 
-  const sizeClass = className.includes("input-xl")
+  const iconSizeClass = normalizedSize === "xl"
     ? "icon-xl"
-    : className.includes("input-lg")
+    : normalizedSize === "lg"
       ? "icon-lg"
       : "";
 
   const inputBlock = type === "search"
     ? div({ class: "input-search w-full" }, [
-        span({ class: `icon icon-search icon-quaternary ${sizeClass}`.trim() }),
+        span({ class: `icon icon-search icon-quaternary ${iconSizeClass}`.trim() }),
         inputElement
       ])
     : inputElement;

@@ -1,4 +1,5 @@
 import Bunnix from "@bunnix/core";
+import { clampSize } from "../utils/sizeUtils.mjs";
 const { button, a } = Bunnix;
 
 export default function Button({
@@ -12,12 +13,8 @@ export default function Button({
   class: className = "",
   ...rest
 } = {}, children) {
-  const normalizeSize = (value) => {
-    if (!value || value === "default" || value === "regular" || value === "md") return "md";
-    if (value === "sm") return "sm";
-    if (value === "lg" || value === "xl") return value;
-    return value;
-  };
+  // Button supports all sizes
+  const normalizeSize = (value) => clampSize(value, ["xs", "sm", "md", "lg", "xl"], "md");
 
   const variantState = variant && typeof variant.map === "function" ? variant : null;
   const sizeState = size && typeof size.map === "function" ? size : null;
@@ -30,7 +27,7 @@ export default function Button({
     const normalizedSize = normalizeSize(sizeValue);
     const baseClass = isHyperlink ? "" : "btn";
     const variantClass = (isHyperlink || variantValue === "regular") ? "" : `btn-${variantValue}`;
-    const sizeClass = (!isHyperlink && normalizedSize && normalizedSize !== "md" && (normalizedSize === "lg" || normalizedSize === "xl"))
+    const sizeClass = (!isHyperlink && normalizedSize && normalizedSize !== "md")
       ? `btn-${normalizedSize}`
       : "";
     const disabledClass = disabledValue ? "btn-disabled" : "";

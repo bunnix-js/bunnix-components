@@ -9,7 +9,7 @@ const { div, p } = Bunnix;
 export default function TimePickerPage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Time Picker", 
       description: "Digital time picker focusing on rapid entry through direct typing and validated masking." 

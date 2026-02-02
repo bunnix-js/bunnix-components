@@ -1,4 +1,5 @@
 import Bunnix, { useRef, useState, useMemo } from "@bunnix/core";
+import { clampSize } from "../utils/sizeUtils.mjs";
 import Icon from "./Icon.mjs";
 const { div, button, span, hr, input } = Bunnix;
 
@@ -96,12 +97,8 @@ export default function TimePicker({
 
   const hasValue = isModified.map(m => !!m);
 
-  const normalizeSize = (value) => {
-    if (!value || value === "default" || value === "regular" || value === "md") return "md";
-    if (value === "sm") return "md";
-    if (value === "lg" || value === "xl") return value;
-    return value;
-  };
+  // TimePicker does not support sm size (clamps to md)
+  const normalizeSize = (value) => clampSize(value, ["xs", "md", "lg", "xl"], "md");
   const normalizedSize = normalizeSize(size);
   const variantClass = variant === "rounded" ? "rounded-full" : "";
   const triggerSizeClass = normalizedSize === "xl"

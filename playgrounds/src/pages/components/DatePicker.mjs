@@ -9,7 +9,7 @@ const { div, p } = Bunnix;
 export default function DatePickerPage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Date Picker", 
       description: "Custom date selection component with dynamic current-date placeholders and locale formatting." 

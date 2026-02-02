@@ -20,7 +20,7 @@ const ColorSwatch = (name, variable) => {
 export default function ColorsPage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Colors", 
       description: "The color palette used across the design system." 

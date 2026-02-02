@@ -9,7 +9,7 @@ const { div, p, span } = Bunnix;
 export default function IconPage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Icon", 
       description: "A semantic wrapper for system icons with theme-aware tinting and sizing." 
