@@ -19,7 +19,7 @@ export default function Text(props = {}, children) {
 
   const {
     type = "text",
-    color = "primary",
+    color = "default",
     design = "regular",
     weight,
     size,

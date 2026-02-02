@@ -24,7 +24,18 @@ export interface IconProps extends BaseProps {
 
 export interface TextProps extends BaseProps {
   type?: "text" | "paragraph" | "heading1" | "heading2" | "heading3" | "heading4";
-  color?: "primary" | "secondary" | "accent" | "success" | "warning" | "danger" | "info" | (string & {});
+  color?: "default"
+    | "primary"
+    | "primary-dimmed"
+    | "secondary"
+    | "tertiary"
+    | "quaternary"
+    | "destructive"
+    | "destructive-dimmed"
+    | "accent"
+    | "accent-dimmed"
+    | "white"
+    | (string & {});
   design?: "regular" | "mono";
   weight?: "regular" | "semibold" | "bold";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
@@ -146,6 +157,10 @@ export interface SearchBoxProps extends BaseProps {
 export interface SidebarItem {
   id?: string;
   label?: string;
+  /**
+   * Icon name. Accepts either a full icon class (e.g. "icon-person")
+   * or a bare name (e.g. "person"), which will be prefixed with "icon-".
+   */
   icon?: string;
   href?: string | null;
   badge?: string | number | { value?: string | number; tone?: string; variant?: string; size?: string };
@@ -159,6 +174,7 @@ export interface SidebarItem {
 export interface SidebarProps extends BaseProps {
   items?: SidebarItem[];
   selection?: string | any;
+  /** @deprecated Use onItemSelect instead. */
   onSelect?: (id?: string) => void;
   onItemSelect?: (id?: string) => void;
   searchable?: boolean;

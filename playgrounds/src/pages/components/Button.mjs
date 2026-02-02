@@ -46,16 +46,33 @@ export default function ButtonPage() {
       PageSection({ title: "With Icons", stickyOffset: headerOffset }, [
         div({ class: "grid-flow gap-md items-center" }, [
           Button({ variant: "regular" }, [
-            span({ class: "icon icon-add bg-white" }),
+            span({ class: "icon icon-add" }),
             "Create"
           ]),
           Button({ variant: "outline" }, [
-            span({ class: "icon icon-gear icon-base" }),
+            span({ class: "icon icon-gear" }),
             "Settings"
           ]),
           Button({ variant: "flat", size: "xl" }, [
-            span({ class: "icon icon-logout icon-xl icon-base" }),
+            span({ class: "icon icon-logout icon-xl" }),
             "Log Out"
+          ]),
+        ])
+      ]),
+
+      PageSection({ title: "Tint Overrides", stickyOffset: headerOffset }, [
+        div({ class: "grid-flow gap-md items-center" }, [
+          Button({ variant: "regular" }, [
+            span({ class: "icon icon-star icon-white" }),
+            span({ class: "text-white" }, "Force White")
+          ]),
+          Button({ variant: "outline" }, [
+            span({ class: "icon icon-exclamation-mark icon-tertiary" }),
+            span({ class: "text-tertiary" }, "Tertiary")
+          ]),
+          Button({ variant: "flat" }, [
+            span({ class: "icon icon-trash icon-destructive" }),
+            span({ class: "text-destructive" }, "Destructive")
           ]),
         ])
       ]),

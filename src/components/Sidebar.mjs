@@ -103,12 +103,21 @@ export default function Sidebar({
               { class: "row-container items-center gap-sm no-margin w-full" },
               [
                 item.icon
-                  ? span({
-                      class: isSelected.map(
-                        (s) =>
-                          `icon ${item.icon} ${s ? "bg-white" : "icon-base"}`,
-                      ),
-                    })
+                  ? (() => {
+                      const iconClass = String(item.icon ?? "").trim();
+                      const resolvedIconClass =
+                        iconClass && iconClass.startsWith("icon-")
+                          ? iconClass
+                          : iconClass
+                            ? `icon-${iconClass}`
+                            : "";
+                      return span({
+                        class: isSelected.map(
+                          (s) =>
+                            `icon ${resolvedIconClass} ${s ? "bg-white" : "icon-base"}`,
+                        ),
+                      });
+                    })()
                   : null,
                 h4({ class: "no-margin text-base font-inherit" }, item.label),
                 item.badge || hasChildren ? div({ class: "spacer-h" }) : null,

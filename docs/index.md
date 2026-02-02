@@ -54,5 +54,6 @@ Button({ variant: "regular" }, [
 - [Icon](./components/icon.md)
 - [Input Field](./components/input-field.md)
 - [Search Box](./components/search-box.md)
+- [Sidebar](./components/sidebar.md)
 - [Badge](./components/badge.md)
 - [Table](./components/table.md)

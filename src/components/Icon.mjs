@@ -3,7 +3,7 @@ const { span } = Bunnix;
 
 export default function Icon({
   name,
-  fill = "base",
+  fill = "default",
   size,
   class: className = "",
   ...rest

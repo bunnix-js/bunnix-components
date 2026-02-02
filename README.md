@@ -98,10 +98,10 @@ You can compose your own UI using the same CSS utilities the components use:
 
 - Layout: `row-container`, `column-container`, `grid-flow`, `gap-xs|sm|md|lg`, `items-start|center|end|stretch`, `justify-start|center|end`, `w-full`, `h-full`, `spacer-h`, `spacer-v`
 - Surfaces: `box`, `box-sm`, `box-control`, `box-capsule`, `card`, `shadow`, `rounded|rounded-sm|rounded-full`
-- Typography: `text-primary|secondary|tertiary|quaternary`, `text-accent`, `text-destructive`, `text-sm|base|lg|xl`, `text-mono`, `whitespace-nowrap`, `whitespace-pre-line`
+- Typography: `text-default|primary|secondary|tertiary|quaternary`, `text-accent`, `text-destructive`, `text-sm|base|lg|xl`, `text-mono`, `whitespace-nowrap`, `whitespace-pre-line`
 - Buttons: `btn`, `btn-flat`, `btn-outline`, `btn-destructive`, `btn-lg`, `btn-xl`, `btn-disabled`
 - Forms: `input-lg`, `input-xl`, `rounded-full` (useful for pill inputs)
-- Icons: `icon`, `icon-<name>`, `icon-xs|sm|lg|xl`, `icon-base|white|secondary|tertiary|quaternary`
+- Icons: `icon`, `icon-<name>`, `icon-xs|sm|lg|xl`, `icon-default|base|white|secondary|tertiary|quaternary`
 
 Example:
 
