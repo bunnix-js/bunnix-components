@@ -10,22 +10,26 @@
  * @returns {string} - The masked value
  */
 export function applyMask(value, mask) {
-  if (!mask || !value) return value;
+  if (!mask) return value || "";
+  
+  // Convert value to string and handle empty/undefined/null
+  const stringValue = String(value ?? "");
+  if (!stringValue) return "";
 
   // Handle object mask configuration
   if (typeof mask === 'object') {
     const { type, pattern, options } = mask;
     if (type) {
-      return applyMaskByType(value, type, options);
+      return applyMaskByType(stringValue, type, options);
     }
     if (pattern) {
-      return applyCustomMask(value, pattern);
+      return applyCustomMask(stringValue, pattern);
     }
-    return value;
+    return stringValue;
   }
 
   // Handle string mask type
-  return applyMaskByType(value, mask);
+  return applyMaskByType(stringValue, mask);
 }
 
 /**
@@ -114,8 +118,11 @@ function applyCurrencyMask(value, options = {}) {
     decimalPlaces = 2
   } = options;
 
-  // Remove everything except digits and decimal separator
-  let digits = value.replace(/[^\d]/g, "");
+  // Ensure value is a string
+  const stringValue = String(value ?? "");
+  
+  // Remove everything except digits
+  let digits = stringValue.replace(/[^\d]/g, "");
   
   if (digits === "") return "";
   
