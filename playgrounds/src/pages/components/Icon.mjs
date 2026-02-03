@@ -46,6 +46,10 @@ export default function IconPage() {
     div({ class: "column-container gap-md" }, [
       PageSection({ title: "Basic Usage", stickyOffset: headerOffset }, [
         div({ class: "column-container gap-md" }, [
+          p(
+            { class: "text-sm text-secondary" },
+            "Use a slug like \"star\" or a full class like \"icon-star\". Fill supports default, base, white, secondary, tertiary, quaternary, and destructive."
+          ),
           div({ class: "grid-flow gap-md items-center" }, [
             div({ class: "column-container items-center gap-xs" }, [
               Icon({ name: "home" }),

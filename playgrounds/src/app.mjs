@@ -31,6 +31,7 @@ import ToastPage from "./pages/components/Toast.mjs";
 import DialogPage from "./pages/components/Dialog.mjs";
 import CodeBlockPage from "./pages/components/CodeBlock.mjs";
 import CardPage from "./pages/components/Card.mjs";
+import ProgressBarPage from "./pages/components/ProgressBar.mjs";
 import { ToastNotification } from "@bunnix/components";
 import { Dialog, showDialog } from "@bunnix/components";
 import { HStack } from "@bunnix/components";
@@ -77,6 +78,7 @@ export default function App() {
           label: "Combo Box",
           icon: "chevron-down",
         },
+        { id: "components-progressbar", label: "Progress Bar", icon: "chart" },
         { id: "components-switch", label: "Switch", icon: "toggle" },
         {
           id: "components-popover",
@@ -214,6 +216,10 @@ export default function App() {
         Show(
           page.map((v) => v === "components-checkbox"),
           () => CheckboxPage(),
+        ),
+        Show(
+          page.map((v) => v === "components-progressbar"),
+          () => ProgressBarPage(),
         ),
         Show(
           page.map((v) => v === "components-combobox"),

@@ -136,7 +136,7 @@ export default function Dialog() {
     VStack({
       ref: panelRef,
       gap: "regular",
-      class: "box-capsule dialog-panel shadow bg-base p-lg items-stretch dialog-appear"
+      class: "box-capsule dialog-panel shadow bg-base border-solid p-lg items-stretch dialog-appear"
     }, [
       HStack({ alignment: "leading", gap: "small", class: "items-center w-full" }, [
         Text({ type: "heading4", class: "no-margin" }, dialogState.map((value) => value.title)),
