@@ -54,10 +54,11 @@ playgrounds/
 
 ### Input Components
 
-- `InputField`, `DatePicker`, `TimePicker` now support `label` prop for consistency.
+- `InputField`, `DatePicker`, `TimePicker`, `ComboBox` all support `label` prop for consistency.
 - `DatePicker` and `TimePicker` use text input with masks, showing popover on focus.
-- All three disable browser autocomplete by default (`autocomplete="off"`).
-- `InputField` supports mask prop for formatted input (date, phone, currency, etc.).
+- `InputField`, `DatePicker`, `TimePicker` disable browser autocomplete by default (`autocomplete="off"`).
+- `InputField` supports mask prop for formatted input (date, phone, currency, CPF, credit card, etc.).
+- All input components use the same wrapper structure: `column-container no-margin shrink-0 gap-0`.
 
 ### State handling
 
