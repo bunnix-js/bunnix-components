@@ -338,7 +338,7 @@ export default function DatePicker({
       ? "xlarge"
       : undefined;
 
-  return div({ class: `column-container no-margin shrink-0 ${className}`.trim() }, [
+  return div({ class: `column-container no-margin shrink-0 gap-0 ${className}`.trim() }, [
     labelText && label({ class: "label select-none" }, labelText),
     div({ class: "datepicker-input-wrapper w-full relative" }, [
       inputEl({

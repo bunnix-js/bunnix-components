@@ -284,6 +284,7 @@ export interface ComboBoxProps extends BaseProps {
   options?: Array<string | ComboBoxOption>;
   selection?: any;
   size?: SizeValue;
+  label?: string;
   onChange?: (event?: any) => void;
   change?: (event?: any) => void;
 }

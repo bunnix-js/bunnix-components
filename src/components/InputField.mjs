@@ -125,7 +125,7 @@ export default function InputField({
       ])
     : inputElement;
 
-  return div({ class: "column-container no-margin shrink-0" }, [
+  return div({ class: "column-container no-margin shrink-0 gap-0" }, [
     labelText && label({ class: "label select-none" }, labelText),
     inputBlock,
     listId && datalist({ id: listId },
