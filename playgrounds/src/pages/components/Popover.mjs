@@ -1,9 +1,5 @@
 import Bunnix from "@bunnix/core";
-import { PageHeader } from "@bunnix/components";
-import { PageSection } from "@bunnix/components";
-import { PopoverMenu } from "@bunnix/components";
-import { CodeBlock } from "@bunnix/components";
-import { Container } from "@bunnix/components";
+import { Icon, PageHeader, PageSection, PopoverMenu, CodeBlock, Container } from "@bunnix/components";
 import Prism from "prismjs";
 import "prismjs/components/prism-javascript.js";
 import "prismjs/themes/prism.css";
@@ -65,7 +61,7 @@ export default function PopoverPage() {
             div({ class: "box w-fit p-0" }, [
               PopoverMenu({
                 trigger: [
-                    span({ class: "icon icon-more-horizontal icon-base" }),
+                    Icon({ name: "more-horizontal", fill: "base" }),
                     "Left Aligned"
                 ],
                 menuItems: primaryMenuItems,
@@ -75,7 +71,7 @@ export default function PopoverPage() {
 
             div({ class: "box w-fit p-0" }, [
               PopoverMenu({
-                trigger: () => span({ class: "icon icon-more-vertical icon-lg fg-primary" }),
+                trigger: () => Icon({ name: "more-vertical", fill: "base", size: "large" }),
                 menuItems: secondaryMenuItems,
                 align: "right",
                 size: "large"

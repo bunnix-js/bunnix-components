@@ -62,32 +62,52 @@ body {
   background-color: var(--background-color) !important;
 }
 
-.icon-default {
-  background-color: var(--icon-color-default, var(--color-primary)) !important;
+span.icon.icon-default {
+  color: var(--icon-color-default, var(--color-primary));
 }
 
-.icon-base {
-  background-color: var(--color-primary) !important;
+span.icon.icon-base {
+  color: var(--color-primary);
 }
 
-.icon-white {
-  background-color: white !important;
+span.icon.icon-primary {
+  color: var(--color-primary);
 }
 
-.icon-secondary {
-  background-color: var(--color-secondary) !important;
+span.icon.icon-primary-dimmed {
+  color: var(--color-primary-dimmed);
 }
 
-.icon-tertiary {
-  background-color: var(--color-tertiary) !important;
+span.icon.icon-white {
+  color: white;
 }
 
-.icon-quaternary {
-  background-color: var(--color-quaternary) !important;
+span.icon.icon-secondary {
+  color: var(--color-secondary);
 }
 
-.icon-destructive {
-  background-color: var(--color-destructive) !important;
+span.icon.icon-tertiary {
+  color: var(--color-tertiary);
+}
+
+span.icon.icon-quaternary {
+  color: var(--color-quaternary);
+}
+
+span.icon.icon-accent {
+  color: var(--accent-color);
+}
+
+span.icon.icon-accent-dimmed {
+  color: var(--accent-color-dimmed);
+}
+
+span.icon.icon-destructive {
+  color: var(--color-destructive);
+}
+
+span.icon.icon-destructive-dimmed {
+  color: var(--color-destructive-dimmed);
 }
 
 .fg-base, .fg-primary {

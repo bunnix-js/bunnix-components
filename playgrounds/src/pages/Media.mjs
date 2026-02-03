@@ -1,13 +1,13 @@
 import Bunnix, { useRef, useState, useEffect, useMemo } from "@bunnix/core";
-import { PageHeader } from "@bunnix/components";
-import { PageSection } from "@bunnix/components";
-import { Container } from "@bunnix/components";
+import { PageHeader, PageSection, Container, Icon } from "@bunnix/components";
 const { div, p, span, hr } = Bunnix;
 
-const IconItem = (className) => {
+const IconItem = (iconName) => {
+  // Remove "icon-" prefix for Icon component
+  const name = iconName.replace('icon-', '');
   return div({ class: "card box gap-sm w-fit" }, [
-    span({ class: `icon icon-xl ${className} icon-base` }),
-    span({ class: "text-mono text-sm" }, `.${className}`)
+    Icon({ name, size: "xlarge", fill: "base" }),
+    span({ class: "text-mono text-sm" }, `.${iconName}`)
   ]);
 };
 
@@ -49,33 +49,33 @@ export default function MediaPage() {
       PageSection({ title: "Sizes", stickyOffset: headerOffset.get() }, [
         div({ class: "grid-flow gap-md items-center" }, [
            div({ class: "card box gap-sm w-fit" }, [
-             span({ class: "icon icon-person icon-base" }),
-             span("Default (1rem)")
+             Icon({ name: "person", fill: "base" }),
+             span("Default (1.2rem)")
            ]),
            div({ class: "card box gap-sm w-fit" }, [
-             span({ class: "icon icon-person icon-lg icon-base" }),
+             Icon({ name: "person", size: "large", fill: "base" }),
              span("Large (1.5rem)")
            ]),
            div({ class: "card box gap-sm w-fit" }, [
-             span({ class: "icon icon-person icon-xl icon-base" }),
+             Icon({ name: "person", size: "xlarge", fill: "base" }),
              span("Extra Large (2rem)")
            ]),
         ])
       ]),
 
       PageSection({ title: "Colored Examples", stickyOffset: headerOffset.get() }, [
-        p({ class: "pb-sm" }, "Icons inherit the background color context or can be explicitly colored."),
+        p({ class: "pb-sm" }, "Icons inherit the color from CSS classes."),
         div({ class: "grid-flow gap-md" }, [
-           div({ class: "card box gap-sm w-fit text-accent" }, [
-            span({ class: "icon icon-xl icon-home icon-accent" }),
+           div({ class: "card box gap-sm w-fit" }, [
+            Icon({ name: "home", size: "xlarge", fill: "accent" }),
             span("Accent Color")
           ]),
-          div({ class: "card box gap-sm w-fit text-secondary" }, [
-            span({ class: "icon icon-xl icon-people icon-secondary" }),
+          div({ class: "card box gap-sm w-fit" }, [
+            Icon({ name: "people", size: "xlarge", fill: "secondary" }),
              span("Secondary Large")
           ]),
-           div({ class: "card box gap-sm w-fit text-destructive" }, [
-            span({ class: "icon icon-xl icon-star icon-destructive" }),
+           div({ class: "card box gap-sm w-fit" }, [
+            Icon({ name: "star", size: "xlarge", fill: "destructive" }),
              span("Destructive Star")
           ]),
         ])

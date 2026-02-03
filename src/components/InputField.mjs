@@ -1,7 +1,8 @@
 import Bunnix, { useRef, useEffect, useState } from "@bunnix/core";
-import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
+import { clampSize, toSizeToken, normalizeSize } from "../utils/sizeUtils.mjs";
 import { applyMask, getMaskMaxLength } from "../utils/maskUtils.mjs";
-const { div, label, input: inputEl, datalist, option, span } = Bunnix;
+import Icon from "./Icon.mjs";
+const { div, label, input: inputEl, datalist, option } = Bunnix;
 
 export default function InputField({
   class: className = "",
@@ -35,10 +36,11 @@ export default function InputField({
   const maskedValue = useState(initialMaskedValue);
 
   // InputField supports regular, large, xlarge (no xsmall, small)
-  const normalizeSize = (value) => clampSize(value, ["regular", "large", "xlarge"], "regular");
-  const normalizedSize = normalizeSize(size);
+  const normalizeSizeValue = (value) => clampSize(value, ["regular", "large", "xlarge"], "regular");
+  const normalizedSize = normalizeSizeValue(size);
   const sizeToken = toSizeToken(normalizedSize);
   const sizeClass = sizeToken === "xl" ? "input-xl" : sizeToken === "lg" ? "input-lg" : "";
+  const iconSize = normalizeSize(normalizedSize);
 
   useEffect((el) => {
     if (el && listId) {
@@ -112,15 +114,9 @@ export default function InputField({
     ...restWithoutMaxLength
   });
 
-  const iconSizeClass = sizeToken === "xl"
-    ? "icon-xl"
-    : sizeToken === "lg"
-      ? "icon-lg"
-      : "";
-
   const inputBlock = type === "search"
     ? div({ class: "input-search w-full" }, [
-        span({ class: `icon icon-search icon-quaternary ${iconSizeClass}`.trim() }),
+        Icon({ name: "search", fill: "quaternary", size: iconSize }),
         inputElement
       ])
     : inputElement;

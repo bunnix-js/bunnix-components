@@ -170,6 +170,17 @@
   --svg-video: url('../icons/video.svg');
   --svg-wallet: url('../icons/wallet.svg');
   --svg-window: url('../icons/window.svg');
+  --svg-arrow-down: url('../icons/arrow-down.svg');
+  --svg-arrow-left: url('../icons/arrow-left.svg');
+  --svg-arrow-right: url('../icons/arrow-right.svg');
+  --svg-arrow-up: url('../icons/arrow-up.svg');
+  --svg-battery-25: url('../icons/battery-25.svg');
+  --svg-bubble: url('../icons/bubble.svg');
+  --svg-captions-bubble: url('../icons/captions-bubble.svg');
+  --svg-ear: url('../icons/ear.svg');
+  --svg-hammer: url('../icons/hammer.svg');
+  --svg-wand-stars: url('../icons/wand-stars.svg');
+  --svg-waveform: url('../icons/waveform.svg');
 }
 
 @media (prefers-color-scheme: dark) {

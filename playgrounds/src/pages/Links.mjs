@@ -1,7 +1,5 @@
 import Bunnix from "@bunnix/core";
-import { PageHeader } from "@bunnix/components";
-import { PageSection } from "@bunnix/components";
-import { Container } from "@bunnix/components";
+import { Icon, PageHeader, PageSection, Container } from "@bunnix/components";
 const { div, h5, p, span, a, hr } = Bunnix;
 
 export default function LinksPage() {
@@ -43,19 +41,19 @@ export default function LinksPage() {
         div({ class: "grid-flow gap-md" }, [
           div({ class: "box w-fit p-0" }, [
             a({ href: "#" }, [
-              span({ class: "icon icon-download bg-accent" }),
+              Icon({ name: "download", fill: "accent" }),
               "Download File"
             ])
           ]),
           div({ class: "box w-fit p-0" }, [
             a({ class: "link-destructive", href: "#" }, [
-              span({ class: "icon icon-logout bg-destructive" }),
+              Icon({ name: "logout", fill: "destructive" }),
               "Sign Out"
             ])
           ]),
           div({ class: "box w-fit p-0" }, [
             a({ class: "link-flat", href: "#" }, [
-              span({ class: "icon icon-chevron-left icon-base" }),
+              Icon({ name: "chevron-left", fill: "base" }),
               "Back to Home"
             ])
           ]),
@@ -77,15 +75,15 @@ export default function LinksPage() {
             div({ class: "text-secondary text-sm" }, "With Icons & Sizes"),
             div({ class: "grid-flow gap-md items-center" }, [
               a({ class: "btn", href: "#" }, [
-                span({ class: "icon icon-download bg-white" }),
+                Icon({ name: "download", fill: "white" }),
                 "Download"
               ]),
               a({ class: "btn btn-lg btn-outline", href: "#" }, [
-                span({ class: "icon icon-gear icon-base" }),
+                Icon({ name: "gear", fill: "base" }),
                 "Large Settings"
               ]),
               a({ class: "btn btn-xl btn-destructive", href: "#" }, [
-                span({ class: "icon icon-logout icon-xl bg-white" }),
+                Icon({ name: "logout", fill: "white", size: "xlarge" }),
                 "Log Out"
               ]),
             ])

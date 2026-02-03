@@ -1,7 +1,8 @@
 import Bunnix, { useRef } from "@bunnix/core";
-import { resolveIconClass } from "../utils/iconUtils.mjs";
+import { resolveIconName } from "../utils/iconUtils.mjs";
 import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
-const { div, button, hr, span } = Bunnix;
+import Icon from "./Icon.mjs";
+const { div, button, hr } = Bunnix;
 
 let menuCounter = 0;
 
@@ -52,14 +53,7 @@ export default function PopoverMenu(
       : sizeToken === "xl"
         ? "btn-xl"
         : "";
-  const iconSizeClass =
-    sizeToken === "sm"
-      ? "icon-sm"
-      : sizeToken === "lg"
-        ? "icon-lg"
-        : sizeToken === "xl"
-          ? "icon-xl"
-          : "";
+  const iconSizeValue = normalizedSize;
 
   const triggerProps = {
     id: menuId,
@@ -113,11 +107,10 @@ export default function PopoverMenu(
               },
               [
                 item.icon
-                  ? span({
-                      class: (() => {
-                        const resolvedIcon = resolveIconClass(item.icon);
-                        return `icon ${iconSizeClass} ${resolvedIcon} ${item.destructive ? "bg-destructive" : "bg-primary"}`.trim();
-                      })(),
+                  ? Icon({
+                      name: resolveIconName(item.icon),
+                      fill: item.destructive ? "destructive" : "base",
+                      size: iconSizeValue,
                     })
                   : null,
                 item.title,

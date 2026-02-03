@@ -1,5 +1,6 @@
 import Bunnix, { ForEach, useMemo, useState } from "@bunnix/core";
 import Checkbox from "./Checkbox.mjs";
+import Icon from "./Icon.mjs";
 const { table, thead, tbody, tr, th, td, colgroup, col, span } = Bunnix;
 
 const normalizeKey = (value) =>
@@ -218,10 +219,11 @@ export default function Table({
               if (!sortableEntry) {
                 return th(column.label ?? column.field ?? "");
               }
-              const iconClass = sortState.map((sortValue) => {
+              const sortIconClass = sortState.map((sortValue) => {
                 const isSorted = sortValue && sortValue.field === column.field;
                 const isAsc = isSorted && sortValue.direction === "asc";
-                return `icon icon-chevron-down table-sort-icon ${isSorted ? "icon-base" : "icon-quaternary"} ${isAsc ? "rotate-180" : ""}`.trim();
+                const toneClass = isSorted ? "" : "icon-quaternary";
+                return `table-sort-icon ${toneClass} ${isAsc ? "rotate-180" : ""}`.trim();
               });
 
               return th(
@@ -236,8 +238,10 @@ export default function Table({
                 [
                   span({ class: "row-container items-center gap-xs w-full" }, [
                     span(column.label ?? column.field ?? ""),
-                    span({
-                      class: iconClass.map((cls) => `${cls} ml-auto`.trim()),
+                    Icon({
+                      name: "chevron-down",
+                      fill: "base",
+                      class: sortIconClass.map((cls) => `${cls} ml-auto`.trim()),
                     }),
                   ]),
                 ],

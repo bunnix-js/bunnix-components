@@ -21,6 +21,11 @@ export default {
         use: ['style-loader', 'css-loader'],
       },
       {
+        // SVG files with ?raw suffix - import as raw text
+        resourceQuery: /raw/,
+        type: 'asset/source',
+      },
+      {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
       },

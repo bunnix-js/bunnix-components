@@ -1,6 +1,7 @@
-import Bunnix, { useRef, useState, useMemo } from "@bunnix/core";
-import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
-import { resolveIconClass } from "../utils/iconUtils.mjs";
+import Bunnix, { useRef, useState, useMemo, Show } from "@bunnix/core";
+import { clampSize, toSizeToken, normalizeSize } from "../utils/sizeUtils.mjs";
+import { resolveIconName } from "../utils/iconUtils.mjs";
+import Icon from "./Icon.mjs";
 const { div, button, hr, span } = Bunnix;
 
 let dropdownCounter = 0;
@@ -26,6 +27,9 @@ export default function DropdownMenu({
   const selectedItem = useState(initialItem);
   const hasSelection = selectedItem.map(s => !!s);
   const currentTitle = selectedItem.map(s => s ? s.title : placeholder);
+  const selectedIconName = selectedItem.map(s => resolveIconName(s?.icon));
+  const selectedIconFill = selectedItem.map(s => s?.destructive ? "destructive" : "base");
+  const hasSelectedIcon = selectedItem.map(s => !!s?.icon);
 
   const handleToggle = () => {
     const popover = popoverRef.current;
@@ -49,13 +53,7 @@ export default function DropdownMenu({
 
   const sizeClass = sizeToken === "lg" ? "dropdown-lg" : sizeToken === "xl" ? "dropdown-xl" : "";
   const itemSizeClass = sizeToken === "lg" ? "btn-lg" : sizeToken === "xl" ? "btn-xl" : "";
-  const iconSizeClass = sizeToken === "sm"
-    ? "icon-sm"
-    : sizeToken === "lg"
-      ? "icon-lg"
-      : sizeToken === "xl"
-        ? "icon-xl"
-        : "";
+  const iconSize = normalizeSize(normalizedSize);
 
   return div({ class: "menu-wrapper" }, [
     button({
@@ -64,15 +62,11 @@ export default function DropdownMenu({
       class: `dropdown-trigger justify-start ${sizeClass} ${className}`.trim(),
       click: handleToggle
     }, [
-      // Reactive Icon: stable element, reactive class
-      span({ 
-        class: selectedItem.map(s => {
-          const resolvedIcon = resolveIconClass(s?.icon);
-          if (!resolvedIcon) return "hidden";
-          const tint = s.destructive ? "bg-destructive" : "bg-primary";
-          return `icon ${iconSizeClass} ${resolvedIcon} ${tint}`.trim();
-        })
-      }),
+      // Reactive Icon
+      Show(
+        hasSelectedIcon,
+        Icon({ name: selectedIconName, fill: selectedIconFill, size: iconSize })
+      ),
       // Reactive Title: text with dimmed style when empty
       span({ class: hasSelection.map(selected => selected ? "" : "text-secondary") }, currentTitle)
     ]),
@@ -95,14 +89,13 @@ export default function DropdownMenu({
             class: isCurrent.map(active => `btn btn-flat justify-start w-full ${itemSizeClass} ${active ? 'selected' : ''}`.trim()),
             click: () => handleItemClick(item)
           }, [
-            span({
-              class: isCurrent.map(active => {
-                const resolvedIcon = resolveIconClass(item.icon);
-                if (!resolvedIcon) return "hidden";
-                const tint = active ? "bg-white" : item.destructive ? "bg-destructive" : "bg-primary";
-                return `icon ${iconSizeClass} ${resolvedIcon} ${tint}`.trim();
-              })
-            }),
+            item.icon
+              ? Icon({
+                  name: resolveIconName(item.icon),
+                  fill: isCurrent.map(active => active ? "white" : item.destructive ? "destructive" : "base"),
+                  size: iconSize,
+                })
+              : null,
             item.title
           ]);
         })

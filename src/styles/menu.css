@@ -79,6 +79,7 @@
 
 [popover].menu-popover .selected .icon {
   background-color: white !important;
+  color: white !important;
 }
 
 [popover].menu-popover .selected,

@@ -1,7 +1,5 @@
 import Bunnix from "@bunnix/core";
-import { PageHeader } from "@bunnix/components";
-import { PageSection } from "@bunnix/components";
-import { Container } from "@bunnix/components";
+import { Icon, PageHeader, PageSection, Container } from "@bunnix/components";
 const { div, h5, p, span, hr, button } = Bunnix;
 
 export default function ButtonsPage() {
@@ -34,19 +32,19 @@ export default function ButtonsPage() {
       PageSection({ title: "Buttons with Icons", stickyOffset: headerOffset }, [
         div({ class: "grid-flow gap-md items-center" }, [
           button({ class: "btn" }, [
-            span({ class: "icon icon-add bg-white" }),
+            Icon({ name: "add", fill: "white" }),
             "Create New"
           ]),
           button({ class: "btn-outline" }, [
-            span({ class: "icon icon-gear icon-base" }),
+            Icon({ name: "gear", fill: "base" }),
             "Settings"
           ]),
           button({ class: "btn-flat" }, [
-            span({ class: "icon icon-logout icon-base" }),
+            Icon({ name: "logout", fill: "base" }),
             "Log Out"
           ]),
           button({ class: "btn btn-lg" }, [
-            span({ class: "icon icon-download icon-lg bg-white" }),
+            Icon({ name: "download", fill: "white", size: "large" }),
             "Matching Tint"
           ]),
         ])
@@ -55,16 +53,16 @@ export default function ButtonsPage() {
       PageSection({ title: "Icon-Only Buttons", stickyOffset: headerOffset }, [
         div({ class: "grid-flow gap-md items-center" }, [
           button({ class: "btn" }, [
-            span({ class: "icon icon-star bg-white" })
+            Icon({ name: "star", fill: "white" })
           ]),
           button({ class: "btn btn-lg" }, [
-            span({ class: "icon icon-pencil icon-lg bg-white" })
+            Icon({ name: "pencil", fill: "white", size: "large" })
           ]),
           button({ class: "btn btn-xl" }, [
-            span({ class: "icon icon-person icon-xl bg-white" })
+            Icon({ name: "person", fill: "white", size: "xlarge" })
           ]),
           button({ class: "btn-flat" }, [
-            span({ class: "icon icon-close icon-base" }),
+            Icon({ name: "close", fill: "base" }),
           ]),
         ])
       ]),

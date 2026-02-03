@@ -1,6 +1,7 @@
-import Bunnix, { useEffect, useRef, useState } from "@bunnix/core";
+import Bunnix, { useEffect, useRef, useState, Show } from "@bunnix/core";
 import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
-import { resolveIconClass } from "../utils/iconUtils.mjs";
+import { resolveIconName } from "../utils/iconUtils.mjs";
+import Icon from "./Icon.mjs";
 const { div, h4 } = Bunnix;
 
 const defaultToast = {
@@ -85,6 +86,8 @@ export default function ToastNotification() {
     if (sizeToken === "md") return "text-base";
     return "text-sm";
   });
+  const hasIcon = toastState.map((value) => !!value.icon);
+  const iconName = toastState.map((value) => resolveIconName(value.icon));
 
   return div({
     ref: popoverRef,
@@ -93,14 +96,10 @@ export default function ToastNotification() {
   }, [
     div({ class: cardClass }, [
       div({ class: "row-container items-center gap-sm no-margin" }, [
-        div({
-          class: toastState.map((value) =>
-            (() => {
-              const resolvedIcon = resolveIconClass(value.icon);
-              return resolvedIcon ? `icon ${resolvedIcon} icon-base` : "hidden";
-            })()
-          )
-        }),
+        Show(
+          hasIcon,
+          Icon({ name: iconName, fill: "base" })
+        ),
         h4({ class: textSizeClass.map(cls => `no-margin ${cls}`.trim()) }, toastState.map((value) => value.message))
       ])
     ])

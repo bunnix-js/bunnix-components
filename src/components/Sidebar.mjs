@@ -1,7 +1,8 @@
 import Bunnix, { useMemo, useState, ForEach, Show } from "@bunnix/core";
 import SearchBox from "./SearchBox.mjs";
 import Badge from "./Badge.mjs";
-import { resolveIconClass } from "../utils/iconUtils.mjs";
+import Icon from "./Icon.mjs";
+import { resolveIconName } from "../utils/iconUtils.mjs";
 const { div, a, span, h4, h6, hr } = Bunnix;
 
 export default function Sidebar({
@@ -105,12 +106,10 @@ export default function Sidebar({
               [
                 item.icon
                   ? (() => {
-                      const resolvedIconClass = resolveIconClass(item.icon);
-                      return span({
-                        class: isSelected.map(
-                          (s) =>
-                            `icon ${resolvedIconClass} ${s ? "bg-white" : "icon-base"}`,
-                        ),
+                      const iconName = resolveIconName(item.icon);
+                      return Icon({
+                        name: iconName,
+                        fill: isSelected.map((s) => s ? "white" : "base")
                       });
                     })()
                   : null,
@@ -141,10 +140,12 @@ export default function Sidebar({
                   );
                 })(),
                 hasChildren &&
-                  span({
+                  Icon({
+                    name: "chevron-down",
+                    fill: "base",
                     class: isExpanded.map(
                       (ex) =>
-                        `icon icon-chevron-down icon-base ml-auto transition-transform ${ex ? "rotate-180" : ""}`,
+                        `ml-auto transition-transform ${ex ? "rotate-180" : ""}`,
                     ),
                   }),
               ],

@@ -1,6 +1,6 @@
 {
   "name": "@bunnix/components",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "Bunnix components: a set of bunnix ready components for modern web apps.",
   "keywords": [
     "bunnix",
@@ -42,7 +42,10 @@
     "@types"
   ],
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "sanitize:icons": "node scripts/sanitizeSvgs.mjs",
+    "prebuild": "npm run sanitize:icons && node scripts/generateIconRegistry.mjs",
+    "build:icons": "npm run sanitize:icons && node scripts/generateIconRegistry.mjs"
   },
   "peerDependencies": {
     "@bunnix/core": "^0.9.4"
