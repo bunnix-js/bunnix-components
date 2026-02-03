@@ -28,8 +28,8 @@ export default function ComboBoxPage() {
     "];",
     "",
     "ComboBox({ options, selection });",
-    "ComboBox({ options, selection, size: \"lg\" });",
-    "ComboBox({ options, selection, size: \"xl\" });",
+    "ComboBox({ options, selection, size: \"large\" });",
+    "ComboBox({ options, selection, size: \"xlarge\" });",
     "ComboBox({ options, selection, disabled: true });"
   ].join("\n");
   const comboHtml = Prism.highlight(comboSnippet, Prism.languages.javascript, "javascript");
@@ -45,8 +45,8 @@ export default function ComboBoxPage() {
         div({ class: "column-container gap-md" }, [
           div({ class: "grid-flow gap-md items-center" }, [
             ComboBox({ options, selection }),
-            ComboBox({ options, selection, size: "lg" }),
-            ComboBox({ options, selection, size: "xl" }),
+            ComboBox({ options, selection, size: "large" }),
+            ComboBox({ options, selection, size: "xlarge" }),
             ComboBox({ options, selection, disabled: true })
           ]),
           p({ class: "text-secondary" }, selection.map((value) => `Selected: ${value}`)),

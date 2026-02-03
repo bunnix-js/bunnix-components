@@ -1,4 +1,5 @@
 import Bunnix from "@bunnix/core";
+import { normalizeSize, toSizeToken } from "../utils/sizeUtils.mjs";
 const { span } = Bunnix;
 
 export default function Icon({
@@ -16,12 +17,15 @@ export default function Icon({
   // fill mapping: "base" -> "icon-base", "white" -> "icon-white", etc.
   const fillClass = fill.startsWith("icon-") ? fill : `icon-${fill}`;
   
-  const normalizeSize = (value) => {
-    if (!value || value === "default" || value === "regular" || value === "md") return "";
+  const normalizeSizeClass = (value) => {
+    if (!value) return "";
     if (typeof value === "string" && value.startsWith("icon-")) return value;
-    return `icon-${value}`;
+    const normalized = normalizeSize(value);
+    if (normalized === "regular") return "";
+    const sizeToken = toSizeToken(normalized);
+    return sizeToken ? `icon-${sizeToken}` : "";
   };
-  const sizeClass = normalizeSize(size);
+  const sizeClass = normalizeSizeClass(size);
   
   const combinedClass = `icon ${iconName} ${fillClass} ${sizeClass} ${className}`.trim();
 

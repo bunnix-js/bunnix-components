@@ -26,9 +26,9 @@ export default function DatePickerPage() {
   ].join("\n");
   const roundedHtml = Prism.highlight(roundedSnippet, Prism.languages.javascript, "javascript");
   const sizeSnippet = [
-    "DatePicker({ size: \"md\" });",
-    "DatePicker({ size: \"lg\" });",
-    "DatePicker({ size: \"xl\" });"
+    "DatePicker({ size: \"regular\" });",
+    "DatePicker({ size: \"large\" });",
+    "DatePicker({ size: \"xlarge\" });"
   ].join("\n");
   const sizeHtml = Prism.highlight(sizeSnippet, Prism.languages.javascript, "javascript");
 
@@ -74,9 +74,9 @@ export default function DatePickerPage() {
         div({ class: "column-container gap-md" }, [
           p({ class: "pb-sm" }, "Size variants for the trigger control."),
           div({ class: "grid-flow gap-md items-center" }, [
-            DatePicker({ size: "md" }),
-            DatePicker({ size: "lg" }),
-            DatePicker({ size: "xl" })
+            DatePicker({ size: "regular" }),
+            DatePicker({ size: "large" }),
+            DatePicker({ size: "xlarge" })
           ]),
           CodeBlock({ html: sizeHtml, language: "js", wrap: true })
         ])

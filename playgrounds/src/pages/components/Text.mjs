@@ -46,7 +46,7 @@ export default function TextPage() {
     "Text(counter);",
     "Button({",
     "  variant: \"primary\",",
-    "  size: \"sm\",",
+    "  size: \"small\",",
     "  onclick: () => counter.set(counter.get() + 1)",
     "}, \"Increment\");",
     "",
@@ -56,7 +56,7 @@ export default function TextPage() {
     "Text({ color: \"accent\", weight: \"bold\" }, message);",
     "Button({",
     "  variant: \"secondary\",",
-    "  size: \"sm\",",
+    "  size: \"small\",",
     "  onclick: () => message.set(`Updated at ${new Date().toLocaleTimeString()}`)",
     "}, \"Update Message\");"
   ].join("\n");
@@ -129,7 +129,7 @@ export default function TextPage() {
                   Text(counter),
                   Button({ 
                     variant: "primary", 
-                    size: "sm",
+                    size: "small",
                     onclick: () => counter.set(counter.get() + 1)
                   }, "Increment")
                 ]);
@@ -149,7 +149,7 @@ export default function TextPage() {
                   Text({ color: "accent", weight: "bold" }, message),
                   Button({ 
                     variant: "secondary", 
-                    size: "sm",
+                    size: "small",
                     onclick: () => message.set(`Updated at ${new Date().toLocaleTimeString()}`)
                   }, "Update Message")
                 ]);

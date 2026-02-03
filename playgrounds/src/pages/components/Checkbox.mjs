@@ -18,8 +18,8 @@ export default function CheckboxPage() {
   const agreed = useState(false);
   const checkboxSnippet = [
     "Checkbox({ labelText: \"Remember me\", checked: true });",
-    "Checkbox({ labelText: \"Large Checkbox\", size: \"lg\" });",
-    "Checkbox({ labelText: \"Extra Large Checkbox\", size: \"xl\" });",
+    "Checkbox({ labelText: \"Large Checkbox\", size: \"large\" });",
+    "Checkbox({ labelText: \"Extra Large Checkbox\", size: \"xlarge\" });",
     "Checkbox({ labelText: \"Subscribe to newsletter\" });",
     "Checkbox({ labelText: \"Disabled Checkbox\", disabled: true });"
   ].join("\n");
@@ -27,8 +27,8 @@ export default function CheckboxPage() {
   const radioSnippet = [
     "RadioCheckbox({ labelText: \"Option A\", name: \"radio-demo\", checked: true });",
     "RadioCheckbox({ labelText: \"Option B\", name: \"radio-demo\" });",
-    "RadioCheckbox({ labelText: \"Large Radio\", name: \"radio-demo-lg\", size: \"lg\" });",
-    "RadioCheckbox({ labelText: \"Extra Large Radio\", name: \"radio-demo-xl\", size: \"xl\" });",
+    "RadioCheckbox({ labelText: \"Large Radio\", name: \"radio-demo-lg\", size: \"large\" });",
+    "RadioCheckbox({ labelText: \"Extra Large Radio\", name: \"radio-demo-xl\", size: \"xlarge\" });",
     "RadioCheckbox({ labelText: \"Disabled Radio\", name: \"radio-demo\", disabled: true });"
   ].join("\n");
   const radioHtml = Prism.highlight(radioSnippet, Prism.languages.javascript, "javascript");
@@ -59,8 +59,8 @@ export default function CheckboxPage() {
         div({ class: "column-container gap-md" }, [
           div({ class: "column-container gap-sm" }, [
             Checkbox({ labelText: "Remember me", checked: true }),
-            Checkbox({ labelText: "Large Checkbox", size: "lg" }),
-            Checkbox({ labelText: "Extra Large Checkbox", size: "xl" }),
+            Checkbox({ labelText: "Large Checkbox", size: "large" }),
+            Checkbox({ labelText: "Extra Large Checkbox", size: "xlarge" }),
             Checkbox({ labelText: "Subscribe to newsletter" }),
             Checkbox({ labelText: "Disabled Checkbox", disabled: true })
           ]),
@@ -73,8 +73,8 @@ export default function CheckboxPage() {
           div({ class: "column-container gap-sm" }, [
             RadioCheckbox({ labelText: "Option A", name: "radio-demo", checked: true }),
             RadioCheckbox({ labelText: "Option B", name: "radio-demo" }),
-            RadioCheckbox({ labelText: "Large Radio", name: "radio-demo-lg", size: "lg" }),
-            RadioCheckbox({ labelText: "Extra Large Radio", name: "radio-demo-xl", size: "xl" }),
+            RadioCheckbox({ labelText: "Large Radio", name: "radio-demo-lg", size: "large" }),
+            RadioCheckbox({ labelText: "Extra Large Radio", name: "radio-demo-xl", size: "xlarge" }),
             RadioCheckbox({ labelText: "Disabled Radio", name: "radio-demo", disabled: true })
           ]),
           CodeBlock({ html: radioHtml, language: "js", wrap: true })

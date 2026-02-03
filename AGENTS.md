@@ -35,15 +35,15 @@ playgrounds/
 
 ### Size vocabulary (authoritative)
 
-- Use **`sm | md | lg | xl`**.
-- `md` is the default when unspecified.
-- Some components only support `md | lg | xl` (see exceptions below).
-- Legacy sizes `regular` and `default` should normalize to `md` inside components.
+- Use **`xsmall | small | regular | large | xlarge`**.
+- `regular` is the default when unspecified.
+- Some components only support `regular | large | xlarge` (see exceptions below).
+- Legacy sizes `xs | sm | md | lg | xl | default` should normalize to the extended names inside components.
 
-### Exceptions (no `sm` support)
+### Exceptions (no `small` support)
 
-- `DatePicker`, `TimePicker`, `ToastNotification` do **not** support `sm`.
-- When passed `sm`, normalize to `md`.
+- `DatePicker`, `TimePicker`, `ToastNotification` do **not** support `small`.
+- When passed `small`/`sm`, normalize to `regular`.
 
 ### Variant and color
 

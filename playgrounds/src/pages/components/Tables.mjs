@@ -40,7 +40,7 @@ export default function TablesComponentPage() {
         ? "accent"
         : "dimmed";
     const variant = row.status === "Offline" ? "soft" : "solid";
-    return Badge({ tone, variant, size: "xs" }, row.status);
+    return Badge({ tone, variant, size: "xsmall" }, row.status);
   };
   const defaultSnippet = [
     "const columns = [",

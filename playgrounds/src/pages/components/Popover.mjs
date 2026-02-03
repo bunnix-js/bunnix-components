@@ -47,7 +47,7 @@ export default function PopoverPage() {
     "  trigger: () => span({ class: \"icon icon-more-vertical icon-lg fg-primary\" }),",
     "  menuItems: secondaryMenuItems,",
     "  align: \"right\",",
-    "  size: \"lg\"",
+    "  size: \"large\"",
     "});"
   ].join("\n");
   const popoverHtml = Prism.highlight(popoverSnippet, Prism.languages.javascript, "javascript");
@@ -78,7 +78,7 @@ export default function PopoverPage() {
                 trigger: () => span({ class: "icon icon-more-vertical icon-lg fg-primary" }),
                 menuItems: secondaryMenuItems,
                 align: "right",
-                size: "lg"
+                size: "large"
               })
             ]),
           ]),

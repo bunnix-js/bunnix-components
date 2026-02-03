@@ -53,6 +53,8 @@ export default function DialogPage() {
     "    email.set(\"\");",
     "    showDialog({",
     "      title: \"Share access\",",
+    "      minWidth: 500,",
+    "      minHeight: 400,",
     "      confirmation: {",
     "        text: \"Invite\",",
     "        disabled: true,",
@@ -118,6 +120,8 @@ export default function DialogPage() {
                 email.set("");
                 showDialog({
                   title: "Share access",
+                  minWidth: 500,
+                  minHeight: 400,
                   confirmation: {
                     text: "Invite",
                     disabled: true,

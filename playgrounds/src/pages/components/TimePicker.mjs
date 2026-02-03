@@ -21,9 +21,9 @@ export default function TimePickerPage() {
   ].join("\n");
   const roundedHtml = Prism.highlight(roundedSnippet, Prism.languages.javascript, "javascript");
   const sizeSnippet = [
-    "TimePicker({ size: \"md\" });",
-    "TimePicker({ size: \"lg\" });",
-    "TimePicker({ size: \"xl\" });"
+    "TimePicker({ size: \"regular\" });",
+    "TimePicker({ size: \"large\" });",
+    "TimePicker({ size: \"xlarge\" });"
   ].join("\n");
   const sizeHtml = Prism.highlight(sizeSnippet, Prism.languages.javascript, "javascript");
 
@@ -58,9 +58,9 @@ export default function TimePickerPage() {
         div({ class: "column-container gap-md" }, [
           p({ class: "pb-sm" }, "Size variants for the trigger control."),
           div({ class: "grid-flow gap-md items-center" }, [
-            TimePicker({ size: "md" }),
-            TimePicker({ size: "lg" }),
-            TimePicker({ size: "xl" })
+            TimePicker({ size: "regular" }),
+            TimePicker({ size: "large" }),
+            TimePicker({ size: "xlarge" })
           ]),
           CodeBlock({ html: sizeHtml, language: "js", wrap: true })
         ])

@@ -1,7 +1,37 @@
 /**
  * Standard size vocabulary for Bunnix components
- * Supported values: xs | sm | md | lg | xl
+ * Supported values: xsmall | small | regular | large | xlarge
+ * Legacy aliases (xs, sm, md, lg, xl, default) are accepted for compatibility.
  */
+
+const sizeAliasMap = {
+  xsmall: "xsmall",
+  xs: "xsmall",
+  small: "small",
+  sm: "small",
+  regular: "regular",
+  md: "regular",
+  default: "regular",
+  large: "large",
+  lg: "large",
+  xlarge: "xlarge",
+  xl: "xlarge",
+};
+
+const sizeTokenMap = {
+  xsmall: "xs",
+  small: "sm",
+  regular: "md",
+  large: "lg",
+  xlarge: "xl",
+};
+
+const sizeOrder = ["xsmall", "small", "regular", "large", "xlarge"];
+
+export function toSizeToken(value) {
+  const normalized = normalizeSize(value);
+  return sizeTokenMap[normalized];
+}
 
 /**
  * Normalizes size values to standard vocabulary
@@ -9,17 +39,16 @@
  * @returns {string} Normalized size value
  */
 export function normalizeSize(value) {
-  if (!value) return "md";
+  if (!value) return "regular";
 
   // Map legacy values to standard ones
-  if (value === "default" || value === "regular") return "md";
+  if (sizeAliasMap[value]) return sizeAliasMap[value];
 
   // Validate against standard vocabulary
-  const validSizes = ["xs", "sm", "md", "lg", "xl"];
-  if (validSizes.includes(value)) return value;
+  if (sizeOrder.includes(value)) return value;
 
   // Fallback to medium if invalid
-  return "md";
+  return "regular";
 }
 
 /**
@@ -29,16 +58,18 @@ export function normalizeSize(value) {
  * @param {string} defaultSize - Default size if unsupported
  * @returns {string} Clamped size value
  */
-export function clampSize(size, supportedSizes = ["xs", "sm", "md", "lg", "xl"], defaultSize = "md") {
+export function clampSize(size, supportedSizes = sizeOrder, defaultSize = "regular") {
   const normalized = normalizeSize(size);
 
   // If component supports this size, return it
   if (supportedSizes.includes(normalized)) return normalized;
 
+  // Prefer explicit default when unsupported (e.g., small -> regular)
+  if (supportedSizes.includes(defaultSize)) return defaultSize;
+
   // Find closest supported size
-  const sizeOrder = ["xs", "sm", "md", "lg", "xl"];
   const normalizedIndex = sizeOrder.indexOf(normalized);
-  const supportedIndices = supportedSizes.map(s => sizeOrder.indexOf(s));
+  const supportedIndices = supportedSizes.map((s) => sizeOrder.indexOf(s));
 
   // Find the closest supported size
   let closestSize = defaultSize;

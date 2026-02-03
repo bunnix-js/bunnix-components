@@ -1,5 +1,5 @@
 import Bunnix from "@bunnix/core";
-import { clampSize } from "../utils/sizeUtils.mjs";
+import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
 const { span, p, h1, h2, h3, h4 } = Bunnix;
 
 export default function Text(props = {}, children) {
@@ -29,9 +29,10 @@ export default function Text(props = {}, children) {
   } = props;
 
   const normalizeSize = (value) =>
-    clampSize(value, ["xs", "sm", "md", "lg", "xl"], "md");
+    clampSize(value, ["xsmall", "small", "regular", "large", "xlarge"], "regular");
   const normalizedSize = normalizeSize(size);
-  const sizeClass = normalizedSize ? `text-${normalizedSize}` : "";
+  const sizeToken = toSizeToken(normalizedSize);
+  const sizeClass = sizeToken ? `text-${sizeToken}` : "";
   const tagMap = {
     text: span,
     paragraph: p,

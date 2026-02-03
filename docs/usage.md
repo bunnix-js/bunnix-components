@@ -30,6 +30,6 @@ Button({ variant: "outline" }, [
 
 Size vocabulary:
 
-- `sm | md | lg | xl`
-- `md` is the default.
-- Date/Time pickers and Toast do not support `sm` (normalize to `md`).
+- `xsmall | small | regular | large | xlarge`
+- `regular` is the default.
+- Date/Time pickers and Toast do not support `small` (normalize to `regular`).

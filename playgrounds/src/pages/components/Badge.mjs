@@ -31,14 +31,14 @@ export default function BadgePage() {
   ].join("\n");
   const variantHtml = Prism.highlight(variantSnippet, Prism.languages.javascript, "javascript");
   const sizeSnippet = [
-    "Badge({ tone: \"accent\", size: \"xs\" }, \"XS\");",
-    "Badge({ tone: \"accent\", size: \"sm\" }, \"SM\");",
-    "Badge({ tone: \"accent\", size: \"md\" }, \"MD\");"
+    "Badge({ tone: \"accent\", size: \"xsmall\" }, \"XSmall\");",
+    "Badge({ tone: \"accent\", size: \"small\" }, \"Small\");",
+    "Badge({ tone: \"accent\", size: \"regular\" }, \"Regular\");"
   ].join("\n");
   const sizeHtml = Prism.highlight(sizeSnippet, Prism.languages.javascript, "javascript");
   const shapeSnippet = [
     "Badge({ tone: \"accent\", shape: \"capsule\" }, \"Capsule\");",
-    "Badge({ tone: \"accent\", shape: \"circle\", size: \"xs\" }, \"100\");"
+    "Badge({ tone: \"accent\", shape: \"circle\", size: \"xsmall\" }, \"100\");"
   ].join("\n");
   const shapeHtml = Prism.highlight(shapeSnippet, Prism.languages.javascript, "javascript");
   const iconSnippet = [
@@ -92,9 +92,9 @@ export default function BadgePage() {
       PageSection({ title: "Sizes", stickyOffset: headerOffset }, [
         div({ class: "column-container gap-md" }, [
           div({ class: "grid-flow gap-md items-center" }, [
-            Badge({ tone: "accent", size: "xs" }, "XS"),
-            Badge({ tone: "accent", size: "sm" }, "SM"),
-            Badge({ tone: "accent", size: "md" }, "MD")
+            Badge({ tone: "accent", size: "xsmall" }, "XSmall"),
+            Badge({ tone: "accent", size: "small" }, "Small"),
+            Badge({ tone: "accent", size: "regular" }, "Regular")
           ]),
           CodeBlock({ html: sizeHtml, language: "js", wrap: true })
         ])
@@ -103,7 +103,7 @@ export default function BadgePage() {
         div({ class: "column-container gap-md" }, [
           div({ class: "grid-flow gap-md items-center" }, [
             Badge({ tone: "accent", shape: "capsule" }, "Capsule"),
-            Badge({ tone: "accent", shape: "circle", size: "xs" }, "100")
+            Badge({ tone: "accent", shape: "circle", size: "xsmall" }, "100")
           ]),
           CodeBlock({ html: shapeHtml, language: "js", wrap: true })
         ])

@@ -22,9 +22,9 @@ export default function ButtonPage() {
   ].join("\n");
   const variantHtml = Prism.highlight(variantSnippet, Prism.languages.javascript, "javascript");
   const sizeSnippet = [
-    "Button({ size: \"md\" }, \"Default\");",
-    "Button({ size: \"lg\" }, \"Large\");",
-    "Button({ size: \"xl\" }, \"Extra Large\");"
+    "Button({ size: \"regular\" }, \"Default\");",
+    "Button({ size: \"large\" }, \"Large\");",
+    "Button({ size: \"xlarge\" }, \"Extra Large\");"
   ].join("\n");
   const sizeHtml = Prism.highlight(sizeSnippet, Prism.languages.javascript, "javascript");
   const linkSnippet = [
@@ -44,8 +44,8 @@ export default function ButtonPage() {
     "  \"Settings\"",
     "]);",
     "",
-    "Button({ variant: \"flat\", size: \"xl\" }, [",
-    "  Icon({ name: \"logout\", size: \"xl\" }),",
+    "Button({ variant: \"flat\", size: \"xlarge\" }, [",
+    "  Icon({ name: \"logout\", size: \"xlarge\" }),",
     "  \"Log Out\"",
     "]);"
   ].join("\n");
@@ -96,9 +96,9 @@ export default function ButtonPage() {
       PageSection({ title: "Sizes", stickyOffset: headerOffset }, [
         div({ class: "column-container gap-md" }, [
           div({ class: "grid-flow gap-md items-center" }, [
-            Button({ size: "md" }, "Default"),
-            Button({ size: "lg" }, "Large"),
-            Button({ size: "xl" }, "Extra Large"),
+            Button({ size: "regular" }, "Default"),
+            Button({ size: "large" }, "Large"),
+            Button({ size: "xlarge" }, "Extra Large"),
           ]),
           CodeBlock({ html: sizeHtml, language: "js", wrap: true })
         ])
@@ -127,8 +127,8 @@ export default function ButtonPage() {
               Icon({ name: "gear" }),
               "Settings"
             ]),
-            Button({ variant: "flat", size: "xl" }, [
-              Icon({ name: "logout", size: "xl" }),
+            Button({ variant: "flat", size: "xlarge" }, [
+              Icon({ name: "logout", size: "xlarge" }),
               "Log Out"
             ]),
           ]),

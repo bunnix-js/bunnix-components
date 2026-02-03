@@ -8,10 +8,10 @@ title: Date Picker
 ```js
 import { DatePicker } from "@bunnix/components";
 
-DatePicker({ size: "md" });
+DatePicker({ size: "regular" });
 DatePicker({ range: true, variant: "rounded" });
 ```
 
 Sizes:
 
-- `md | lg | xl`
+- `regular | large | xlarge`

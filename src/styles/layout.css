@@ -487,6 +487,17 @@ nav,
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+@media (prefers-color-scheme: dark) {
+  .dialog-backdrop::backdrop {
+    background-color: rgba(var(--background-color-rgb), 0.4);
+  }
+}
+
+.dialog-panel {
+  width: auto;
+  max-width: calc(100vw - (var(--base-padding) * 2));
+}
+
 .overflow-visible {
   overflow: visible !important;
 }

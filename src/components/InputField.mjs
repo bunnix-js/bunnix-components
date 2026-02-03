@@ -1,5 +1,5 @@
 import Bunnix, { useRef, useEffect } from "@bunnix/core";
-import { clampSize } from "../utils/sizeUtils.mjs";
+import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
 const { div, label, input: inputEl, datalist, option, span } = Bunnix;
 
 export default function InputField({
@@ -27,10 +27,11 @@ export default function InputField({
   const inputRef = useRef(null);
   const listId = suggestions.length > 0 ? `list-${Math.random().toString(36).slice(2, 8)}` : null;
 
-  // InputField supports md, lg, xl (no xs, sm)
-  const normalizeSize = (value) => clampSize(value, ["md", "lg", "xl"], "md");
+  // InputField supports regular, large, xlarge (no xsmall, small)
+  const normalizeSize = (value) => clampSize(value, ["regular", "large", "xlarge"], "regular");
   const normalizedSize = normalizeSize(size);
-  const sizeClass = normalizedSize === "xl" ? "input-xl" : normalizedSize === "lg" ? "input-lg" : "";
+  const sizeToken = toSizeToken(normalizedSize);
+  const sizeClass = sizeToken === "xl" ? "input-xl" : sizeToken === "lg" ? "input-lg" : "";
 
   useEffect((el) => {
     if (el && listId) {
@@ -62,9 +63,9 @@ export default function InputField({
     ...rest
   });
 
-  const iconSizeClass = normalizedSize === "xl"
+  const iconSizeClass = sizeToken === "xl"
     ? "icon-xl"
-    : normalizedSize === "lg"
+    : sizeToken === "lg"
       ? "icon-lg"
       : "";
 

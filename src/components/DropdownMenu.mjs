@@ -1,5 +1,5 @@
 import Bunnix, { useRef, useState, useMemo } from "@bunnix/core";
-import { clampSize } from "../utils/sizeUtils.mjs";
+import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
 import { resolveIconClass } from "../utils/iconUtils.mjs";
 const { div, button, hr, span } = Bunnix;
 
@@ -15,8 +15,9 @@ export default function DropdownMenu({
   class: className = ""
 }) {
   // DropdownMenu supports all sizes
-  const normalizeSize = (value) => clampSize(value, ["xs", "sm", "md", "lg", "xl"], "md");
+  const normalizeSize = (value) => clampSize(value, ["xsmall", "small", "regular", "large", "xlarge"], "regular");
   const normalizedSize = normalizeSize(size);
+  const sizeToken = toSizeToken(normalizedSize);
   const popoverRef = useRef(null);
   const dropdownId = id || `dropdown-instance-${++dropdownCounter}`;
   const anchorName = `--${dropdownId}`;
@@ -46,13 +47,13 @@ export default function DropdownMenu({
     }
   };
 
-  const sizeClass = normalizedSize === "lg" ? "dropdown-lg" : normalizedSize === "xl" ? "dropdown-xl" : "";
-  const itemSizeClass = normalizedSize === "lg" ? "btn-lg" : normalizedSize === "xl" ? "btn-xl" : "";
-  const iconSizeClass = normalizedSize === "sm"
+  const sizeClass = sizeToken === "lg" ? "dropdown-lg" : sizeToken === "xl" ? "dropdown-xl" : "";
+  const itemSizeClass = sizeToken === "lg" ? "btn-lg" : sizeToken === "xl" ? "btn-xl" : "";
+  const iconSizeClass = sizeToken === "sm"
     ? "icon-sm"
-    : normalizedSize === "lg"
+    : sizeToken === "lg"
       ? "icon-lg"
-      : normalizedSize === "xl"
+      : sizeToken === "xl"
         ? "icon-xl"
         : "";
 

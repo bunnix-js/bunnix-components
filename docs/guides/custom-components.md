@@ -23,4 +23,4 @@ Tips:
 
 - Prefer utility classes instead of writing new CSS.
 - Reuse token variables from `src/styles/variables.css`.
-- Keep size vocabulary consistent: `sm | md | lg | xl`.
+- Keep size vocabulary consistent: `xsmall | small | regular | large | xlarge`.

@@ -1,5 +1,6 @@
 import Bunnix, { useRef } from "@bunnix/core";
 import { resolveIconClass } from "../utils/iconUtils.mjs";
+import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
 const { div, button, hr, span } = Bunnix;
 
 let menuCounter = 0;
@@ -16,14 +17,10 @@ export default function PopoverMenu(
   } = {},
   children,
 ) {
-  const normalizeSize = (value) => {
-    if (!value || value === "default" || value === "regular" || value === "md")
-      return "md";
-    if (value === "sm") return "sm";
-    if (value === "lg" || value === "xl") return value;
-    return value;
-  };
+  const normalizeSize = (value) =>
+    clampSize(value, ["xsmall", "small", "regular", "large", "xlarge"], "regular");
   const normalizedSize = normalizeSize(size);
+  const sizeToken = toSizeToken(normalizedSize);
   const popoverRef = useRef(null);
 
   const menuId = id || `menu-instance-${++menuCounter}`;
@@ -50,17 +47,17 @@ export default function PopoverMenu(
   };
 
   const sizeClass =
-    normalizedSize === "lg"
+    sizeToken === "lg"
       ? "btn-lg"
-      : normalizedSize === "xl"
+      : sizeToken === "xl"
         ? "btn-xl"
         : "";
   const iconSizeClass =
-    normalizedSize === "sm"
+    sizeToken === "sm"
       ? "icon-sm"
-      : normalizedSize === "lg"
+      : sizeToken === "lg"
         ? "icon-lg"
-        : normalizedSize === "xl"
+        : sizeToken === "xl"
           ? "icon-xl"
           : "";
 

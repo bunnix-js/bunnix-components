@@ -40,7 +40,7 @@ export default function DropdownPage() {
     "DropdownMenu({",
     "  items: languageOptions,",
     "  placeholder: \"Large Dropdown\",",
-    "  size: \"lg\"",
+    "  size: \"large\"",
     "});"
   ].join("\n");
   const selectionHtml = Prism.highlight(selectionSnippet, Prism.languages.javascript, "javascript");
@@ -60,7 +60,7 @@ export default function DropdownPage() {
     "DropdownMenu({",
     "  items: actionOptions,",
     "  placeholder: \"Extra Large\",",
-    "  size: \"xl\"",
+    "  size: \"xlarge\"",
     "});"
   ].join("\n");
   const actionsHtml = Prism.highlight(actionsSnippet, Prism.languages.javascript, "javascript");
@@ -85,7 +85,7 @@ export default function DropdownPage() {
               DropdownMenu({
                 items: languageOptions,
                 placeholder: "Large Dropdown",
-                size: "lg"
+                size: "large"
               })
             ])
           ]),
@@ -106,7 +106,7 @@ export default function DropdownPage() {
               DropdownMenu({
                 items: actionOptions,
                 placeholder: "Extra Large",
-                size: "xl"
+                size: "xlarge"
               })
             ])
           ]),

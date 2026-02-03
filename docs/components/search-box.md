@@ -19,5 +19,5 @@ SearchBox({
 Props:
 
 - `data`: array of { title, snippet, icon }
-- `size`: `sm | md | lg | xl` (md default)
+- `size`: `xsmall | small | regular | large | xlarge` (regular default)
 - `variant`: regular | rounded

@@ -28,8 +28,8 @@ export default function SearchBoxPage() {
   const variantHtml = Prism.highlight(variantSnippet, Prism.languages.javascript, "javascript");
   const sizeSnippet = [
     "SearchBox({ placeholder: \"Default\" });",
-    "SearchBox({ placeholder: \"Large\", size: \"lg\" });",
-    "SearchBox({ placeholder: \"Extra Large\", size: \"xl\" });"
+    "SearchBox({ placeholder: \"Large\", size: \"large\" });",
+    "SearchBox({ placeholder: \"Extra Large\", size: \"xlarge\" });"
   ].join("\n");
   const sizeHtml = Prism.highlight(sizeSnippet, Prism.languages.javascript, "javascript");
   const controlledSnippet = [
@@ -87,10 +87,10 @@ export default function SearchBoxPage() {
               SearchBox({ placeholder: "Default" })
             ]),
             div({ class: "w-300" }, [
-              SearchBox({ placeholder: "Large", size: "lg" })
+              SearchBox({ placeholder: "Large", size: "large" })
             ]),
             div({ class: "w-300" }, [
-              SearchBox({ placeholder: "Extra Large", size: "xl" })
+              SearchBox({ placeholder: "Extra Large", size: "xlarge" })
             ])
           ]),
           CodeBlock({ html: sizeHtml, language: "js", wrap: true })

@@ -19,9 +19,9 @@ export default function IconPage() {
   ].join("\n");
   const basicHtml = Prism.highlight(basicSnippet, Prism.languages.javascript, "javascript");
   const sizeSnippet = [
-    "Icon({ name: \"star\", size: \"md\" });",
-    "Icon({ name: \"star\", size: \"lg\" });",
-    "Icon({ name: \"star\", size: \"xl\" });"
+    "Icon({ name: \"star\", size: \"regular\" });",
+    "Icon({ name: \"star\", size: \"large\" });",
+    "Icon({ name: \"star\", size: \"xlarge\" });"
   ].join("\n");
   const sizeHtml = Prism.highlight(sizeSnippet, Prism.languages.javascript, "javascript");
   const contextSnippet = [
@@ -68,15 +68,15 @@ export default function IconPage() {
         div({ class: "column-container gap-md" }, [
           div({ class: "grid-flow gap-md items-center" }, [
             div({ class: "column-container items-center gap-xs" }, [
-              Icon({ name: "star", size: "md" }),
+              Icon({ name: "star", size: "regular" }),
               span({ class: "text-sm text-secondary" }, "Default (1rem)")
             ]),
             div({ class: "column-container items-center gap-xs" }, [
-              Icon({ name: "star", size: "lg" }),
+              Icon({ name: "star", size: "large" }),
               span({ class: "text-sm text-secondary" }, "Large (1.5rem)")
             ]),
             div({ class: "column-container items-center gap-xs" }, [
-              Icon({ name: "star", size: "xl" }),
+              Icon({ name: "star", size: "xlarge" }),
               span({ class: "text-sm text-secondary" }, "Extra Large (2rem)")
             ]),
           ]),

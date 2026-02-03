@@ -1,5 +1,5 @@
 import Bunnix from "@bunnix/core";
-import { clampSize } from "../utils/sizeUtils.mjs";
+import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
 const { select, option, div, span } = Bunnix;
 
 export default function ComboBox({
@@ -12,14 +12,15 @@ export default function ComboBox({
   ...rest
 } = {}, children) {
   // ComboBox supports all sizes
-  const normalizeSize = (value) => clampSize(value, ["xs", "sm", "md", "lg", "xl"], "md");
+  const normalizeSize = (value) => clampSize(value, ["xsmall", "small", "regular", "large", "xlarge"], "regular");
   const normalizedSize = normalizeSize(size);
-  const sizeClass = normalizedSize === "xl" ? "input-xl" : normalizedSize === "lg" ? "input-lg" : "";
-  const iconSizeClass = normalizedSize === "sm"
+  const sizeToken = toSizeToken(normalizedSize);
+  const sizeClass = sizeToken === "xl" ? "input-xl" : sizeToken === "lg" ? "input-lg" : "";
+  const iconSizeClass = sizeToken === "sm"
     ? "icon-sm"
-    : normalizedSize === "lg"
+    : sizeToken === "lg"
       ? "icon-lg"
-      : normalizedSize === "xl"
+      : sizeToken === "xl"
         ? "icon-xl"
         : "";
   const selectionState = selection && typeof selection.map === "function" ? selection : null;

@@ -16,18 +16,18 @@ const { div, p } = Bunnix;
 export default function ToastPage() {
   const headerOffset = "6rem";
   const sizes = [
-    { value: "md", label: "Medium" },
-    { value: "lg", label: "Large" },
-    { value: "xl", label: "Extra Large" }
+    { value: "regular", label: "Regular" },
+    { value: "large", label: "Large" },
+    { value: "xlarge", label: "Extra Large" }
   ];
-  const sizeSelection = Bunnix.useState("md");
+  const sizeSelection = Bunnix.useState("regular");
   const toastSnippet = [
     "const sizes = [",
-    "  { value: \"md\", label: \"Medium\" },",
-    "  { value: \"lg\", label: \"Large\" },",
-    "  { value: \"xl\", label: \"Extra Large\" }",
+    "  { value: \"regular\", label: \"Regular\" },",
+    "  { value: \"large\", label: \"Large\" },",
+    "  { value: \"xlarge\", label: \"Extra Large\" }",
     "];",
-    "const sizeSelection = Bunnix.useState(\"md\");",
+    "const sizeSelection = Bunnix.useState(\"regular\");",
     "",
     "ComboBox({ options: sizes, selection: sizeSelection });",
     "",

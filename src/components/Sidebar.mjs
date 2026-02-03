@@ -123,7 +123,7 @@ export default function Sidebar({
                     typeof item.badge === "number"
                   ) {
                     return Badge(
-                      { tone: "accent", size: "xs", shape: "capsule" },
+                      { tone: "accent", size: "xsmall", shape: "capsule" },
                       String(item.badge),
                     );
                   }
@@ -134,7 +134,7 @@ export default function Sidebar({
                     {
                       tone: item.badge.tone || "accent",
                       variant: item.badge.variant || "solid",
-                      size: item.badge.size || "xs",
+                      size: item.badge.size || "xsmall",
                       shape: "capsule",
                     },
                     String(value),
@@ -257,6 +257,6 @@ export default function Sidebar({
   }
 
   return div({ class: `sidebar ${className}` }, [
-    div({ class: "column-container py-xs" }, content),
+    div({ class: "column-container py-xs w-full h-full" }, content),
   ]);
 }

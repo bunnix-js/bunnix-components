@@ -6,10 +6,16 @@ export interface BaseProps {
   [key: string]: unknown;
 }
 
+export type Size = "xsmall" | "small" | "regular" | "large" | "xlarge";
+export type LegacySize = "xs" | "sm" | "md" | "lg" | "xl" | "default";
+export type SizeValue = Size | LegacySize;
+export type SizeNoSmall = Exclude<SizeValue, "small" | "sm">;
+export type SizeRegularUp = Exclude<SizeValue, "xsmall" | "xs" | "small" | "sm">;
+
 export interface ButtonProps extends BaseProps {
   type?: string;
   variant?: string;
-  size?: "sm" | "md" | "lg" | "xl" | string;
+  size?: SizeValue;
   href?: string;
   disabled?: boolean;
   onClick?: (event?: any) => void;
@@ -19,7 +25,7 @@ export interface ButtonProps extends BaseProps {
 export interface IconProps extends BaseProps {
   name?: string;
   fill?: string;
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | string;
+  size?: SizeValue | `icon-${string}`;
 }
 
 export interface TextProps extends BaseProps {
@@ -38,7 +44,7 @@ export interface TextProps extends BaseProps {
     | (string & {});
   design?: "regular" | "mono";
   weight?: "regular" | "semibold" | "bold";
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  size?: SizeValue;
   wrap?: "wrap" | "nowrap";
 }
 
@@ -65,7 +71,7 @@ export interface VStackProps extends BaseProps {
 
 export interface BadgeProps extends BaseProps {
   tone?: "base" | "success" | "info" | "warning" | "danger" | "accent" | "dimmed" | string;
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | string;
+  size?: SizeValue;
   variant?: "solid" | "soft" | "outline" | string;
   icon?: string;
   overlap?: boolean;
@@ -75,7 +81,7 @@ export interface BadgeProps extends BaseProps {
 export interface InputFieldProps extends BaseProps {
   type?: string;
   variant?: "regular" | "rounded" | string;
-  size?: "md" | "lg" | "xl" | string;
+  size?: SizeRegularUp;
   value?: string;
   placeholder?: string;
   label?: string;
@@ -108,14 +114,14 @@ export interface ComboBoxOption {
 export interface ComboBoxProps extends BaseProps {
   options?: Array<string | ComboBoxOption>;
   selection?: any;
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | string;
+  size?: SizeValue;
   onChange?: (event?: any) => void;
   change?: (event?: any) => void;
 }
 
 export interface CheckboxProps extends BaseProps {
   labelText?: string;
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | string;
+  size?: SizeValue;
   onCheck?: (checked: boolean) => void;
   check?: (checked: boolean) => void;
   onChange?: (event?: any) => void;
@@ -123,7 +129,7 @@ export interface CheckboxProps extends BaseProps {
 
 export interface RadioCheckboxProps extends BaseProps {
   labelText?: string;
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | string;
+  size?: SizeValue;
   onCheck?: (checked: boolean) => void;
   check?: (checked: boolean) => void;
   onChange?: (event?: any) => void;
@@ -131,7 +137,7 @@ export interface RadioCheckboxProps extends BaseProps {
 
 export interface ToggleSwitchProps extends BaseProps {
   labelText?: string;
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | string;
+  size?: SizeValue;
   onChange?: (event?: any) => void;
 }
 
@@ -148,7 +154,7 @@ export interface SearchBoxProps extends BaseProps {
   placeholder?: string;
   onInput?: (event?: any) => void;
   input?: (event?: any) => void;
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | string;
+  size?: SizeValue;
   variant?: "regular" | "rounded" | string;
   onSelect?: (item?: SearchBoxItem) => void;
   select?: (item?: SearchBoxItem) => void;
@@ -163,7 +169,7 @@ export interface SidebarItem {
    */
   icon?: string;
   href?: string | null;
-  badge?: string | number | { value?: string | number; tone?: string; variant?: string; size?: string };
+  badge?: string | number | { value?: string | number; tone?: string; variant?: string; size?: SizeValue };
   children?: SidebarItem[];
   isExpanded?: boolean;
   isHeader?: boolean;
@@ -200,14 +206,14 @@ export interface DatePickerProps extends BaseProps {
   placeholder?: string;
   range?: boolean;
   variant?: "regular" | "rounded" | string;
-  size?: "xs" | "md" | "lg" | "xl" | string;
+  size?: SizeNoSmall;
 }
 
 export interface TimePickerProps extends BaseProps {
   id?: string;
   placeholder?: string;
   variant?: "regular" | "rounded" | string;
-  size?: "xs" | "md" | "lg" | "xl" | string;
+  size?: SizeNoSmall;
 }
 
 export interface DropdownMenuItem {
@@ -229,7 +235,7 @@ export interface DropdownMenuProps extends BaseProps {
   id?: string;
   align?: "left" | "right" | string;
   placeholder?: string;
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | string;
+  size?: SizeValue;
   onSelect?: (item?: DropdownMenuItem) => void;
 }
 
@@ -238,7 +244,7 @@ export interface PopoverMenuProps extends BaseProps {
   menuItems?: DropdownMenuItem[];
   id?: string;
   align?: "left" | "right" | string;
-  size?: "sm" | "md" | "lg" | "xl" | string;
+  size?: SizeValue;
   onSelect?: (item?: DropdownMenuItem) => void;
 }
 
@@ -253,6 +259,8 @@ export interface DialogConfirmation {
 export interface ShowDialogOptions {
   title?: string;
   message?: string;
+  minWidth?: number | string | null;
+  minHeight?: number | string | null;
   confirmation?: DialogConfirmation;
   content?: (args: { setConfirmDisabled: (disabled: boolean) => void }) => BunnixChildren;
 }
@@ -261,7 +269,7 @@ export interface ToastOptions {
   message?: string;
   duration?: number;
   anchor?: "topRight" | "topLeft" | "bottomRight" | "bottomLeft" | string;
-  size?: "xs" | "md" | "lg" | "xl" | string;
+  size?: SizeNoSmall;
   /**
    * Icon name. Accepts either a full icon class (e.g. "icon-bell")
    * or a bare name (e.g. "bell"), which will be prefixed with "icon-".

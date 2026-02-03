@@ -18,6 +18,7 @@
 
   --border-color: #ccc;
   --background-color: #fff;
+  --background-color-rgb: 255, 255, 255;
   --alternate-background-color: #f5f5f5;
   --highlight-background-color: #e5e5e5;
 
@@ -187,6 +188,7 @@
 
     --border-color: #333;
     --background-color: #000;
+    --background-color-rgb: 0, 0, 0;
     --alternate-background-color: #111;
     --highlight-background-color: #222;
 

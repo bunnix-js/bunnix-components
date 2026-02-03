@@ -1,5 +1,5 @@
 import Bunnix from "@bunnix/core";
-import { clampSize } from "../utils/sizeUtils.mjs";
+import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
 const { label, input, span } = Bunnix;
 
 export default function RadioCheckbox({
@@ -12,9 +12,10 @@ export default function RadioCheckbox({
   ...inputProps
 }) {
   // RadioCheckbox supports all sizes
-  const normalizeSize = (value) => clampSize(value, ["xs", "sm", "md", "lg", "xl"], "md");
+  const normalizeSize = (value) => clampSize(value, ["xsmall", "small", "regular", "large", "xlarge"], "regular");
   const normalizedSize = normalizeSize(size);
-  const sizeClass = normalizedSize === "xl" ? "checkbox-xl" : normalizedSize === "lg" ? "checkbox-lg" : "";
+  const sizeToken = toSizeToken(normalizedSize);
+  const sizeClass = sizeToken === "xl" ? "checkbox-xl" : sizeToken === "lg" ? "checkbox-lg" : "";
   const nativeChange = onChange ?? inputProps.change;
   const checkHandler = onCheck ?? check;
 

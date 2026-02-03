@@ -8,7 +8,7 @@ title: Toast
 ```js
 import { ToastNotification, showToast } from "@bunnix/components";
 
-showToast({ message: "Saved", size: "md" });
+showToast({ message: "Saved", size: "regular" });
 ```
 
 Render `ToastNotification()` once at app root:
@@ -19,4 +19,4 @@ ToastNotification();
 
 Sizes:
 
-- `md | lg | xl`
+- `regular | large | xlarge`
