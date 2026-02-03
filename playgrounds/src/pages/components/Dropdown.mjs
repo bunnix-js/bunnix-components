@@ -2,7 +2,11 @@ import Bunnix from "@bunnix/core";
 import { PageHeader } from "@bunnix/components";
 import { PageSection } from "@bunnix/components";
 import { DropdownMenu } from "@bunnix/components";
+import { CodeBlock } from "@bunnix/components";
 import { Container } from "@bunnix/components";
+import Prism from "prismjs";
+import "prismjs/components/prism-javascript.js";
+import "prismjs/themes/prism.css";
 
 const { div, p } = Bunnix;
 
@@ -21,6 +25,45 @@ export default function DropdownPage() {
     { title: "Duplicate", icon: "icon-duplicate" },
     { title: "Delete", icon: "icon-trash", destructive: true },
   ];
+  const selectionSnippet = [
+    "const languageOptions = [",
+    "  { title: \"English\", icon: \"icon-globe\" },",
+    "  { title: \"Portuguese\", icon: \"icon-globe\", selected: true },",
+    "  { title: \"Spanish\", icon: \"icon-globe\" },",
+    "];",
+    "",
+    "DropdownMenu({",
+    "  items: languageOptions,",
+    "  placeholder: \"Choose Language\"",
+    "});",
+    "",
+    "DropdownMenu({",
+    "  items: languageOptions,",
+    "  placeholder: \"Large Dropdown\",",
+    "  size: \"lg\"",
+    "});"
+  ].join("\n");
+  const selectionHtml = Prism.highlight(selectionSnippet, Prism.languages.javascript, "javascript");
+  const actionsSnippet = [
+    "const actionOptions = [",
+    "  { title: \"Add\", icon: \"icon-add\" },",
+    "  { title: \"Edit\", icon: \"icon-pencil\" },",
+    "  { title: \"Duplicate\", icon: \"icon-duplicate\" },",
+    "  { title: \"Delete\", icon: \"icon-trash\", destructive: true },",
+    "];",
+    "",
+    "DropdownMenu({",
+    "  items: actionOptions,",
+    "  placeholder: \"Select action...\"",
+    "});",
+    "",
+    "DropdownMenu({",
+    "  items: actionOptions,",
+    "  placeholder: \"Extra Large\",",
+    "  size: \"xl\"",
+    "});"
+  ].join("\n");
+  const actionsHtml = Prism.highlight(actionsSnippet, Prism.languages.javascript, "javascript");
 
   return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
@@ -30,38 +73,44 @@ export default function DropdownPage() {
 
     div({ class: "column-container gap-md" }, [
       PageSection({ title: "Standard Selection", stickyOffset: headerOffset }, [
-        div({ class: "row-container gap-md" }, [
-          div({ class: "box w-fit p-0" }, [
-            DropdownMenu({
-              items: languageOptions,
-              placeholder: "Choose Language"
-            })
+        div({ class: "column-container gap-md" }, [
+          div({ class: "row-container gap-md" }, [
+            div({ class: "box w-fit p-0" }, [
+              DropdownMenu({
+                items: languageOptions,
+                placeholder: "Choose Language"
+              })
+            ]),
+            div({ class: "box w-fit p-0" }, [
+              DropdownMenu({
+                items: languageOptions,
+                placeholder: "Large Dropdown",
+                size: "lg"
+              })
+            ])
           ]),
-          div({ class: "box w-fit p-0" }, [
-            DropdownMenu({
-              items: languageOptions,
-              placeholder: "Large Dropdown",
-              size: "lg"
-            })
-          ])
+          CodeBlock({ html: selectionHtml, language: "js", wrap: true })
         ])
       ]),
 
       PageSection({ title: "Actions & Destructive States", stickyOffset: headerOffset }, [
-        div({ class: "row-container gap-md" }, [
-          div({ class: "box w-fit p-0" }, [
-            DropdownMenu({
-              items: actionOptions,
-              placeholder: "Select action..."
-            })
+        div({ class: "column-container gap-md" }, [
+          div({ class: "row-container gap-md" }, [
+            div({ class: "box w-fit p-0" }, [
+              DropdownMenu({
+                items: actionOptions,
+                placeholder: "Select action..."
+              })
+            ]),
+            div({ class: "box w-fit p-0" }, [
+              DropdownMenu({
+                items: actionOptions,
+                placeholder: "Extra Large",
+                size: "xl"
+              })
+            ])
           ]),
-          div({ class: "box w-fit p-0" }, [
-            DropdownMenu({
-              items: actionOptions,
-              placeholder: "Extra Large",
-              size: "xl"
-            })
-          ])
+          CodeBlock({ html: actionsHtml, language: "js", wrap: true })
         ])
       ])
     ])

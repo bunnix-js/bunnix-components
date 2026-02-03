@@ -1,6 +1,6 @@
 import Bunnix, { useEffect, useRef, useState } from "@bunnix/core";
 import { clampSize } from "../utils/sizeUtils.mjs";
-import Icon from "./Icon.mjs";
+import { resolveIconClass } from "../utils/iconUtils.mjs";
 const { div, h4 } = Bunnix;
 
 const defaultToast = {
@@ -93,7 +93,10 @@ export default function ToastNotification() {
       div({ class: "row-container items-center gap-sm no-margin" }, [
         div({
           class: toastState.map((value) =>
-            value.icon ? `icon ${value.icon} icon-base` : "hidden"
+            (() => {
+              const resolvedIcon = resolveIconClass(value.icon);
+              return resolvedIcon ? `icon ${resolvedIcon} icon-base` : "hidden";
+            })()
           )
         }),
         h4({ class: textSizeClass.map(cls => `no-margin ${cls}`.trim()) }, toastState.map((value) => value.message))

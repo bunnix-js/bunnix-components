@@ -212,6 +212,10 @@ export interface TimePickerProps extends BaseProps {
 
 export interface DropdownMenuItem {
   title?: string;
+  /**
+   * Icon name. Accepts either a full icon class (e.g. "icon-person")
+   * or a bare name (e.g. "person"), which will be prefixed with "icon-".
+   */
   icon?: string;
   destructive?: boolean;
   isSeparator?: boolean;
@@ -258,6 +262,10 @@ export interface ToastOptions {
   duration?: number;
   anchor?: "topRight" | "topLeft" | "bottomRight" | "bottomLeft" | string;
   size?: "xs" | "md" | "lg" | "xl" | string;
+  /**
+   * Icon name. Accepts either a full icon class (e.g. "icon-bell")
+   * or a bare name (e.g. "bell"), which will be prefixed with "icon-".
+   */
   icon?: string;
 }
 

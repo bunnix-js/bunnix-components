@@ -1,4 +1,5 @@
 import Bunnix, { useState } from "@bunnix/core";
+import { resolveIconClass } from "../utils/iconUtils.mjs";
 const { div, button, span, p } = Bunnix;
 
 export default function AccordionGroup({ items = [], class: className = "", initialIndex } = {}) {
@@ -16,7 +17,7 @@ export default function AccordionGroup({ items = [], class: className = "", init
     { class: `accordion-group ${className}`.trim() },
     items.map((item, index) => {
       const isOpen = openIndex.map((value) => value === index);
-      const iconClass = item.icon ? item.icon : "icon-add";
+      const iconClass = resolveIconClass(item.icon) || "icon-add";
       const description = item.description ?? item.content ?? "";
 
       return div({ class: isOpen.map((open) => `accordion-item hoverable ${open ? "accordion-open" : ""}`) }, [

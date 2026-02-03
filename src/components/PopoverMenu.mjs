@@ -1,4 +1,5 @@
 import Bunnix, { useRef } from "@bunnix/core";
+import { resolveIconClass } from "../utils/iconUtils.mjs";
 const { div, button, hr, span } = Bunnix;
 
 let menuCounter = 0;
@@ -116,8 +117,10 @@ export default function PopoverMenu(
               [
                 item.icon
                   ? span({
-                      class:
-                        `icon ${iconSizeClass} ${item.icon} ${item.destructive ? "bg-destructive" : "bg-primary"}`.trim(),
+                      class: (() => {
+                        const resolvedIcon = resolveIconClass(item.icon);
+                        return `icon ${iconSizeClass} ${resolvedIcon} ${item.destructive ? "bg-destructive" : "bg-primary"}`.trim();
+                      })(),
                     })
                   : null,
                 item.title,

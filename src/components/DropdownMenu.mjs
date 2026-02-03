@@ -1,5 +1,6 @@
 import Bunnix, { useRef, useState, useMemo } from "@bunnix/core";
 import { clampSize } from "../utils/sizeUtils.mjs";
+import { resolveIconClass } from "../utils/iconUtils.mjs";
 const { div, button, hr, span } = Bunnix;
 
 let dropdownCounter = 0;
@@ -65,9 +66,10 @@ export default function DropdownMenu({
       // Reactive Icon: stable element, reactive class
       span({ 
         class: selectedItem.map(s => {
-          if (!s?.icon) return "hidden";
+          const resolvedIcon = resolveIconClass(s?.icon);
+          if (!resolvedIcon) return "hidden";
           const tint = s.destructive ? "bg-destructive" : "bg-primary";
-          return `icon ${iconSizeClass} ${s.icon} ${tint}`.trim();
+          return `icon ${iconSizeClass} ${resolvedIcon} ${tint}`.trim();
         })
       }),
       // Reactive Title: text with dimmed style when empty
@@ -94,8 +96,10 @@ export default function DropdownMenu({
           }, [
             span({
               class: isCurrent.map(active => {
+                const resolvedIcon = resolveIconClass(item.icon);
+                if (!resolvedIcon) return "hidden";
                 const tint = active ? "bg-white" : item.destructive ? "bg-destructive" : "bg-primary";
-                return `icon ${iconSizeClass} ${item.icon} ${tint}`.trim();
+                return `icon ${iconSizeClass} ${resolvedIcon} ${tint}`.trim();
               })
             }),
             item.title

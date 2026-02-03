@@ -2,7 +2,11 @@ import Bunnix from "@bunnix/core";
 import { PageHeader } from "@bunnix/components";
 import { PageSection } from "@bunnix/components";
 import { PopoverMenu } from "@bunnix/components";
+import { CodeBlock } from "@bunnix/components";
 import { Container } from "@bunnix/components";
+import Prism from "prismjs";
+import "prismjs/components/prism-javascript.js";
+import "prismjs/themes/prism.css";
 
 const { div, h5, p, span } = Bunnix;
 
@@ -22,6 +26,31 @@ export default function PopoverPage() {
     { isSeparator: true },
     { title: "Delete", icon: "icon-trash", destructive: true, click: () => console.log("Delete clicked") },
   ];
+  const popoverSnippet = [
+    "const primaryMenuItems = [",
+    "  { title: \"Profile\", icon: \"icon-person\", click: () => console.log(\"Profile clicked\") },",
+    "  { title: \"Settings\", icon: \"icon-gear\", click: () => console.log(\"Settings clicked\") },",
+    "  { isSeparator: true },",
+    "  { title: \"Logout\", icon: \"icon-logout\", destructive: true, click: () => console.log(\"Logout clicked\") },",
+    "];",
+    "",
+    "PopoverMenu({",
+    "  trigger: [",
+    "    span({ class: \"icon icon-more-horizontal icon-base\" }),",
+    "    \"Left Aligned\"",
+    "  ],",
+    "  menuItems: primaryMenuItems,",
+    "  align: \"left\"",
+    "});",
+    "",
+    "PopoverMenu({",
+    "  trigger: () => span({ class: \"icon icon-more-vertical icon-lg fg-primary\" }),",
+    "  menuItems: secondaryMenuItems,",
+    "  align: \"right\",",
+    "  size: \"lg\"",
+    "});"
+  ].join("\n");
+  const popoverHtml = Prism.highlight(popoverSnippet, Prism.languages.javascript, "javascript");
 
   return Container({ type: "page", direction: "column" }, [
     PageHeader({
@@ -31,26 +60,29 @@ export default function PopoverPage() {
 
     div({ class: "column-container gap-md" }, [
       PageSection({ title: "Multi-Instance Alignment", stickyOffset: headerOffset }, [
-        div({ class: "row-container gap-md" }, [
-          div({ class: "box w-fit p-0" }, [
-            PopoverMenu({
-              trigger: [
-                  span({ class: "icon icon-more-horizontal icon-base" }),
-                  "Left Aligned"
-              ],
-              menuItems: primaryMenuItems,
-              align: "left"
-            })
-          ]),
+        div({ class: "column-container gap-md" }, [
+          div({ class: "row-container gap-md" }, [
+            div({ class: "box w-fit p-0" }, [
+              PopoverMenu({
+                trigger: [
+                    span({ class: "icon icon-more-horizontal icon-base" }),
+                    "Left Aligned"
+                ],
+                menuItems: primaryMenuItems,
+                align: "left"
+              })
+            ]),
 
-          div({ class: "box w-fit p-0" }, [
-            PopoverMenu({
-              trigger: () => span({ class: "icon icon-more-vertical icon-lg fg-primary" }),
-              menuItems: secondaryMenuItems,
-              align: "right",
-              size: "lg"
-            })
+            div({ class: "box w-fit p-0" }, [
+              PopoverMenu({
+                trigger: () => span({ class: "icon icon-more-vertical icon-lg fg-primary" }),
+                menuItems: secondaryMenuItems,
+                align: "right",
+                size: "lg"
+              })
+            ]),
           ]),
+          CodeBlock({ html: popoverHtml, language: "js", wrap: true })
         ])
       ])
     ])

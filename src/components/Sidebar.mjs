@@ -1,6 +1,7 @@
 import Bunnix, { useMemo, useState, ForEach, Show } from "@bunnix/core";
 import SearchBox from "./SearchBox.mjs";
 import Badge from "./Badge.mjs";
+import { resolveIconClass } from "../utils/iconUtils.mjs";
 const { div, a, span, h4, h6, hr } = Bunnix;
 
 export default function Sidebar({
@@ -104,13 +105,7 @@ export default function Sidebar({
               [
                 item.icon
                   ? (() => {
-                      const iconClass = String(item.icon ?? "").trim();
-                      const resolvedIconClass =
-                        iconClass && iconClass.startsWith("icon-")
-                          ? iconClass
-                          : iconClass
-                            ? `icon-${iconClass}`
-                            : "";
+                      const resolvedIconClass = resolveIconClass(item.icon);
                       return span({
                         class: isSelected.map(
                           (s) =>
@@ -149,7 +144,7 @@ export default function Sidebar({
                   span({
                     class: isExpanded.map(
                       (ex) =>
-                        `icon icon-chevron-down ml-auto transition-transform ${ex ? "rotate-180" : "icon-base"}`,
+                        `icon icon-chevron-down icon-base ml-auto transition-transform ${ex ? "rotate-180" : ""}`,
                     ),
                   }),
               ],

@@ -7,7 +7,11 @@ import { HStack } from "@bunnix/components";
 import { VStack } from "@bunnix/components";
 import { InputField } from "@bunnix/components";
 import { showDialog } from "@bunnix/components";
+import { CodeBlock } from "@bunnix/components";
 import { Container } from "@bunnix/components";
+import Prism from "prismjs";
+import "prismjs/components/prism-javascript.js";
+import "prismjs/themes/prism.css";
 
 const { div } = Bunnix;
 
@@ -15,6 +19,64 @@ export default function DialogPage() {
   const headerOffset = "6rem";
   const status = Bunnix.useState("No action yet.");
   const email = Bunnix.useState("");
+  const dialogSnippet = [
+    "Button({",
+    "  variant: \"destructive\",",
+    "  click: () => showDialog({",
+    "    title: \"Delete project?\",",
+    "    message: \"This action cannot be undone.\\nThe project, its assets, and shared links will be permanently removed.\\nPlease confirm that you want to proceed with the deletion.\",",
+    "    confirmation: {",
+    "      text: \"Delete\",",
+    "      variant: \"destructive\",",
+    "      action: () => status.set(\"Confirmed delete action.\")",
+    "    }",
+    "  })",
+    "}, \"Delete Project\");",
+    "",
+    "Button({",
+    "  click: () => showDialog({",
+    "    title: \"Restore backup?\",",
+    "    message: \"The current configuration will be replaced with the last saved backup.\\nPlease confirm you want to restore these settings.\",",
+    "    confirmation: {",
+    "      text: \"Restore\",",
+    "      action: () => status.set(\"Backup restored successfully.\"),",
+    "      extra: {",
+    "        text: \"Cancel\",",
+    "        action: () => status.set(\"Restore canceled.\")",
+    "      }",
+    "    }",
+    "  })",
+    "}, \"Restore\");",
+    "",
+    "Button({",
+    "  click: () => {",
+    "    email.set(\"\");",
+    "    showDialog({",
+    "      title: \"Share access\",",
+    "      confirmation: {",
+    "        text: \"Invite\",",
+    "        disabled: true,",
+    "        action: () => status.set(\"Invitation sent.\")",
+    "      },",
+    "      content: ({ setConfirmDisabled }) => VStack({ gap: \"regular\", class: \"w-full\" }, [",
+    "        Text({ type: \"paragraph\", class: \"text-secondary\" }, \"Invite a teammate to this project.\"),",
+    "        InputField({",
+    "          label: \"Email address\",",
+    "          placeholder: \"name@company.com\",",
+    "          type: \"email\",",
+    "          value: email,",
+    "          input: (event) => {",
+    "            const value = event?.target?.value ?? \"\";",
+    "            email.set(value);",
+    "            setConfirmDisabled(!value);",
+    "          }",
+    "        })",
+    "      ])",
+    "    });",
+    "  }",
+    "}, \"Custom Content\");"
+  ].join("\n");
+  const dialogHtml = Prism.highlight(dialogSnippet, Prism.languages.javascript, "javascript");
 
   return Container({ type: "page", direction: "column" }, [
     PageHeader({
@@ -23,62 +85,65 @@ export default function DialogPage() {
     }),
     div({ class: "column-container gap-md" }, [
       PageSection({ title: "Example", stickyOffset: headerOffset }, [
-        HStack({ alignment: "leading", gap: "regular" }, [
-          Button({
-            variant: "destructive",
-            click: () => showDialog({
-              title: "Delete project?",
-              message: "This action cannot be undone.\nThe project, its assets, and shared links will be permanently removed.\nPlease confirm that you want to proceed with the deletion.",
-              confirmation: {
-                text: "Delete",
-                variant: "destructive",
-                action: () => status.set("Confirmed delete action.")
-              }
-            })
-          }, "Delete Project"),
-          Button({
-            click: () => showDialog({
-              title: "Restore backup?",
-              message: "The current configuration will be replaced with the last saved backup.\nPlease confirm you want to restore these settings.",
-              confirmation: {
-                text: "Restore",
-                action: () => status.set("Backup restored successfully."),
-                extra: {
-                  text: "Cancel",
-                  action: () => status.set("Restore canceled.")
-                }
-              }
-            })
-          }, "Restore"),
-          Button({
-            click: () => {
-              email.set("");
-              showDialog({
-                title: "Share access",
+        div({ class: "column-container gap-md" }, [
+          HStack({ alignment: "leading", gap: "regular" }, [
+            Button({
+              variant: "destructive",
+              click: () => showDialog({
+                title: "Delete project?",
+                message: "This action cannot be undone.\nThe project, its assets, and shared links will be permanently removed.\nPlease confirm that you want to proceed with the deletion.",
                 confirmation: {
-                  text: "Invite",
-                  disabled: true,
-                  action: () => status.set("Invitation sent.")
-                },
-                content: ({ setConfirmDisabled }) => VStack({ gap: "regular", class: "w-full" }, [
-                  Text({ type: "paragraph", class: "text-secondary" }, "Invite a teammate to this project."),
-                  InputField({
-                    label: "Email address",
-                    placeholder: "name@company.com",
-                    type: "email",
-                    value: email,
-                    input: (event) => {
-                      const value = event?.target?.value ?? "";
-                      email.set(value);
-                      setConfirmDisabled(!value);
-                    }
-                  })
-                ])
-              });
-            }
-          }, "Custom Content")
-        ]),
-        Text({ type: "paragraph", class: "text-secondary" }, status)
+                  text: "Delete",
+                  variant: "destructive",
+                  action: () => status.set("Confirmed delete action.")
+                }
+              })
+            }, "Delete Project"),
+            Button({
+              click: () => showDialog({
+                title: "Restore backup?",
+                message: "The current configuration will be replaced with the last saved backup.\nPlease confirm you want to restore these settings.",
+                confirmation: {
+                  text: "Restore",
+                  action: () => status.set("Backup restored successfully."),
+                  extra: {
+                    text: "Cancel",
+                    action: () => status.set("Restore canceled.")
+                  }
+                }
+              })
+            }, "Restore"),
+            Button({
+              click: () => {
+                email.set("");
+                showDialog({
+                  title: "Share access",
+                  confirmation: {
+                    text: "Invite",
+                    disabled: true,
+                    action: () => status.set("Invitation sent.")
+                  },
+                  content: ({ setConfirmDisabled }) => VStack({ gap: "regular", class: "w-full" }, [
+                    Text({ type: "paragraph", class: "text-secondary" }, "Invite a teammate to this project."),
+                    InputField({
+                      label: "Email address",
+                      placeholder: "name@company.com",
+                      type: "email",
+                      value: email,
+                      input: (event) => {
+                        const value = event?.target?.value ?? "";
+                        email.set(value);
+                        setConfirmDisabled(!value);
+                      }
+                    })
+                  ])
+                });
+              }
+            }, "Custom Content")
+          ]),
+          Text({ type: "paragraph", class: "text-secondary" }, status),
+          CodeBlock({ html: dialogHtml, language: "js", wrap: true })
+        ])
       ])
     ])
   ]);
