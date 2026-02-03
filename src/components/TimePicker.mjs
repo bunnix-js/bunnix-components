@@ -350,9 +350,9 @@ export default function TimePicker({
         hr({ class: "no-margin" }),
 
         div({ class: "row-container justify-center items-center gap-md p-base shrink-0" }, [
-          button({ class: "btn btn-flat", click: handleClear }, "Clear"),
-          button({ class: "btn btn-flat", click: handleNow }, "Now"),
-          button({ class: "btn", click: handleOK }, "OK")
+          button({ type: "button", class: "btn btn-flat", click: handleClear }, "Clear"),
+          button({ type: "button", class: "btn btn-flat", click: handleNow }, "Now"),
+          button({ type: "button", class: "btn", click: handleOK }, "OK")
         ])
       ])
     ])

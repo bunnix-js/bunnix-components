@@ -374,11 +374,11 @@ export default function DatePicker({
     }, [
       div({ class: "card column-container shadow gap-0 p-0 bg-base datepicker-card" }, [
         div({ class: "row-container items-center justify-between datepicker-header p-sm no-margin" }, [
-          button({ class: "btn btn-flat datepicker-nav", click: handlePrevMonth }, [
+          button({ type: "button", class: "btn btn-flat datepicker-nav", click: handlePrevMonth }, [
             span({ class: "icon icon-chevron-left icon-base" })
           ]),
           span({ class: "datepicker-title" }, monthLabel),
-          button({ class: "btn btn-flat datepicker-nav", click: handleNextMonth }, [
+          button({ type: "button", class: "btn btn-flat datepicker-nav", click: handleNextMonth }, [
             span({ class: "icon icon-chevron-right icon-base" })
           ])
         ]),
@@ -407,6 +407,7 @@ export default function DatePicker({
               ].filter(Boolean).join(" ");
 
               return button({
+                type: "button",
                 class: classNames,
                 click: () => handleDayClick(cell.date)
               }, cell.date.getDate().toString());
@@ -415,9 +416,9 @@ export default function DatePicker({
         ]),
         hr({ class: "no-margin" }),
         div({ class: "row-container justify-center items-center gap-md p-base shrink-0 datepicker-footer" }, [
-          button({ class: "btn btn-flat", click: handleClear }, "Clear"),
-          button({ class: "btn btn-flat", click: handleToday }, "Today"),
-          button({ class: "btn", click: handleOK }, "OK")
+          button({ type: "button", class: "btn btn-flat", click: handleClear }, "Clear"),
+          button({ type: "button", class: "btn btn-flat", click: handleToday }, "Today"),
+          button({ type: "button", class: "btn", click: handleOK }, "OK")
         ])
       ])
     ])
