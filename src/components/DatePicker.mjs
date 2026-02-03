@@ -233,6 +233,46 @@ export default function DatePicker({
     }
   };
 
+  const handleOK = () => {
+    // Update the main input with the currently selected date when OK is clicked
+    const start = selectedStart.get();
+    const end = selectedEnd.get();
+    
+    if (range) {
+      if (start && end) {
+        const startText = formatDate(start);
+        const endText = formatDate(end);
+        const value = `${startText} - ${endText}`;
+        inputValue.set(value);
+        
+        const handleChange = onChange ?? change;
+        if (handleChange) {
+          handleChange({ target: { value }, dateStart: start, dateEnd: end });
+        }
+      } else if (start) {
+        const value = formatDate(start);
+        inputValue.set(value);
+        
+        const handleChange = onChange ?? change;
+        if (handleChange) {
+          handleChange({ target: { value }, dateStart: start, dateEnd: null });
+        }
+      }
+    } else {
+      if (start) {
+        const value = formatDate(start);
+        inputValue.set(value);
+        
+        const handleChange = onChange ?? change;
+        if (handleChange) {
+          handleChange({ target: { value }, date: start });
+        }
+      }
+    }
+    
+    closePopover();
+  };
+
   const handleInputChange = (e) => {
     const rawValue = e.target.value;
     const maskedValue = applyDateMask(rawValue);
@@ -376,7 +416,7 @@ export default function DatePicker({
         div({ class: "row-container justify-center items-center gap-md p-base shrink-0 datepicker-footer" }, [
           button({ class: "btn btn-flat", click: handleClear }, "Clear"),
           button({ class: "btn btn-flat", click: handleToday }, "Today"),
-          button({ class: "btn", click: closePopover }, "OK")
+          button({ class: "btn", click: handleOK }, "OK")
         ])
       ])
     ])

@@ -364,7 +364,18 @@ export interface TimePickerProps extends BaseProps {
   id?: string;
   placeholder?: string;
   variant?: "regular" | "rounded" | string;
-  size?: SizeNoSmall;
+  size?: SizeRegularUp;
+  label?: string;
+  disabled?: boolean;
+  value?: { hours: number; minutes: number } | null;
+  onInput?: (event?: any) => void;
+  onChange?: (event?: { target: { value: string }; time: { hours: number; minutes: number } | null }) => void;
+  onFocus?: (event?: any) => void;
+  onBlur?: (event?: any) => void;
+  input?: (event?: any) => void;
+  change?: (event?: { target: { value: string }; time: { hours: number; minutes: number } | null }) => void;
+  focus?: (event?: any) => void;
+  blur?: (event?: any) => void;
 }
 
 export interface DropdownMenuItem {

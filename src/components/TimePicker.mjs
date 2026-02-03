@@ -1,28 +1,75 @@
-import Bunnix, { useRef, useState, useMemo } from "@bunnix/core";
+import Bunnix, { useRef, useState, useMemo, useEffect } from "@bunnix/core";
 import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
 import Icon from "./Icon.mjs";
-const { div, button, span, hr, input } = Bunnix;
+const { div, label, input: inputEl, button, span, hr } = Bunnix;
 
 const formatSegment = (val) => val.toString().padStart(2, '0');
 
+const applyTimeMask = (value) => {
+  // Remove all non-digits
+  const digits = value.replace(/\D/g, "");
+  
+  // Apply mask HH:MM
+  let masked = "";
+  for (let i = 0; i < digits.length && i < 4; i++) {
+    if (i === 2) {
+      masked += ":";
+    }
+    masked += digits[i];
+  }
+  
+  return masked;
+};
+
+const parseTime = (str) => {
+  if (!str) return null;
+  const parts = str.split(":");
+  if (parts.length !== 2) return null;
+  const hours = parseInt(parts[0], 10);
+  const minutes = parseInt(parts[1], 10);
+  if (isNaN(hours) || isNaN(minutes)) return null;
+  if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) return null;
+  return { hours, minutes };
+};
+
+const formatTime = (hours, minutes) => {
+  if (hours === null || minutes === null) return "";
+  return `${formatSegment(hours)}:${formatSegment(minutes)}`;
+};
+
 export default function TimePicker({
   id,
-  placeholder,
+  placeholder = "HH:MM",
   variant = "regular",
   size = "regular",
+  label: labelText,
+  disabled = false,
+  value,
+  onInput,
+  onChange,
+  onFocus,
+  onBlur,
+  input,
+  change,
+  focus,
+  blur,
   class: className = ""
 } = {}) {
   const popoverRef = useRef(null);
+  const inputRef = useRef(null);
   const hourInputRef = useRef(null);
   const minuteInputRef = useRef(null);
   const pickerId = id || `timepicker-${Math.random().toString(36).slice(2, 8)}`;
   const anchorName = `--${pickerId}`;
 
-  // State as strings for better input handling
+  // Initialize from value prop if provided
   const now = new Date();
-  const hour = useState(formatSegment(now.getHours()));
-  const minute = useState(formatSegment(now.getMinutes()));
-  const isModified = useState(false);
+  const initialHours = value?.hours ?? now.getHours();
+  const initialMinutes = value?.minutes ?? now.getMinutes();
+  
+  const hour = useState(formatSegment(initialHours));
+  const minute = useState(formatSegment(initialMinutes));
+  const inputValue = useState(value ? formatTime(initialHours, initialMinutes) : "");
 
   const openPopover = () => {
     const popover = popoverRef.current;
@@ -38,11 +85,82 @@ export default function TimePicker({
     }
   };
 
+  // Handle click outside and escape key for manual popover
+  useEffect((popoverElement) => {
+    if (!popoverElement) return;
+
+    const handleClickOutside = (e) => {
+      if (!popoverElement.matches(":popover-open")) return;
+      
+      const input = inputRef.current;
+      const isClickInside = popoverElement.contains(e.target);
+      const isClickOnInput = input && input.contains(e.target);
+      
+      if (!isClickInside && !isClickOnInput) {
+        closePopover();
+      }
+    };
+
+    const handleEscape = (e) => {
+      if (e.key === "Escape" && popoverElement.matches(":popover-open")) {
+        closePopover();
+        inputRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside, true);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, popoverRef);
+
+  const updateTime = (hours, minutes) => {
+    hour.set(formatSegment(hours));
+    minute.set(formatSegment(minutes));
+    inputValue.set(formatTime(hours, minutes));
+    
+    const handleChange = onChange ?? change;
+    if (handleChange) {
+      handleChange({ target: { value: formatTime(hours, minutes) }, time: { hours, minutes } });
+    }
+  };
+
   const handleNow = () => {
     const d = new Date();
-    hour.set(formatSegment(d.getHours()));
-    minute.set(formatSegment(d.getMinutes()));
-    isModified.set(true);
+    updateTime(d.getHours(), d.getMinutes());
+  };
+
+  const handleClear = () => {
+    hour.set("00");
+    minute.set("00");
+    inputValue.set("");
+    closePopover();
+    
+    const handleChange = onChange ?? change;
+    if (handleChange) {
+      handleChange({ target: { value: "" }, time: null });
+    }
+  };
+
+  const handleOK = () => {
+    // Update the main input with current segment values when OK is clicked
+    const h = hour.get().padStart(2, '0');
+    const m = minute.get().padStart(2, '0');
+    const time = formatTime(parseInt(h, 10), parseInt(m, 10));
+    inputValue.set(time);
+    
+    const handleChange = onChange ?? change;
+    if (handleChange) {
+      handleChange({ 
+        target: { value: time }, 
+        time: { hours: parseInt(h, 10), minutes: parseInt(m, 10) } 
+      });
+    }
+    
+    closePopover();
   };
 
   const handleHourInput = (e) => {
@@ -52,7 +170,12 @@ export default function TimePicker({
       if (val > 23) raw = "23";
     }
     hour.set(raw);
-    isModified.set(true);
+
+    // Update main input value
+    const currentMinute = minute.get();
+    if (raw && currentMinute) {
+      inputValue.set(formatTime(parseInt(raw, 10), parseInt(currentMinute, 10)));
+    }
 
     // Auto-focus minutes if we have 2 digits or a digit that can't be leading (3-9)
     if (raw.length === 2 || (raw.length === 1 && parseInt(raw, 10) > 2)) {
@@ -68,91 +191,157 @@ export default function TimePicker({
       if (val > 59) raw = "59";
     }
     minute.set(raw);
-    isModified.set(true);
+
+    // Update main input value
+    const currentHour = hour.get();
+    if (currentHour && raw) {
+      inputValue.set(formatTime(parseInt(currentHour, 10), parseInt(raw, 10)));
+    }
   };
 
-  const handleBlur = (type) => {
+  const handleSegmentBlur = (type) => {
     const state = type === 'hour' ? hour : minute;
     let val = state.get();
     if (val === "") val = "00";
-    state.set(val.padStart(2, '0'));
+    const padded = val.padStart(2, '0');
+    state.set(padded);
+
+    // Update main input with padded values
+    const h = type === 'hour' ? padded : hour.get();
+    const m = type === 'minute' ? padded : minute.get();
+    if (h && m) {
+      const time = formatTime(parseInt(h, 10), parseInt(m, 10));
+      inputValue.set(time);
+      
+      const handleChange = onChange ?? change;
+      if (handleChange) {
+        handleChange({ 
+          target: { value: time }, 
+          time: { hours: parseInt(h, 10), minutes: parseInt(m, 10) } 
+        });
+      }
+    }
   };
 
-  // Reactive display label for the trigger
-  const displayLabel = useMemo([hour, minute, isModified], (h, m, mod) => {
-    if (!mod && placeholder) return placeholder;
-    // Ensure we show padded values in the trigger even if input is mid-edit
-    const hh = h === "" ? "00" : h.padStart(2, '0');
-    const mm = m === "" ? "00" : m.padStart(2, '0');
-    return `${hh}:${hh === h ? '' : ''}${mm}`; // Trigger re-render correctly
-  });
+  const handleMainInputChange = (e) => {
+    const rawValue = e.target.value;
+    const maskedValue = applyTimeMask(rawValue);
+    inputValue.set(maskedValue);
+    
+    // Try to parse the time if complete
+    if (maskedValue.length === 5) {
+      const parsedTime = parseTime(maskedValue);
+      if (parsedTime) {
+        hour.set(formatSegment(parsedTime.hours));
+        minute.set(formatSegment(parsedTime.minutes));
+        
+        const handleChange = onChange ?? change;
+        if (handleChange) {
+          handleChange({ target: { value: maskedValue }, time: parsedTime });
+        }
+      }
+    }
+    
+    const handleInput = onInput ?? input;
+    if (handleInput) {
+      handleInput(e);
+    }
+  };
 
-  // Refined display label using state directly for consistency
-  const finalLabel = useMemo([hour, minute, isModified], (h, m, mod) => {
-    if (!mod && placeholder) return placeholder;
-    const hh = h.padStart(2, '0');
-    const mm = m.padStart(2, '0');
-    return `${hh}:${mm}`;
-  });
+  const handleMainInputFocus = (e) => {
+    openPopover();
+    
+    const handleFocus = onFocus ?? focus;
+    if (handleFocus) {
+      handleFocus(e);
+    }
+  };
 
-  const hasValue = isModified.map(m => !!m);
+  const handleMainInputBlur = (e) => {
+    // Don't close popover on blur - let it handle its own dismissal
+    
+    const handleBlur = onBlur ?? blur;
+    if (handleBlur) {
+      handleBlur(e);
+    }
+  };
 
-  // TimePicker does not support small size (clamps to regular)
-  const normalizeSize = (value) => clampSize(value, ["xsmall", "regular", "large", "xlarge"], "regular");
+  const handleClockIconClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const input = inputRef.current;
+    if (input) {
+      input.focus();
+    }
+  };
+
+  // TimePicker supports regular, large, xlarge (no xsmall, small)
+  const normalizeSize = (value) => clampSize(value, ["regular", "large", "xlarge"], "regular");
   const normalizedSize = normalizeSize(size);
   const sizeToken = toSizeToken(normalizedSize);
+  const sizeClass = sizeToken === "xl" ? "input-xl" : sizeToken === "lg" ? "input-lg" : "";
   const variantClass = variant === "rounded" ? "rounded-full" : "";
-  const triggerSizeClass = sizeToken === "xl"
-    ? "dropdown-xl"
-    : sizeToken === "lg"
-      ? "dropdown-lg"
-      : "";
-  const iconSizeValue = normalizedSize === "small"
-    ? "small"
-    : normalizedSize === "large"
-      ? "large"
-      : normalizedSize === "xlarge"
-        ? "xlarge"
-        : undefined;
+  const iconSizeValue = normalizedSize === "large"
+    ? "large"
+    : normalizedSize === "xlarge"
+      ? "xlarge"
+      : undefined;
 
-  return div({ class: `timepicker-wrapper ${className}`.trim() }, [
-    button({
-      id: pickerId,
-      class: `dropdown-trigger timepicker-trigger justify-start ${variantClass} ${triggerSizeClass} no-chevron`.trim(),
-      style: `anchor-name: ${anchorName}`,
-      click: openPopover
-    }, [
-      span({ class: hasValue.map(h => h ? "" : "text-tertiary") }, finalLabel),
-      Icon({ name: "clock", fill: "quaternary", size: iconSizeValue, class: "ml-auto" })
+  return div({ class: `column-container no-margin shrink-0 ${className}`.trim() }, [
+    labelText && label({ class: "label select-none" }, labelText),
+    div({ class: "timepicker-input-wrapper w-full relative" }, [
+      inputEl({
+        ref: inputRef,
+        id: pickerId,
+        type: "text",
+        value: inputValue,
+        placeholder,
+        disabled,
+        class: `input ${sizeClass} ${variantClass} pr-xl`.trim(),
+        style: `anchor-name: ${anchorName}`,
+        input: handleMainInputChange,
+        focus: handleMainInputFocus,
+        blur: handleMainInputBlur,
+        maxlength: "5"
+      }),
+      button({
+        class: "timepicker-icon-button",
+        type: "button",
+        disabled,
+        click: handleClockIconClick,
+        tabindex: "-1"
+      }, [
+        Icon({ name: "clock", fill: "quaternary", size: iconSizeValue })
+      ])
     ]),
 
     div({
       ref: popoverRef,
-      popover: "auto",
+      popover: "manual",
       class: "timepicker-popover popover-base",
       style: `--anchor-id: ${anchorName}`
     }, [
       div({ class: "card column-container shadow gap-0 p-0 bg-base timepicker-card" }, [
         div({ class: "timepicker-display" }, [
-          input({
+          inputEl({
             ref: hourInputRef,
             type: "text",
             class: "time-segment",
             value: hour,
             placeholder: "00",
             input: handleHourInput,
-            blur: () => handleBlur('hour'),
+            blur: () => handleSegmentBlur('hour'),
             focus: (e) => e.target.select()
           }),
           span({ class: "time-separator" }, ":"),
-          input({
+          inputEl({
             ref: minuteInputRef,
             type: "text",
             class: "time-segment",
             value: minute,
             placeholder: "00",
             input: handleMinuteInput,
-            blur: () => handleBlur('minute'),
+            blur: () => handleSegmentBlur('minute'),
             focus: (e) => e.target.select()
           })
         ]),
@@ -160,9 +349,9 @@ export default function TimePicker({
         hr({ class: "no-margin" }),
 
         div({ class: "row-container justify-center items-center gap-md p-base shrink-0" }, [
-          button({ class: "btn btn-flat", click: () => { isModified.set(false); closePopover(); } }, "Clear"),
+          button({ class: "btn btn-flat", click: handleClear }, "Clear"),
           button({ class: "btn btn-flat", click: handleNow }, "Now"),
-          button({ class: "btn", click: closePopover }, "OK")
+          button({ class: "btn", click: handleOK }, "OK")
         ])
       ])
     ])

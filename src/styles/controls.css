@@ -336,14 +336,16 @@ input::-webkit-calendar-picker-indicator {
   -webkit-appearance: none;
 }
 
-/* DatePicker Input Wrapper */
-.datepicker-input-wrapper {
+/* DatePicker & TimePicker Input Wrapper */
+.datepicker-input-wrapper,
+.timepicker-input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.datepicker-icon-button {
+.datepicker-icon-button,
+.timepicker-icon-button {
   position: absolute;
   right: var(--base-padding);
   top: 50%;
@@ -360,11 +362,13 @@ input::-webkit-calendar-picker-indicator {
   z-index: 1;
 }
 
-.datepicker-icon-button:hover:not(:disabled) {
+.datepicker-icon-button:hover:not(:disabled),
+.timepicker-icon-button:hover:not(:disabled) {
   color: var(--color-tertiary);
 }
 
-.datepicker-icon-button:disabled {
+.datepicker-icon-button:disabled,
+.timepicker-icon-button:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
