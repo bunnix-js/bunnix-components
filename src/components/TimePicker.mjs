@@ -297,6 +297,7 @@ export default function TimePicker({
         value: inputValue,
         placeholder,
         disabled,
+        autocomplete: "off",
         class: `input ${sizeClass} ${variantClass} pr-xl`.trim(),
         style: `anchor-name: ${anchorName}`,
         input: handleMainInputChange,

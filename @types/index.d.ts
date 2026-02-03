@@ -218,6 +218,33 @@ export interface BadgeProps extends BaseProps {
   shape?: "capsule" | "circle" | string;
 }
 
+export type InputMaskType = 
+  | "date"          // DD/MM/YYYY
+  | "time"          // HH:MM
+  | "email"         // lowercase, no spaces
+  | "currency"      // $ 1,234.56
+  | "decimal"       // 123.45
+  | "integer"       // 123
+  | "phone"         // +1 (234) 567-8900
+  | "phone-br"      // +55 11 99999-9999 or +55 11 9999-9999 (Brazilian phone)
+  | "credit-card"   // 1234 5678 9012 3456
+  | "cpf"           // 123.456.789-01 (Brazilian CPF)
+  | "cnpj"          // 12.345.678/0001-90 (Brazilian CNPJ)
+  | "cep"           // 12345-678 (Brazilian ZIP code)
+  | string;         // Custom pattern using 9 (digit), A (letter), * (alphanumeric)
+
+export interface InputMaskConfig {
+  type?: InputMaskType;
+  pattern?: string;  // Custom pattern: 9=digit, A=letter, *=alphanumeric
+  options?: {
+    prefix?: string;
+    thousandsSeparator?: string;
+    decimalSeparator?: string;
+    decimalPlaces?: number;
+    allowNegative?: boolean;
+  };
+}
+
 export interface InputFieldProps extends BaseProps {
   type?: string;
   variant?: "regular" | "rounded" | string;
@@ -226,6 +253,8 @@ export interface InputFieldProps extends BaseProps {
   placeholder?: string;
   label?: string;
   disabled?: boolean;
+  autocomplete?: string;
+  mask?: InputMaskType | InputMaskConfig;
   suggestions?: string[];
   onInput?: (event?: any) => void;
   onChange?: (event?: any) => void;

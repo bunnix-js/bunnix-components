@@ -348,6 +348,7 @@ export default function DatePicker({
         value: inputValue,
         placeholder,
         disabled,
+        autocomplete: "off",
         class: `input ${sizeClass} ${variantClass} pr-xl`.trim(),
         style: `anchor-name: ${anchorName}`,
         input: handleInputChange,
