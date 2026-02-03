@@ -51,6 +51,51 @@ Button({ variant: "regular" }, [
 ]);
 ```
 
+Input with mask:
+
+```js
+import { InputField } from "@bunnix/components";
+
+// Date mask
+InputField({ label: "Date", mask: "date", placeholder: "DD/MM/YYYY" });
+
+// Brazilian phone
+InputField({ label: "Phone", mask: "phone-br", placeholder: "+55 11 99999-9999" });
+
+// Currency with options
+InputField({ 
+  label: "Price", 
+  mask: { 
+    type: "currency",
+    options: { prefix: "R$", decimalPlaces: 2 }
+  }
+});
+
+// Custom pattern (9=digit, A=letter, *=alphanumeric)
+InputField({ 
+  label: "Custom", 
+  mask: { pattern: "999.999.999-99" }
+});
+```
+
+DatePicker and TimePicker:
+
+```js
+import { DatePicker, TimePicker } from "@bunnix/components";
+
+// DatePicker with label
+DatePicker({ 
+  label: "Birth Date",
+  change: (e) => console.log("Date:", e.date)
+});
+
+// TimePicker with label
+TimePicker({ 
+  label: "Meeting Time",
+  change: (e) => console.log("Time:", e.time)
+});
+```
+
 Search box with suggestions:
 
 ```js
@@ -71,6 +116,52 @@ import { Dialog, showDialog, ToastNotification, showToast } from "@bunnix/compon
 
 showDialog({ title: "Welcome", message: "Bunnix components ready." });
 showToast({ message: "Saved successfully", icon: "success-circle" });
+```
+
+## Input Masks
+
+InputField supports automatic formatting with built-in masks:
+
+### Predefined masks
+
+- `date` - DD/MM/YYYY
+- `time` - HH:MM (24-hour)
+- `email` - lowercase, no spaces
+- `currency` - $ 1,234.56 (configurable)
+- `decimal` - 123.45
+- `integer` - digits only
+- `phone` - +1 (234) 567-8900 (US/International)
+- `phone-br` - +55 11 99999-9999 (Brazilian mobile/landline)
+- `credit-card` - 1234 5678 9012 3456
+- `cpf` - 123.456.789-01 (Brazilian CPF)
+- `cnpj` - 12.345.678/0001-90 (Brazilian CNPJ)
+- `cep` - 12345-678 (Brazilian ZIP code)
+
+### Custom patterns
+
+Create custom masks with pattern syntax:
+- `9` = digit (0-9)
+- `A` = letter (a-z, A-Z)
+- `*` = alphanumeric
+- Other characters are literals
+
+```js
+// Example: Brazilian CPF
+InputField({ 
+  mask: { pattern: "999.999.999-99" }
+});
+```
+
+### Mask utilities
+
+Import mask utilities for custom use:
+
+```js
+import { applyMask, validateMask, getMaskMaxLength } from "@bunnix/components";
+
+const masked = applyMask("12345678901", "cpf"); // "123.456.789-01"
+const isValid = validateMask("123.456.789-01", "cpf"); // true/false
+const maxLen = getMaskMaxLength("cpf"); // 14
 ```
 
 ## Assets (icons)

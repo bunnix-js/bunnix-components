@@ -554,6 +554,11 @@ export const toastState: any;
 export function showToast(options?: ToastOptions): void;
 export function hideToast(): void;
 
+// Mask utilities
+export function applyMask(value: string, mask: InputMaskType | InputMaskConfig): string;
+export function validateMask(value: string, mask: InputMaskType | InputMaskConfig): boolean;
+export function getMaskMaxLength(mask: InputMaskType | InputMaskConfig): number | null;
+
 declare module "@bunnix/components/styles.css" {
   const content: string;
   export default content;

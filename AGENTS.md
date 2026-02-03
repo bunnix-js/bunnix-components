@@ -15,6 +15,7 @@ src/
   components/     # package components (public API)
   styles/         # design system CSS
   icons/          # svg assets referenced by CSS
+  utils/          # shared utilities (maskUtils, sizeUtils, etc.)
   index.mjs       # package JS exports
   styles.css      # CSS entry (imports styles/main.css)
 @types/
@@ -30,6 +31,7 @@ playgrounds/
 - `@bunnix/core` is a **peer dependency**.
 - CSS must be imported once by consumers: `@bunnix/components/styles.css`.
 - Icons are referenced by CSS `url(...)`; bundlers must process CSS URLs.
+- Utilities (mask functions, etc.) are exported from the main entry point.
 
 ## Component API Conventions
 
@@ -42,13 +44,20 @@ playgrounds/
 
 ### Exceptions (no `small` support)
 
-- `DatePicker`, `TimePicker`, `ToastNotification` do **not** support `small`.
-- When passed `small`/`sm`, normalize to `regular`.
+- `DatePicker`, `TimePicker`, `InputField`, `ToastNotification` do **not** support `small` or `xsmall`.
+- When passed `small`/`sm` or `xsmall`/`xs`, normalize to `regular`.
 
 ### Variant and color
 
 - Variants are component-specific; do not force a shared vocabulary.
 - Colors are handled by component-specific props (`Text.color`, `Badge.tone`, `Icon.fill`).
+
+### Input Components
+
+- `InputField`, `DatePicker`, `TimePicker` now support `label` prop for consistency.
+- `DatePicker` and `TimePicker` use text input with masks, showing popover on focus.
+- All three disable browser autocomplete by default (`autocomplete="off"`).
+- `InputField` supports mask prop for formatted input (date, phone, currency, etc.).
 
 ### State handling
 
