@@ -1,13 +1,8 @@
 # @bunnix/components
 
-Design system + UI components for Bunnix projects. This package ships ESM source with CSS + icon assets and is intended for modern, module-based builds (webpack/vite/rollup/etc).
+Design system + UI components for Bunnix projects. Ships ESM source with CSS and icon assets for modern bundlers.
 
-Disclaimer:
-- This project is currently in **alpha release candidate**. APIs and components may change until the first stable release.
-- Icon usage & attribution:
-  - COLLECTION: Framework7 Line Icons — LICENSE: MIT License — AUTHOR: framework7io
-  - COLLECTION: Iconcino Interface Icons — LICENSE: CC0 1.0 — AUTHOR: Gabriele Malaspina
-  - Sources (copy/paste): `https://framework7.io/icons/` and `https://iconcino.com/`
+**Status**: Alpha release candidate - APIs may change before v1.0
 
 ## Install
 
@@ -15,71 +10,78 @@ Disclaimer:
 npm install @bunnix/components @bunnix/core
 ```
 
-`@bunnix/core` is a peer dependency (required by design).
+`@bunnix/core` is a peer dependency.
 
-## Usage
+## Quick Start
 
-Import the CSS once at your app entry:
+Import CSS once at your app entry:
 
 ```js
 import "@bunnix/components/styles.css";
 ```
 
-Then import components as needed:
+Use components:
 
 ```js
-import { Button, Icon, Text } from "@bunnix/components";
+import { Button, Icon, InputField, DatePicker } from "@bunnix/components";
 
-export default function Example() {
-  return Button({ variant: "regular" }, [
-    Icon({ name: "star", fill: "white" }),
-    Text({ type: "text" }, "Star")
-  ]);
-}
-```
-
-## Component examples
-
-Button with icon:
-
-```js
-import { Button, Icon } from "@bunnix/components";
-
+// Button with icon
 Button({ variant: "regular" }, [
   Icon({ name: "star", fill: "white" }),
   "Star"
 ]);
+
+// Input with mask
+InputField({ label: "Phone", mask: "phone-br" });
+
+// Date picker
+DatePicker({ label: "Birth Date", change: (e) => console.log(e.date) });
 ```
 
-Search box with suggestions:
+## Key Features
+
+### Input Masks
+InputField supports 12+ built-in masks plus custom patterns:
+- `date`, `time`, `email`, `currency`, `decimal`, `integer`
+- `phone`, `phone-br`, `credit-card`
+- `cpf`, `cnpj`, `cep` (Brazilian documents)
+- Custom patterns: `{ pattern: "999.999.999-99" }` (9=digit, A=letter, *=alphanumeric)
 
 ```js
-import { SearchBox } from "@bunnix/components";
-
-SearchBox({
-  data: [
-    { title: "Users", snippet: "Manage users", icon: "person" },
-    { title: "Settings", snippet: "Configure app", icon: "gear" }
-  ]
+InputField({ 
+  label: "Price",
+  mask: { type: "currency", options: { prefix: "R$", decimalPlaces: 2 }}
 });
 ```
 
-Dialog + toast helpers:
-
+Mask utilities available for custom use:
 ```js
-import { Dialog, showDialog, ToastNotification, showToast } from "@bunnix/components";
-
-showDialog({ title: "Welcome", message: "Bunnix components ready." });
-showToast({ message: "Saved successfully", icon: "success-circle" });
+import { applyMask, validateMask, getMaskMaxLength } from "@bunnix/components";
 ```
 
-## Assets (icons)
+### Date & Time Pickers
+Text inputs with masks that show popover calendars/selectors on focus:
+```js
+DatePicker({ label: "Date", change: (e) => console.log(e.date) });
+TimePicker({ label: "Time", change: (e) => console.log(e.time) });
+```
 
-SVG icons are shipped with the package and referenced by CSS variables. If your bundler rewrites asset URLs, make sure it processes CSS `url(...)` values from `@bunnix/components`.
+### Dialog & Toast
+```js
+import { showDialog, showToast } from "@bunnix/components";
+
+showDialog({ title: "Welcome", message: "Ready to go!" });
+showToast({ message: "Saved", icon: "success-circle" });
+```
+
+### 30+ Components
+Button, Icon, Text, InputField, ComboBox, DatePicker, TimePicker, SearchBox, Checkbox, ToggleSwitch, Badge, Card, Table, Sidebar, NavigationBar, Dialog, Toast, and more.
+
+See `/playgrounds` for live examples of all components.
 
 ## Theming
 
-Override CSS variables after importing the stylesheet:
+Override CSS variables:
 
 ```css
 :root {
@@ -87,103 +89,65 @@ Override CSS variables after importing the stylesheet:
   --background-color: #ffffff;
   --border-color: #e5e7eb;
   --base-padding: 0.75rem;
-  --base-gap: 0.6rem;
   --font-family: "Inter", system-ui, sans-serif;
 }
 ```
 
-## CSS modifiers (utilities)
+## CSS Utilities
 
-You can compose your own UI using the same CSS utilities the components use:
+Use the same utilities that power the components:
 
-- Layout: `row-container`, `column-container`, `grid-flow`, `gap-xs|sm|md|lg`, `items-start|center|end|stretch`, `justify-start|center|end`, `w-full`, `h-full`, `spacer-h`, `spacer-v`
-- Surfaces: `box`, `box-sm`, `box-control`, `box-capsule`, `card`, `shadow`, `rounded|rounded-sm|rounded-full`
-- Typography: `text-default|primary|secondary|tertiary|quaternary`, `text-accent`, `text-destructive`, `text-sm|base|lg|xl`, `text-mono`, `whitespace-nowrap`, `whitespace-pre-line`
-- Buttons: `btn`, `btn-flat`, `btn-outline`, `btn-destructive`, `btn-lg`, `btn-xl`, `btn-disabled`
-- Forms: `input-lg`, `input-xl`, `rounded-full` (useful for pill inputs)
-- Icons: `icon`, `icon-<name>`, `icon-xs|sm|lg|xl`, `icon-default|base|white|secondary|tertiary|quaternary|destructive`
-
-Example:
+- **Layout**: `row-container`, `column-container`, `grid-flow`, `gap-xs|sm|md|lg`
+- **Surfaces**: `box`, `card`, `shadow`, `rounded`
+- **Typography**: `text-primary|secondary|tertiary`, `text-sm|base|lg|xl`
+- **Buttons**: `btn`, `btn-flat`, `btn-outline`, `btn-destructive`
+- **Icons**: `icon`, `icon-<name>`, `icon-xs|sm|lg|xl`
 
 ```js
 import Bunnix from "@bunnix/core";
 const { div, span } = Bunnix;
 
-div({ class: "card row-container gap-sm items-center" }, [
-  span({ class: "icon icon-star icon-base icon-sm" }),
-  span({ class: "text-primary text-sm" }, "Custom card")
+div({ class: "card row-container gap-sm" }, [
+  span({ class: "icon icon-star icon-base" }),
+  span({ class: "text-primary" }, "Custom card")
 ]);
 ```
 
-## Icon props
+## Bundler Setup
 
-- `name`: icon slug (e.g. `star`) or a full class (e.g. `icon-star`). IDEs should autocomplete shipped icon names.
-- `fill`: `default | base | white | secondary | tertiary | quaternary | destructive` or any `icon-*` utility.
-- `size`: `xsmall | small | regular | large | xlarge` or `icon-xs | icon-sm | icon-lg | icon-xl`.
+Works with webpack, vite, rollup, or any modern ESM bundler. Ensure your bundler:
+- Processes CSS imports
+- Handles CSS `url(...)` for SVG assets
+- Supports `.mjs` extensions
 
-## Minimal webpack config
-
-This is a minimal setup that works with `@bunnix/components` (ESM, CSS, and SVG assets):
-
+Minimal webpack example:
 ```js
-import path from "path";
-import { fileURLToPath } from "url";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 export default {
-  entry: "./src/index.mjs",
-  output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "dist"),
-    clean: true,
-    assetModuleFilename: "images/[hash][ext][query]"
-  },
-  mode: "development",
   module: {
     rules: [
-      { test: /\\.css$/i, use: ["style-loader", "css-loader"] },
-      { test: /\\.(png|svg|jpg|jpeg|gif)$/i, type: "asset/resource" }
+      { test: /\.css$/i, use: ["style-loader", "css-loader"] },
+      { test: /\.(png|svg|jpg|jpeg|gif)$/i, type: "asset/resource" }
     ]
-  },
-  resolve: {
-    extensions: [".mjs", ".js", ".json"]
-  },
-  plugins: [
-    new HtmlWebpackPlugin({ template: "./public/index.html" })
-  ],
-  devServer: {
-    static: { directory: path.join(__dirname, "public") },
-    compress: true,
-    port: 3000,
-    open: true
   }
 };
 ```
 
-## Project structure
+## Icon Attribution
+
+- Framework7 Line Icons (MIT) - framework7io
+- Iconcino Interface Icons (CC0 1.0) - Gabriele Malaspina
+
+## Project Structure
 
 ```
 src/
-  components/   # exported components
-  styles/       # design system CSS
+  components/   # Component library
+  styles/       # Design system CSS
   icons/        # SVG assets
-  index.mjs     # package exports
-  styles.css    # CSS entry
-playgrounds/    # local showcase (uses the package)
+  utils/        # Utilities (masks, etc.)
+  index.mjs     # Package exports
+playgrounds/    # Component showcase
 ```
-
-## Playground
-
-The playground consumes `@bunnix/components` directly. Start it with your preferred dev server (whatever you use today), and ensure the CSS import stays at `playgrounds/src/index.mjs`.
-
-## Publishing notes
-
-- This package targets ESM consumers and ships source files (no dist build).
-- Ensure `files` and `exports` in `package.json` include `src/` and CSS entries.
-- GitHub CI should run with Node that supports ESM (Node 16+ recommended).
 
 ## License
 

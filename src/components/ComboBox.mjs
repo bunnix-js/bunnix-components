@@ -1,11 +1,12 @@
 import Bunnix from "@bunnix/core";
 import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
-const { select, option, div, span } = Bunnix;
+const { select, option, div, label, span } = Bunnix;
 
 export default function ComboBox({
   options = [],
   selection,
   size,
+  label: labelText,
   class: className = "",
   onChange,
   change,
@@ -40,7 +41,7 @@ export default function ComboBox({
     return option({ value: opt.value }, opt.label ?? opt.value);
   });
 
-  return div({ class: "combobox" }, [
+  const selectElement = div({ class: "combobox" }, [
     select({
       class: `combobox-select ${sizeClass} ${className}`.trim(),
       value: selection ?? "",
@@ -48,5 +49,10 @@ export default function ComboBox({
       ...rest
     }, resolvedChildren),
     span({ class: `combobox-chevron icon icon-chevron-down icon-base ${iconSizeClass}`.trim() })
+  ]);
+
+  return div({ class: "column-container no-margin shrink-0 gap-0" }, [
+    labelText && label({ class: "label select-none" }, labelText),
+    selectElement
   ]);
 }

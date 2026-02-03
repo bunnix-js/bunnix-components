@@ -218,6 +218,33 @@ export interface BadgeProps extends BaseProps {
   shape?: "capsule" | "circle" | string;
 }
 
+export type InputMaskType = 
+  | "date"          // DD/MM/YYYY
+  | "time"          // HH:MM
+  | "email"         // lowercase, no spaces
+  | "currency"      // $ 1,234.56
+  | "decimal"       // 123.45
+  | "integer"       // 123
+  | "phone"         // +1 (234) 567-8900
+  | "phone-br"      // +55 11 99999-9999 or +55 11 9999-9999 (Brazilian phone)
+  | "credit-card"   // 1234 5678 9012 3456
+  | "cpf"           // 123.456.789-01 (Brazilian CPF)
+  | "cnpj"          // 12.345.678/0001-90 (Brazilian CNPJ)
+  | "cep"           // 12345-678 (Brazilian ZIP code)
+  | string;         // Custom pattern using 9 (digit), A (letter), * (alphanumeric)
+
+export interface InputMaskConfig {
+  type?: InputMaskType;
+  pattern?: string;  // Custom pattern: 9=digit, A=letter, *=alphanumeric
+  options?: {
+    prefix?: string;
+    thousandsSeparator?: string;
+    decimalSeparator?: string;
+    decimalPlaces?: number;
+    allowNegative?: boolean;
+  };
+}
+
 export interface InputFieldProps extends BaseProps {
   type?: string;
   variant?: "regular" | "rounded" | string;
@@ -226,6 +253,8 @@ export interface InputFieldProps extends BaseProps {
   placeholder?: string;
   label?: string;
   disabled?: boolean;
+  autocomplete?: string;
+  mask?: InputMaskType | InputMaskConfig;
   suggestions?: string[];
   onInput?: (event?: any) => void;
   onChange?: (event?: any) => void;
@@ -255,6 +284,7 @@ export interface ComboBoxProps extends BaseProps {
   options?: Array<string | ComboBoxOption>;
   selection?: any;
   size?: SizeValue;
+  label?: string;
   onChange?: (event?: any) => void;
   change?: (event?: any) => void;
 }
@@ -346,14 +376,36 @@ export interface DatePickerProps extends BaseProps {
   placeholder?: string;
   range?: boolean;
   variant?: "regular" | "rounded" | string;
-  size?: SizeNoSmall;
+  size?: SizeRegularUp;
+  label?: string;
+  disabled?: boolean;
+  value?: Date | null;
+  onInput?: (event?: any) => void;
+  onChange?: (event?: { target: { value: string }; date: Date | null }) => void;
+  onFocus?: (event?: any) => void;
+  onBlur?: (event?: any) => void;
+  input?: (event?: any) => void;
+  change?: (event?: { target: { value: string }; date: Date | null }) => void;
+  focus?: (event?: any) => void;
+  blur?: (event?: any) => void;
 }
 
 export interface TimePickerProps extends BaseProps {
   id?: string;
   placeholder?: string;
   variant?: "regular" | "rounded" | string;
-  size?: SizeNoSmall;
+  size?: SizeRegularUp;
+  label?: string;
+  disabled?: boolean;
+  value?: { hours: number; minutes: number } | null;
+  onInput?: (event?: any) => void;
+  onChange?: (event?: { target: { value: string }; time: { hours: number; minutes: number } | null }) => void;
+  onFocus?: (event?: any) => void;
+  onBlur?: (event?: any) => void;
+  input?: (event?: any) => void;
+  change?: (event?: { target: { value: string }; time: { hours: number; minutes: number } | null }) => void;
+  focus?: (event?: any) => void;
+  blur?: (event?: any) => void;
 }
 
 export interface DropdownMenuItem {
@@ -502,6 +554,11 @@ export function hideDialog(): void;
 export const toastState: any;
 export function showToast(options?: ToastOptions): void;
 export function hideToast(): void;
+
+// Mask utilities
+export function applyMask(value: string, mask: InputMaskType | InputMaskConfig): string;
+export function validateMask(value: string, mask: InputMaskType | InputMaskConfig): boolean;
+export function getMaskMaxLength(mask: InputMaskType | InputMaskConfig): number | null;
 
 declare module "@bunnix/components/styles.css" {
   const content: string;
