@@ -42,6 +42,8 @@ button:focus-visible,
 .btn {
   background-color: var(--accent-color);
   color: white;
+  --text-color-default: inherit;
+  --icon-color-default: currentColor;
 }
 
 .btn:visited {
@@ -61,6 +63,8 @@ button:focus-visible,
 .btn-flat {
   background-color: transparent;
   color: var(--color-primary);
+  --text-color-default: inherit;
+  --icon-color-default: currentColor;
 }
 
 .btn-flat:visited {
@@ -81,6 +85,8 @@ button:focus-visible,
   background-color: transparent;
   border: 1px solid var(--border-color);
   color: var(--color-primary);
+  --text-color-default: inherit;
+  --icon-color-default: currentColor;
 }
 
 .btn-outline:visited {
@@ -97,6 +103,8 @@ button:focus-visible,
 .btn-destructive {
   background-color: var(--color-destructive-dimmed);
   color: white;
+  --text-color-default: inherit;
+  --icon-color-default: currentColor;
 }
 
 .btn-destructive:visited {

@@ -1,5 +1,6 @@
 import Bunnix, { useEffect, useRef, useState } from "@bunnix/core";
-import Icon from "./Icon.mjs";
+import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
+import { resolveIconClass } from "../utils/iconUtils.mjs";
 const { div, h4 } = Bunnix;
 
 const defaultToast = {
@@ -11,13 +12,9 @@ const defaultToast = {
 
 export const toastState = useState(defaultToast);
 
-export const showToast = ({ message, duration = 3, anchor = "topRight", size = "md", icon } = {}) => {
-  const normalizeSize = (value) => {
-    if (!value || value === "default" || value === "regular" || value === "md") return "md";
-    if (value === "sm") return "md";
-    if (value === "lg" || value === "xl") return value;
-    return value;
-  };
+export const showToast = ({ message, duration = 3, anchor = "topRight", size = "regular", icon } = {}) => {
+  // ToastNotification does not support small size (clamps to regular)
+  const normalizeSize = (value) => clampSize(value, ["xsmall", "regular", "large", "xlarge"], "regular");
   toastState.set({
     open: true,
     message: message ?? "",
@@ -77,13 +74,16 @@ export default function ToastNotification() {
     const motionClass = value.anchor === "topLeft" || value.anchor === "bottomLeft"
       ? "slide-in-left"
       : "slide-in-right";
-    const sizeClass = value.size === "lg" ? "p-lg" : value.size === "xl" ? "p-xl" : "p-base";
+    const sizeToken = toSizeToken(value.size);
+    const sizeClass = sizeToken === "xl" ? "p-xl" : sizeToken === "lg" ? "p-lg" : sizeToken === "md" ? "p-base" : "p-sm";
     return `box-control card shadow bg-base ${sizeClass} w-300 overflow-visible ${motionClass}`.trim();
   });
   const textSizeClass = toastState.map((value) => {
-    if (value.size === "lg") return "text-lg";
-    if (value.size === "xl") return "text-xl";
-    return "text-base";
+    const sizeToken = toSizeToken(value.size);
+    if (sizeToken === "xl") return "text-xl";
+    if (sizeToken === "lg") return "text-lg";
+    if (sizeToken === "md") return "text-base";
+    return "text-sm";
   });
 
   return div({
@@ -95,7 +95,10 @@ export default function ToastNotification() {
       div({ class: "row-container items-center gap-sm no-margin" }, [
         div({
           class: toastState.map((value) =>
-            value.icon ? `icon ${value.icon} icon-base` : "hidden"
+            (() => {
+              const resolvedIcon = resolveIconClass(value.icon);
+              return resolvedIcon ? `icon ${resolvedIcon} icon-base` : "hidden";
+            })()
           )
         }),
         h4({ class: textSizeClass.map(cls => `no-margin ${cls}`.trim()) }, toastState.map((value) => value.message))

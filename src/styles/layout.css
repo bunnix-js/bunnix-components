@@ -116,7 +116,7 @@ nav,
   align-items: center;
   border: 1px solid var(--border-color);
   border-radius: var(--min-control-radius);
-  padding: calc(var(--base-padding) * 0.5);
+  padding: var(--base-padding);
 }
 
 .gap-xs {
@@ -153,17 +153,14 @@ nav,
 
 .justify-start {
   justify-content: flex-start !important;
-  text-align: left;
 }
 
 .justify-center {
   justify-content: center !important;
-  text-align: center;
 }
 
 .justify-end {
   justify-content: flex-end !important;
-  text-align: right;
 }
 
 .shrink-0 {
@@ -191,6 +188,10 @@ nav,
 }
 
 /* New Utilities for Layout Page */
+.flex-1 {
+  flex: 1;
+}
+
 .w-full {
   width: 100%;
 }
@@ -205,6 +206,10 @@ nav,
 
 .w-200 {
   min-width: 200px;
+}
+
+.w-400 {
+  min-width: 400px;
 }
 
 .max-w-100 {
@@ -239,6 +244,14 @@ nav,
   height: 40px;
 }
 
+.w-24 {
+  width: 24px;
+}
+
+.h-24 {
+  height: 24px;
+}
+
 .h-200 {
   height: 200px;
 }
@@ -249,6 +262,10 @@ nav,
 
 .p-sm {
   padding: calc(var(--base-padding) * 0.5);
+}
+
+.p-md {
+  padding: var(--base-padding);
 }
 
 .pt-sm {
@@ -283,6 +300,11 @@ nav,
 .py-xs {
   padding-top: calc(var(--base-gap) * 0.5);
   padding-bottom: calc(var(--base-gap) * 0.5);
+}
+
+.py-sm {
+  padding-top: calc(var(--base-gap) * 0.8);
+  padding-bottom: calc(var(--base-gap) * 0.8);
 }
 
 .py-md {
@@ -339,6 +361,10 @@ nav,
   border-radius: 1rem !important;
 }
 
+.rounded-circle {
+  border-radius: 9999px;
+}
+
 .border-dashed {
   border: 1px dashed var(--border-color);
 }
@@ -355,6 +381,22 @@ nav,
   overflow: auto;
 }
 
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.overflow-y-hidden {
+  overflow-y: hidden;
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
 .select-none {
   user-select: none;
 }
@@ -362,6 +404,12 @@ nav,
 .sticky-top {
   position: sticky;
   top: var(--sticky-offset, 0);
+  z-index: 10;
+}
+
+.sticky-bottom {
+  position: sticky;
+  bottom: var(--sticky-offset, 0);
   z-index: 10;
 }
 
@@ -423,7 +471,7 @@ nav,
 }
 
 .dialog-base {
-  margin: 0;
+  margin: auto;
   padding: 0;
   border: none;
   outline: none;
@@ -437,6 +485,17 @@ nav,
 
 .dialog-backdrop::backdrop {
   background-color: rgba(0, 0, 0, 0.4);
+}
+
+@media (prefers-color-scheme: dark) {
+  .dialog-backdrop::backdrop {
+    background-color: rgba(var(--background-color-rgb), 0.4);
+  }
+}
+
+.dialog-panel {
+  width: auto;
+  max-width: calc(100vw - (var(--base-padding) * 2));
 }
 
 .overflow-visible {

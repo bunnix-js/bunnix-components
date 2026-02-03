@@ -1,5 +1,6 @@
 import Bunnix from "@bunnix/core";
-const { select, option } = Bunnix;
+import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
+const { select, option, div, span } = Bunnix;
 
 export default function ComboBox({
   options = [],
@@ -10,14 +11,18 @@ export default function ComboBox({
   change,
   ...rest
 } = {}, children) {
-  const normalizeSize = (value) => {
-    if (!value || value === "default" || value === "regular" || value === "md") return "md";
-    if (value === "sm") return "sm";
-    if (value === "lg" || value === "xl") return value;
-    return value;
-  };
+  // ComboBox supports all sizes
+  const normalizeSize = (value) => clampSize(value, ["xsmall", "small", "regular", "large", "xlarge"], "regular");
   const normalizedSize = normalizeSize(size);
-  const sizeClass = normalizedSize === "lg" ? "input-lg" : normalizedSize === "xl" ? "input-xl" : "";
+  const sizeToken = toSizeToken(normalizedSize);
+  const sizeClass = sizeToken === "xl" ? "input-xl" : sizeToken === "lg" ? "input-lg" : "";
+  const iconSizeClass = sizeToken === "sm"
+    ? "icon-sm"
+    : sizeToken === "lg"
+      ? "icon-lg"
+      : sizeToken === "xl"
+        ? "icon-xl"
+        : "";
   const selectionState = selection && typeof selection.map === "function" ? selection : null;
   const handleChangeExternal = onChange ?? change;
 
@@ -35,10 +40,13 @@ export default function ComboBox({
     return option({ value: opt.value }, opt.label ?? opt.value);
   });
 
-  return select({
-    class: `${sizeClass} ${className}`.trim(),
-    value: selection ?? "",
-    change: handleChange,
-    ...rest
-  }, resolvedChildren);
+  return div({ class: "combobox" }, [
+    select({
+      class: `combobox-select ${sizeClass} ${className}`.trim(),
+      value: selection ?? "",
+      change: handleChange,
+      ...rest
+    }, resolvedChildren),
+    span({ class: `combobox-chevron icon icon-chevron-down icon-base ${iconSizeClass}`.trim() })
+  ]);
 }

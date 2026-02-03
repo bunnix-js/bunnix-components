@@ -153,3 +153,14 @@
   border: 1px solid rgba(0,0,0,0.1);
   flex-shrink: 0;
 }
+
+/* Force raster images to black in light mode and white in dark mode */
+.high-contrast {
+  filter: brightness(0);
+}
+
+@media (prefers-color-scheme: dark) {
+  .high-contrast {
+    filter: brightness(0) invert(1);
+  }
+}

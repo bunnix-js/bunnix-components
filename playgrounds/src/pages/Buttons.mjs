@@ -7,7 +7,7 @@ const { div, h5, p, span, hr, button } = Bunnix;
 export default function ButtonsPage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Buttons", 
       description: "Interactive elements for user actions." 

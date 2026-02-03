@@ -8,7 +8,7 @@ title: Button
 ```js
 import { Button, Icon } from "@bunnix/components";
 
-Button({ variant: "regular", size: "md" }, [
+Button({ variant: "regular", size: "regular" }, [
   Icon({ name: "star", fill: "white" }),
   "Star"
 ]);
@@ -17,6 +17,6 @@ Button({ variant: "regular", size: "md" }, [
 Props (common):
 
 - `variant`: `regular | flat | outline | destructive | hyperlink`
-- `size`: `sm | md | lg | xl` (md default)
+- `size`: `xsmall | small | regular | large | xlarge` (regular default)
 - `disabled`: boolean
 - `onClick` / `click`

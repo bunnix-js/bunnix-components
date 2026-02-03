@@ -13,6 +13,10 @@ body {
 }
 
 /* Text Color Utilities */
+.text-default {
+  color: var(--text-color-default, var(--color-primary));
+}
+
 .text-primary {
   color: var(--color-primary);
 }
@@ -56,6 +60,10 @@ body {
 /* Background Color Utilities (useful for icon masking) */
 .bg-base {
   background-color: var(--background-color) !important;
+}
+
+.icon-default {
+  background-color: var(--icon-color-default, var(--color-primary)) !important;
 }
 
 .icon-base {

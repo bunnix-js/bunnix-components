@@ -8,10 +8,10 @@ title: Time Picker
 ```js
 import { TimePicker } from "@bunnix/components";
 
-TimePicker({ size: "md" });
+TimePicker({ size: "regular" });
 TimePicker({ variant: "rounded" });
 ```
 
 Sizes:
 
-- `md | lg | xl`
+- `regular | large | xlarge`

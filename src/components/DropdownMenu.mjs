@@ -1,4 +1,6 @@
 import Bunnix, { useRef, useState, useMemo } from "@bunnix/core";
+import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
+import { resolveIconClass } from "../utils/iconUtils.mjs";
 const { div, button, hr, span } = Bunnix;
 
 let dropdownCounter = 0;
@@ -12,13 +14,10 @@ export default function DropdownMenu({
   onSelect,
   class: className = ""
 }) {
-  const normalizeSize = (value) => {
-    if (!value || value === "default" || value === "regular" || value === "md") return "md";
-    if (value === "sm") return "sm";
-    if (value === "lg" || value === "xl") return value;
-    return value;
-  };
+  // DropdownMenu supports all sizes
+  const normalizeSize = (value) => clampSize(value, ["xsmall", "small", "regular", "large", "xlarge"], "regular");
   const normalizedSize = normalizeSize(size);
+  const sizeToken = toSizeToken(normalizedSize);
   const popoverRef = useRef(null);
   const dropdownId = id || `dropdown-instance-${++dropdownCounter}`;
   const anchorName = `--${dropdownId}`;
@@ -48,13 +47,13 @@ export default function DropdownMenu({
     }
   };
 
-  const sizeClass = normalizedSize === "lg" ? "dropdown-lg" : normalizedSize === "xl" ? "dropdown-xl" : "";
-  const itemSizeClass = normalizedSize === "lg" ? "btn-lg" : normalizedSize === "xl" ? "btn-xl" : "";
-  const iconSizeClass = normalizedSize === "sm"
+  const sizeClass = sizeToken === "lg" ? "dropdown-lg" : sizeToken === "xl" ? "dropdown-xl" : "";
+  const itemSizeClass = sizeToken === "lg" ? "btn-lg" : sizeToken === "xl" ? "btn-xl" : "";
+  const iconSizeClass = sizeToken === "sm"
     ? "icon-sm"
-    : normalizedSize === "lg"
+    : sizeToken === "lg"
       ? "icon-lg"
-      : normalizedSize === "xl"
+      : sizeToken === "xl"
         ? "icon-xl"
         : "";
 
@@ -68,9 +67,10 @@ export default function DropdownMenu({
       // Reactive Icon: stable element, reactive class
       span({ 
         class: selectedItem.map(s => {
-          if (!s?.icon) return "hidden";
+          const resolvedIcon = resolveIconClass(s?.icon);
+          if (!resolvedIcon) return "hidden";
           const tint = s.destructive ? "bg-destructive" : "bg-primary";
-          return `icon ${iconSizeClass} ${s.icon} ${tint}`.trim();
+          return `icon ${iconSizeClass} ${resolvedIcon} ${tint}`.trim();
         })
       }),
       // Reactive Title: text with dimmed style when empty
@@ -97,8 +97,10 @@ export default function DropdownMenu({
           }, [
             span({
               class: isCurrent.map(active => {
+                const resolvedIcon = resolveIconClass(item.icon);
+                if (!resolvedIcon) return "hidden";
                 const tint = active ? "bg-white" : item.destructive ? "bg-destructive" : "bg-primary";
-                return `icon ${iconSizeClass} ${item.icon} ${tint}`.trim();
+                return `icon ${iconSizeClass} ${resolvedIcon} ${tint}`.trim();
               })
             }),
             item.title

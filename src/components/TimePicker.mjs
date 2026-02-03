@@ -1,4 +1,5 @@
 import Bunnix, { useRef, useState, useMemo } from "@bunnix/core";
+import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
 import Icon from "./Icon.mjs";
 const { div, button, span, hr, input } = Bunnix;
 
@@ -8,7 +9,7 @@ export default function TimePicker({
   id,
   placeholder,
   variant = "regular",
-  size = "md",
+  size = "regular",
   class: className = ""
 } = {}) {
   const popoverRef = useRef(null);
@@ -96,25 +97,22 @@ export default function TimePicker({
 
   const hasValue = isModified.map(m => !!m);
 
-  const normalizeSize = (value) => {
-    if (!value || value === "default" || value === "regular" || value === "md") return "md";
-    if (value === "sm") return "md";
-    if (value === "lg" || value === "xl") return value;
-    return value;
-  };
+  // TimePicker does not support small size (clamps to regular)
+  const normalizeSize = (value) => clampSize(value, ["xsmall", "regular", "large", "xlarge"], "regular");
   const normalizedSize = normalizeSize(size);
+  const sizeToken = toSizeToken(normalizedSize);
   const variantClass = variant === "rounded" ? "rounded-full" : "";
-  const triggerSizeClass = normalizedSize === "xl"
+  const triggerSizeClass = sizeToken === "xl"
     ? "dropdown-xl"
-    : normalizedSize === "lg"
+    : sizeToken === "lg"
       ? "dropdown-lg"
       : "";
-  const iconSizeValue = normalizedSize === "sm"
-    ? "sm"
-    : normalizedSize === "lg"
-      ? "lg"
-      : normalizedSize === "xl"
-        ? "xl"
+  const iconSizeValue = normalizedSize === "small"
+    ? "small"
+    : normalizedSize === "large"
+      ? "large"
+      : normalizedSize === "xlarge"
+        ? "xlarge"
         : undefined;
 
   return div({ class: `timepicker-wrapper ${className}`.trim() }, [

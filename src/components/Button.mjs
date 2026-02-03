@@ -1,4 +1,5 @@
 import Bunnix from "@bunnix/core";
+import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
 const { button, a } = Bunnix;
 
 export default function Button({
@@ -12,12 +13,8 @@ export default function Button({
   class: className = "",
   ...rest
 } = {}, children) {
-  const normalizeSize = (value) => {
-    if (!value || value === "default" || value === "regular" || value === "md") return "md";
-    if (value === "sm") return "sm";
-    if (value === "lg" || value === "xl") return value;
-    return value;
-  };
+  // Button supports all sizes
+  const normalizeSize = (value) => clampSize(value, ["xsmall", "small", "regular", "large", "xlarge"], "regular");
 
   const variantState = variant && typeof variant.map === "function" ? variant : null;
   const sizeState = size && typeof size.map === "function" ? size : null;
@@ -28,13 +25,14 @@ export default function Button({
 
   const buildClass = (variantValue, sizeValue, disabledValue) => {
     const normalizedSize = normalizeSize(sizeValue);
+    const sizeToken = toSizeToken(normalizedSize);
     const baseClass = isHyperlink ? "" : "btn";
     const variantClass = (isHyperlink || variantValue === "regular") ? "" : `btn-${variantValue}`;
-    const sizeClass = (!isHyperlink && normalizedSize && normalizedSize !== "md" && (normalizedSize === "lg" || normalizedSize === "xl"))
-      ? `btn-${normalizedSize}`
+    const sizeClass = (!isHyperlink && sizeToken && sizeToken !== "md")
+      ? `btn-${sizeToken}`
       : "";
     const disabledClass = disabledValue ? "btn-disabled" : "";
-    return `${baseClass} ${variantClass} ${sizeClass} ${disabledClass} ${className}`.trim();
+    return `row-container justify-start shrink-0 no-selectable ${baseClass} ${variantClass} ${sizeClass} ${disabledClass} ${className}`.trim();
   };
 
   const combinedClass = variantState

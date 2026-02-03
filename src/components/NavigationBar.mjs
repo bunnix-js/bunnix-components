@@ -3,7 +3,20 @@ import SearchBox from "./SearchBox.mjs";
 
 const { nav, div, h2 } = Bunnix;
 
-const renderNode = (node) => (typeof node === "function" ? node() : node);
+const resolveNode = (node) => {
+  if (node && typeof node.map === "function") {
+    return node.map((value) => resolveNode(value));
+  }
+  if (node && typeof node.get === "function") {
+    return resolveNode(node.get());
+  }
+  return typeof node === "function" ? node() : node;
+};
+
+const isState = (value) =>
+  value &&
+  typeof value.get === "function" &&
+  typeof value.subscribe === "function";
 
 export default function NavigationBar({
   title,
@@ -18,30 +31,47 @@ export default function NavigationBar({
   class: className = "",
   ...rest
 } = {}) {
-  const titleNode = typeof title === "string"
-    ? h2({ class: "whitespace-nowrap" }, title)
-    : renderNode(title);
+  const titleContent = isState(title)
+    ? title.map((value) => {
+        if (value === null || value === undefined) return "";
+        return typeof value === "string" || typeof value === "number"
+          ? String(value)
+          : value;
+      })
+    : title === null || title === undefined
+      ? ""
+      : typeof title === "string" || typeof title === "number"
+        ? String(title)
+        : title;
 
-  const leadingNode = renderNode(leading);
-  const trailingNode = renderNode(trailing);
+  const titleNode = h2({ class: "whitespace-nowrap" }, titleContent);
+  const leadingNode = resolveNode(leading);
+  const trailingNode = resolveNode(trailing);
 
-  return nav({
-    class: `navigation-bar row-container items-center gap-md w-full sticky-top bg-base ${className}`.trim(),
-    ...rest
-  }, [
-    titleNode,
-    leadingNode && div({ class: "shrink-0" }, leadingNode),
-    div({ class: "w-full" }),
-    trailingNode && div({ class: "shrink-0" }, trailingNode),
-    searchable && SearchBox({
-      data: searchData,
-      value: searchValue,
-      onInput: onSearchInput,
-      onSelect: onSearchSelect,
-      placeholder: "Search components",
-      variant: "rounded",
-      class: "w-300",
-      ...searchProps
-    })
-  ]);
+  return nav(
+    {
+      class:
+        `navigation-bar row-container items-center gap-md w-full sticky-top bg-base ${className}`.trim(),
+      ...rest,
+    },
+    [
+      title ? titleNode : null,
+      leadingNode &&
+        div({ class: "shrink-0 row-container items-center" }, leadingNode),
+      div({ class: "w-full" }),
+      trailingNode &&
+        div({ class: "shrink-0 row-container items-center" }, trailingNode),
+      searchable &&
+        SearchBox({
+          data: searchData,
+          value: searchValue,
+          onInput: onSearchInput,
+          onSelect: onSearchSelect,
+          placeholder: "Search components",
+          variant: "rounded",
+          class: "w-300",
+          ...searchProps,
+        }),
+    ],
+  );
 }

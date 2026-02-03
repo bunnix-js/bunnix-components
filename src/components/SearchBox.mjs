@@ -1,13 +1,7 @@
 import Bunnix, { ForEach, useEffect, useMemo, useRef, useState } from "@bunnix/core";
+import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
 import InputField from "./InputField.mjs";
 import Icon from "./Icon.mjs";
-
-const sizeClassMap = {
-  sm: "",
-  md: "",
-  lg: "input-lg",
-  xl: "input-xl"
-};
 
 const { div, button, span } = Bunnix;
 
@@ -24,14 +18,11 @@ export default function SearchBox({
   select,
   ...rest
 } = {}) {
-  const normalizeSize = (value) => {
-    if (!value || value === "default" || value === "regular" || value === "md") return "md";
-    if (value === "sm") return "sm";
-    if (value === "lg" || value === "xl") return value;
-    return value;
-  };
+  // SearchBox supports all sizes
+  const normalizeSize = (value) => clampSize(value, ["xsmall", "small", "regular", "large", "xlarge"], "regular");
   const normalizedSize = normalizeSize(size);
-  const sizeClass = sizeClassMap[normalizedSize] || "";
+  const sizeToken = toSizeToken(normalizedSize);
+  const sizeClass = sizeToken === "xl" ? "input-xl" : sizeToken === "lg" ? "input-lg" : "";
   const variantClass = variant === "rounded" ? "rounded-full" : "";
   const combinedClass = `${sizeClass} ${variantClass} ${className}`.trim();
 
@@ -122,13 +113,13 @@ export default function SearchBox({
     }
   };
 
-  const itemSizeClass = normalizedSize === "lg" ? "btn-lg" : normalizedSize === "xl" ? "btn-xl" : "";
-  const iconSizeValue = normalizedSize === "sm"
-    ? "sm"
-    : normalizedSize === "lg"
-      ? "lg"
-      : normalizedSize === "xl"
-        ? "xl"
+  const itemSizeClass = sizeToken === "lg" ? "btn-lg" : sizeToken === "xl" ? "btn-xl" : "";
+  const iconSizeValue = normalizedSize === "small"
+    ? "small"
+    : normalizedSize === "large"
+      ? "large"
+      : normalizedSize === "xlarge"
+        ? "xlarge"
         : undefined;
   const hasResults = indexedData.map((list) => (list || []).length > 0);
 

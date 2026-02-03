@@ -34,7 +34,7 @@ export default function MediaPage() {
     "icon-trash", "icon-update-page", "icon-upload", "icon-video", "icon-wallet", "icon-window"
   ];
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({
       ref: headerRef,
       title: "Media & Icons",

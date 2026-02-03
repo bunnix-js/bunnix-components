@@ -1,4 +1,5 @@
 import Bunnix from "@bunnix/core";
+import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
 const { label, input, span } = Bunnix;
 
 export default function ToggleSwitch({
@@ -8,14 +9,11 @@ export default function ToggleSwitch({
   class: className = "",
   ...inputProps
 }) {
-  const normalizeSize = (value) => {
-    if (!value || value === "default" || value === "regular" || value === "md") return "md";
-    if (value === "sm") return "sm";
-    if (value === "lg" || value === "xl") return value;
-    return value;
-  };
+  // ToggleSwitch supports all sizes
+  const normalizeSize = (value) => clampSize(value, ["xsmall", "small", "regular", "large", "xlarge"], "regular");
   const normalizedSize = normalizeSize(size);
-  const sizeClass = normalizedSize === "lg" ? "switch-lg" : normalizedSize === "xl" ? "switch-xl" : "";
+  const sizeToken = toSizeToken(normalizedSize);
+  const sizeClass = sizeToken === "xl" ? "switch-xl" : sizeToken === "lg" ? "switch-lg" : "";
   const change = onChange ?? inputProps.change;
 
   return label({ class: `switch-control ${sizeClass} ${className}`.trim() }, [

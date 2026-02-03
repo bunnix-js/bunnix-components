@@ -19,21 +19,21 @@ const SampleTable = (className = "") => {
         td("John Doe"),
         td("Developer"),
         td([
-            Badge({ tone: "success", size: "xs" }, "Active")
+            Badge({ tone: "success", size: "xsmall" }, "Active")
         ])
       ]),
       tr([
         td("Jane Smith"),
         td("Designer"),
         td([
-            Badge({ tone: "dimmed", variant: "soft", size: "xs" }, "Offline")
+            Badge({ tone: "dimmed", variant: "soft", size: "xsmall" }, "Offline")
         ])
       ]),
       tr([
         td("Bob Johnson"),
         td("Manager"),
         td([
-            Badge({ tone: "accent", size: "xs" }, "On Leave")
+            Badge({ tone: "accent", size: "xsmall" }, "On Leave")
         ])
       ])
     ])
@@ -43,7 +43,7 @@ const SampleTable = (className = "") => {
 export default function TablesPage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Tables", 
       description: "Data display components for structured information." 

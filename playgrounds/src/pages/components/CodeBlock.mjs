@@ -29,7 +29,7 @@ export default function CodeBlockPage() {
   ].join("\n");
   const usageSnippet = Prism.highlight(usageSource, Prism.languages.javascript, "javascript");
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({
       title: "Code Block",
       description: "Safe container for preformatted HTML from external syntax highlighters."

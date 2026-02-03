@@ -1,7 +1,7 @@
 import Bunnix from "@bunnix/core";
 const { div } = Bunnix;
 
-export default function HStack(props = {}, children) {
+export default function HStack(props = {}, ...children) {
   if (props === null || props === undefined || Array.isArray(props) || typeof props !== "object") {
     children = props;
     props = {};
@@ -9,6 +9,7 @@ export default function HStack(props = {}, children) {
 
   const {
     alignment = "leading",
+    verticalAlignment = "center",
     gap = "regular",
     class: className = "",
     ...rest
@@ -19,16 +20,23 @@ export default function HStack(props = {}, children) {
     trailing: "justify-end"
   };
 
+  const verticalAlignmentMap = {
+    top: "items-start",
+    center: "items-center",
+    bottom: "items-end"
+  };
+
   const gapMap = {
+    xsmall: "gap-xs",
     small: "gap-sm",
     regular: "gap-md",
     large: "gap-lg"
   };
 
-  const combinedClass = `row-container ${alignmentMap[alignment]} ${gapMap[gap]} ${className}`.trim();
+  const combinedClass = `row-container ${alignmentMap[alignment]} ${verticalAlignmentMap[verticalAlignment]} ${gapMap[gap]} ${className}`.trim();
 
   return div({
     class: combinedClass,
     ...rest
-  }, children);
+  }, ...children);
 }

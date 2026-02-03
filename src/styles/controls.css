@@ -51,6 +51,24 @@ select {
   background-size: 1rem;
 }
 
+.combobox {
+  position: relative;
+  width: 100%;
+}
+
+.combobox-select {
+  background-image: none !important;
+  padding-right: calc(var(--base-padding) * 3) !important;
+}
+
+.combobox-chevron {
+  position: absolute;
+  right: var(--base-padding);
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
 .input-search {
   position: relative;
   width: 100%;
@@ -314,14 +332,32 @@ kbd {
 
 .codeblock-pre code {
   display: block;
-  font-family: monospace;
-  font-size: var(--font-size-sm);
+  font-family: var(--font-mono);
+  font-size: var(--font-size);
   line-height: 1.6;
   white-space: pre;
+  color: var(--color-primary);
+  text-shadow: none;
 }
 
 .codeblock-pre.codeblock-wrap code {
   white-space: pre-wrap;
+}
+
+.codeblock-pre code.codeblock-code,
+.codeblock-pre code.codeblock-code[class*="language-"] {
+  color: var(--color-primary);
+  text-shadow: none;
+}
+
+.codeblock-pre code.codeblock-code span {
+  text-shadow: none;
+}
+
+.codeblock-pre code.codeblock-code .token,
+.codeblock-pre code.codeblock-code[class*="language-"] .token {
+  background: transparent;
+  box-shadow: none;
 }
 
 /* Control Sizes */

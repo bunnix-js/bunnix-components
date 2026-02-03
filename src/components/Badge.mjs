@@ -1,4 +1,5 @@
 import Bunnix from "@bunnix/core";
+import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
 import Icon from "./Icon.mjs";
 
 const { span } = Bunnix;
@@ -16,7 +17,9 @@ const toneClassMap = {
 const sizeClassMap = {
   xs: "badge-xs",
   sm: "badge-sm",
-  md: "badge-md"
+  md: "badge-md",
+  lg: "badge-lg",
+  xl: "badge-xl"
 };
 
 const variantClassMap = {
@@ -27,17 +30,28 @@ const variantClassMap = {
 
 export default function Badge({
   tone = "base",
-  size = "sm",
+  size = "small",
   variant = "solid",
   icon,
   overlap = false,
   shape = "capsule",
   class: className = ""
 } = {}, children) {
+  // Badge supports all sizes
+  const normalizeSize = (value) => clampSize(value, ["xsmall", "small", "regular", "large", "xlarge"], "small");
+  const normalizedSize = normalizeSize(size);
+  const sizeToken = toSizeToken(normalizedSize);
+
   const toneClass = toneClassMap[tone] || toneClassMap.base;
-  const sizeClass = sizeClassMap[size] || sizeClassMap.sm;
+  const sizeClass = sizeClassMap[sizeToken] || sizeClassMap.sm;
   const variantClass = variantClassMap[variant] || variantClassMap.solid;
-  const iconSize = size === "md" ? "lg" : size === "xs" ? "xs" : "sm";
+  const iconSize = normalizedSize === "regular"
+    ? "large"
+    : normalizedSize === "xsmall"
+      ? "xsmall"
+      : normalizedSize === "xlarge"
+        ? "xlarge"
+        : "small";
   const overlapClass = overlap ? "badge-overlap" : "";
   const shapeClass = shape === "circle" ? "badge-circle" : "";
   const combinedClass = `badge ${toneClass} ${sizeClass} ${variantClass} ${overlapClass} ${shapeClass} ${className}`.trim();

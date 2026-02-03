@@ -23,6 +23,6 @@ Icon({ name: "star", fill: "base" });
 
 Use size modifiers:
 
-- `xs | sm | md | lg | xl`
+- `xsmall | small | regular | large | xlarge`
 
 The `name` prop accepts either `"star"` or `"icon-star"`.

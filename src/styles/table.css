@@ -7,7 +7,7 @@
 
 .table th,
 .table td {
-  padding: var(--base-padding);
+  padding: calc(var(--base-padding) * 0.8) var(--base-padding);
   vertical-align: middle;
   border-bottom: 1px solid var(--border-color);
 }
@@ -32,7 +32,7 @@
   border: 1px solid var(--border-color);
   border-radius: var(--base-radius);
   /* Ensure background colors don't bleed */
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 /* Ensure border works with radius on table element */

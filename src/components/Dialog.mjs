@@ -11,6 +11,8 @@ const defaultDialog = {
   open: false,
   title: "",
   message: "",
+  minWidth: 400,
+  minHeight: null,
   confirmation: {
     text: "",
     action: null,
@@ -26,11 +28,17 @@ const defaultDialog = {
 
 export const dialogState = useState(defaultDialog);
 
-export const showDialog = ({ title, message, confirmation, content } = {}) => {
+export const showDialog = (options = {}) => {
+  const { title, message, confirmation, content, minWidth, minHeight } = options;
+  const hasMinWidth = Object.prototype.hasOwnProperty.call(options, "minWidth");
+  const hasMinHeight = Object.prototype.hasOwnProperty.call(options, "minHeight");
+
   dialogState.set({
     open: true,
     title: title ?? "",
     message: message ?? "",
+    minWidth: hasMinWidth ? minWidth : defaultDialog.minWidth,
+    minHeight: hasMinHeight ? minHeight : defaultDialog.minHeight,
     confirmation: {
       text: confirmation?.text ?? defaultDialog.confirmation.text,
       action: confirmation?.action ?? null,
@@ -51,6 +59,7 @@ export const hideDialog = () => {
 
 export default function Dialog() {
   const dialogRef = useRef(null);
+  const panelRef = useRef(null);
   const setConfirmDisabled = (disabled) => {
     const current = dialogState.get();
     dialogState.set({
@@ -60,6 +69,13 @@ export default function Dialog() {
         disabled: !!disabled
       }
     });
+  };
+
+  const resolveSizeValue = (size) => {
+    if (size == null || size === "") return "";
+    if (size === "auto") return "auto";
+    if (typeof size === "number") return `${size}px`;
+    return String(size);
   };
 
   useEffect((value) => {
@@ -72,6 +88,14 @@ export default function Dialog() {
       }
     } else if (element.open) {
       element.close();
+    }
+
+    const panel = panelRef.current;
+    if (panel) {
+      const minWidth = resolveSizeValue(value?.minWidth);
+      const minHeight = resolveSizeValue(value?.minHeight);
+      panel.style.minWidth = minWidth || "";
+      panel.style.minHeight = minHeight || "";
     }
   }, [dialogState]);
 
@@ -109,7 +133,11 @@ export default function Dialog() {
       hideDialog();
     }
   }, [
-    VStack({ gap: "regular", class: "box-capsule shadow bg-base w-full max-w-400 p-lg items-stretch dialog-appear" }, [
+    VStack({
+      ref: panelRef,
+      gap: "regular",
+      class: "box-capsule dialog-panel shadow bg-base p-lg items-stretch dialog-appear"
+    }, [
       HStack({ alignment: "leading", gap: "small", class: "items-center w-full" }, [
         Text({ type: "heading4", class: "no-margin" }, dialogState.map((value) => value.title)),
         div({ class: "spacer-h" }),
@@ -127,7 +155,10 @@ export default function Dialog() {
       Show(showContent, () => {
         const current = dialogState.get();
         if (typeof current.content !== "function") return null;
-        return div({ class: "column-container gap-sm" }, current.content({ setConfirmDisabled }));
+        return div(
+          { class: "column-container gap-sm w-full h-full flex-1" },
+          current.content({ setConfirmDisabled })
+        );
       }),
       HStack({ alignment: "trailing", gap: "regular", class: "w-full" }, [
         Show(showExtra, () => Button({
@@ -156,7 +187,7 @@ export default function Dialog() {
         }, [
           confirmationText,
           kbd({ class: "text-white text-sm whitespace-nowrap" }, [
-            Icon({ name: "return-arrow", fill: "white", size: "xs" }),
+            Icon({ name: "return-arrow", fill: "white", size: "xsmall" }),
             "Enter"
           ])
         ]))

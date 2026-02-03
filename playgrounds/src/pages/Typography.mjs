@@ -7,7 +7,7 @@ const { div, h1, h2, h3, h4, h5, h6, p, span } = Bunnix;
 export default function TypographyPage() {
   const headerOffset = "6rem";
 
-  return Container({ type: "page", direction: "vertical" }, [
+  return Container({ type: "page", direction: "column" }, [
     PageHeader({ 
       title: "Typography Showcase", 
       description: "Core typography system for the design system." 
