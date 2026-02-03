@@ -17,6 +17,7 @@ export { default as NavigationBar } from "./components/NavigationBar.mjs";
 export { default as PageHeader } from "./components/PageHeader.mjs";
 export { default as PageSection } from "./components/PageSection.mjs";
 export { default as PopoverMenu } from "./components/PopoverMenu.mjs";
+export { default as ProgressBar } from "./components/ProgressBar.mjs";
 export { default as RadioCheckbox } from "./components/RadioCheckbox.mjs";
 export { default as SearchBox } from "./components/SearchBox.mjs";
 export { default as Sidebar } from "./components/Sidebar.mjs";

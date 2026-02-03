@@ -11,6 +11,127 @@ export type LegacySize = "xs" | "sm" | "md" | "lg" | "xl" | "default";
 export type SizeValue = Size | LegacySize;
 export type SizeNoSmall = Exclude<SizeValue, "small" | "sm">;
 export type SizeRegularUp = Exclude<SizeValue, "xsmall" | "xs" | "small" | "sm">;
+export type IconNameSlug =
+  | "add"
+  | "add-circle"
+  | "alt"
+  | "archive"
+  | "at"
+  | "attestation"
+  | "bell"
+  | "bookmark"
+  | "bot"
+  | "button"
+  | "calculate"
+  | "calendar"
+  | "chart"
+  | "check"
+  | "chevron-down"
+  | "chevron-left"
+  | "chevron-right"
+  | "clip"
+  | "clock"
+  | "close"
+  | "close-circle"
+  | "cloud"
+  | "cloud-download"
+  | "cloud-upload"
+  | "columns-layout"
+  | "command"
+  | "cube"
+  | "delete"
+  | "dollar"
+  | "download"
+  | "draw"
+  | "duplicate"
+  | "edit"
+  | "exclamation-mark"
+  | "eye"
+  | "eye-open"
+  | "file"
+  | "file-html"
+  | "finger"
+  | "flag"
+  | "folder"
+  | "function"
+  | "gear"
+  | "gift"
+  | "globe"
+  | "grid"
+  | "hand"
+  | "heart"
+  | "home"
+  | "image"
+  | "inbox"
+  | "info"
+  | "key"
+  | "lamp"
+  | "link"
+  | "location"
+  | "locker"
+  | "login"
+  | "logout"
+  | "mail"
+  | "map"
+  | "markup"
+  | "merge"
+  | "more-horizontal"
+  | "more-vertical"
+  | "mouse"
+  | "palette"
+  | "password"
+  | "pencil"
+  | "people"
+  | "person"
+  | "person-add"
+  | "person-remove"
+  | "pin"
+  | "question-circle"
+  | "remove-circle"
+  | "return-arrow"
+  | "save"
+  | "search"
+  | "sections"
+  | "send"
+  | "share"
+  | "shine"
+  | "sliders"
+  | "star"
+  | "storage"
+  | "success-circle"
+  | "swap"
+  | "switch"
+  | "sync"
+  | "table"
+  | "tag"
+  | "terminal"
+  | "text"
+  | "thumb-down"
+  | "thumb-up"
+  | "timer"
+  | "toggle"
+  | "trash"
+  | "update-page"
+  | "upload"
+  | "video"
+  | "wallet"
+  | "window";
+export type IconName =
+  | IconNameSlug
+  | `icon-${IconNameSlug}`
+  | (string & {});
+export type IconFill =
+  | "default"
+  | "base"
+  | "white"
+  | "secondary"
+  | "tertiary"
+  | "quaternary"
+  | "destructive"
+  | `icon-${string}`
+  | (string & {});
+export type IconSizeClass = "icon-xs" | "icon-sm" | "icon-lg" | "icon-xl";
+export type IconSize = SizeValue | IconSizeClass | (string & {});
 
 export interface ButtonProps extends BaseProps {
   type?: string;
@@ -23,9 +144,9 @@ export interface ButtonProps extends BaseProps {
 }
 
 export interface IconProps extends BaseProps {
-  name?: string;
-  fill?: string;
-  size?: SizeValue | `icon-${string}`;
+  name?: IconName;
+  fill?: IconFill;
+  size?: IconSize;
 }
 
 export interface TextProps extends BaseProps {
@@ -46,6 +167,25 @@ export interface TextProps extends BaseProps {
   weight?: "regular" | "semibold" | "bold";
   size?: SizeValue;
   wrap?: "wrap" | "nowrap";
+}
+
+export interface ProgressBarProps extends BaseProps {
+  value?: number | any;
+  min?: number;
+  max?: number;
+  size?: SizeValue;
+  color?: "default"
+    | "primary"
+    | "primary-dimmed"
+    | "secondary"
+    | "tertiary"
+    | "quaternary"
+    | "destructive"
+    | "destructive-dimmed"
+    | "accent"
+    | "accent-dimmed"
+    | "white"
+    | (string & {});
 }
 
 export interface ContainerProps extends BaseProps {
@@ -344,6 +484,7 @@ export const NavigationBar: Component<NavigationBarProps>;
 export const PageHeader: Component<PageHeaderProps>;
 export const PageSection: Component<PageSectionProps>;
 export const PopoverMenu: Component<PopoverMenuProps>;
+export const ProgressBar: Component<ProgressBarProps>;
 export const RadioCheckbox: Component<RadioCheckboxProps>;
 export const SearchBox: Component<SearchBoxProps>;
 export const Sidebar: Component<SidebarProps>;

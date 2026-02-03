@@ -201,6 +201,41 @@ textarea::placeholder {
   color: white;
 }
 
+/* Progress Bar */
+.progress-bar {
+  width: 100%;
+  background-color: var(--alternate-background-color);
+  border-radius: var(--min-control-radius);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background-color: currentColor;
+  transition: width 0.2s ease;
+}
+
+.progress-bar-xs {
+  height: 0.25rem;
+}
+
+.progress-bar-sm {
+  height: 0.375rem;
+}
+
+.progress-bar-md {
+  height: 0.5rem;
+}
+
+.progress-bar-lg {
+  height: 0.75rem;
+}
+
+.progress-bar-xl {
+  height: 1rem;
+}
+
 .badge-solid.badge-dimmed {
   background-color: var(--highlight-background-color);
   color: var(--color-secondary);

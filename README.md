@@ -101,7 +101,7 @@ You can compose your own UI using the same CSS utilities the components use:
 - Typography: `text-default|primary|secondary|tertiary|quaternary`, `text-accent`, `text-destructive`, `text-sm|base|lg|xl`, `text-mono`, `whitespace-nowrap`, `whitespace-pre-line`
 - Buttons: `btn`, `btn-flat`, `btn-outline`, `btn-destructive`, `btn-lg`, `btn-xl`, `btn-disabled`
 - Forms: `input-lg`, `input-xl`, `rounded-full` (useful for pill inputs)
-- Icons: `icon`, `icon-<name>`, `icon-xs|sm|lg|xl`, `icon-default|base|white|secondary|tertiary|quaternary`
+- Icons: `icon`, `icon-<name>`, `icon-xs|sm|lg|xl`, `icon-default|base|white|secondary|tertiary|quaternary|destructive`
 
 Example:
 
@@ -114,6 +114,12 @@ div({ class: "card row-container gap-sm items-center" }, [
   span({ class: "text-primary text-sm" }, "Custom card")
 ]);
 ```
+
+## Icon props
+
+- `name`: icon slug (e.g. `star`) or a full class (e.g. `icon-star`). IDEs should autocomplete shipped icon names.
+- `fill`: `default | base | white | secondary | tertiary | quaternary | destructive` or any `icon-*` utility.
+- `size`: `xsmall | small | regular | large | xlarge` or `icon-xs | icon-sm | icon-lg | icon-xl`.
 
 ## Minimal webpack config
 
