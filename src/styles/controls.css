@@ -336,6 +336,39 @@ input::-webkit-calendar-picker-indicator {
   -webkit-appearance: none;
 }
 
+/* DatePicker Input Wrapper */
+.datepicker-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.datepicker-icon-button {
+  position: absolute;
+  right: var(--base-padding);
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-quaternary);
+  transition: color 0.2s;
+  z-index: 1;
+}
+
+.datepicker-icon-button:hover:not(:disabled) {
+  color: var(--color-tertiary);
+}
+
+.datepicker-icon-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 textarea {
   min-height: 100px;
   resize: vertical;

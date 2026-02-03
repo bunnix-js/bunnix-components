@@ -346,7 +346,18 @@ export interface DatePickerProps extends BaseProps {
   placeholder?: string;
   range?: boolean;
   variant?: "regular" | "rounded" | string;
-  size?: SizeNoSmall;
+  size?: SizeRegularUp;
+  label?: string;
+  disabled?: boolean;
+  value?: Date | null;
+  onInput?: (event?: any) => void;
+  onChange?: (event?: { target: { value: string }; date: Date | null }) => void;
+  onFocus?: (event?: any) => void;
+  onBlur?: (event?: any) => void;
+  input?: (event?: any) => void;
+  change?: (event?: { target: { value: string }; date: Date | null }) => void;
+  focus?: (event?: any) => void;
+  blur?: (event?: any) => void;
 }
 
 export interface TimePickerProps extends BaseProps {
