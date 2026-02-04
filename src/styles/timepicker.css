@@ -15,6 +15,7 @@
   top: anchor(var(--anchor-id) bottom);
   left: anchor(var(--anchor-id) left);
   width: auto;
+  position-try-fallbacks: --time-flip-v;
   margin-top: var(--base-gap);
 }
 
@@ -22,10 +23,6 @@
   top: auto;
   bottom: anchor(var(--anchor-id) top);
   left: anchor(var(--anchor-id) left);
-}
-
-[popover].timepicker-popover {
-  position-try-fallbacks: --time-flip-v;
 }
 
 .timepicker-card {
