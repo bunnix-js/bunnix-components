@@ -101,14 +101,15 @@ Use the same utilities that power the components:
 - **Surfaces**: `box`, `card`, `shadow`, `rounded`
 - **Typography**: `text-primary|secondary|tertiary`, `text-sm|base|lg|xl`
 - **Buttons**: `btn`, `btn-flat`, `btn-outline`, `btn-destructive`
-- **Icons**: `icon`, `icon-<name>`, `icon-xs|sm|lg|xl`
+- **Icons**: `icon`, `icon-<name>`, `icon-xs|sm|lg|xl`, `icon-primary|secondary|tertiary|quaternary|accent|destructive|white`
 
 ```js
 import Bunnix from "@bunnix/core";
+import { Icon } from "@bunnix/components";
 const { div, span } = Bunnix;
 
 div({ class: "card row-container gap-sm" }, [
-  span({ class: "icon icon-star icon-base" }),
+  Icon({ name: "star", fill: "base" }),
   span({ class: "text-primary" }, "Custom card")
 ]);
 ```
