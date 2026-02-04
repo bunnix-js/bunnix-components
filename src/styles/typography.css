@@ -55,8 +55,16 @@ h6 {
   font-family: monospace;
 }
 
+.text-xs {
+  font-size: var(--font-size-xs);
+}
+
 .text-sm {
   font-size: var(--font-size-sm);
+}
+
+.text-md {
+  font-size: var(--font-size);
 }
 
 .text-base {

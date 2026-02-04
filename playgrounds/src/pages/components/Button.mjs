@@ -22,6 +22,8 @@ export default function ButtonPage() {
   ].join("\n");
   const variantHtml = Prism.highlight(variantSnippet, Prism.languages.javascript, "javascript");
   const sizeSnippet = [
+    "Button({ size: \"xsmall\" }, \"Extra Small\");",
+    "Button({ size: \"small\" }, \"Small\");",
     "Button({ size: \"regular\" }, \"Default\");",
     "Button({ size: \"large\" }, \"Large\");",
     "Button({ size: \"xlarge\" }, \"Extra Large\");"
@@ -96,6 +98,8 @@ export default function ButtonPage() {
       PageSection({ title: "Sizes", stickyOffset: headerOffset }, [
         div({ class: "column-container gap-md" }, [
           div({ class: "grid-flow gap-md items-center" }, [
+            Button({ size: "xsmall" }, "Extra Small"),
+            Button({ size: "small" }, "Small"),
             Button({ size: "regular" }, "Default"),
             Button({ size: "large" }, "Large"),
             Button({ size: "xlarge" }, "Extra Large"),

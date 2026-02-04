@@ -99,8 +99,8 @@ Use the same utilities that power the components:
 
 - **Layout**: `row-container`, `column-container`, `grid-flow`, `gap-xs|sm|md|lg`
 - **Surfaces**: `box`, `card`, `shadow`, `rounded`
-- **Typography**: `text-primary|secondary|tertiary`, `text-sm|base|lg|xl`
-- **Buttons**: `btn`, `btn-flat`, `btn-outline`, `btn-destructive`
+- **Typography**: `text-primary|secondary|tertiary`, `text-xs|sm|md|base|lg|xl`
+- **Buttons**: `btn`, `btn-flat`, `btn-outline`, `btn-destructive`, `btn-xs|sm|lg|xl`
 - **Icons**: `icon`, `icon-<name>`, `icon-xs|sm|lg|xl`, `icon-primary|secondary|tertiary|quaternary|accent|destructive|white`
 
 ```js

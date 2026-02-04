@@ -30,9 +30,13 @@ export default function Text(props = {}, children) {
 
   const normalizeSize = (value) =>
     clampSize(value, ["xsmall", "small", "regular", "large", "xlarge"], "regular");
-  const normalizedSize = normalizeSize(size);
-  const sizeToken = toSizeToken(normalizedSize);
-  const sizeClass = sizeToken ? `text-${sizeToken}` : "";
+  const sizeState = isState(size) ? size : null;
+  const buildSizeClass = (value) => {
+    if (value === undefined || value === null || value === "") return "";
+    const normalizedSize = normalizeSize(value);
+    const sizeToken = toSizeToken(normalizedSize);
+    return sizeToken ? `text-${sizeToken}` : "";
+  };
   const tagMap = {
     text: span,
     paragraph: p,
@@ -53,11 +57,14 @@ export default function Text(props = {}, children) {
   const wrapClass =
     wrap === "nowrap" ? "whitespace-nowrap" : wrap === "wrap" ? "" : "";
 
-  const combinedClass = isClassState
-    ? className.map((value) =>
-        `${colorClass} ${designClass} ${weightClass} ${sizeClass} ${wrapClass} ${value}`.trim(),
-      )
-    : `${colorClass} ${designClass} ${weightClass} ${sizeClass} ${wrapClass} ${className}`.trim();
+  const buildClass = (sizeValue, classValue) =>
+    `${colorClass} ${designClass} ${weightClass} ${buildSizeClass(sizeValue)} ${wrapClass} ${classValue}`.trim();
+
+  const combinedClass = sizeState
+    ? sizeState.map((value) => buildClass(value, isClassState ? className.get() : className))
+    : isClassState
+      ? className.map((value) => buildClass(size, value))
+      : buildClass(size, className);
 
   return tag(
     {
