@@ -31,6 +31,9 @@ Button({ variant: "regular" }, [
   "Star"
 ]);
 
+// Button shorthand
+Button("Star");
+
 // Input with mask
 InputField({ label: "Phone", mask: "phone-br" });
 
