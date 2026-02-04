@@ -8,7 +8,7 @@ export default function Grid({
   class: className = "",
   style: inlineStyle = "",
   ...rest
-} = {}, children) {
+} = {}, ...children) {
   const gapMap = {
     small: "gap-sm",
     regular: "gap-md",
@@ -24,9 +24,10 @@ export default function Grid({
   
   let gridStyle = inlineStyle;
   if (isFixed && columns.length > 0) {
-    const template = columns.map(col => {
+    const template = columns.map((col) => {
       if (col.size === "auto") return "1fr";
       if (col.size === "minmax") return "minmax(min-content, 1fr)";
+      if (typeof col.size === "number") return `${col.size}px`;
       return col.size || "1fr";
     }).join(" ");
     gridStyle = `display: grid; grid-template-columns: ${template}; ${inlineStyle}`.trim();
@@ -36,5 +37,5 @@ export default function Grid({
     class: `${baseClass} ${gapMap[gap]} ${className}`.trim(),
     style: gridStyle,
     ...rest
-  }, children);
+  }, ...children);
 }

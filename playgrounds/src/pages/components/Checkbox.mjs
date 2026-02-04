@@ -17,11 +17,11 @@ export default function CheckboxPage() {
   const headerOffset = "6rem";
   const agreed = useState(false);
   const checkboxSnippet = [
-    "Checkbox({ labelText: \"Remember me\", checked: true });",
-    "Checkbox({ labelText: \"Large Checkbox\", size: \"large\" });",
-    "Checkbox({ labelText: \"Extra Large Checkbox\", size: \"xlarge\" });",
-    "Checkbox({ labelText: \"Subscribe to newsletter\" });",
-    "Checkbox({ labelText: \"Disabled Checkbox\", disabled: true });"
+    "Checkbox({ label: \"Remember me\", checked: true });",
+    "Checkbox({ label: \"Large Checkbox\", size: \"large\" });",
+    "Checkbox({ label: \"Extra Large Checkbox\", size: \"xlarge\" });",
+    "Checkbox({ label: \"Subscribe to newsletter\" });",
+    "Checkbox({ label: \"Disabled Checkbox\", disabled: true });"
   ].join("\n");
   const checkboxHtml = Prism.highlight(checkboxSnippet, Prism.languages.javascript, "javascript");
   const radioSnippet = [
@@ -36,7 +36,7 @@ export default function CheckboxPage() {
     "const agreed = useState(false);",
     "",
     "Checkbox({",
-    "  labelText: \"I agree to the terms\",",
+    "  label: \"I agree to the terms\",",
     "  checked: agreed,",
     "  check: (value) => agreed.set(value)",
     "});",
@@ -58,11 +58,11 @@ export default function CheckboxPage() {
       PageSection({ title: "Checkboxes", stickyOffset: headerOffset }, [
         div({ class: "column-container gap-md" }, [
           div({ class: "column-container gap-sm" }, [
-            Checkbox({ labelText: "Remember me", checked: true }),
-            Checkbox({ labelText: "Large Checkbox", size: "large" }),
-            Checkbox({ labelText: "Extra Large Checkbox", size: "xlarge" }),
-            Checkbox({ labelText: "Subscribe to newsletter" }),
-            Checkbox({ labelText: "Disabled Checkbox", disabled: true })
+            Checkbox({ label: "Remember me", checked: true }),
+            Checkbox({ label: "Large Checkbox", size: "large" }),
+            Checkbox({ label: "Extra Large Checkbox", size: "xlarge" }),
+            Checkbox({ label: "Subscribe to newsletter" }),
+            Checkbox({ label: "Disabled Checkbox", disabled: true })
           ]),
           CodeBlock({ html: checkboxHtml, language: "js", wrap: true })
         ])
@@ -85,7 +85,7 @@ export default function CheckboxPage() {
         div({ class: "column-container gap-md" }, [
           HStack({ alignment: "leading", gap: "regular" }, [
             Checkbox({
-              labelText: "I agree to the terms",
+              label: "I agree to the terms",
               checked: agreed,
               check: (value) => agreed.set(value)
             }),

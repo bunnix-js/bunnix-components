@@ -19,7 +19,7 @@ export default function Container(
 ) {
   const typeClass = typeClassMap[type] || "";
   const directionClass = directionClassMap[direction] || "";
-  const combinedClass = `${typeClass} ${directionClass} ${className}`.trim();
+  const combinedClass = `${typeClass} ${directionClass} w-100 ${className}`.trim();
 
   return div({ class: combinedClass, ...rest }, ...children);
 }

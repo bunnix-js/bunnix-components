@@ -1,9 +1,10 @@
 import Bunnix from "@bunnix/core";
 import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
-const { label, input, span } = Bunnix;
+import Icon from "./Icon.mjs";
+const { label: labelTag, input, span } = Bunnix;
 
 export default function Checkbox({
-  labelText,
+  label,
   size,
   onCheck,
   check,
@@ -19,16 +20,19 @@ export default function Checkbox({
   const nativeChange = onChange ?? inputProps.change;
   const checkHandler = onCheck ?? check;
 
-  return label({ class: `selection-control ${className}`.trim() }, [
-    input({
-      type: "checkbox",
-      class: sizeClass,
-      ...inputProps,
-      change: (e) => {
-        if (nativeChange) nativeChange(e);
-        if (checkHandler) checkHandler(e.target.checked);
-      }
-    }),
-    labelText ? span({ class: "text-base" }, labelText) : null
+  return labelTag({ class: `selection-control ${className}`.trim() }, [
+    span({ class: `checkbox-box ${sizeClass}`.trim() }, [
+      input({
+        type: "checkbox",
+        class: sizeClass,
+        ...inputProps,
+        change: (e) => {
+          if (nativeChange) nativeChange(e);
+          if (checkHandler) checkHandler(e.target.checked);
+        }
+      }),
+      span({ class: "checkbox-icon" }, Icon({ name: "check", fill: "white", class: "checkbox-icon-svg" })),
+    ]),
+    label ? span({ class: "text-base" }, label) : null
   ]);
 }

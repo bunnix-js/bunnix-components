@@ -234,6 +234,18 @@ export interface VStackProps extends BaseProps {
   gap?: "xsmall" | "small" | "regular" | "large" | (string & {});
 }
 
+export interface GridColumn {
+  size?: "auto" | "minmax" | string | number;
+  [key: string]: unknown;
+}
+
+export interface GridProps extends BaseProps {
+  type?: "flow" | "fixed" | (string & {});
+  columns?: Array<GridColumn>;
+  gap?: "small" | "regular" | "large" | (string & {});
+  style?: string;
+}
+
 export interface BadgeProps extends BaseProps {
   tone?: "base" | "success" | "info" | "warning" | "danger" | "accent" | "dimmed" | string;
   size?: SizeValue;
@@ -315,7 +327,7 @@ export interface ComboBoxProps extends BaseProps {
 }
 
 export interface CheckboxProps extends BaseProps {
-  labelText?: string;
+  label?: string;
   size?: SizeValue;
   onCheck?: (checked: boolean) => void;
   check?: (checked: boolean) => void;
@@ -553,7 +565,7 @@ export const Container: Component<ContainerProps>;
 export const DatePicker: Component<DatePickerProps>;
 export const Dialog: Component<BaseProps>;
 export const DropdownMenu: Component<DropdownMenuProps>;
-export const Grid: Component<BaseProps>;
+export const Grid: Component<GridProps>;
 export const HStack: Component<HStackProps>;
 export const Icon: Component<IconProps>;
 export const InputField: Component<InputFieldProps>;

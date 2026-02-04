@@ -451,6 +451,7 @@ input[type="radio"] {
   height: 1.25rem;
   border: 1px solid var(--border-color);
   background-color: var(--background-color);
+  color: var(--background-color);
   cursor: pointer;
   display: inline-grid;
   place-content: center;
@@ -467,41 +468,16 @@ input[type="radio"] {
   border-radius: 50%;
 }
 
-input[type="checkbox"]::before {
-  content: "";
-  width: 0.8rem;
-  height: 0.8rem;
-  background-color: var(--background-color);
-  -webkit-mask-image: var(--svg-check);
-  mask-image: var(--svg-check);
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  transform: scale(0);
-  transition: 120ms transform ease-in-out;
-}
-
 input[type="checkbox"].checkbox-lg,
 input[type="radio"].checkbox-lg {
   width: 1.5rem;
   height: 1.5rem;
 }
 
-input[type="checkbox"].checkbox-lg::before {
-  width: 1rem;
-  height: 1rem;
-}
-
 input[type="checkbox"].checkbox-xl,
 input[type="radio"].checkbox-xl {
   width: 1.75rem;
   height: 1.75rem;
-}
-
-input[type="checkbox"].checkbox-xl::before {
-  width: 1.2rem;
-  height: 1.2rem;
 }
 
 input[type="radio"]::before {
@@ -518,11 +494,12 @@ input[type="checkbox"]:checked,
 input[type="radio"]:checked {
   background-color: var(--accent-color);
   border-color: var(--accent-color);
+  color: white;
 }
 
-input[type="checkbox"]:checked::before,
 input[type="radio"]:checked::before {
   transform: scale(1);
+  opacity: 1;
 }
 
 input[type="checkbox"]:focus,
@@ -536,6 +513,52 @@ input[type="radio"]:focus {
   align-items: center;
   gap: var(--base-gap);
   cursor: pointer;
+}
+
+.checkbox-box {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.checkbox-box input[type="checkbox"] {
+  position: relative;
+  z-index: 1;
+}
+
+.checkbox-box .checkbox-icon {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transform: scale(0);
+  opacity: 0;
+  transition: 120ms transform ease-in-out, 120ms opacity ease-in-out;
+  pointer-events: none;
+}
+
+.checkbox-box input[type="checkbox"]:checked + .checkbox-icon {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.checkbox-box .checkbox-icon .icon {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.checkbox-box.checkbox-lg .checkbox-icon .icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.checkbox-box.checkbox-xl .checkbox-icon .icon {
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 /* Switch */
