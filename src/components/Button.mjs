@@ -2,17 +2,31 @@ import Bunnix from "@bunnix/core";
 import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
 const { button, a } = Bunnix;
 
-export default function Button({
-  type = "button",
-  variant = "regular",
-  size,
-  href,
-  disabled = false,
-  onClick,
-  click,
-  class: className = "",
-  ...rest
-} = {}, children) {
+export default function Button(props = {}, children) {
+  const isState = (value) => value && typeof value.map === "function";
+
+  if (
+    props === null ||
+    props === undefined ||
+    Array.isArray(props) ||
+    typeof props === "string" ||
+    isState(props)
+  ) {
+    children = props;
+    props = {};
+  }
+
+  const {
+    type = "button",
+    variant = "regular",
+    size,
+    href,
+    disabled = false,
+    onClick,
+    click,
+    class: className = "",
+    ...rest
+  } = props;
   // Button supports all sizes
   const normalizeSize = (value) => clampSize(value, ["xsmall", "small", "regular", "large", "xlarge"], "regular");
 
@@ -47,7 +61,7 @@ export default function Button({
         ? disabledState.map((value) => buildClass(resolvedVariant, size, value))
         : buildClass(resolvedVariant, size, disabled);
 
-  const props = {
+  const buttonProps = {
     class: combinedClass,
     disabled,
     ...rest
@@ -55,7 +69,7 @@ export default function Button({
 
   // Only attach click handler if not disabled
   if (handler) {
-    props.click = (event) => {
+    buttonProps.click = (event) => {
       const isDisabled = disabledState ? disabledState.get() : !!disabled;
       if (isDisabled) return;
       handler(event);
@@ -65,10 +79,10 @@ export default function Button({
   if (type === "link" || isHyperlink) {
     // If it's a hyperlink variant, default to link type unless explicitly button
     if (!disabled) {
-      props.href = href || "#";
+      buttonProps.href = href || "#";
     }
-    return a(props, children);
+    return a(buttonProps, children);
   }
 
-  return button(props, children);
+  return button(buttonProps, children);
 }
