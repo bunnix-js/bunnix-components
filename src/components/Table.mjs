@@ -241,7 +241,9 @@ export default function Table({
                     Icon({
                       name: "chevron-down",
                       fill: "base",
-                      class: sortIconClass.map((cls) => `${cls} ml-auto`.trim()),
+                      class: sortIconClass.map((cls) =>
+                        `${cls} ml-auto`.trim(),
+                      ),
                     }),
                   ]),
                 ],

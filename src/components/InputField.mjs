@@ -30,9 +30,11 @@ export default function InputField({
 } = {}) {
   const inputRef = useRef(null);
   const listId = suggestions.length > 0 ? `list-${Math.random().toString(36).slice(2, 8)}` : null;
+  const valueState = value && typeof value.get === "function" && typeof value.subscribe === "function";
+  const resolvedValue = valueState ? value.get() : value;
   
   // Initialize masked value based on initial value and mask
-  const initialMaskedValue = mask && value ? applyMask(value, mask) : (value || "");
+  const initialMaskedValue = mask && resolvedValue ? applyMask(resolvedValue, mask) : (resolvedValue || "");
   const maskedValue = useState(initialMaskedValue);
 
   // InputField supports regular, large, xlarge (no xsmall, small)
@@ -48,6 +50,12 @@ export default function InputField({
     }
   }, inputRef);
 
+  useEffect((nextValue) => {
+    if (!mask || !valueState) return;
+    const masked = applyMask(nextValue ?? "", mask);
+    maskedValue.set(masked);
+  }, [value]);
+
   const variantClass = variant === "rounded" ? "rounded-full" : "";
   const combinedClass = `${className} ${sizeClass} ${variantClass}`.trim();
 
@@ -59,17 +67,22 @@ export default function InputField({
 
   const handleMaskedInput = (e) => {
     if (mask) {
-      const rawValue = e.target.value;
+      const rawValue = e?.target?.value ?? "";
       const masked = applyMask(rawValue, mask);
       maskedValue.set(masked);
+      if (valueState) {
+        valueState.set(masked);
+      }
       
       // Update the input element value
-      e.target.value = masked;
+      if (e?.target) {
+        e.target.value = masked;
+      }
       
       // Create a new event with the masked value
       const maskedEvent = {
         ...e,
-        target: { ...e.target, value: masked }
+        target: { ...(e?.target || {}), value: masked }
       };
       
       if (handleInput) {
@@ -100,7 +113,7 @@ export default function InputField({
   const inputElement = inputEl({
     ref: inputRef,
     type,
-    value: mask ? maskedValue : (value ?? ""),
+    value: mask ? maskedValue : (valueState ? value : (value ?? "")),
     placeholder: placeholder ?? "", // Ensure placeholder is never undefined to avoid "false" text
     disabled,
     autocomplete: autocomplete ?? "off", // Default to off to prevent browser autocomplete suggestions

@@ -58,6 +58,10 @@ button:focus-visible,
   --icon-color-default: currentColor;
 }
 
+.btn .text-default {
+  color: inherit;
+}
+
 .btn:visited {
   color: white;
 }

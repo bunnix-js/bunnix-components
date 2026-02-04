@@ -15,6 +15,7 @@ export default function PageSection(props = {}, ...children) {
     gap = "regular",
     trailing,
     children: propsChildren,
+    class: className = "",
   } = props;
 
   let normalizedChildren = children.length ? children : propsChildren || [];
@@ -30,7 +31,9 @@ export default function PageSection(props = {}, ...children) {
   const trailingContent =
     typeof trailing === "function" ? trailing() : trailing;
 
-  return div({ class: "column-container no-margin w-full" }, [
+  const rootClass = `column-container no-margin w-full ${className}`.trim();
+
+  return div({ class: rootClass }, [
     div(
       {
         class: "row-container items-center gap-md pt-sm pb-sm",

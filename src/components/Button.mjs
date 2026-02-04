@@ -2,18 +2,24 @@ import Bunnix from "@bunnix/core";
 import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
 const { button, a } = Bunnix;
 
-export default function Button(props = {}, children) {
+export default function Button(props = {}, ...children) {
   const isState = (value) => value && typeof value.map === "function";
+  const isElement = props && typeof props === "object" && "tag" in props;
 
   if (
     props === null ||
     props === undefined ||
     Array.isArray(props) ||
     typeof props === "string" ||
+    isElement ||
     isState(props)
   ) {
-    children = props;
+    const initialChildren = Array.isArray(props) ? props : [props];
+    children = [...initialChildren, ...children].filter((child) => child !== undefined);
     props = {};
+  }
+  if (children.length === 1 && Array.isArray(children[0])) {
+    children = children[0];
   }
 
   const {
@@ -76,13 +82,16 @@ export default function Button(props = {}, children) {
     };
   }
 
+  const resolvedChildren = children.length === 1 ? children[0] : children;
+
   if (type === "link" || isHyperlink) {
     // If it's a hyperlink variant, default to link type unless explicitly button
     if (!disabled) {
       buttonProps.href = href || "#";
     }
-    return a(buttonProps, children);
+    return a(buttonProps, resolvedChildren);
   }
 
-  return button(buttonProps, children);
+  buttonProps.type = type;
+  return button(buttonProps, resolvedChildren);
 }

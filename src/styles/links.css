@@ -1,11 +1,11 @@
 a {
   text-decoration: none;
   cursor: pointer;
-  color: var(--accent-color-dimmed); /* Default link color (moved from colors.css if it was there, or explicitly set here) */
+  color: var(--accent-color-dimmed);
 }
 
 a:visited {
-  color: var(--accent-color-dimmed); /* Reset visited color */
+  color: var(--accent-color-dimmed);
 }
 
 a:hover {

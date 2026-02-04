@@ -13,6 +13,7 @@ export default function PopoverMenu(
     id,
     align = "left",
     size,
+    disabled,
     onSelect,
     class: className = "",
   } = {},
@@ -58,6 +59,7 @@ export default function PopoverMenu(
   const triggerProps = {
     id: menuId,
     type: 'button',
+    disabled: disabled || undefined,
     style: `anchor-name: ${anchorName}`,
     class: `btn btn-flat ${sizeClass} ${className}`.trim(),
     click: handleToggle,
@@ -102,6 +104,7 @@ export default function PopoverMenu(
             }
             return button(
               {
+                type: 'button',
                 class: `btn btn-flat justify-start w-full ${sizeClass}`.trim(),
                 click: () => handleItemClick(item),
               },
