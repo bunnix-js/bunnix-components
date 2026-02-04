@@ -34,8 +34,28 @@ export default function InputField({
   const resolvedValue = valueState ? value.get() : value;
   
   // Initialize masked value based on initial value and mask
-  const initialMaskedValue = mask && resolvedValue ? applyMask(resolvedValue, mask) : (resolvedValue || "");
-  const maskedValue = useState(initialMaskedValue);
+  // For currency/decimal, the incoming value is numeric (e.g., "424.05")
+  // We need to convert it to the integer representation for masking (e.g., "42405")
+  const getInitialMaskedValue = () => {
+    if (!mask || !resolvedValue) return resolvedValue || "";
+    
+    const maskType = typeof mask === 'object' ? mask.type : mask;
+    if (maskType === 'currency' || maskType === 'decimal') {
+      const decimalPlaces = maskType === 'currency' 
+        ? (typeof mask === 'object' ? mask.options?.decimalPlaces ?? 2 : 2)
+        : (typeof mask === 'object' ? mask.options?.decimalPlaces ?? 2 : 2);
+      // Convert numeric value to integer string for masking
+      // e.g., "424.05" -> "42405"
+      const numValue = parseFloat(resolvedValue);
+      if (!isNaN(numValue)) {
+        const intValue = Math.round(numValue * Math.pow(10, decimalPlaces));
+        return applyMask(intValue.toString(), mask);
+      }
+    }
+    return applyMask(resolvedValue, mask);
+  };
+  
+  const maskedValue = useState(getInitialMaskedValue());
 
   // InputField supports regular, large, xlarge (no xsmall, small)
   const normalizeSizeValue = (value) => clampSize(value, ["regular", "large", "xlarge"], "regular");
@@ -52,8 +72,25 @@ export default function InputField({
 
   useEffect((nextValue) => {
     if (!mask || !valueState) return;
-    const masked = applyMask(nextValue ?? "", mask);
-    maskedValue.set(masked);
+    
+    const maskType = typeof mask === 'object' ? mask.type : mask;
+    if (maskType === 'currency' || maskType === 'decimal') {
+      const decimalPlaces = maskType === 'currency' 
+        ? (typeof mask === 'object' ? mask.options?.decimalPlaces ?? 2 : 2)
+        : (typeof mask === 'object' ? mask.options?.decimalPlaces ?? 2 : 2);
+      // Convert numeric value to integer string for masking
+      const numValue = parseFloat(nextValue);
+      if (!isNaN(numValue)) {
+        const intValue = Math.round(numValue * Math.pow(10, decimalPlaces));
+        const masked = applyMask(intValue.toString(), mask);
+        maskedValue.set(masked);
+      } else {
+        maskedValue.set("");
+      }
+    } else {
+      const masked = applyMask(nextValue ?? "", mask);
+      maskedValue.set(masked);
+    }
   }, [value]);
 
   const variantClass = variant === "rounded" ? "rounded-full" : "";
@@ -70,19 +107,39 @@ export default function InputField({
       const rawValue = e?.target?.value ?? "";
       const masked = applyMask(rawValue, mask);
       maskedValue.set(masked);
-      if (valueState) {
-        valueState.set(masked);
+      
+      // Determine the actual value to emit based on mask type
+      const maskType = typeof mask === 'object' ? mask.type : mask;
+      let valueToEmit = masked;
+      
+      // For currency and decimal masks, extract the numeric value
+      if (maskType === 'currency' || maskType === 'decimal') {
+        // Remove all non-digit and non-decimal characters
+        const digitsOnly = rawValue.replace(/[^\d]/g, "");
+        if (digitsOnly) {
+          const decimalPlaces = maskType === 'currency' 
+            ? (typeof mask === 'object' ? mask.options?.decimalPlaces ?? 2 : 2)
+            : (typeof mask === 'object' ? mask.options?.decimalPlaces ?? 2 : 2);
+          valueToEmit = (parseInt(digitsOnly, 10) / Math.pow(10, decimalPlaces)).toString();
+        } else {
+          valueToEmit = "";
+        }
       }
       
-      // Update the input element value
+      if (valueState) {
+        value.set(valueToEmit);
+      }
+      
+      // Update the input element value to masked
       if (e?.target) {
         e.target.value = masked;
       }
       
-      // Create a new event with the masked value
+      // Create a new event with the numeric value for currency/decimal
+      const eventValue = (maskType === 'currency' || maskType === 'decimal') ? valueToEmit : masked;
       const maskedEvent = {
         ...e,
-        target: { ...(e?.target || {}), value: masked }
+        target: { ...(e?.target || {}), value: eventValue }
       };
       
       if (handleInput) {
