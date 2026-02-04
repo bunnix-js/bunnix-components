@@ -1,10 +1,26 @@
 import Bunnix from "@bunnix/core";
 const { div, h5 } = Bunnix;
 
-export default function PageSection(
-  { title, stickyOffset = 0, gap = "regular", trailing } = {},
-  children,
-) {
+export default function PageSection(props = {}, ...children) {
+  const isElement = props && typeof props === "object" && "tag" in props;
+  if (props === null || props === undefined || Array.isArray(props) || typeof props !== "object" || isElement) {
+    const initialChildren = Array.isArray(props) ? props : [props];
+    children = [...initialChildren, ...children].filter((child) => child !== undefined);
+    props = {};
+  }
+
+  const {
+    title,
+    stickyOffset = 0,
+    gap = "regular",
+    trailing,
+    children: propsChildren,
+  } = props;
+
+  let normalizedChildren = children.length ? children : propsChildren || [];
+  if (normalizedChildren.length === 1 && Array.isArray(normalizedChildren[0])) {
+    normalizedChildren = normalizedChildren[0];
+  }
   const gapMap = {
     small: "gap-sm",
     regular: "gap-md",
@@ -25,6 +41,6 @@ export default function PageSection(
         trailingContent ? div({ class: "shrink-0" }, trailingContent) : null,
       ].filter(Boolean),
     ),
-    div({ class: `column-container py-xs ${gapMap[gap]}`.trim() }, children),
+    div({ class: `column-container py-xs ${gapMap[gap]}`.trim() }, normalizedChildren),
   ]);
 }

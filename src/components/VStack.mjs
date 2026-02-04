@@ -2,8 +2,10 @@ import Bunnix from "@bunnix/core";
 const { div } = Bunnix;
 
 export default function VStack(props = {}, ...children) {
-  if (props === null || props === undefined || Array.isArray(props) || typeof props !== "object") {
-    children = props;
+  const isElement = props && typeof props === "object" && "tag" in props;
+  if (props === null || props === undefined || Array.isArray(props) || typeof props !== "object" || isElement) {
+    const initialChildren = Array.isArray(props) ? props : [props];
+    children = [...initialChildren, ...children].filter((child) => child !== undefined);
     props = {};
   }
 
