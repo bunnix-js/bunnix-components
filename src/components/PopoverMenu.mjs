@@ -1,3 +1,15 @@
+/**
+ * PopoverMenu
+ * 
+ * Dropdown menu triggered by a button or custom element.
+ * Uses native Popover API with anchor positioning.
+ * 
+ * Key features:
+ * - Accepts trigger prop or children as trigger content
+ * - Supports disabled state
+ * - Menu items are type="button" to prevent form submission
+ * - Auto-closes on item selection or outside click
+ */
 import Bunnix, { useRef } from "@bunnix/core";
 import { resolveIconName } from "../utils/iconUtils.mjs";
 import { clampSize, toSizeToken } from "../utils/sizeUtils.mjs";
@@ -65,18 +77,12 @@ export default function PopoverMenu(
     click: handleToggle,
   };
 
-  // Determine what to use as trigger:
-  // 1. If children are provided, use children as trigger content
-  // 2. Otherwise use trigger prop
   const hasTriggerContent =
     children !== undefined &&
     children !== null &&
     (Array.isArray(children) ? children.length > 0 : true);
 
   const resolvedTrigger = hasTriggerContent ? children : trigger;
-
-  // If trigger is a function, call it to get the content, then wrap in button
-  // Otherwise use the trigger/children directly as content
   const triggerContent =
     typeof resolvedTrigger === "function" ? resolvedTrigger() : resolvedTrigger;
 
@@ -93,7 +99,6 @@ export default function PopoverMenu(
         style: `--anchor-id: ${anchorName}`,
       },
       [
-        /* All design system styles go here to avoid overriding popover visibility */
         div(
           {
             class: "card column-container shadow gap-sm w-min-150 p-sm bg-base",

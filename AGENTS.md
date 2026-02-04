@@ -62,8 +62,14 @@ playgrounds/
 
 ### State handling
 
-- Prefer supporting Bunnix reactive values (`useState` atom-like) via `.map` / `.get` where existing patterns exist.
-- Avoid breaking reactive prop usage when refactoring.
+- Components support both plain values and Bunnix reactive state objects (`useState`).
+- State detection: check for `.get()` and `.subscribe()` methods on the value prop.
+- When a state object is passed:
+  - Read initial value with `value.get()`
+  - Sync external changes via `useEffect` listening to the state
+  - Update state on user interaction with `value.set(newValue)`
+- Components with state support: `InputField`, `DatePicker`
+- `InputField` with currency/decimal masks: emits numeric values (e.g., "404.25") not formatted strings (e.g., "$ 404,25").
 
 ## Design System CSS
 
@@ -98,9 +104,31 @@ When adding utilities, update `README.md` and keep the list concise.
 - `package.json` exports include `styles.css` and `@types`.
 - `@bunnix/core` remains a peer dependency.
 
+## Component Implementation Details
+
+### PopoverMenu (`src/components/PopoverMenu.mjs`)
+- Trigger button and all menu items have `type="button"` to prevent form submission
+- Supports `disabled` prop on trigger
+- Accepts either `trigger` prop or `children` as trigger content
+- Uses Popover API with anchor positioning
+
+### InputField (`src/components/InputField.mjs`)
+- State handling: detects `.get()` and `.subscribe()` methods to support reactive values
+- Currency/decimal masks: emits numeric values (e.g., "404.25"), not formatted strings (e.g., "$ 404,25")
+- Mask conversion: numeric input → integer for display masking → numeric output
+- Auto-syncs with external state changes via `useEffect`
+
+### DatePicker (`src/components/DatePicker.mjs`)
+- State handling: same pattern as InputField (supports `useState` objects)
+- Date validation: all helper functions validate Date objects and handle null/invalid gracefully
+- Helper functions: `isSameDay`, `toMidnight`, `formatDate`, `parseDate`, `applyDateMask`, `buildCalendar`
+- Always initializes `viewDate` to valid Date (defaults to today if value is null)
+- Manual popover: closes on selection, outside click, or Escape key
+
 ## Maintenance Rules
 
 - Avoid breaking API unless explicitly requested.
 - Keep components minimal and consistent; no duplicated logic when a helper is feasible.
 - Changes to CSS utilities should be reflected in `README.md`.
 - Keep this AGENTS.md updated with any new conventions or package decisions.
+- Use header comments for component purpose and key features, not inline comments for obvious operations.

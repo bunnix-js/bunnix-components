@@ -286,7 +286,7 @@ export interface InputFieldProps extends BaseProps {
   type?: string;
   variant?: "regular" | "rounded" | string;
   size?: SizeRegularUp;
-  value?: string;
+  value?: string | any; // Supports state objects with .get() and .subscribe()
   placeholder?: string;
   label?: string;
   disabled?: boolean;
@@ -416,7 +416,7 @@ export interface DatePickerProps extends BaseProps {
   size?: SizeRegularUp;
   label?: string;
   disabled?: boolean;
-  value?: Date | null;
+  value?: Date | null | any; // Supports state objects with .get() and .subscribe()
   onInput?: (event?: any) => void;
   onChange?: (event?: { target: { value: string }; date: Date | null }) => void;
   onFocus?: (event?: any) => void;
@@ -474,6 +474,7 @@ export interface PopoverMenuProps extends BaseProps {
   id?: string;
   align?: "left" | "right" | string;
   size?: SizeValue;
+  disabled?: boolean;
   onSelect?: (item?: DropdownMenuItem) => void;
 }
 
