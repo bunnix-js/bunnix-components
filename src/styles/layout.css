@@ -270,6 +270,10 @@ nav,
   width: 150px;
 }
 
+.h-150 {
+  height: 150px;
+}
+
 .w-min-150 {
   min-width: 150px;
 }
@@ -456,6 +460,10 @@ nav,
 }
 
 /* Position Utilities */
+.absolute {
+  position: absolute;
+}
+
 .fixed {
   position: fixed;
 }

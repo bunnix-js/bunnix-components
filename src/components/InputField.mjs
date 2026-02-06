@@ -150,6 +150,12 @@ export default function InputField({
         handleChange(maskedEvent);
       }
     } else {
+      const inputValue = e?.target?.value ?? "";
+      
+      if (valueState) {
+        value.set(inputValue);
+      }
+      
       if (handleInput) {
         handleInput(e);
       }

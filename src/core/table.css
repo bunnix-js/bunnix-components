@@ -1,0 +1,21 @@
+.table {
+  border-collapse: none;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table thead td,
+.table th {
+  font-weight: var(--font-weight-heavy);
+}
+
+.table td {
+  padding: var(--padding-sm) var(--padding-md);
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}

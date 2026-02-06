@@ -107,7 +107,7 @@ span.icon.icon-destructive-dimmed {
 }
 
 .fg-base, .fg-primary {
-  color: var(--color-primary) !important;
+  color: var(--color-primary);
 }
 
 .fg-tertiary {
