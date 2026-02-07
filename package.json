@@ -32,6 +32,7 @@
     "./styles": "./src/styles.css",
     "./styles.css": "./src/styles.css",
     "./src/core/core.css": "./src/core/core.css",
+    "./src/core/input.css": "./src/core/input.css",
     "./src/core/table.css": "./src/core/table.css",
     "./icons/*": "./src/icons/*"
   },
@@ -39,6 +40,7 @@
     "./src/styles.css",
     "./src/styles/*.css",
     "./src/core/core.css",
+    "./src/core/input.css",
     "./src/core/table.css"
   ],
   "files": [

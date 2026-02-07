@@ -81,10 +81,10 @@ export default function ToastNotification() {
   });
   const textSizeClass = toastState.map((value) => {
     const sizeToken = toSizeToken(value.size);
-    if (sizeToken === "xl") return "text-xl";
-    if (sizeToken === "lg") return "text-lg";
-    if (sizeToken === "md") return "text-base";
-    return "text-sm";
+    if (sizeToken === "xl") return "font-size-xlarge";
+    if (sizeToken === "lg") return "font-size-large";
+    if (sizeToken === "md") return "font-size-default";
+    return "font-size-small";
   });
   const hasIcon = toastState.map((value) => !!value.icon);
   const iconName = toastState.map((value) => resolveIconName(value.icon));

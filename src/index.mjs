@@ -44,4 +44,5 @@ export { Heading } from "./core/typography.mjs";
 export { Media, Icon2, Spinner, Avatar } from "./core/media.mjs";
 export { Button2, LinkButton } from "./core/buttons.mjs";
 export { Table2 } from "./core/table.mjs";
-export { TextInput, Select } from "./core/inputs.mjs";
+export { TextInput, Select, CheckBox2 } from "./core/inputs.mjs";
+export { useDialog } from "./core/dialog.mjs";

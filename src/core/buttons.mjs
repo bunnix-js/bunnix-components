@@ -15,7 +15,7 @@ export const Button2 = withNormalizedArgs((props, ...children) => {
       variant = "bg-primary fg-primary border-primary hover-bg-secondary";
 
     if (finalProps.variant === "tertiary")
-      variant = "bg-primary fg-primary border-transparent hover-bg-secondary";
+      variant = "bg-none fg-primary border-transparent hover-bg-secondary";
 
     if (finalProps.variant === "danger")
       variant = "bg-danger fg-primary-inverted hover-bg-danger-dimmed";
