@@ -1,3 +1,16 @@
+/**
+ * Dialog Components (Next-Gen Core)
+ *
+ * Minimal modal dialog API built on native <dialog>.
+ *
+ * Exports:
+ * - useDialog: Creates local dialog state and returns Dialog renderer + showDialog API
+ *
+ * Features:
+ * - Programmatic open with title, content blocks, and confirmation action
+ * - Local state-driven rendering via useState + Show
+ * - Uses core primitives (Button2, Heading, Row/Column/Spacer, Icon2)
+ */
 import Bunnix, {
   useRef,
   useState,
@@ -10,6 +23,14 @@ import { Icon2 } from "./media.mjs";
 
 const { dialog } = Bunnix;
 
+/**
+ * Creates a dialog controller and render component.
+ *
+ * @returns {{
+ *   Dialog: Function,
+ *   showDialog: Function
+ * }} Dialog renderer and imperative open handler
+ */
 export const useDialog = () => {
   const dialogState = useState({
     title: "",
@@ -19,6 +40,11 @@ export const useDialog = () => {
   const dialogRef = useRef(null);
 
   return {
+    /**
+     * Dialog component bound to this hook instance state.
+     *
+     * @returns {*} Renderable dialog node
+     */
     Dialog: () => {
       const closeDialog = () => {
         dialogRef.current?.close();
@@ -65,6 +91,18 @@ export const useDialog = () => {
         )
       );
     },
+    /**
+     * Opens dialog with provided content and confirmation behavior.
+     *
+     * @param {Object} [config] - Dialog config
+     * @param {string} [config.title] - Dialog title text
+     * @param {Array|*} [config.contents=[]] - Renderable content block(s)
+     * @param {Object} [config.confirmation] - Confirmation button config
+     * @param {string} [config.confirmation.text=\"OK\"] - Confirmation label
+     * @param {string} [config.confirmation.variant=\"primary\"] - Button2 variant
+     * @param {Function|null} [config.confirmation.action=null] - Action run before close
+     * @returns {void}
+     */
     showDialog: ({
       title,
       contents = [],
