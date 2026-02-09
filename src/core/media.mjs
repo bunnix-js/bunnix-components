@@ -90,9 +90,14 @@ const AvatarCore = withNormalizedArgs((props, ...children) => {
       stateSource.map((s) => ({ image: s, letter: letter })),
       (resolved) =>
         resolved.image
-          ? img({
+          ? span({
               ...finalProps,
-              src: resolved.image,
+              style: {
+                ...finalProps.style,
+                backgroundImage: `url(${resolved.image})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              },
               class: `avatar flex-column flex-center weight-heavier ${baseClass} ${finalProps.class || ""}`,
             })
           : span({
