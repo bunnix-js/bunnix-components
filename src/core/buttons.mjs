@@ -16,7 +16,7 @@ const Button2Core = (props, ...children) => {
     variant = "bg-none fg-primary border-transparent hover-bg-secondary";
 
   if (props.variant === "danger")
-    variant = "bg-danger fg-primary-inverted hover-bg-danger-dimmed";
+    variant = "bg-danger fg-primary hover-bg-danger-dimmed";
 
   const disabledValue = props.disabled;
 
@@ -49,6 +49,9 @@ const LinkButtonCore = (props, ...children) => {
     variant = "padding-x-md bg-primary fg-primary border-transparent hover-bg-secondary";
 
   if (props.variant === "danger")
+    variant = "fg-danger hover-fg-danger-dimmed hover-decoration-underline";
+
+  if (props.variant === "destructive")
     variant = "fg-danger hover-fg-danger-dimmed hover-decoration-underline";
 
   const disabledValue = props.disabled;

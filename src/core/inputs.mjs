@@ -214,7 +214,7 @@ const CheckBoxCore = (props, _) => {
 export const TextInput = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     TextInputCore(finalProps, ...children),
-  )({ minHeight: 32, ...props }, ...children),
+  )({ minHeight: 32, textSize: "1rem", ...props }, ...children),
 );
 
 /**
@@ -233,7 +233,7 @@ export const TextInput = withNormalizedArgs((props, ...children) =>
 export const Select = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     SelectCore(finalProps, ...children),
-  )({ height: 32, ...props }, ...children),
+  )({ height: 32, textSize: "1rem", ...props }, ...children),
 );
 
 /**
@@ -255,5 +255,5 @@ export const Select = withNormalizedArgs((props, ...children) =>
 export const CheckBox2 = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     CheckBoxCore(finalProps, ...children),
-  )({ size: 20, ...props }, ...children),
+  )({ size: 20, textSize: "1rem", ...props }, ...children),
 );
