@@ -1,3 +1,8 @@
+export const isStateLike = (value) =>
+  value &&
+  typeof value.get === "function" &&
+  typeof value.subscribe === "function";
+
 export function withNormalizedArgs(fn) {
   return (props = {}, ...children) => {
     const isProps =
@@ -30,6 +35,19 @@ export function withExtractedStyles(fn) {
       if (props.color === "warning") style.color = "var(--color-warning)";
       if (props.color === "danger") style.color = "var(--color-danger)";
       delete finalProps.color;
+    }
+
+    if ("textColor" in props) {
+      style.color = props.textColor;
+      delete finalProps.textColor;
+    }
+
+    if ("textSize" in props) {
+      style.fontSize =
+        typeof props.textSize === "number"
+          ? `${props.textSize}px`
+          : props.textSize;
+      delete finalProps.textSize;
     }
 
     if ("weight" in props) {

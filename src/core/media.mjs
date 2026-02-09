@@ -15,8 +15,12 @@
  * - SVG support via innerHTML for icons and spinners
  * - Avatar size and appearance customization
  */
-import Bunnix from "@bunnix/core";
-import { withNormalizedArgs, withExtractedStyles } from "./utils.mjs";
+import Bunnix, { Show, useState } from "@bunnix/core";
+import {
+  withNormalizedArgs,
+  withExtractedStyles,
+  isStateLike,
+} from "./utils.mjs";
 import { iconRegistry } from "../utils/iconRegistry.generated.mjs";
 
 const { span, img } = Bunnix;
@@ -77,21 +81,26 @@ const AvatarCore = withNormalizedArgs((props, ...children) => {
     let source = finalProps.src;
     let letter = finalProps.letter;
 
-    if (source) {
-      return img({
-        ...finalProps,
-        src: source,
-        class: `avatar ${baseClass} ${finalProps.class || ""}`,
-      });
-    }
+    delete finalProps.src;
+    delete finalProps.letter;
 
-    if (letter) {
-      return span({
-        ...finalProps,
-        "data-letter": letter,
-        class: `avatar flex-column flex-center weight-heavier ${baseClass} ${finalProps.class || ""}`,
-      });
-    }
+    let stateSource = isStateLike(source) ? source : useState(source);
+
+    return Show(
+      stateSource.map((s) => ({ image: s, letter: letter })),
+      (resolved) =>
+        resolved.image
+          ? img({
+              ...finalProps,
+              src: resolved.image,
+              class: `avatar flex-column flex-center weight-heavier ${baseClass} ${finalProps.class || ""}`,
+            })
+          : span({
+              ...finalProps,
+              "data-letter": resolved.letter,
+              class: `avatar flex-column flex-center weight-heavier ${baseClass} ${finalProps.class || ""}`,
+            }),
+    );
   })(props, ...children);
 });
 
