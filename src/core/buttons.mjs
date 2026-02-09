@@ -1,7 +1,15 @@
-import Bunnix, { useState } from "@bunnix/core";
+import Bunnix from "@bunnix/core";
 import { withNormalizedArgs, withExtractedStyles } from "./utils.mjs";
 
 const { div, button } = Bunnix;
+
+const isStateLike = (value) =>
+  value &&
+  typeof value.get === "function" &&
+  typeof value.subscribe === "function";
+
+const toBoolean = (value) =>
+  isStateLike(value) ? !!value.get() : !!value;
 
 const Button2Core = (props, ...children) => {
   let outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
@@ -18,22 +26,20 @@ const Button2Core = (props, ...children) => {
   if (props.variant === "danger")
     variant = "bg-danger fg-primary-inverted hover-bg-danger-dimmed";
 
-  let disabled = (props.disabled?.get && props.disabled?.set) ?
-    props.disabled :
-    useState(!!props.disabled);
+  const disabledValue = props.disabled;
 
   delete props.variant;
   delete props.outline;
+  delete props.disabled;
 
   const handleClick = (e) => {
-    if (disabled.get()) return;
     if (props.click) props.click(e);
   };
 
   return button({
     ...props,
     type: props.type ?? "button",
-    disabled: !!disabled.get(),
+    disabled: disabledValue ?? false,
     click: handleClick,
     class: `${baseClass} ${outlineClass} ${paddingClass} ${variant}`
   }, ...children);
@@ -53,20 +59,21 @@ const LinkButtonCore = (props, ...children) => {
   if (props.variant === "danger")
     variant = "fg-danger hover-fg-danger-dimmed hover-decoration-underline";
 
-  let disabled = (props.disabled?.get && props.disabled?.set) ?
-    props.disabled :
-    useState(!!props.disabled);
+  const disabledValue = props.disabled;
+  const getIsDisabled = () => toBoolean(disabledValue);
+  const isDisabled = getIsDisabled();
 
   delete props.variant;
   delete props.outline;
+  delete props.disabled;
 
   const handleClick = (e) => {
-    if (disabled.get()) return;
+    if (getIsDisabled()) return;
     if (props.click) props.click(e);
   };
 
   const handleKeyDown = (e) => {
-    if (disabled.get()) return;
+    if (getIsDisabled()) return;
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       if (props.click) props.click(e);
@@ -76,7 +83,7 @@ const LinkButtonCore = (props, ...children) => {
 
   return div({
     ...props,
-    tabindex: disabled.get() ? undefined : (props.tabindex ?? 0),
+    tabindex: isDisabled ? undefined : (props.tabindex ?? 0),
     role: "button",
     click: handleClick,
     keydown: handleKeyDown,
