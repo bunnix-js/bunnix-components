@@ -76,11 +76,11 @@ const LinkButtonCore = (props, ...children) => {
 export const Button2 = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     Button2Core(finalProps, ...children),
-  )({ minHeight: 32, ...props }, ...children),
+  )({ minHeight: 32, textSize: "1rem", ...props }, ...children),
 );
 
 export const LinkButton = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     LinkButtonCore(finalProps, ...children),
-  )({ minHeight: 32, ...props }, ...children),
+  )({ minHeight: 32, textSize: "1rem", ...props }, ...children),
 );
