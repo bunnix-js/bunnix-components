@@ -57,10 +57,10 @@ export const ProgressBar = withNormalizedArgs((props = {}, ...children) => {
     const resolveFillColor = (tone) => {
       const normalizedTone = String(tone ?? "primary").toLowerCase();
 
-      if (normalizedTone === "primary") return "var(--color-primary)";
-      if (normalizedTone === "primary-dimmed") return "var(--color-primary-dimmed)";
-      if (normalizedTone === "secondary") return "var(--color-secondary)";
-      if (normalizedTone === "tertiary") return "var(--color-tertiary)";
+      if (normalizedTone === "primary") return "var(--color-fg-primary)";
+      if (normalizedTone === "primary-dimmed") return "var(--color-fg-primary-dimmed)";
+      if (normalizedTone === "secondary") return "var(--color-fg-secondary)";
+      if (normalizedTone === "tertiary") return "var(--color-fg-tertiary)";
       if (normalizedTone === "error") return "var(--color-danger)";
 
       return `var(--color-${normalizedTone})`;

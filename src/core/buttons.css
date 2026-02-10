@@ -21,18 +21,18 @@
 
 /* Button Variants */
 .button.primary {
-  background-color: var(--color-primary);
-  color: var(--color-primary-inverted);
+  background-color: var(--color-fg-primary);
+  color: var(--color-fg-primary-inverted);
   border: 1px solid transparent;
 }
 
 .button.primary:hover:not(:disabled) {
-  background-color: var(--color-primary-dimmed);
+  background-color: var(--color-fg-primary-dimmed);
 }
 
 .button.secondary {
   background-color: var(--color-bg-primary);
-  color: var(--color-primary);
+  color: var(--color-fg-primary);
   border: 1px solid var(--color-border-primary);
 }
 
@@ -42,7 +42,7 @@
 
 .button.tertiary {
   background-color: transparent;
-  color: var(--color-primary);
+  color: var(--color-fg-primary);
   border: 1px solid transparent;
 }
 
@@ -52,7 +52,7 @@
 
 .button.danger {
   background-color: var(--color-danger);
-  color: var(--color-primary);
+  color: var(--color-fg-on-danger);
 }
 
 .button.danger:hover:not(:disabled) {
@@ -87,18 +87,18 @@
 }
 
 .link-button.secondary {
-  color: var(--color-primary);
+  color: var(--color-fg-primary);
   text-decoration: underline;
 }
 
 .link-button.secondary:hover:not(:disabled) {
-  color: var(--color-primary-dimmed);
+  color: var(--color-fg-primary-dimmed);
 }
 
 .link-button.tertiary {
   padding: 0 var(--padding-md);
   background-color: var(--color-bg-primary);
-  color: var(--color-primary);
+  color: var(--color-fg-primary);
   border: 1px solid transparent;
 }
 

@@ -28,9 +28,9 @@ export function withExtractedStyles(fn) {
 
     if ("color" in props) {
       style.color = props.color;
-      if (props.color === "primary") style.color = "var(--color-primary)";
-      if (props.color === "secondary") style.color = "var(--color-secondary)";
-      if (props.color === "tertiary") style.color = "var(--color-tertiary)";
+      if (props.color === "primary") style.color = "var(--color-fg-primary)";
+      if (props.color === "secondary") style.color = "var(--color-fg-secondary)";
+      if (props.color === "tertiary") style.color = "var(--color-fg-tertiary)";
       if (props.color === "success") style.color = "var(--color-success)";
       if (props.color === "warning") style.color = "var(--color-warning)";
       if (props.color === "danger") style.color = "var(--color-danger)";
