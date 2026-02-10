@@ -14,7 +14,6 @@
  */
 import Bunnix from "@bunnix/core";
 import { withNormalizedArgs, withExtractedStyles } from "./utils.mjs";
-import "./table.css";
 
 const { table, colgroup, col, thead, tbody, tr, td } = Bunnix;
 
@@ -27,21 +26,44 @@ const TableCore = withNormalizedArgs((props, ...children) => {
     delete finalProps.rows;
 
     let tcols = headers.map((h) => col({ width: h.size ?? 0 }));
-    let theaders = headers.map((h) => td({ weight: "heavy" }, h.content ?? ""));
-    let trows = rows.map((r) =>
+
+    let theaders = headers.map((h) =>
+      td({
+        style: {
+          fontWeight: "var(--font-weight-heavy)",
+          padding: "var(--padding-sm) var(--padding-md)",
+          borderBottom: "1px solid var(--color-border-primary)",
+        }
+      }, h.content ?? "")
+    );
+
+    let trows = rows.map((r, rowIndex) =>
       tr(
         headers.map((h) => {
-          if (!h.key) return td("");
-          if (!(h.key in r)) return td("");
-          return td(r[h.key]);
+          const isLastRow = rowIndex === rows.length - 1;
+          const cellStyle = {
+            padding: "var(--padding-sm) var(--padding-md)",
+            borderBottom: isLastRow ? "none" : "1px solid var(--color-border-primary)",
+          };
+
+          if (!h.key) return td({ style: cellStyle }, "");
+          if (!(h.key in r)) return td({ style: cellStyle }, "");
+          return td({ style: cellStyle }, r[h.key]);
         }),
       ),
     );
 
     return table(
       {
+        class: "table",
         ...finalProps,
-        class: `table ${finalProps.class || ""}`,
+        style: {
+          ...finalProps.style,
+          borderCollapse: "separate",
+          borderSpacing: 0,
+          textAlign: "left",
+          verticalAlign: "middle",
+        },
       },
       colgroup(tcols),
       thead(theaders),
