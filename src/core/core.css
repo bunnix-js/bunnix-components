@@ -8,7 +8,6 @@
 @import "./input.css";
 @import "./menu.css";
 @import "./progress.css";
-@import "./core-mobile.css";
 
 :root {
   color-scheme: light dark;
@@ -62,7 +61,7 @@
   --font-size-large: 16px;
   --font-size-default: 14px;
   --font-size-small: 12px;
-  --font-size-xmall: 10px;
+  --font-size-xsmall: 10px;
   --font-weight-default: 400;
   --font-weight-heavy: 500;
   --font-weight-heavier: 600;
@@ -644,3 +643,6 @@ body {
     filter: brightness(0) invert(1);
   }
 }
+
+/* Mobile overrides - must be imported last to properly override desktop values */
+@import "./core-mobile.css";

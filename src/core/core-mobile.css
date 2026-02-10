@@ -7,11 +7,11 @@
 
 @media (max-width: 720px) {
   :root {
-    --font-size-xlarge: 29px;
-    --font-size-large: 17px;
-    --font-size-default: 15px;
-    --font-size-small: 13px;
-    --font-size-xmall: 11px;
+    --font-size-xlarge: 20px;
+    --font-size-large: 18px;
+    --font-size-default: 16px;
+    --font-size-small: 14px;
+    --font-size-xsmall: 12px;
 
     --padding-sm: 10px;
     --padding-md: 12px;
@@ -49,7 +49,6 @@
     padding-top: var(--padding-md);
     padding-bottom: 0;
     row-gap: 0;
-    font-size: var(--font-size-large);
   }
 
   .table tbody td:last-child {
@@ -61,10 +60,6 @@
     font-weight: var(--font-weight-heavier);
     font-size: var(--font-size-default);
     color: var(--color-fg-tertiary);
-  }
-
-  .link-button {
-    font-size: var(--font-size-large) !important;
   }
 
   .checkbox {
