@@ -35,7 +35,7 @@ const sidebarItems = [
 ];
 
 export function App() {
-  const selectedSidebarKey = useState("home");
+  const selectedSidebarKey = useState("grid");
 
   return Grid2(
     {

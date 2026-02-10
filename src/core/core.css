@@ -35,6 +35,15 @@
   --color-danger: light-dark(#E10000, #e00000);
   --color-danger-dimmed: light-dark(#E10000E6, #c80000);
 
+  /* Syntax highlighting tokens */
+  --color-syntax-keyword: light-dark(#0000ff, #569cd6);
+  --color-syntax-string: light-dark(#a31515, #ce9178);
+  --color-syntax-comment: light-dark(#008000, #6a9955);
+  --color-syntax-number: light-dark(#098658, #b5cea8);
+  --color-syntax-boolean: light-dark(#0000ff, #569cd6);
+  --color-syntax-function: light-dark(#795e26, #dcdcaa);
+  --color-syntax-punctuation: light-dark(#000000, #d4d4d4);
+
   /* Spacing + radius tokens */
   --gap-md: 6px;
   --radius-md: 6px;

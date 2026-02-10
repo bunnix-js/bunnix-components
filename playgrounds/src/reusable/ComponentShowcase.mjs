@@ -42,6 +42,7 @@ const dedent = (str) => {
 export const ComponentShowcase = (props, ...children) => {
   const hasCustomContent = children && children.length > 0;
   const trimmedCode = props.code ? dedent(props.code) : "";
+  const language = props.language || "js"; // Default to JavaScript
 
   return Row(
     { border: "primary", radius: "large", overflow: "hidden", alignItems: "start" },
@@ -55,7 +56,13 @@ export const ComponentShowcase = (props, ...children) => {
           ]
     ),
     Code2(
-      { bg: "primary-dimmed", flexGrow: 1, padding: "large", alignSelf: "stretch" },
+      { 
+        bg: "primary-dimmed", 
+        flexGrow: 1, 
+        padding: "large", 
+        alignSelf: "stretch",
+        language: language
+      },
       trimmedCode,
     ),
   );
