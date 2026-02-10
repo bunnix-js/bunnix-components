@@ -31,7 +31,7 @@ const sidebarItems = [
 ];
 
 export function App() {
-  const selectedSidebarKey = useState("inputs");
+  const selectedSidebarKey = useState("media");
 
   return Grid2(
     {

@@ -63,8 +63,6 @@ const SpinnerCore = (props, ...children) => {
 };
 
 const AvatarCore = (props, ...children) => {
-  let baseClass =
-    "border-primary radius-circle bg-primary fg-secondary overflow-hidden";
   let source = props.src;
   let letter = props.letter;
 
@@ -85,12 +83,12 @@ const AvatarCore = (props, ...children) => {
               backgroundSize: "cover",
               backgroundPosition: "center",
             },
-            class: `avatar flex-column flex-center weight-heavier ${baseClass} ${props.class || ""}`,
+            class: `avatar ${props.class || ""}`,
           })
         : span({
             ...props,
             "data-letter": resolved.letter,
-            class: `avatar flex-column flex-center weight-heavier ${baseClass} ${props.class || ""}`,
+            class: `avatar ${props.class || ""}`,
           }),
   );
 };

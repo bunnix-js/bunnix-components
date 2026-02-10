@@ -26,44 +26,21 @@ const TableCore = withNormalizedArgs((props, ...children) => {
     delete finalProps.rows;
 
     let tcols = headers.map((h) => col({ width: h.size ?? 0 }));
-
-    let theaders = headers.map((h) =>
-      td({
-        style: {
-          fontWeight: "var(--font-weight-heavy)",
-          padding: "var(--padding-sm) var(--padding-md)",
-          borderBottom: "1px solid var(--color-border-primary)",
-        }
-      }, h.content ?? "")
-    );
-
-    let trows = rows.map((r, rowIndex) =>
+    let theaders = headers.map((h) => td(h.content ?? ""));
+    let trows = rows.map((r) =>
       tr(
         headers.map((h) => {
-          const isLastRow = rowIndex === rows.length - 1;
-          const cellStyle = {
-            padding: "var(--padding-sm) var(--padding-md)",
-            borderBottom: isLastRow ? "none" : "1px solid var(--color-border-primary)",
-          };
-
-          if (!h.key) return td({ style: cellStyle }, "");
-          if (!(h.key in r)) return td({ style: cellStyle }, "");
-          return td({ style: cellStyle }, r[h.key]);
+          if (!h.key) return td("");
+          if (!(h.key in r)) return td("");
+          return td(r[h.key]);
         }),
       ),
     );
 
     return table(
       {
-        class: "table",
         ...finalProps,
-        style: {
-          ...finalProps.style,
-          borderCollapse: "separate",
-          borderSpacing: 0,
-          textAlign: "left",
-          verticalAlign: "middle",
-        },
+        class: `table ${finalProps.class || ""}`,
       },
       colgroup(tcols),
       thead(theaders),

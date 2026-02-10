@@ -18,24 +18,10 @@ import { withNormalizedArgs, withExtractedStyles } from "./utils.mjs";
 const { pre } = Bunnix;
 
 const Code2Core = (props, ...children) => {
-  return pre(
-    {
-      class: "pre",
-      ...props,
-      style: {
-        ...props.style,
-        margin: 0,
-        padding: "regular",
-        flex: 1,
-        minWidth: 0,
-        whiteSpace: "pre-wrap",
-        wordBreak: "break-word",
-        fontSize: ".9rem",
-        fontFamily: "var(--font-mono)",
-      },
-    },
-    ...children,
-  );
+  return pre({
+    ...props,
+    class: `code ${props.class || ""}`,
+  }, ...children);
 };
 
 export const Code2 = withNormalizedArgs((props, ...children) =>

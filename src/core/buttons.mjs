@@ -5,18 +5,8 @@ const { button } = Bunnix;
 
 const Button2Core = (props, ...children) => {
   let outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
-  let baseClass = "appearance-none border-none flex-row flex-center cursor-pointer radius-md no-selectable";
   let paddingClass = (!props.padding) ? "padding-y-sm padding-x-md" : "padding-y-sm";
-  let variant = "bg-fg-primary fg-primary-inverted hover-bg-primary-dimmed";
-
-  if (props.variant === "secondary")
-    variant = "bg-primary fg-primary border-primary hover-bg-secondary";
-
-  if (props.variant === "tertiary")
-    variant = "bg-none fg-primary border-transparent hover-bg-secondary";
-
-  if (props.variant === "danger")
-    variant = "bg-danger fg-primary hover-bg-danger-dimmed";
+  let variantClass = props.variant || "primary";
 
   const disabledValue = props.disabled;
 
@@ -33,26 +23,13 @@ const Button2Core = (props, ...children) => {
     type: props.type ?? "button",
     disabled: disabledValue ?? false,
     click: handleClick,
-    class: `${baseClass} ${outlineClass} ${paddingClass} ${variant}`
+    class: `button ${variantClass} ${outlineClass} ${paddingClass} ${props.class || ""}`
   }, ...children);
 };
 
 const LinkButtonCore = (props, ...children) => {
   let outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
-  let baseClass = "appearance-none border-none flex-row padding-y-sm cursor-pointer radius-md no-selectable";
-  let variant = "bg-none fg-link hover-fg-link-dimmed hover-decoration-underline";
-
-  if (props.variant === "secondary")
-    variant = "fg-primary decoration-underline hover-decoration-underline hover-fg-primary-dimmed";
-
-  if (props.variant === "tertiary")
-    variant = "padding-x-md bg-primary fg-primary border-transparent hover-bg-secondary";
-
-  if (props.variant === "danger")
-    variant = "fg-danger hover-fg-danger-dimmed hover-decoration-underline";
-
-  if (props.variant === "destructive")
-    variant = "fg-danger hover-fg-danger-dimmed hover-decoration-underline";
+  let variantClass = props.variant || "";
 
   const disabledValue = props.disabled;
   const getIsDisabled = () =>
@@ -72,7 +49,7 @@ const LinkButtonCore = (props, ...children) => {
     type: props.type ?? "button",
     ...(getIsDisabled() ? { disabled: true } : {}),
     click: handleClick,
-    class: `${baseClass} ${outlineClass} ${variant}`
+    class: `link-button ${variantClass} ${outlineClass} ${props.class || ""}`
   }, ...children);
 };
 

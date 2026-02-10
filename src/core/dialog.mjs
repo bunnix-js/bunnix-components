@@ -54,7 +54,7 @@ export const useDialog = () => {
         {
           ref: dialogRef,
           cancel: closeDialog,
-          class: `border-primary radius-lg backdrop-dimmed padding-sm`,
+          class: `dialog`,
         },
         Show(
           dialogState,

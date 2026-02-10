@@ -22,36 +22,37 @@ const { div } = Bunnix;
 
 export const Column = withNormalizedArgs(
   withExtractedStyles((props, ...children) => {
-    const className = props.class ? `flex-column ${props.class}` : "flex-column";
+    const className = props.class ? `column ${props.class}` : "column";
     return div({ ...props, class: className }, ...children);
   }),
 );
 
 export const Row = withNormalizedArgs(
   withExtractedStyles((props, ...children) => {
-    const className = props.class ? `flex-row ${props.class}` : "flex-row";
+    const className = props.class ? `row ${props.class}` : "row";
     return div({ ...props, class: className }, ...children);
   }),
 );
 
-const SpacerCore = withNormalizedArgs((props, ...children) => {
-  return withExtractedStyles((finalProps, ...children) => {
-    return div({
-      ...finalProps,
-      class: `spacer ${finalProps.class || ""}`,
-    });
-  })(props, ...children);
-});
+const SpacerCore = (props, ...children) => {
+  return div({
+    ...props,
+    class: `spacer ${props.class || ""}`,
+  });
+};
 
 // Apply default Spacer props at export
-export const Spacer = (props = {}, ...children) => {
-  let injectedProps = { flexGrow: 1, flexShrink: 1 };
-  if (props.type === "horizontal") injectedProps = { fillWidth: true };
-  if (props.type === "vertical") injectedProps = { fillHeight: true };
+export const Spacer = withNormalizedArgs((props = {}, ...children) => {
+  return withExtractedStyles((finalProps, ...children) => {
+    let injectedProps = {};
+    if (finalProps.type === "horizontal") injectedProps = { fillWidth: true };
+    if (finalProps.type === "vertical") injectedProps = { fillHeight: true };
+    
+    delete finalProps.type;
 
-  const propsWithDefaults = { ...injectedProps, ...props };
-  return SpacerCore(propsWithDefaults, ...children);
-};
+    return SpacerCore({ ...injectedProps, ...finalProps }, ...children);
+  })(props, ...children);
+});
 
 const GridCore = (props, ...children) => {
   let layout = props.layout ?? "fixed";
