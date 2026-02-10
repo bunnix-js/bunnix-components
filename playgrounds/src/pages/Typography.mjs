@@ -1,60 +1,70 @@
 import Bunnix from "@bunnix/core";
-import { PageHeader } from "@bunnix/components";
-import { PageSection } from "@bunnix/components";
-import { Container } from "@bunnix/components";
-const { div, h1, h2, h3, h4, h5, h6, p, span } = Bunnix;
+import { Heading, Text } from "../../../src/core/typography.mjs";
+import { Column, Spacer } from "../../../src/core/layout.mjs";
+import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
-export default function TypographyPage() {
-  const headerOffset = "6rem";
-
-  return Container({ type: "page", direction: "column" }, [
-    PageHeader({ 
-      title: "Typography Showcase", 
-      description: "Core typography system for the design system." 
-    }),
+export function TypographyPage() {
+  return Column(
+    Heading({ h2: true }, "Typography Components"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Core typography components for text display",
+    ),
+    Spacer({ minHeight: 24 }),
     
-    div({ class: "column-container gap-md" }, [
-      PageSection({ title: "Headings", stickyOffset: headerOffset }, [
-        div({ class: "column-container gap-md" }, [
-          h1("Heading 1"),
-          h2("Heading 2"),
-          h3("Heading 3"),
-          h4("Heading 4"),
-          h5("Heading 5"),
-          h6("Heading 6"),
-        ])
-      ]),
-      
-      PageSection({ title: "Paragraphs", stickyOffset: headerOffset }, [
-        p("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-      ]),
+    // Heading Component
+    ComponentShowcase(
+      {
+        code: `
+        import { Heading } from "@bunnix/components";
 
-      PageSection({ title: "Utilities", stickyOffset: headerOffset }, [
-        div({ class: "column-container gap-md" }, [
-          div({ class: "row-container gap-md items-center" }, [
-            span({ class: "text-mono text-sm bg-dimmed text-primary p-xs rounded-sm" }, ".text-mono"),
-            span({ class: "text-mono" }, "Monospace font stack")
-          ]),
-          div({ class: "row-container gap-md items-center" }, [
-            span({ class: "text-mono text-sm bg-dimmed text-primary p-xs rounded-sm" }, ".text-sm"),
-            span({ class: "text-sm" }, "Small font size")
-          ]),
-          div({ class: "row-container gap-md items-center" }, [
-            span({ class: "text-mono text-sm bg-dimmed text-primary p-xs rounded-sm" }, ".text-base"),
-            span({ class: "text-base" }, "Base font size")
-          ]),
-          div({ class: "row-container gap-md items-center" }, [
-            span({ class: "text-mono text-sm bg-dimmed text-primary p-xs rounded-sm" }, ".whitespace-nowrap"),
-            div({ class: "w-150 border-dashed p-xs overflow-hidden" }, [
-                span({ class: "whitespace-nowrap" }, "This text will not wrap even if it hits the end of the container")
-            ])
-          ]),
-          div({ class: "row-container gap-md items-center" }, [
-            span({ class: "text-mono text-sm bg-dimmed text-primary p-xs rounded-sm" }, ".text-destructive"),
-            span({ class: "text-destructive" }, "This is a destructive message or warning.")
-          ]),
-        ])
-      ]),
-    ])
-  ]);
+        Heading({ h1: true }, "Heading 1");
+        Heading({ h2: true }, "Heading 2");
+        Heading({ h3: true }, "Heading 3");
+        Heading({ h4: true, color: "secondary" }, "Heading 4");
+        Heading({ h5: true, weight: "heavy" }, "Heading 5");
+        Heading({ h6: true }, "Heading 6");
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Heading"),
+      Text("Heading component for displaying text with semantic heading levels (h1-h6) and customizable styles."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "small" },
+        Heading({ h1: true }, "Heading 1"),
+        Heading({ h2: true }, "Heading 2"),
+        Heading({ h3: true }, "Heading 3"),
+        Heading({ h4: true, color: "secondary" }, "Heading 4 - Secondary"),
+        Heading({ h5: true, weight: "heavy" }, "Heading 5 - Heavy"),
+        Heading({ h6: true }, "Heading 6"),
+      ),
+    ),
+    
+    Spacer({ minHeight: 16 }),
+    
+    // Text Component
+    ComponentShowcase(
+      {
+        code: `
+        import { Text } from "@bunnix/components";
+
+        Text("Default text");
+        Text({ color: "secondary" }, "Secondary color");
+        Text({ weight: "heavy" }, "Heavy weight");
+        Text({ size: "large" }, "Large text");
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Text"),
+      Text("Simple text wrapper component using span element with style extraction support."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "small" },
+        Text("Default text"),
+        Text({ color: "secondary" }, "Secondary color text"),
+        Text({ weight: "heavy" }, "Heavy weight text"),
+        Text({ color: "secondary", weight: "heavy" }, "Heavy secondary text"),
+        Text({ size: "large" }, "Large text"),
+      ),
+    ),
+  );
 }

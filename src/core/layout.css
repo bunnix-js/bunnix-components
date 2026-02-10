@@ -1,0 +1,20 @@
+/* Column Base Styles */
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+/* Row Base Styles */
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-md);
+}
+
+/* Spacer Base Styles */
+.spacer {
+  flex-grow: 1;
+  flex-shrink: 1;
+}

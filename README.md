@@ -1,8 +1,6 @@
 # @bunnix/components
 
-Design system + UI components for Bunnix projects. Ships ESM source with CSS and icon assets for modern bundlers.
-
-**Status**: Alpha release candidate - APIs may change before v1.0
+Core UI primitives + design system CSS for Bunnix projects.
 
 ## Install
 
@@ -14,141 +12,85 @@ npm install @bunnix/components @bunnix/core
 
 ## Quick Start
 
-Import CSS once at your app entry:
+Import CSS once at app entry:
 
 ```js
 import "@bunnix/components/styles.css";
 ```
 
-Use components:
+Use core primitives:
 
 ```js
-import { Button, Icon, InputField, DatePicker } from "@bunnix/components";
+import {
+  Column,
+  Row,
+  Heading,
+  Text,
+  Button,
+  TextInput,
+  ProgressBar,
+} from "@bunnix/components";
 
-// Button with icon
-Button({ variant: "regular" }, [
-  Icon({ name: "star", fill: "white" }),
-  "Star"
-]);
-
-// Input with mask
-InputField({ label: "Phone", mask: "phone-br" });
-
-// Date picker
-DatePicker({ label: "Birth Date", change: (e) => console.log(e.date) });
+Column(
+  { gap: 16, padding: "large" },
+  Heading({ h2: true }, "Hello"),
+  Row(
+    { gap: 8 },
+    Button({ variant: "primary" }, "Save"),
+    Button({ variant: "tertiary" }, "Cancel"),
+  ),
+  TextInput({ label: "Name", placeholder: "Type here" }),
+  ProgressBar({ value: 65, color: "success" }),
+);
 ```
 
-## Key Features
+## Exported API
 
-### Input Masks
-InputField supports 12+ built-in masks plus custom patterns:
-- `date`, `time`, `email`, `currency`, `decimal`, `integer`
-- `phone`, `phone-br`, `credit-card`
-- `cpf`, `cnpj`, `cep` (Brazilian documents)
-- Custom patterns: `{ pattern: "999.999.999-99" }` (9=digit, A=letter, *=alphanumeric)
+- Layout: `Column`, `Row`, `Spacer`, `Grid`
+- Typography: `Heading`, `Text`
+- Media: `Media`, `Icon`, `Spinner`, `Avatar`
+- Buttons: `Button`, `LinkButton`
+- Inputs: `TextInput`, `Select`, `CheckBox`
+- Data display: `Table`, `Code`
+- Navigation: `Sidebar`, `Menu`
+- Feedback: `useDialog`, `ProgressBar`
+
+## ProgressBar Colors
+
+`ProgressBar` supports both token-style and semantic colors.
+
+- Token-style: `primary`, `primary-dimmed`, `secondary`, `tertiary`
+- Semantic: `success`, `warning`, `danger`, `error` (alias of danger), `link`
 
 ```js
-InputField({ 
-  label: "Price",
-  mask: { type: "currency", options: { prefix: "R$", decimalPlaces: 2 }}
-});
+Column(
+  { gap: 8 },
+  ProgressBar({ value: 80, color: "success" }),
+  ProgressBar({ value: 55, color: "warning" }),
+  ProgressBar({ value: 35, color: "error" }),
+  ProgressBar({ value: 65, color: "link" }),
+);
 ```
 
-Mask utilities available for custom use:
-```js
-import { applyMask, validateMask, getMaskMaxLength } from "@bunnix/components";
-```
+## CSS Entry Points
 
-### Date & Time Pickers
-Text inputs with masks that show popover calendars/selectors on focus:
-```js
-DatePicker({ label: "Date", change: (e) => console.log(e.date) });
-TimePicker({ label: "Time", change: (e) => console.log(e.time) });
-```
+Primary consumer stylesheet:
 
-### Dialog & Toast
-```js
-import { showDialog, showToast } from "@bunnix/components";
+- `@bunnix/components/styles.css`
 
-showDialog({ title: "Welcome", message: "Ready to go!" });
-showToast({ message: "Saved", icon: "success-circle" });
-```
+Optional core styles (advanced use):
 
-### 30+ Components
-Button, Icon, Text, InputField, ComboBox, DatePicker, TimePicker, SearchBox, Checkbox, ToggleSwitch, Badge, Card, Table, Sidebar, NavigationBar, Dialog, Toast, and more.
+- `@bunnix/components/src/core/core.css`
+- `@bunnix/components/src/core/input.css`
+- `@bunnix/components/src/core/table.css`
 
-See `/playgrounds` for live examples of all components.
+## Bundler Notes
 
-## Theming
+Ensure your bundler:
 
-Override CSS variables:
-
-```css
-:root {
-  --accent-color: #2563eb;
-  --background-color: #ffffff;
-  --border-color: #e5e7eb;
-  --base-padding: 0.75rem;
-  --font-family: "Inter", system-ui, sans-serif;
-}
-```
-
-## CSS Utilities
-
-Use the same utilities that power the components:
-
-- **Layout**: `row-container`, `column-container`, `grid-flow`, `gap-xs|sm|md|lg`
-- **Surfaces**: `box`, `card`, `shadow`, `rounded`
-- **Typography**: `text-primary|secondary|tertiary`, `text-sm|base|lg|xl`
-- **Buttons**: `btn`, `btn-flat`, `btn-outline`, `btn-destructive`
-- **Icons**: `icon`, `icon-<name>`, `icon-xs|sm|lg|xl`, `icon-primary|secondary|tertiary|quaternary|accent|destructive|white`
-
-```js
-import Bunnix from "@bunnix/core";
-import { Icon } from "@bunnix/components";
-const { div, span } = Bunnix;
-
-div({ class: "card row-container gap-sm" }, [
-  Icon({ name: "star", fill: "base" }),
-  span({ class: "text-primary" }, "Custom card")
-]);
-```
-
-## Bundler Setup
-
-Works with webpack, vite, rollup, or any modern ESM bundler. Ensure your bundler:
 - Processes CSS imports
-- Handles CSS `url(...)` for SVG assets
-- Supports `.mjs` extensions
-
-Minimal webpack example:
-```js
-export default {
-  module: {
-    rules: [
-      { test: /\.css$/i, use: ["style-loader", "css-loader"] },
-      { test: /\.(png|svg|jpg|jpeg|gif)$/i, type: "asset/resource" }
-    ]
-  }
-};
-```
-
-## Icon Attribution
-
-- Framework7 Line Icons (MIT) - framework7io
-- Iconcino Interface Icons (CC0 1.0) - Gabriele Malaspina
-
-## Project Structure
-
-```
-src/
-  components/   # Component library
-  styles/       # Design system CSS
-  icons/        # SVG assets
-  utils/        # Utilities (masks, etc.)
-  index.mjs     # Package exports
-playgrounds/    # Component showcase
-```
+- Handles CSS `url(...)` assets (SVG icons)
+- Supports ESM `.mjs`
 
 ## License
 

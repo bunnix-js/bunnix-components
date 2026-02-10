@@ -1,165 +1,272 @@
 import Bunnix from "@bunnix/core";
-import { PageHeader } from "@bunnix/components";
-import { PageSection } from "@bunnix/components";
-import { Container } from "@bunnix/components";
-const { div, h5, p, span, hr } = Bunnix;
+import { Heading, Text } from "../../../src/core/typography.mjs";
+import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
+import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
-const ClassExample = (className, description, exampleContent) => {
-  return div({ class: "column-container gap-sm" }, [
-    div({ class: "row-container gap-sm items-center" }, [
-        span({ class: "text-mono text-sm bg-dimmed text-primary p-xs rounded-sm" }, `.${className}`),
-        span({ class: "text-secondary text-sm" }, description)
-    ]),
-    div({ class: "box w-fit w-300 bg-alternate rounded" }, [
-        exampleContent || div({ class: `${className} bg-highlight p-sm w-full border-dashed rounded` }, "Content")
-    ])
-  ]);
-};
+const { div } = Bunnix;
 
-export default function LayoutPage() {
-  const headerOffset = "6rem";
+export function LayoutPage() {
+  // Helper for demo boxes
+  const DemoBox = (text) => div(
+    { 
+      style: { 
+        padding: "12px", 
+        backgroundColor: "var(--color-bg-secondary)", 
+        borderRadius: "6px",
+        border: "1px solid var(--color-border-primary)"
+      } 
+    },
+    Text(text)
+  );
 
-  return Container({ type: "page", direction: "column" }, [
-    PageHeader({ 
-      title: "Layout", 
-      description: "Utility classes for structuring the application layout." 
-    }),
+  return Column(
+    Heading({ h2: true }, "Layout Components"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Core layout components for stacking children",
+    ),
+    Spacer({ minHeight: 24 }),
     
-    div({ class: "column-container gap-md" }, [
-      PageSection({ title: "Containers & Flex", stickyOffset: headerOffset }, [
-        div({ class: "grid-flow gap-md" }, [
-          ClassExample("main-container", "Full-screen app shell (100dvh, flex)."),
-          ClassExample("column-container", "Flex column direction.", 
-              div({ class: "column-container gap-sm bg-highlight p-sm w-full" }, [
-                  div({ class: "bg-accent w-40 h-40 rounded" }),
-                  div({ class: "bg-accent w-40 h-40 rounded" })
-              ])
-          ),
-          ClassExample("row-container", "Flex row direction.", 
-              div({ class: "row-container gap-sm bg-highlight p-sm w-full" }, [
-                  div({ class: "bg-accent w-40 h-40 rounded" }),
-                  div({ class: "bg-accent w-40 h-40 rounded" })
-              ])
-          ),
-          ClassExample("grid-flow", "Responsive flex wrap grid.", 
-              div({ class: "grid-flow gap-sm w-full" }, [
-                  div({ class: "bg-accent w-40 h-40 rounded" }),
-                  div({ class: "bg-accent w-40 h-40 rounded" }),
-                  div({ class: "bg-accent w-40 h-40 rounded" })
-              ])
-          ),
-        ])
-      ]),
+    // Column Component
+    ComponentShowcase(
+      {
+        code: `
+        import { Column } from "@bunnix/components";
 
-      PageSection({ title: "Boxes & Shapes", stickyOffset: headerOffset }, [
-        div({ class: "grid-flow gap-md" }, [
-          ClassExample("box", "Standard padded flex box."),
-          ClassExample("box-sm", "Smaller padding flex box."),
-          ClassExample("box-capsule", "Rounded capsule shape.", 
-              div({ class: "box-capsule bg-highlight border-solid" }, "Capsule Content")
-          ),
-          div({ class: "column-container gap-sm" }, [
-              div({ class: "row-container gap-sm items-center" }, [
-                  span({ class: "text-mono text-sm bg-dimmed text-primary p-xs rounded-sm" }, ".card"),
-                  span({ class: "text-secondary text-sm" }, "Bordered container with radius.")
-              ]),
-              div({ class: "card box w-300 bg-highlight" }, "Card Content")
-          ]),
-        ])
-      ]),
+        // Basic column
+        Column(child1, child2, child3);
 
-      PageSection({ title: "Spacing & Alignment", stickyOffset: headerOffset }, [
-        div({ class: "grid-flow gap-md" }, [
-          ClassExample("gap-xs", "Extra small gap (0.5x base).", 
-              div({ class: "row-container gap-xs w-full bg-highlight p-sm" }, [
-                  div({ class: "bg-accent w-40 h-40 rounded" }),
-                  div({ class: "bg-accent w-40 h-40 rounded" })
-              ])
-          ),
-          ClassExample("gap-sm", "Small/Base gap (1x base).", 
-              div({ class: "row-container gap-sm w-full bg-highlight p-sm" }, [
-                  div({ class: "bg-accent w-40 h-40 rounded" }),
-                  div({ class: "bg-accent w-40 h-40 rounded" })
-              ])
-          ),
-          ClassExample("gap-md", "Medium gap (2x base).", 
-              div({ class: "row-container gap-md w-full bg-highlight p-sm" }, [
-                  div({ class: "bg-accent w-40 h-40 rounded" }),
-                  div({ class: "bg-accent w-40 h-40 rounded" })
-              ])
-          ),
-          ClassExample("gap-lg", "Large gap (3x base).", 
-              div({ class: "row-container gap-lg w-full bg-highlight p-sm" }, [
-                  div({ class: "bg-accent w-40 h-40 rounded" }),
-                  div({ class: "bg-accent w-40 h-40 rounded" })
-              ])
-          ),
-          ClassExample("spacer-h", "Horizontal spacer (flex: 1).", 
-              div({ class: "row-container w-full bg-highlight p-sm" }, [
-                  div({ class: "bg-accent p-xs rounded text-white text-sm" }, "Left"),
-                  div({ class: "spacer-h" }),
-                  div({ class: "bg-accent p-xs rounded text-white text-sm" }, "Right")
-              ])
-          ),
-          ClassExample("items-center", "Align items center (vertical in row).", 
-              div({ class: "row-container items-center gap-md bg-highlight p-sm w-full" }, [
-                  div({ class: "bg-accent w-40 h-40 rounded" }),
-                  span("Centered Text")
-              ])
-          ),
-        ])
-      ]),
+        // With custom gap
+        Column(
+          { gap: "large" },
+          child1,
+          child2,
+          child3
+        );
 
-      PageSection({ title: "Sizing Utilities", stickyOffset: headerOffset }, [
-        div({ class: "grid-flow gap-md" }, [
-          ClassExample("w-fit", "Width: fit-content.", 
-              div({ class: "bg-highlight p-sm w-full" }, [
-                  div({ class: "w-fit bg-accent p-xs rounded text-white" }, "I only take as much space as I need")
-              ])
-          ),
-          ClassExample("shrink-0", "Prevents element from shrinking.", 
-              div({ class: "row-container bg-highlight p-sm w-150 overflow-hidden gap-sm" }, [
-                  div({ class: "shrink-0 bg-accent p-xs rounded text-white" }, "Fixed Size"),
-                  div({ class: "whitespace-nowrap" }, "Long text that would squash me")
-              ])
-          ),
-          ClassExample("no-margin", "Removes margins (Comparison below).", 
-              div({ class: "row-container gap-md" }, [
-                  div({ class: "column-container gap-sm items-center" }, [
-                      div({ class: "border-dashed rounded bg-alternate p-0" }, [
-                          div({ class: "m-md bg-accent p-xs rounded text-white" }, "With .m-md")
-                      ]),
-                      span({ class: "text-sm text-secondary" }, "Has Margin")
-                  ]),
-                  div({ class: "column-container gap-sm items-center" }, [
-                      div({ class: "border-dashed rounded bg-alternate p-0" }, [
-                          div({ class: "no-margin bg-accent p-xs rounded text-white" }, "With .no-margin")
-                      ]),
-                      span({ class: "text-sm text-secondary" }, "Flush (No Margin)")
-                  ])
-              ])
-          ),
-        ])
-      ]),
+        // With alignment
+        Column(
+          { alignItems: "center" },
+          child1,
+          child2
+        );
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Column"),
+      Text("Column container for stacking children vertically with automatic gap spacing."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "small" },
+        Text({ color: "secondary" }, "Default gap:"),
+        Column(
+          { border: "primary", radius: "regular", padding: "regular" },
+          DemoBox("Item 1"),
+          DemoBox("Item 2"),
+          DemoBox("Item 3"),
+        ),
+      ),
+    ),
+    
+    Spacer({ minHeight: 16 }),
+    
+    // Row Component
+    ComponentShowcase(
+      {
+        code: `
+        import { Row } from "@bunnix/components";
 
-      PageSection({ title: "Borders & Overflow", stickyOffset: headerOffset }, [
-        div({ class: "grid-flow gap-md" }, [
-          ClassExample("border-solid", "Solid 1px border."),
-          ClassExample("border-dashed", "Dashed 1px border."),
-          ClassExample("rounded", "Base border radius."),
-          ClassExample("rounded-sm", "Small border radius."),
-          ClassExample("overflow-hidden", "Hides overflow content.", 
-              div({ class: "bg-highlight p-sm w-150 overflow-hidden h-40" }, [
-                  div("I am overflowing content that will be clipped")
-              ])
+        // Basic row
+        Row(child1, child2, child3);
+
+        // With custom gap
+        Row(
+          { gap: "large" },
+          child1,
+          child2,
+          child3
+        );
+
+        // With alignment
+        Row(
+          { alignItems: "start" },
+          child1,
+          child2
+        );
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Row"),
+      Text("Row container for arranging children horizontally with automatic gap spacing."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "small" },
+        Text({ color: "secondary" }, "Default gap:"),
+        Row(
+          { border: "primary", radius: "regular", padding: "regular" },
+          DemoBox("Item 1"),
+          DemoBox("Item 2"),
+          DemoBox("Item 3"),
+        ),
+      ),
+    ),
+    
+    Spacer({ minHeight: 16 }),
+    
+    // Spacer Component
+    ComponentShowcase(
+      {
+        code: `
+        import { Column, Row, Spacer } from "@bunnix/components";
+
+        // Vertical spacing in Column
+        Column(
+          child1,
+          Spacer({ minHeight: 24 }),
+          child2
+        );
+
+        // Horizontal spacing in Row
+        Row(
+          child1,
+          Spacer(), // grows to fill space
+          child2
+        );
+
+        // Fixed horizontal space
+        Row(
+          child1,
+          Spacer({ minWidth: 50 }),
+          child2
+        );
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Spacer"),
+      Text("Flexible spacer component for controlling spacing between elements."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        Column(
+          { gap: "small" },
+          Text({ color: "secondary" }, "Vertical spacing in Column:"),
+          Column(
+            { border: "primary", radius: "regular", padding: "regular" },
+            DemoBox("Item 1"),
+            Spacer({ minHeight: 24 }),
+            DemoBox("Item 2 (24px space above)"),
           ),
-          ClassExample("overflow-auto", "Scrolls overflow content.", 
-              div({ class: "bg-highlight p-sm w-150 overflow-auto h-40" }, [
-                  div("I am overflowing content that will scroll. I am overflowing content that will scroll.")
-              ])
+        ),
+        Column(
+          { gap: "small" },
+          Text({ color: "secondary" }, "Horizontal spacing in Row:"),
+          Row(
+            { border: "primary", radius: "regular", padding: "regular" },
+            DemoBox("Left"),
+            Spacer(),
+            DemoBox("Right (auto space)"),
           ),
-        ])
-      ]),
-    ])
-  ]);
+        ),
+      ),
+    ),
+    
+    Spacer({ minHeight: 16 }),
+    
+    // Alignment Examples
+    ComponentShowcase(
+      {
+        code: `
+        import { Column, Row } from "@bunnix/components";
+
+        // Column alignment
+        Column(
+          { alignItems: "start" },
+          child1,
+          child2
+        );
+
+        Column(
+          { alignItems: "center" },
+          child1,
+          child2
+        );
+
+        Column(
+          { alignItems: "end" },
+          child1,
+          child2
+        );
+
+        // Row alignment
+        Row(
+          { alignItems: "start" },
+          child1,
+          child2
+        );
+
+        Row(
+          { alignItems: "center" },
+          child1,
+          child2
+        );
+
+        Row(
+          { alignItems: "end" },
+          child1,
+          child2
+        );
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Alignment"),
+      Text("Control how children are aligned within Column and Row containers."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        Column(
+          { gap: "small" },
+          Text({ color: "secondary" }, "Column alignments:"),
+          Row(
+            { gap: "regular" },
+            Column(
+              { border: "primary", radius: "regular", padding: "regular", alignItems: "start", minHeight: 100 },
+              DemoBox("Start"),
+              DemoBox("Aligned"),
+            ),
+            Column(
+              { border: "primary", radius: "regular", padding: "regular", alignItems: "center", minHeight: 100 },
+              DemoBox("Center"),
+              DemoBox("Aligned"),
+            ),
+            Column(
+              { border: "primary", radius: "regular", padding: "regular", alignItems: "end", minHeight: 100 },
+              DemoBox("End"),
+              DemoBox("Aligned"),
+            ),
+          ),
+        ),
+        Column(
+          { gap: "small" },
+          Text({ color: "secondary" }, "Row alignments:"),
+          Column(
+            { gap: "small" },
+            Row(
+              { border: "primary", radius: "regular", padding: "regular", alignItems: "start", minHeight: 80 },
+              DemoBox("Start"),
+              div({ style: { padding: "24px 12px" } }, Text("Taller")),
+              DemoBox("Aligned"),
+            ),
+            Row(
+              { border: "primary", radius: "regular", padding: "regular", alignItems: "center", minHeight: 80 },
+              DemoBox("Center"),
+              div({ style: { padding: "24px 12px" } }, Text("Taller")),
+              DemoBox("Aligned"),
+            ),
+            Row(
+              { border: "primary", radius: "regular", padding: "regular", alignItems: "end", minHeight: 80 },
+              DemoBox("End"),
+              div({ style: { padding: "24px 12px" } }, Text("Taller")),
+              DemoBox("Aligned"),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
 }

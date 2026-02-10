@@ -1,5 +1,4 @@
-import Bunnix, { render } from "@bunnix/core";
-import App from "./app.mjs";
-import "@bunnix/components/styles.css";
+import Bunnix from "@bunnix/core";
+import { App } from "./app.mjs";
 
-render(App, document.getElementById("root"));
+Bunnix.render(App, document.getElementById("root"));

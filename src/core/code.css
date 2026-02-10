@@ -1,0 +1,42 @@
+/* Code/Pre Base Styles */
+.code,
+.pre {
+  margin: 0;
+  padding: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-default);
+}
+
+/* Syntax Highlighting */
+.code .keyword {
+  color: var(--color-syntax-keyword);
+  font-weight: 500;
+}
+
+.code .string {
+  color: var(--color-syntax-string);
+}
+
+.code .comment {
+  color: var(--color-syntax-comment);
+  font-style: italic;
+}
+
+.code .number {
+  color: var(--color-syntax-number);
+}
+
+.code .boolean {
+  color: var(--color-syntax-boolean);
+  font-weight: 500;
+}
+
+.code .function {
+  color: var(--color-syntax-function);
+}
+
+.code .punctuation {
+  color: var(--color-syntax-punctuation);
+}

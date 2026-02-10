@@ -1,0 +1,116 @@
+/* Button Base Styles */
+.button {
+  appearance: none;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  user-select: none;
+  -webkit-user-select: none;
+  min-height: 32px;
+  font-size: 1rem;
+}
+
+.button:disabled {
+  cursor: default;
+  filter: contrast(0.5);
+}
+
+/* Button Variants */
+.button.primary {
+  background-color: var(--color-primary);
+  color: var(--color-primary-inverted);
+  border: 1px solid transparent;
+}
+
+.button.primary:hover:not(:disabled) {
+  background-color: var(--color-primary-dimmed);
+}
+
+.button.secondary {
+  background-color: var(--color-bg-primary);
+  color: var(--color-primary);
+  border: 1px solid var(--color-border-primary);
+}
+
+.button.secondary:hover:not(:disabled) {
+  background-color: var(--color-bg-secondary);
+}
+
+.button.tertiary {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 1px solid transparent;
+}
+
+.button.tertiary:hover:not(:disabled) {
+  background-color: var(--color-bg-secondary);
+}
+
+.button.danger {
+  background-color: var(--color-danger);
+  color: var(--color-primary);
+}
+
+.button.danger:hover:not(:disabled) {
+  background-color: var(--color-danger-dimmed);
+}
+
+/* Link Button Base Styles */
+.link-button {
+  appearance: none;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  user-select: none;
+  -webkit-user-select: none;
+  background: none;
+  color: var(--color-link);
+  min-height: 32px;
+  font-size: 1rem;
+}
+
+.link-button:hover:not(:disabled) {
+  color: var(--color-link-dimmed);
+  text-decoration: underline;
+}
+
+.link-button:disabled {
+  cursor: default;
+  filter: contrast(0.5);
+}
+
+.link-button.secondary {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.link-button.secondary:hover:not(:disabled) {
+  color: var(--color-primary-dimmed);
+}
+
+.link-button.tertiary {
+  padding: 0 var(--padding-md);
+  background-color: var(--color-bg-primary);
+  color: var(--color-primary);
+  border: 1px solid transparent;
+}
+
+.link-button.tertiary:hover:not(:disabled) {
+  background-color: var(--color-bg-secondary);
+  text-decoration: none;
+}
+
+.link-button.danger {
+  color: var(--color-danger);
+}
+
+.link-button.danger:hover:not(:disabled) {
+  color: var(--color-danger-dimmed);
+}
