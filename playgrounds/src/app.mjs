@@ -14,6 +14,7 @@ import { IconRegistryPage } from "./pages/icon-registry.mjs";
 import { Heading } from "../../src/core/typography.mjs";
 
 const sidebarItems = [
+  { key: "home", text: "Home", icon: "home" },
   { key: "header-core", text: "Core", isHeader: true },
   { key: "layout", text: "Layout", icon: "table" },
   { key: "colors", text: "Colors", icon: "palette" },
