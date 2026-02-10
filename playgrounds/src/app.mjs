@@ -11,6 +11,7 @@ import { DialogPage } from "./pages/dialog.mjs";
 import { ButtonsPage } from "./pages/buttons.mjs";
 import { ColorsPage } from "./pages/colors.mjs";
 import { GridPage } from "./pages/grid.mjs";
+import { IconRegistryPage } from "./pages/icon-registry.mjs";
 import { Heading, Text2 } from "../../src/core/typography.mjs";
 
 const sidebarItems = [
@@ -19,6 +20,8 @@ const sidebarItems = [
   { key: "layout", text: "Layout", icon: "table" },
   { key: "grid", text: "Grid", icon: "grid" },
   { key: "typography", text: "Typography", icon: "text" },
+  { key: "header-icons", text: "Icon Registry", isHeader: true },
+  { key: "icon-registry", text: "Icons", icon: "star" },
   { key: "header-components", text: "Components", isHeader: true },
   { key: "buttons", text: "Buttons", icon: "button" },
   { key: "media", text: "Media", icon: "image" },
@@ -64,6 +67,7 @@ export function App() {
         if (item === "layout") return LayoutPage();
         if (item === "grid") return GridPage();
         if (item === "typography") return TypographyPage();
+        if (item === "icon-registry") return IconRegistryPage();
         if (item === "buttons") return ButtonsPage();
         if (item === "media") return MediaPage();
         if (item === "inputs") return InputsPage();

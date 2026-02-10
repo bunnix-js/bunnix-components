@@ -1,8 +1,7 @@
 import Bunnix from "@bunnix/core";
 import { Heading } from "../../../src/core/typography.mjs";
 import { Column, Row } from "../../../src/core/layout.mjs";
-
-const { pre } = Bunnix;
+import { Code2 } from "../../../src/core/code.mjs";
 
 /**
  * Reusable component showcase template for playground pages.
@@ -55,8 +54,8 @@ export const ComponentShowcase = (props, ...children) => {
             props.description,
           ]
     ),
-    pre(
-      { bg: "primary-dimmed", class: "pre", flexGrow: 1, padding: "large", alignSelf: "stretch" },
+    Code2(
+      { bg: "primary-dimmed", flexGrow: 1, padding: "large", alignSelf: "stretch" },
       trimmedCode,
     ),
   );
