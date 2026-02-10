@@ -17,7 +17,7 @@
 }
 
 .select {
-  color: var(--color-primary);
+  color: var(--color-fg-primary);
   font-size: 1rem;
   padding-right: 2rem;
   background-image: var(--select-chevron-icon);

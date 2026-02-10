@@ -13,11 +13,12 @@
   color-scheme: light dark;
 
   /* Color tokens */
-  --color-primary: light-dark(black, white);
-  --color-primary-dimmed: light-dark(#868686, #ebebeb);
-  --color-primary-inverted: light-dark(white, black);
-  --color-secondary: light-dark(#444, #aaa);
-  --color-tertiary: light-dark(#888, #777);
+  --color-fg-primary: light-dark(black, white);
+  --color-fg-primary-dimmed: light-dark(#868686, #ebebeb);
+  --color-fg-primary-inverted: light-dark(white, black);
+  --color-fg-secondary: light-dark(#444, #aaa);
+  --color-fg-tertiary: light-dark(#888, #777);
+  --color-fg-on-danger: light-dark(#fff, #fff);
 
   --color-bg-primary: light-dark(white, black);
   --color-bg-primary-dimmed: light-dark(#F5F5F5, #121212);
@@ -108,12 +109,12 @@ body {
 
 .bg-fg-primary,
 [bg="fg-primary"] {
-  background-color: var(--color-primary);
+  background-color: var(--color-fg-primary);
 }
 
 .bg-fg-tertiary,
 [bg="fg-tertiary"] {
-  background-color: var(--color-tertiary);
+  background-color: var(--color-fg-tertiary);
 }
 
 .bg-danger,
@@ -148,32 +149,32 @@ body {
 
 .bg-fg-secondary,
 [bg="fg-secondary"] {
-  background-color: var(--color-secondary);
+  background-color: var(--color-fg-secondary);
 }
 
 /* Color: foreground */
 .fg-primary,
 [fg="primary"],
 [color="primary"] {
-  color: var(--color-primary);
+  color: var(--color-fg-primary);
 }
 
 .fg-primary-inverted,
 [fg="primary-inverted"],
 [color="primary-inverted"] {
-  color: var(--color-primary-inverted);
+  color: var(--color-fg-primary-inverted);
 }
 
 .fg-secondary,
 [fg="secondary"],
 [color="secondary"] {
-  color: var(--color-secondary);
+  color: var(--color-fg-secondary);
 }
 
 .fg-tertiary,
 [fg="tertiary"],
 [color="tertiary"] {
-  color: var(--color-tertiary);
+  color: var(--color-fg-tertiary);
 }
 
 .fg-danger,
@@ -529,7 +530,7 @@ body {
 .hover-bg-primary-dimmed:hover:not([disabled]),
 [hover-bg="primary-dimmed"]:hover:not([disabled]),
 [hoverBg="primary-dimmed"]:hover:not([disabled]) {
-  background-color: var(--color-primary-dimmed);
+  background-color: var(--color-fg-primary-dimmed);
 }
 
 .hover-fg-link-dimmed:hover:not([disabled]),
@@ -541,7 +542,7 @@ body {
 .hover-fg-primary-dimmed:hover:not([disabled]),
 [hover-fg="primary-dimmed"]:hover:not([disabled]),
 [hoverFg="primary-dimmed"]:hover:not([disabled]) {
-  color: var(--color-primary-dimmed);
+  color: var(--color-fg-primary-dimmed);
 }
 
 .hover-fg-danger-dimmed:hover:not([disabled]),
