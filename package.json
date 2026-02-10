@@ -22,26 +22,19 @@
   "author": "@bunnix",
   "type": "module",
   "main": "src/index.mjs",
-  "style": "src/styles.css",
+  "style": "src/core/core.css",
   "types": "@types/index.d.ts",
   "exports": {
     ".": {
       "types": "./@types/index.d.ts",
       "default": "./src/index.mjs"
     },
-    "./styles": "./src/styles.css",
-    "./styles.css": "./src/styles.css",
-    "./src/core/core.css": "./src/core/core.css",
-    "./src/core/input.css": "./src/core/input.css",
-    "./src/core/table.css": "./src/core/table.css",
+    "./styles": "./src/core/core.css",
+    "./core.css": "./src/core/core.css",
     "./icons/*": "./src/icons/*"
   },
   "sideEffects": [
-    "./src/styles.css",
-    "./src/styles/*.css",
-    "./src/core/core.css",
-    "./src/core/input.css",
-    "./src/core/table.css"
+    "./src/core/*.css"
   ],
   "files": [
     "src",

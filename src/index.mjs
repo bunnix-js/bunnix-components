@@ -1,49 +1,33 @@
-export { default as AccordionGroup } from "./components/AccordionGroup.mjs";
-export { default as Badge } from "./components/Badge.mjs";
-export { default as Button } from "./components/Button.mjs";
-export { default as Card } from "./components/Card.mjs";
-export { default as Checkbox } from "./components/Checkbox.mjs";
-export { default as CodeBlock } from "./components/CodeBlock.mjs";
-export { default as ComboBox } from "./components/ComboBox.mjs";
-export { default as Container } from "./components/Container.mjs";
-export { default as DatePicker } from "./components/DatePicker.mjs";
-export { default as Dialog } from "./components/Dialog.mjs";
-export { default as DropdownMenu } from "./components/DropdownMenu.mjs";
-export { default as Grid } from "./components/Grid.mjs";
-export { default as HStack } from "./components/HStack.mjs";
-export { default as Icon } from "./components/Icon.mjs";
-export { default as InputField } from "./components/InputField.mjs";
-export { default as NavigationBar } from "./components/NavigationBar.mjs";
-export { default as PageHeader } from "./components/PageHeader.mjs";
-export { default as PageSection } from "./components/PageSection.mjs";
-export { default as PopoverMenu } from "./components/PopoverMenu.mjs";
-export { default as ProgressBar } from "./components/ProgressBar.mjs";
-export { default as RadioCheckbox } from "./components/RadioCheckbox.mjs";
-export { default as SearchBox } from "./components/SearchBox.mjs";
-export { default as Sidebar } from "./components/Sidebar.mjs";
-export { default as Table } from "./components/Table.mjs";
-export { default as Text } from "./components/Text.mjs";
-export { default as TimePicker } from "./components/TimePicker.mjs";
-export { default as ToastNotification } from "./components/ToastNotification.mjs";
-export { default as ToggleSwitch } from "./components/ToggleSwitch.mjs";
-export { default as VStack } from "./components/VStack.mjs";
-export { dialogState, showDialog, hideDialog } from "./components/Dialog.mjs";
-export {
-  toastState,
-  showToast,
-  hideToast,
-} from "./components/ToastNotification.mjs";
-export {
-  applyMask,
-  validateMask,
-  getMaskMaxLength,
-} from "./utils/maskUtils.mjs";
+/**
+ * Bunnix Components - Core Exports
+ * 
+ * A lightweight, reactive component library built on Bunnix Core.
+ * All components follow standardized patterns with CSS-first styling,
+ * automatic style extraction, and state resolution.
+ */
 
+// Layout
 export { Column, Row, Spacer, Grid2 } from "./core/layout.mjs";
-export { Heading } from "./core/typography.mjs";
+
+// Typography
+export { Heading, Text2 } from "./core/typography.mjs";
+
+// Media
 export { Media, Icon2, Spinner, Avatar } from "./core/media.mjs";
+
+// Buttons
 export { Button2, LinkButton } from "./core/buttons.mjs";
-export { Table2 } from "./core/table.mjs";
+
+// Inputs
 export { TextInput, Select, CheckBox2 } from "./core/inputs.mjs";
-export { useDialog } from "./core/dialog.mjs";
+
+// Data Display
+export { Table2 } from "./core/table.mjs";
+export { Code2 } from "./core/code.mjs";
+
+// Navigation
+export { Sidebar2 } from "./core/sidebar.mjs";
 export { Menu } from "./core/menu.mjs";
+
+// Feedback
+export { useDialog } from "./core/dialog.mjs";
