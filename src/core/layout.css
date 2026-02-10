@@ -18,3 +18,18 @@
   flex-grow: 1;
   flex-shrink: 1;
 }
+
+/* Grid Base Styles */
+.grid {
+  --grid-gap: var(--gap-md);
+  display: grid;
+  column-gap: var(--grid-gap);
+  row-gap: var(--grid-gap);
+}
+
+.grid.flow {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: var(--grid-gap);
+}

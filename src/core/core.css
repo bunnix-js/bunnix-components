@@ -61,7 +61,7 @@
   --font-size-large: 16px;
   --font-size-default: 14px;
   --font-size-small: 12px;
-  --font-size-xmall: 10px;
+  --font-size-xsmall: 10px;
   --font-weight-default: 400;
   --font-weight-heavy: 500;
   --font-weight-heavier: 600;
@@ -397,6 +397,27 @@ body {
   flex-shrink: 0;
 }
 
+/* Layout positioning */
+.sticky-top {
+  position: sticky;
+  top: 0;
+}
+
+.sticky-bottom {
+  position: sticky;
+  bottom: 0;
+}
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+}
+
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+}
+
 /* Spacing: padding */
 .padding-none,
 [padding="none"] {
@@ -610,6 +631,10 @@ body {
 }
 
 /* Effects */
+.drop-shadow {
+  filter: drop-shadow(0px 1px 2px #00000033);
+}
+
 @media (prefers-color-scheme: dark) {
   .dark-color-inverted,
   [dark-color="inverted"],
@@ -618,3 +643,6 @@ body {
     filter: brightness(0) invert(1);
   }
 }
+
+/* Mobile overrides - must be imported last to properly override desktop values */
+@import "./core-mobile.css";

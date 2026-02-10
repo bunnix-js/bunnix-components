@@ -101,28 +101,16 @@ export const Spacer = withNormalizedArgs((props = {}, ...children) => {
 const GridCore = (props, ...children) => {
   let layout = props.layout ?? "fixed";
   let columns = props.columns ?? [];
-  let gap = props.gridGap ?? "var(--gap-md)";
+  let gap = props.gridGap;
 
   delete props.layout;
   delete props.columns;
   delete props.gridGap;
 
-  gap = (typeof gap === "number") ? `${gap}px` : gap;
+  let style = {};
 
-  let style = {
-    display: "grid",
-    "column-gap": gap,
-    "row-gap": gap,
-  };
-
-  if (layout === "flow") {
-    style = {
-      ...style,
-      "display": "flex",
-      "flex-wrap": "wrap",
-      "flex-direction": "row",
-      "gap": gap
-    }
+  if (gap !== undefined) {
+    style["--grid-gap"] = (typeof gap === "number") ? `${gap}px` : gap;
   }
 
   if (layout === "fixed") {
@@ -132,14 +120,13 @@ const GridCore = (props, ...children) => {
       return col.size ?? "1fr";
     }).join(" ");
 
-    style = {
-      ...style,
-      "grid-template-columns": columnsTemplate,
+    if (columnsTemplate) {
+      style["grid-template-columns"] = columnsTemplate;
     }
   }
 
   return div(
-    { ...props, class: `grid ${props.class ?? ""}`, style },
+    { ...props, class: `grid ${layout} ${props.class ?? ""}`, style },
     children
   )
 };

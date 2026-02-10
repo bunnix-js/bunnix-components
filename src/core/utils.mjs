@@ -161,6 +161,70 @@ export function withExtractedStyles(fn) {
       delete finalProps.marginY;
     }
 
+    if ("marginLeft" in props) {
+      style.marginLeft =
+        typeof props.marginLeft === "number"
+          ? `${props.marginLeft}px`
+          : props.marginLeft;
+      delete finalProps.marginLeft;
+    }
+
+    if ("marginRight" in props) {
+      style.marginRight =
+        typeof props.marginRight === "number"
+          ? `${props.marginRight}px`
+          : props.marginRight;
+      delete finalProps.marginRight;
+    }
+
+    if ("marginTop" in props) {
+      style.marginTop =
+        typeof props.marginTop === "number"
+          ? `${props.marginTop}px`
+          : props.marginTop;
+      delete finalProps.marginTop;
+    }
+
+    if ("marginBottom" in props) {
+      style.marginBottom =
+        typeof props.marginBottom === "number"
+          ? `${props.marginBottom}px`
+          : props.marginBottom;
+      delete finalProps.marginBottom;
+    }
+
+    if ("top" in props) {
+      style.top =
+        typeof props.top === "number"
+          ? `${props.top}px`
+          : props.top;
+      delete finalProps.top;
+    }
+
+    if ("bottom" in props) {
+      style.bottom =
+        typeof props.bottom === "number"
+          ? `${props.bottom}px`
+          : props.bottom;
+      delete finalProps.bottom;
+    }
+
+    if ("left" in props) {
+      style.left =
+        typeof props.left === "number"
+          ? `${props.left}px`
+          : props.left;
+      delete finalProps.left;
+    }
+
+    if ("right" in props) {
+      style.right =
+        typeof props.right === "number"
+          ? `${props.right}px`
+          : props.right;
+      delete finalProps.right;
+    }
+
     if ("flexGrow" in props) {
       style.flexGrow = props.flexGrow;
       delete finalProps.flexGrow;
