@@ -31,3 +31,4 @@ export { Menu } from "./core/menu.mjs";
 
 // Feedback
 export { useDialog } from "./core/dialog.mjs";
+export { ProgressBar } from "./core/progress.mjs";

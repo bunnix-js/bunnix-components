@@ -14,6 +14,7 @@ import { IconRegistryPage } from "./pages/icon-registry.mjs";
 import { HomePage } from "./pages/home.mjs";
 import { SidebarPage } from "./pages/sidebar.mjs";
 import { MenuPage } from "./pages/menu.mjs";
+import { ProgressPage } from "./pages/progress.mjs";
 
 const sidebarItems = [
   { key: "home", text: "Home", icon: "home" },
@@ -32,6 +33,7 @@ const sidebarItems = [
   { key: "inputs", text: "Inputs", icon: "edit" },
   { key: "table", text: "Table", icon: "table" },
   { key: "dialog", text: "Dialog", icon: "hand" },
+  { key: "progress", text: "Progress", icon: "battery-25" },
 ];
 
 export function App() {
@@ -59,6 +61,7 @@ export function App() {
         if (item === "inputs") return InputsPage();
         if (item === "table") return TablePage();
         if (item === "dialog") return DialogPage();
+        if (item === "progress") return ProgressPage();
       }),
     ),
   );
