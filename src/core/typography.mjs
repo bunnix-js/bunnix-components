@@ -19,27 +19,27 @@ import { withNormalizedArgs, withExtractedStyles } from "./utils.mjs";
 
 const { h1, h2, h3, h4, h5, h6, span } = Bunnix;
 
-const HeadingCore = withNormalizedArgs((props, ...children) => {
-  return withExtractedStyles((finalProps, ...children) => {
-    if ("h6" in finalProps) return h6({ ...finalProps }, ...children);
-    if ("h5" in finalProps) return h5({ ...finalProps }, ...children);
-    if ("h4" in finalProps) return h4({ ...finalProps }, ...children);
-    if ("h3" in finalProps) return h3({ ...finalProps }, ...children);
-    if ("h2" in finalProps) return h2({ ...finalProps }, ...children);
+const HeadingCore = (props, ...children) => {
+  if ("h6" in props) return h6({ ...props }, ...children);
+  if ("h5" in props) return h5({ ...props }, ...children);
+  if ("h4" in props) return h4({ ...props }, ...children);
+  if ("h3" in props) return h3({ ...props }, ...children);
+  if ("h2" in props) return h2({ ...props }, ...children);
 
-    return h1({ ...finalProps }, ...children);
-  })(props, ...children);
-});
+  return h1({ ...props }, ...children);
+};
 
 const Text2Core = (props, ...children) => {
   return span({ ...props }, ...children);
 };
 
-// Apply default Heading props at export
-export const Heading = (props = {}, ...children) => {
-  const propsWithDefaults = { marginY: 0, ...props };
-  return HeadingCore(propsWithDefaults, ...children);
-};
+// Exports with wrappers
+
+export const Heading = withNormalizedArgs((props, ...children) =>
+  withExtractedStyles((finalProps, ...children) =>
+    HeadingCore(finalProps, ...children),
+  )({ marginY: 0, ...props }, ...children),
+);
 
 export const Text2 = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>

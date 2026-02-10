@@ -41,7 +41,7 @@ const Sidebar2Core = (props, ...children) => {
             { h4: true, color: "tertiary", textSize: "1rem" },
             item.text,
           )
-        : Show(selectedValue, (selected) => 
+        : Show(selectedValue, (selected) =>
             Button2(
               {
                 variant: selected === item.key ? "primary" : "tertiary",
@@ -49,8 +49,9 @@ const Sidebar2Core = (props, ...children) => {
               },
               Row(
                 { fillWidth: true, alignItems: "center" },
-                item.icon && Icon2({ 
-                  name: item.icon, 
+                item.icon && Icon2({
+                  size: 20,
+                  name: item.icon,
                   ...(selected !== item.key && { color: "secondary" })
                 }),
                 Row(item.text),
