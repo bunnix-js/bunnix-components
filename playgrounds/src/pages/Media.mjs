@@ -1,7 +1,7 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text2 } from "../../../src/core/typography.mjs";
+import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
-import { Media, Icon2, Spinner, Avatar } from "../../../src/core/media.mjs";
+import { Media, Icon, Spinner, Avatar } from "../../../src/core/media.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function MediaPage() {
@@ -34,7 +34,7 @@ export function MediaPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Media"),
-      Text2("Generic media component that renders images or inline SVG content."),
+      Text("Generic media component that renders images or inline SVG content."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
@@ -63,27 +63,27 @@ export function MediaPage() {
 
     Spacer({ minHeight: 16 }),
 
-    // Icon2 Component
+    // Icon Component
     ComponentShowcase(
       {
         code: `
-        import { Icon2 } from "@bunnix/components";
+        import { Icon } from "@bunnix/components";
 
-        Icon2({ name: "star" });
-        Icon2({ name: "heart", size: 32 });
-        Icon2({ name: "check", color: "success" });
-        Icon2({ name: "close", color: "danger", size: 24 });
+        Icon({ name: "star" });
+        Icon({ name: "heart", size: 32 });
+        Icon({ name: "check", color: "success" });
+        Icon({ name: "close", color: "danger", size: 24 });
         `,
       },
-      Heading({ h3: true, color: "secondary" }, "Icon2"),
-      Text2("Icon component using the icon registry with customizable size and color."),
+      Heading({ h3: true, color: "secondary" }, "Icon"),
+      Text("Icon component using the icon registry with customizable size and color."),
       Spacer({ minHeight: 8 }),
       Row(
         { gap: "regular", alignItems: "center" },
-        Icon2({ name: "star" }),
-        Icon2({ name: "heart", size: 32 }),
-        Icon2({ name: "check", color: "success" }),
-        Icon2({ name: "close", color: "danger", size: 24 }),
+        Icon({ name: "star" }),
+        Icon({ name: "heart", size: 32 }),
+        Icon({ name: "check", color: "success" }),
+        Icon({ name: "close", color: "danger", size: 24 }),
       ),
     ),
 
@@ -101,7 +101,7 @@ export function MediaPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Spinner"),
-      Text2("Animated loading spinner with customizable size and color."),
+      Text("Animated loading spinner with customizable size and color."),
       Spacer({ minHeight: 8 }),
       Row(
         { gap: "regular", alignItems: "center" },
@@ -126,7 +126,7 @@ export function MediaPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Avatar"),
-      Text2("User avatar component with support for images or letter initials."),
+      Text("User avatar component with support for images or letter initials."),
       Spacer({ minHeight: 8 }),
       Row(
         { gap: "regular", alignItems: "center" },

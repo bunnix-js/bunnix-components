@@ -1,6 +1,6 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text2 } from "../../../src/core/typography.mjs";
-import { Column, Spacer, Grid2 } from "../../../src/core/layout.mjs";
+import { Heading, Text } from "../../../src/core/typography.mjs";
+import { Column, Spacer, Grid } from "../../../src/core/layout.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 const { div } = Bunnix;
@@ -17,7 +17,7 @@ export function GridPage() {
         textAlign: "center",
       } 
     },
-    Text2(text)
+    Text(text)
   );
 
   return Column(
@@ -32,10 +32,10 @@ export function GridPage() {
     ComponentShowcase(
       {
         code: `
-        import { Grid2 } from "@bunnix/components";
+        import { Grid } from "@bunnix/components";
 
         // Fixed column layout
-        Grid2(
+        Grid(
           {
             columns: [
               { size: 200 },
@@ -47,7 +47,7 @@ export function GridPage() {
         );
 
         // Three column layout
-        Grid2(
+        Grid(
           {
             columns: [
               { size: "1fr" },
@@ -62,14 +62,14 @@ export function GridPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Fixed Layout"),
-      Text2("Grid with fixed column templates. Columns can be sized with pixels, fractions, or auto."),
+      Text("Grid with fixed column templates. Columns can be sized with pixels, fractions, or auto."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
         Column(
           { gap: "small" },
-          Text2({ color: "secondary" }, "Two columns (200px + auto):"),
-          Grid2(
+          Text({ color: "secondary" }, "Two columns (200px + auto):"),
+          Grid(
             {
               columns: [
                 { size: 200 },
@@ -82,8 +82,8 @@ export function GridPage() {
         ),
         Column(
           { gap: "small" },
-          Text2({ color: "secondary" }, "Three columns (1fr + 2fr + 1fr):"),
-          Grid2(
+          Text({ color: "secondary" }, "Three columns (1fr + 2fr + 1fr):"),
+          Grid(
             {
               columns: [
                 { size: "1fr" },
@@ -105,10 +105,10 @@ export function GridPage() {
     ComponentShowcase(
       {
         code: `
-        import { Grid2 } from "@bunnix/components";
+        import { Grid } from "@bunnix/components";
 
         // Flow layout (wraps like flexbox)
-        Grid2(
+        Grid(
           {
             layout: "flow",
             gridGap: 12,
@@ -123,12 +123,12 @@ export function GridPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Flow Layout"),
-      Text2("Flow layout wraps items like flexbox, useful for responsive card grids."),
+      Text("Flow layout wraps items like flexbox, useful for responsive card grids."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "small" },
-        Text2({ color: "secondary" }, "Items wrap automatically:"),
-        Grid2(
+        Text({ color: "secondary" }, "Items wrap automatically:"),
+        Grid(
           {
             layout: "flow",
             gridGap: 12,
@@ -151,10 +151,10 @@ export function GridPage() {
     ComponentShowcase(
       {
         code: `
-        import { Grid2 } from "@bunnix/components";
+        import { Grid } from "@bunnix/components";
 
         // Custom gap spacing
-        Grid2(
+        Grid(
           {
             columns: [
               { size: "1fr" },
@@ -169,7 +169,7 @@ export function GridPage() {
         );
 
         // Using gap prop (alias)
-        Grid2(
+        Grid(
           {
             columns: [
               { size: "1fr" },
@@ -183,14 +183,14 @@ export function GridPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Gap Spacing"),
-      Text2("Control spacing between grid items with gridGap or gap prop (supports pixels or CSS values)."),
+      Text("Control spacing between grid items with gridGap or gap prop (supports pixels or CSS values)."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
         Column(
           { gap: "small" },
-          Text2({ color: "secondary" }, "Small gap (6px):"),
-          Grid2(
+          Text({ color: "secondary" }, "Small gap (6px):"),
+          Grid(
             {
               columns: [
                 { size: "1fr" },
@@ -206,8 +206,8 @@ export function GridPage() {
         ),
         Column(
           { gap: "small" },
-          Text2({ color: "secondary" }, "Large gap (24px):"),
-          Grid2(
+          Text({ color: "secondary" }, "Large gap (24px):"),
+          Grid(
             {
               columns: [
                 { size: "1fr" },
@@ -230,10 +230,10 @@ export function GridPage() {
     ComponentShowcase(
       {
         code: `
-        import { Grid2 } from "@bunnix/components";
+        import { Grid } from "@bunnix/components";
 
         // Dashboard layout example
-        Grid2(
+        Grid(
           {
             columns: [
               { size: 250 },     // Sidebar
@@ -248,7 +248,7 @@ export function GridPage() {
         );
 
         // Responsive card grid
-        Grid2(
+        Grid(
           {
             columns: [
               { size: "1fr" },
@@ -263,12 +263,12 @@ export function GridPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Complex Layouts"),
-      Text2("Grid2 supports complex multi-column layouts for dashboards, sidebars, and more."),
+      Text("Grid supports complex multi-column layouts for dashboards, sidebars, and more."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "small" },
-        Text2({ color: "secondary" }, "Three-panel layout:"),
-        Grid2(
+        Text({ color: "secondary" }, "Three-panel layout:"),
+        Grid(
           {
             columns: [
               { size: 120 },
@@ -291,7 +291,7 @@ export function GridPage() {
                 justifyContent: "center",
               } 
             },
-            Text2("Main Content Area")
+            Text("Main Content Area")
           ),
           DemoBox("Panel"),
         ),

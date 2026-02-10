@@ -1,7 +1,7 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text2 } from "../../../src/core/typography.mjs";
+import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Spacer } from "../../../src/core/layout.mjs";
-import { Table2 } from "../../../src/core/table.mjs";
+import { Table } from "../../../src/core/table.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function TablePage() {
@@ -19,11 +19,11 @@ export function TablePage() {
     ),
     Spacer({ minHeight: 24 }),
     
-    // Table2 Component
+    // Table Component
     ComponentShowcase(
       {
         code: `
-        import { Table2 } from "@bunnix/components";
+        import { Table } from "@bunnix/components";
 
         const data = [
           { name: "Alice", role: "Developer", status: "Active" },
@@ -31,7 +31,7 @@ export function TablePage() {
           { name: "Charlie", role: "Manager", status: "Inactive" },
         ];
 
-        Table2({
+        Table({
           headers: [
             { content: "Name", key: "name", size: 150 },
             { content: "Role", key: "role", size: 150 },
@@ -41,10 +41,10 @@ export function TablePage() {
         });
         `,
       },
-      Heading({ h3: true, color: "secondary" }, "Table2"),
-      Text2("Data table with column headers and row rendering from structured data."),
+      Heading({ h3: true, color: "secondary" }, "Table"),
+      Text("Data table with column headers and row rendering from structured data."),
       Spacer({ minHeight: 8 }),
-      Table2({
+      Table({
         headers: [
           { content: "Name", key: "name", size: 150 },
           { content: "Role", key: "role", size: 150 },

@@ -6,7 +6,7 @@
  * Components:
  * - TextInput: Single-line text input with optional placeholder and state binding
  * - Select: Dropdown input with mapped options
- * - CheckBox2: Simple checkbox input with optional state binding
+ * - CheckBox: Simple checkbox input with optional state binding
  *
  * Features:
  * - Two-way binding with useState objects
@@ -250,9 +250,9 @@ export const Select = withNormalizedArgs((props, ...children) =>
  * @param {number|string} [props.size=16] - Checkbox width and height
  * @param {string} [props.class] - Additional CSS classes
  * @param {...*} children - Children elements (ignored)
- * @returns {*} CheckBox2 component
+ * @returns {*} CheckBox component
  */
-export const CheckBox2 = withNormalizedArgs((props, ...children) =>
+export const CheckBox = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     CheckBoxCore(finalProps, ...children),
   )({ size: 20, textSize: "1rem", ...props }, ...children),

@@ -1,6 +1,6 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text2 } from "../../../src/core/typography.mjs";
-import { Column, Grid2, Row, Spacer } from "../../../src/core/layout.mjs";
+import { Heading, Text } from "../../../src/core/typography.mjs";
+import { Column, Grid, Row, Spacer } from "../../../src/core/layout.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 const { div } = Bunnix;
@@ -19,7 +19,7 @@ export function ColorsPage() {
           border: "1px solid var(--color-border-primary)",
         },
       }),
-      Text2({ color: "secondary", textSize: "0.875rem" }, props.name),
+      Text({ color: "secondary", textSize: "0.875rem" }, props.name),
     );
 
   return Column(
@@ -34,23 +34,23 @@ export function ColorsPage() {
     ComponentShowcase(
       {
         code: `
-        import { Text2 } from "@bunnix/components";
+        import { Text } from "@bunnix/components";
 
-        Text2({ color: "primary" }, "Primary text");
-        Text2({ color: "secondary" }, "Secondary text");
-        Text2({ color: "tertiary" }, "Tertiary text");
+        Text({ color: "primary" }, "Primary text");
+        Text({ color: "secondary" }, "Secondary text");
+        Text({ color: "tertiary" }, "Tertiary text");
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Text Colors"),
-      Text2(
+      Text(
         "Primary, secondary, and tertiary text colors that adapt to light/dark mode.",
       ),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "small" },
-        Text2({ color: "primary" }, "Primary text color"),
-        Text2({ color: "secondary" }, "Secondary text color"),
-        Text2({ color: "tertiary" }, "Tertiary text color"),
+        Text({ color: "primary" }, "Primary text color"),
+        Text({ color: "secondary" }, "Secondary text color"),
+        Text({ color: "tertiary" }, "Tertiary text color"),
       ),
     ),
 
@@ -60,23 +60,23 @@ export function ColorsPage() {
     ComponentShowcase(
       {
         code: `
-        import { Text2 } from "@bunnix/components";
+        import { Text } from "@bunnix/components";
 
-        Text2({ color: "success" }, "Success message");
-        Text2({ color: "warning" }, "Warning message");
-        Text2({ color: "danger" }, "Error message");
-        Text2({ color: "link" }, "Link text");
+        Text({ color: "success" }, "Success message");
+        Text({ color: "warning" }, "Warning message");
+        Text({ color: "danger" }, "Error message");
+        Text({ color: "link" }, "Link text");
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Semantic Colors"),
-      Text2("Semantic colors for success, warning, danger, and link states."),
+      Text("Semantic colors for success, warning, danger, and link states."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "small" },
-        Text2({ color: "success" }, "Success: Operation completed"),
-        Text2({ color: "warning" }, "Warning: Please review"),
-        Text2({ color: "danger" }, "Error: Something went wrong"),
-        Text2({ color: "link" }, "Link: Click here"),
+        Text({ color: "success" }, "Success: Operation completed"),
+        Text({ color: "warning" }, "Warning: Please review"),
+        Text({ color: "danger" }, "Error: Something went wrong"),
+        Text({ color: "link" }, "Link: Click here"),
       ),
     ),
 
@@ -105,9 +105,9 @@ export function ColorsPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Background Colors"),
-      Text2("Background color utilities using the bg prop or CSS classes."),
+      Text("Background color utilities using the bg prop or CSS classes."),
       Spacer({ minHeight: 8 }),
-      Grid2(
+      Grid(
         { layout: "flow", gridGap: 8 },
         ColorSwatch({ color: "var(--color-bg-primary)", name: "primary" }),
         ColorSwatch({ color: "var(--color-bg-primary-dimmed)", name: "primary-dimmed" }),
@@ -146,18 +146,18 @@ export function ColorsPage() {
         .bg-primary { background-color: var(--color-bg-primary); }
 
         // Using with props
-        Text2({ color: "primary" }, "Text");
+        Text({ color: "primary" }, "Text");
         Column({ bg: "primary" }, "Content");
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Color Tokens"),
-      Text2(
+      Text(
         "All color tokens are available as CSS variables and can be used via props or classes.",
       ),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "small" },
-        Text2(
+        Text(
           "Color tokens automatically adapt between light and dark modes using the light-dark() CSS function.",
         ),
         Spacer({ minHeight: 8 }),
@@ -165,12 +165,12 @@ export function ColorsPage() {
           { bg: "primary-dimmed", padding: "regular", radius: "regular" },
           Column(
             { gap: "small" },
-            Text2({ weight: "heavy" }, "Available Props:"),
-            Text2(
+            Text({ weight: "heavy" }, "Available Props:"),
+            Text(
               { color: "secondary" },
               "• color: 'primary' | 'secondary' | 'tertiary' | 'success' | 'warning' | 'danger' | 'link'",
             ),
-            Text2(
+            Text(
               { color: "secondary" },
               "• bg: 'primary' | 'primary-dimmed' | 'secondary' | 'success' | 'warning' | 'danger'",
             ),

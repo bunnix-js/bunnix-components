@@ -1,9 +1,9 @@
 import Bunnix, { useState } from "@bunnix/core";
-import { Heading, Text2 } from "../../../src/core/typography.mjs";
+import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
 import { Menu } from "../../../src/core/menu.mjs";
-import { Button2 } from "../../../src/core/buttons.mjs";
-import { Icon2, Avatar } from "../../../src/core/media.mjs";
+import { Button } from "../../../src/core/buttons.mjs";
+import { Icon, Avatar } from "../../../src/core/media.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function MenuPage() {
@@ -76,7 +76,7 @@ export function MenuPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Basic Menu"),
-      Text2("Simple menu with text items and actions."),
+      Text("Simple menu with text items and actions."),
       Spacer({ minHeight: 8 }),
       Menu({
         items: basicItems,
@@ -102,7 +102,7 @@ export function MenuPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "With Icons"),
-      Text2("Menu items with icons from the icon registry."),
+      Text("Menu items with icons from the icon registry."),
       Spacer({ minHeight: 8 }),
       Menu({
         items: iconItems,
@@ -132,7 +132,7 @@ export function MenuPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "With Dividers"),
-      Text2("Use dividers to group related items."),
+      Text("Use dividers to group related items."),
       Spacer({ minHeight: 8 }),
       Menu({
         items: groupedItems,
@@ -168,7 +168,7 @@ export function MenuPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Custom Trigger with Avatar"),
-      Text2("Use an Avatar component as the menu trigger."),
+      Text("Use an Avatar component as the menu trigger."),
       Spacer({ minHeight: 8 }),
       Menu({
         items: customItems,
@@ -216,7 +216,7 @@ export function MenuPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "With Actions"),
-      Text2("Menu items trigger custom actions on click."),
+      Text("Menu items trigger custom actions on click."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "small" },
@@ -224,7 +224,7 @@ export function MenuPage() {
           items: actionItems,
           trigger: "More",
         }),
-        Text2(
+        Text(
           { color: "secondary", textSize: "0.875rem" },
           "(Check console for action logs)",
         ),
@@ -247,9 +247,9 @@ export function MenuPage() {
         }
 
         // Trigger Options
-        trigger: "Text"                  // Simple text (renders as Button2)
+        trigger: "Text"                  // Simple text (renders as Button)
         trigger: ({ isOpen, toggle }) => // Custom render function
-          Button2({ click: toggle }, "Custom")
+          Button({ click: toggle }, "Custom")
 
         // Auto-closes on:
         // - Item click
@@ -257,32 +257,32 @@ export function MenuPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Features"),
-      Text2("Key features of the Menu component:"),
+      Text("Key features of the Menu component:"),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "small" },
-        Text2(
-          Text2({ weight: "heavy" }, "• Action-based Menu:"),
+        Text(
+          Text({ weight: "heavy" }, "• Action-based Menu:"),
           " Items execute actions, not selection state",
         ),
-        Text2(
-          Text2({ weight: "heavy" }, "• Icon Support:"),
+        Text(
+          Text({ weight: "heavy" }, "• Icon Support:"),
           " Optional icons from the icon registry",
         ),
-        Text2(
-          Text2({ weight: "heavy" }, "• Dividers:"),
+        Text(
+          Text({ weight: "heavy" }, "• Dividers:"),
           " Group related items with visual separators",
         ),
-        Text2(
-          Text2({ weight: "heavy" }, "• Custom Trigger:"),
+        Text(
+          Text({ weight: "heavy" }, "• Custom Trigger:"),
           " Use any component as the menu trigger (Button, Avatar, etc.)",
         ),
-        Text2(
-          Text2({ weight: "heavy" }, "• Uses Button2:"),
-          " All items are Button2 components with tertiary variant",
+        Text(
+          Text({ weight: "heavy" }, "• Uses Button:"),
+          " All items are Button components with tertiary variant",
         ),
-        Text2(
-          Text2({ weight: "heavy" }, "• Auto Close:"),
+        Text(
+          Text({ weight: "heavy" }, "• Auto Close:"),
           " Closes on item click or click outside",
         ),
       ),

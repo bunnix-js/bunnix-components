@@ -3,7 +3,7 @@ import { withNormalizedArgs, withExtractedStyles, isStateLike } from "./utils.mj
 
 const { button } = Bunnix;
 
-const Button2Core = (props, ...children) => {
+const ButtonCore = (props, ...children) => {
   let outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
   let paddingClass = (!props.padding) ? "padding-y-sm padding-x-md" : "padding-y-sm";
   let variantClass = props.variant || "primary";
@@ -53,12 +53,41 @@ const LinkButtonCore = (props, ...children) => {
   }, ...children);
 };
 
-export const Button2 = withNormalizedArgs((props, ...children) =>
+/**
+ * Standard button component with multiple variants and states.
+ * 
+ * @param {Object} props - Component props
+ * @param {string} [props.variant="primary"] - Button style variant: "primary" | "secondary" | "tertiary" | "danger"
+ * @param {boolean} [props.disabled] - Disabled state
+ * @param {boolean} [props.outline=false] - Show focus outline
+ * @param {boolean} [props.padding=true] - Apply default padding (can be disabled for custom layouts)
+ * @param {Function} [props.click] - Click event handler
+ * @param {number} [props.minHeight=32] - Minimum height in pixels
+ * @param {string} [props.textSize="1rem"] - Text size
+ * @param {string} [props.class] - Additional CSS classes
+ * @param {...*} children - Button content (text, icons, etc.)
+ * @returns {*} Button component
+ */
+export const Button = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
-    Button2Core(finalProps, ...children),
+    ButtonCore(finalProps, ...children),
   )({ minHeight: 32, textSize: "1rem", ...props }, ...children),
 );
 
+/**
+ * Link-styled button component with underline hover effects.
+ * 
+ * @param {Object} props - Component props
+ * @param {string} [props.variant="primary"] - Button style variant: "primary" | "secondary" | "tertiary" | "danger"
+ * @param {boolean} [props.disabled] - Disabled state
+ * @param {boolean} [props.outline=false] - Show focus outline
+ * @param {Function} [props.click] - Click event handler
+ * @param {number} [props.minHeight=32] - Minimum height in pixels
+ * @param {string} [props.textSize="1rem"] - Text size
+ * @param {string} [props.class] - Additional CSS classes
+ * @param {...*} children - Button content (text, icons, etc.)
+ * @returns {*} LinkButton component
+ */
 export const LinkButton = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     LinkButtonCore(finalProps, ...children),

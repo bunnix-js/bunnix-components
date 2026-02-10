@@ -9,7 +9,7 @@
  * Features:
  * - Programmatic open with title, content blocks, and confirmation action
  * - Local state-driven rendering via useState + Show
- * - Uses core primitives (Button2, Heading, Row/Column/Spacer, Icon2)
+ * - Uses core primitives (Button, Heading, Row/Column/Spacer, Icon)
  */
 import Bunnix, {
   useRef,
@@ -18,8 +18,8 @@ import Bunnix, {
 } from "@bunnix/core";
 import { Heading } from "./typography.mjs";
 import { Column, Row, Spacer } from "./layout.mjs";
-import { Button2 } from "./buttons.mjs";
-import { Icon2 } from "./media.mjs";
+import { Button } from "./buttons.mjs";
+import { Icon } from "./media.mjs";
 
 const { dialog } = Bunnix;
 
@@ -65,15 +65,15 @@ export const useDialog = () => {
                 { gap: 24, alignItems: "center" },
                 Heading({ h3: true, flexShrink: 0 }, state.title),
                 Spacer(),
-                Button2(
+                Button(
                   { variant: "tertiary", click: closeDialog },
-                  Icon2({ name: "close", color: "secondary", size: 20 }),
+                  Icon({ name: "close", color: "secondary", size: 20 }),
                 ),
               ),
               state.contents.length > 0 && Column(...state.contents),
               Row(
                 Spacer(),
-                Button2(
+                Button(
                   {
                     minWidth: 80,
                     variant: state.confirmation.variant,
@@ -99,7 +99,7 @@ export const useDialog = () => {
      * @param {Array|*} [config.contents=[]] - Renderable content block(s)
      * @param {Object} [config.confirmation] - Confirmation button config
      * @param {string} [config.confirmation.text=\"OK\"] - Confirmation label
-     * @param {string} [config.confirmation.variant=\"primary\"] - Button2 variant
+     * @param {string} [config.confirmation.variant=\"primary\"] - Button variant
      * @param {Function|null} [config.confirmation.action=null] - Action run before close
      * @returns {void}
      */

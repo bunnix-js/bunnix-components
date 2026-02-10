@@ -1,5 +1,5 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text2 } from "../../../src/core/typography.mjs";
+import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
@@ -16,7 +16,7 @@ export function LayoutPage() {
         border: "1px solid var(--color-border-primary)"
       } 
     },
-    Text2(text)
+    Text(text)
   );
 
   return Column(
@@ -53,11 +53,11 @@ export function LayoutPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Column"),
-      Text2("Column container for stacking children vertically with automatic gap spacing."),
+      Text("Column container for stacking children vertically with automatic gap spacing."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "small" },
-        Text2({ color: "secondary" }, "Default gap:"),
+        Text({ color: "secondary" }, "Default gap:"),
         Column(
           { border: "primary", radius: "regular", padding: "regular" },
           DemoBox("Item 1"),
@@ -95,11 +95,11 @@ export function LayoutPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Row"),
-      Text2("Row container for arranging children horizontally with automatic gap spacing."),
+      Text("Row container for arranging children horizontally with automatic gap spacing."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "small" },
-        Text2({ color: "secondary" }, "Default gap:"),
+        Text({ color: "secondary" }, "Default gap:"),
         Row(
           { border: "primary", radius: "regular", padding: "regular" },
           DemoBox("Item 1"),
@@ -140,13 +140,13 @@ export function LayoutPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Spacer"),
-      Text2("Flexible spacer component for controlling spacing between elements."),
+      Text("Flexible spacer component for controlling spacing between elements."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
         Column(
           { gap: "small" },
-          Text2({ color: "secondary" }, "Vertical spacing in Column:"),
+          Text({ color: "secondary" }, "Vertical spacing in Column:"),
           Column(
             { border: "primary", radius: "regular", padding: "regular" },
             DemoBox("Item 1"),
@@ -156,7 +156,7 @@ export function LayoutPage() {
         ),
         Column(
           { gap: "small" },
-          Text2({ color: "secondary" }, "Horizontal spacing in Row:"),
+          Text({ color: "secondary" }, "Horizontal spacing in Row:"),
           Row(
             { border: "primary", radius: "regular", padding: "regular" },
             DemoBox("Left"),
@@ -215,13 +215,13 @@ export function LayoutPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Alignment"),
-      Text2("Control how children are aligned within Column and Row containers."),
+      Text("Control how children are aligned within Column and Row containers."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
         Column(
           { gap: "small" },
-          Text2({ color: "secondary" }, "Column alignments:"),
+          Text({ color: "secondary" }, "Column alignments:"),
           Row(
             { gap: "regular" },
             Column(
@@ -243,25 +243,25 @@ export function LayoutPage() {
         ),
         Column(
           { gap: "small" },
-          Text2({ color: "secondary" }, "Row alignments:"),
+          Text({ color: "secondary" }, "Row alignments:"),
           Column(
             { gap: "small" },
             Row(
               { border: "primary", radius: "regular", padding: "regular", alignItems: "start", minHeight: 80 },
               DemoBox("Start"),
-              div({ style: { padding: "24px 12px" } }, Text2("Taller")),
+              div({ style: { padding: "24px 12px" } }, Text("Taller")),
               DemoBox("Aligned"),
             ),
             Row(
               { border: "primary", radius: "regular", padding: "regular", alignItems: "center", minHeight: 80 },
               DemoBox("Center"),
-              div({ style: { padding: "24px 12px" } }, Text2("Taller")),
+              div({ style: { padding: "24px 12px" } }, Text("Taller")),
               DemoBox("Aligned"),
             ),
             Row(
               { border: "primary", radius: "regular", padding: "regular", alignItems: "end", minHeight: 80 },
               DemoBox("End"),
-              div({ style: { padding: "24px 12px" } }, Text2("Taller")),
+              div({ style: { padding: "24px 12px" } }, Text("Taller")),
               DemoBox("Aligned"),
             ),
           ),

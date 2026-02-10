@@ -1,8 +1,8 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text2 } from "../../../src/core/typography.mjs";
+import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
-import { Button2, LinkButton } from "../../../src/core/buttons.mjs";
-import { Icon2 } from "../../../src/core/media.mjs";
+import { Button, LinkButton } from "../../../src/core/buttons.mjs";
+import { Icon } from "../../../src/core/media.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function ButtonsPage() {
@@ -14,62 +14,62 @@ export function ButtonsPage() {
     ),
     Spacer({ minHeight: 24 }),
     
-    // Button2 Component
+    // Button Component
     ComponentShowcase(
       {
         code: `
-        import { Button2 } from "@bunnix/components";
+        import { Button } from "@bunnix/components";
 
         // Default/Primary variant
-        Button2("Primary Button");
+        Button("Primary Button");
 
         // Secondary variant
-        Button2({ variant: "secondary" }, "Secondary");
+        Button({ variant: "secondary" }, "Secondary");
 
         // Tertiary variant
-        Button2({ variant: "tertiary" }, "Tertiary");
+        Button({ variant: "tertiary" }, "Tertiary");
 
         // Danger variant
-        Button2({ variant: "danger" }, "Danger");
+        Button({ variant: "danger" }, "Danger");
 
         // With icon
-        Button2(
-          Icon2({ name: "check", size: 16 }),
+        Button(
+          Icon({ name: "check", size: 16 }),
           "With Icon"
         );
 
         // Disabled
-        Button2({ disabled: true }, "Disabled");
+        Button({ disabled: true }, "Disabled");
         `,
       },
-      Heading({ h3: true, color: "secondary" }, "Button2"),
-      Text2("Standard button component with multiple variants and states."),
+      Heading({ h3: true, color: "secondary" }, "Button"),
+      Text("Standard button component with multiple variants and states."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
         Row(
           { gap: "small" },
-          Button2("Primary"),
-          Button2({ variant: "secondary" }, "Secondary"),
-          Button2({ variant: "tertiary" }, "Tertiary"),
-          Button2({ variant: "danger" }, "Danger"),
+          Button("Primary"),
+          Button({ variant: "secondary" }, "Secondary"),
+          Button({ variant: "tertiary" }, "Tertiary"),
+          Button({ variant: "danger" }, "Danger"),
         ),
         Row(
           { gap: "small" },
-          Button2(
-            Icon2({ name: "check", size: 16 }),
+          Button(
+            Icon({ name: "check", size: 16 }),
             "With Icon"
           ),
-          Button2(
+          Button(
             { variant: "secondary" },
-            Icon2({ name: "star", size: 16 }),
+            Icon({ name: "star", size: 16 }),
             "Star"
           ),
         ),
         Row(
           { gap: "small" },
-          Button2({ disabled: true }, "Disabled Primary"),
-          Button2({ variant: "secondary", disabled: true }, "Disabled Secondary"),
+          Button({ disabled: true }, "Disabled Primary"),
+          Button({ variant: "secondary", disabled: true }, "Disabled Secondary"),
         ),
       ),
     ),
@@ -96,7 +96,7 @@ export function ButtonsPage() {
 
         // With icon
         LinkButton(
-          Icon2({ name: "external-link", size: 16 }),
+          Icon({ name: "external-link", size: 16 }),
           "External Link"
         );
 
@@ -105,7 +105,7 @@ export function ButtonsPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "LinkButton"),
-      Text2("Link-styled button component with underline hover effects."),
+      Text("Link-styled button component with underline hover effects."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
@@ -119,7 +119,7 @@ export function ButtonsPage() {
         Row(
           { gap: "regular" },
           LinkButton(
-            Icon2({ name: "arrow-right", size: 16 }),
+            Icon({ name: "arrow-right", size: 16 }),
             "With Icon"
           ),
           LinkButton({ disabled: true }, "Disabled Link"),

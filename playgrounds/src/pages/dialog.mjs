@@ -1,8 +1,8 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text2 } from "../../../src/core/typography.mjs";
+import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
 import { useDialog } from "../../../src/core/dialog.mjs";
-import { Button2 } from "../../../src/core/buttons.mjs";
+import { Button } from "../../../src/core/buttons.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function DialogPage() {
@@ -11,7 +11,7 @@ export function DialogPage() {
   const openBasicDialog = () => {
     showDialog({
       title: "Basic Dialog",
-      contents: Text2("This is a simple dialog with default confirmation button."),
+      contents: Text("This is a simple dialog with default confirmation button."),
     });
   };
 
@@ -19,9 +19,9 @@ export function DialogPage() {
     showDialog({
       title: "Custom Dialog",
       contents: [
-        Text2("This dialog has custom content and confirmation button."),
+        Text("This dialog has custom content and confirmation button."),
         Spacer({ minHeight: 8 }),
-        Text2({ color: "secondary" }, "You can pass multiple content blocks."),
+        Text({ color: "secondary" }, "You can pass multiple content blocks."),
       ],
       confirmation: {
         text: "Got it!",
@@ -34,7 +34,7 @@ export function DialogPage() {
   const openDangerDialog = () => {
     showDialog({
       title: "Delete Item",
-      contents: Text2("Are you sure you want to delete this item? This action cannot be undone."),
+      contents: Text("Are you sure you want to delete this item? This action cannot be undone."),
       confirmation: {
         text: "Delete",
         variant: "danger",
@@ -62,15 +62,15 @@ export function DialogPage() {
         // Basic dialog
         showDialog({
           title: "Basic Dialog",
-          contents: Text2("This is a simple dialog."),
+          contents: Text("This is a simple dialog."),
         });
 
         // Custom confirmation
         showDialog({
           title: "Custom Dialog",
           contents: [
-            Text2("Multiple content blocks"),
-            Text2({ color: "secondary" }, "Secondary text"),
+            Text("Multiple content blocks"),
+            Text({ color: "secondary" }, "Secondary text"),
           ],
           confirmation: {
             text: "Got it!",
@@ -82,7 +82,7 @@ export function DialogPage() {
         // Danger variant
         showDialog({
           title: "Delete Item",
-          contents: Text2("Are you sure?"),
+          contents: Text("Are you sure?"),
           confirmation: {
             text: "Delete",
             variant: "danger",
@@ -95,16 +95,16 @@ export function DialogPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "useDialog"),
-      Text2("Hook that creates a dialog controller with imperative API for opening modals."),
+      Text("Hook that creates a dialog controller with imperative API for opening modals."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
-        Text2("Click the buttons below to open different dialog variants:"),
+        Text("Click the buttons below to open different dialog variants:"),
         Row(
           { gap: "regular" },
-          Button2({ click: openBasicDialog }, "Basic Dialog"),
-          Button2({ click: openCustomDialog }, "Custom Dialog"),
-          Button2({ click: openDangerDialog, variant: "danger" }, "Danger Dialog"),
+          Button({ click: openBasicDialog }, "Basic Dialog"),
+          Button({ click: openCustomDialog }, "Custom Dialog"),
+          Button({ click: openDangerDialog, variant: "danger" }, "Danger Dialog"),
         ),
       ),
     ),

@@ -4,7 +4,7 @@
  * Code display primitives for showing formatted code blocks.
  *
  * Components:
- * - Code2: Pre-formatted code block with automatic wrapping and style extraction
+ * - Code: Pre-formatted code block with automatic wrapping and style extraction
  *
  * Features:
  * - Automatic style extraction (width, height, padding, etc.)
@@ -98,7 +98,7 @@ function highlightJS(code) {
   return segments.join('');
 }
 
-const Code2Core = (props, ...children) => {
+const CodeCore = (props, ...children) => {
   const language = props.language;
   delete props.language;
   
@@ -120,8 +120,8 @@ const Code2Core = (props, ...children) => {
   }, ...children);
 };
 
-export const Code2 = withNormalizedArgs((props, ...children) =>
+export const Code = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
-    Code2Core(finalProps, ...children),
+    CodeCore(finalProps, ...children),
   )(props, ...children),
 );

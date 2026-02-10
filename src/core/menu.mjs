@@ -16,8 +16,8 @@
 import Bunnix, { useState, useEffect, useRef, Show } from "@bunnix/core";
 import { withNormalizedArgs, withExtractedStyles } from "./utils.mjs";
 import { Column, Row } from "./layout.mjs";
-import { Button2 } from "./buttons.mjs";
-import { Icon2 } from "./media.mjs";
+import { Button } from "./buttons.mjs";
+import { Icon } from "./media.mjs";
 import "./menu.css";
 
 const { div, button } = Bunnix;
@@ -69,7 +69,7 @@ const MenuCore = (props, ...children) => {
     { ...props, class: `menu ${props.class || ""}`, ref: dropdownRef },
     // Trigger
     typeof trigger === "function" ? trigger({ isOpen: isOpen.get(), toggle: toggleDropdown }) : 
-      Button2(
+      Button(
         {
           variant: "secondary",
           click: toggleDropdown,
@@ -87,7 +87,7 @@ const MenuCore = (props, ...children) => {
               return div({ class: "menu-divider" });
             }
             
-            return Button2(
+            return Button(
               {
                 variant: "tertiary",
                 click: () => handleItemClick(item),
@@ -95,7 +95,7 @@ const MenuCore = (props, ...children) => {
               },
               Row(
                 { fillWidth: true, alignItems: "center", gap: "small" },
-                item.icon && Icon2({ name: item.icon, size: 16 }),
+                item.icon && Icon({ name: item.icon, size: 16 }),
                 item.text || item.key,
               ),
             );

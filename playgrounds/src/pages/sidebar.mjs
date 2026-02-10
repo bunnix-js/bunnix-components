@@ -1,7 +1,7 @@
 import Bunnix, { useState } from "@bunnix/core";
-import { Heading, Text2 } from "../../../src/core/typography.mjs";
+import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
-import { Sidebar2 } from "../../../src/core/sidebar.mjs";
+import { Sidebar } from "../../../src/core/sidebar.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 const { div } = Bunnix;
@@ -54,7 +54,7 @@ export function SidebarPage() {
     ComponentShowcase(
       {
         code: `
-        import { Sidebar2 } from "@bunnix/components";
+        import { Sidebar } from "@bunnix/components";
         import { useState } from "@bunnix/core";
 
         const selected = useState("dashboard");
@@ -64,11 +64,11 @@ export function SidebarPage() {
           { key: "profile", text: "Profile", icon: "user" },
         ];
 
-        Sidebar2({ items, selected });
+        Sidebar({ items, selected });
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Basic Sidebar"),
-      Text2("Simple sidebar with icon items and reactive state binding."),
+      Text("Simple sidebar with icon items and reactive state binding."),
       Spacer({ minHeight: 8 }),
       div(
         {
@@ -79,13 +79,13 @@ export function SidebarPage() {
             overflow: "hidden",
           },
         },
-        Sidebar2({ items: basicItems, selected: basicSelected }),
+        Sidebar({ items: basicItems, selected: basicSelected }),
       ),
       Spacer({ minHeight: 8 }),
-      Text2(
+      Text(
         { color: "secondary", textSize: "0.875rem" },
         "Selected: ",
-        Text2({ weight: "heavy" }, basicSelected.get()),
+        Text({ weight: "heavy" }, basicSelected.get()),
       ),
     ),
 
@@ -95,7 +95,7 @@ export function SidebarPage() {
     ComponentShowcase(
       {
         code: `
-        import { Sidebar2 } from "@bunnix/components";
+        import { Sidebar } from "@bunnix/components";
         import { useState } from "@bunnix/core";
 
         const selected = useState("overview");
@@ -108,11 +108,11 @@ export function SidebarPage() {
           { key: "preferences", text: "Preferences", icon: "settings" },
         ];
 
-        Sidebar2({ items, selected });
+        Sidebar({ items, selected });
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Sidebar with Headers"),
-      Text2("Sidebar with section headers for organizing navigation items."),
+      Text("Sidebar with section headers for organizing navigation items."),
       Spacer({ minHeight: 8 }),
       div(
         {
@@ -123,13 +123,13 @@ export function SidebarPage() {
             overflow: "hidden",
           },
         },
-        Sidebar2({ items: groupedItems, selected: groupedSelected }),
+        Sidebar({ items: groupedItems, selected: groupedSelected }),
       ),
       Spacer({ minHeight: 8 }),
-      Text2(
+      Text(
         { color: "secondary", textSize: "0.875rem" },
         "Selected: ",
-        Text2({ weight: "heavy" }, groupedSelected.get()),
+        Text({ weight: "heavy" }, groupedSelected.get()),
       ),
     ),
 
@@ -139,7 +139,7 @@ export function SidebarPage() {
     ComponentShowcase(
       {
         code: `
-        import { Sidebar2 } from "@bunnix/components";
+        import { Sidebar } from "@bunnix/components";
         import { useState } from "@bunnix/core";
 
         const selected = useState("projects");
@@ -157,11 +157,11 @@ export function SidebarPage() {
           { key: "logout", text: "Logout", icon: "log-out" },
         ];
 
-        Sidebar2({ items, selected });
+        Sidebar({ items, selected });
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Full Navigation"),
-      Text2("Complete navigation sidebar with multiple sections."),
+      Text("Complete navigation sidebar with multiple sections."),
       Spacer({ minHeight: 8 }),
       div(
         {
@@ -172,13 +172,13 @@ export function SidebarPage() {
             overflow: "hidden",
           },
         },
-        Sidebar2({ items: navItems, selected: navSelected }),
+        Sidebar({ items: navItems, selected: navSelected }),
       ),
       Spacer({ minHeight: 8 }),
-      Text2(
+      Text(
         { color: "secondary", textSize: "0.875rem" },
         "Selected: ",
-        Text2({ weight: "heavy" }, navSelected.get()),
+        Text({ weight: "heavy" }, navSelected.get()),
       ),
     ),
 
@@ -201,7 +201,7 @@ export function SidebarPage() {
         const items = useState([...]); // or just [...]
         const selected = useState("key"); // or just "key"
 
-        Sidebar2({ items, selected });
+        Sidebar({ items, selected });
 
         // Selected state updates automatically on click
         selected.get(); // Get current selection
@@ -209,28 +209,28 @@ export function SidebarPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Features"),
-      Text2("Key features of the Sidebar2 component:"),
+      Text("Key features of the Sidebar component:"),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "small" },
-        Text2(
-          Text2({ weight: "heavy" }, "• Reactive State:"),
+        Text(
+          Text({ weight: "heavy" }, "• Reactive State:"),
           " Automatically syncs with useState objects",
         ),
-        Text2(
-          Text2({ weight: "heavy" }, "• Section Headers:"),
+        Text(
+          Text({ weight: "heavy" }, "• Section Headers:"),
           " Organize items with isHeader: true",
         ),
-        Text2(
-          Text2({ weight: "heavy" }, "• Icon Support:"),
+        Text(
+          Text({ weight: "heavy" }, "• Icon Support:"),
           " Optional icons from the icon registry",
         ),
-        Text2(
-          Text2({ weight: "heavy" }, "• Visual Feedback:"),
+        Text(
+          Text({ weight: "heavy" }, "• Visual Feedback:"),
           " Selected item uses primary variant",
         ),
-        Text2(
-          Text2({ weight: "heavy" }, "• Flexible Props:"),
+        Text(
+          Text({ weight: "heavy" }, "• Flexible Props:"),
           " Supports all standard layout props (padding, bg, etc.)",
         ),
       ),

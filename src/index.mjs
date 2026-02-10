@@ -7,26 +7,26 @@
  */
 
 // Layout
-export { Column, Row, Spacer, Grid2 } from "./core/layout.mjs";
+export { Column, Row, Spacer, Grid } from "./core/layout.mjs";
 
 // Typography
-export { Heading, Text2 } from "./core/typography.mjs";
+export { Heading, Text } from "./core/typography.mjs";
 
 // Media
-export { Media, Icon2, Spinner, Avatar } from "./core/media.mjs";
+export { Media, Icon, Spinner, Avatar } from "./core/media.mjs";
 
 // Buttons
-export { Button2, LinkButton } from "./core/buttons.mjs";
+export { Button, LinkButton } from "./core/buttons.mjs";
 
 // Inputs
-export { TextInput, Select, CheckBox2 } from "./core/inputs.mjs";
+export { TextInput, Select, CheckBox } from "./core/inputs.mjs";
 
 // Data Display
-export { Table2 } from "./core/table.mjs";
-export { Code2 } from "./core/code.mjs";
+export { Table } from "./core/table.mjs";
+export { Code } from "./core/code.mjs";
 
 // Navigation
-export { Sidebar2 } from "./core/sidebar.mjs";
+export { Sidebar } from "./core/sidebar.mjs";
 export { Menu } from "./core/menu.mjs";
 
 // Feedback

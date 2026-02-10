@@ -1,7 +1,7 @@
 import Bunnix, { useState } from "@bunnix/core";
-import { Heading, Text2 } from "../../../src/core/typography.mjs";
+import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Spacer } from "../../../src/core/layout.mjs";
-import { TextInput, Select, CheckBox2 } from "../../../src/core/inputs.mjs";
+import { TextInput, Select, CheckBox } from "../../../src/core/inputs.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function InputsPage() {
@@ -32,14 +32,14 @@ export function InputsPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "TextInput"),
-      Text2("Single-line text input with optional placeholder and state binding."),
+      Text("Single-line text input with optional placeholder and state binding."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
         TextInput({ value: textValue, placeholder: "Enter text..." }),
         TextInput({ value: textValue, label: "Name" }),
         TextInput({ value: textValue, type: "email", placeholder: "email@example.com" }),
-        Text2({ color: "secondary" }, `Current value: "${textValue.get()}"`),
+        Text({ color: "secondary" }, `Current value: "${textValue.get()}"`),
       ),
     ),
     
@@ -74,7 +74,7 @@ export function InputsPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Select"),
-      Text2("Dropdown select input with mapped options and state binding."),
+      Text("Dropdown select input with mapped options and state binding."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
@@ -95,33 +95,33 @@ export function InputsPage() {
             { key: "option3", content: "Option 3" },
           ],
         }),
-        Text2({ color: "secondary" }, `Selected: ${selectValue.get()}`),
+        Text({ color: "secondary" }, `Selected: ${selectValue.get()}`),
       ),
     ),
     
     Spacer({ minHeight: 16 }),
     
-    // CheckBox2 Component
+    // CheckBox Component
     ComponentShowcase(
       {
         code: `
-        import { CheckBox2 } from "@bunnix/components";
+        import { CheckBox } from "@bunnix/components";
         import { useState } from "@bunnix/core";
 
         const checked = useState(false);
 
-        CheckBox2({ checked });
-        CheckBox2({ checked, label: "Accept terms" });
+        CheckBox({ checked });
+        CheckBox({ checked, label: "Accept terms" });
         `,
       },
-      Heading({ h3: true, color: "secondary" }, "CheckBox2"),
-      Text2("Simple checkbox input with optional label and state binding."),
+      Heading({ h3: true, color: "secondary" }, "CheckBox"),
+      Text("Simple checkbox input with optional label and state binding."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
-        CheckBox2({ checked: checkboxValue }),
-        CheckBox2({ checked: checkboxValue, label: "Accept terms" }),
-        Text2({ color: "secondary" }, `Checked: ${checkboxValue.get()}`),
+        CheckBox({ checked: checkboxValue }),
+        CheckBox({ checked: checkboxValue, label: "Accept terms" }),
+        Text({ color: "secondary" }, `Checked: ${checkboxValue.get()}`),
       ),
     ),
   );

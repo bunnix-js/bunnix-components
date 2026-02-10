@@ -1,6 +1,6 @@
 import Bunnix, { Show, useState } from "@bunnix/core";
-import { Column, Grid2 } from "../../src/core/layout.mjs";
-import { Sidebar2 } from "../../src/core/sidebar.mjs";
+import { Column, Grid } from "../../src/core/layout.mjs";
+import { Sidebar } from "../../src/core/sidebar.mjs";
 import { LayoutPage } from "./pages/layout.mjs";
 import { TypographyPage } from "./pages/typography.mjs";
 import { MediaPage } from "./pages/media.mjs";
@@ -37,11 +37,11 @@ const sidebarItems = [
 export function App() {
   const selectedSidebarKey = useState("home");
 
-  return Grid2(
+  return Grid(
     {
       columns: [{ size: 240 }, { size: "auto" }],
     },
-    Sidebar2({ items: sidebarItems, selected: selectedSidebarKey }),
+    Sidebar({ items: sidebarItems, selected: selectedSidebarKey }),
     // Contents
     Column(
       { padding: "large" },

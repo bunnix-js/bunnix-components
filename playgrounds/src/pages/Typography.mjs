@@ -1,5 +1,5 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text2 } from "../../../src/core/typography.mjs";
+import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Spacer } from "../../../src/core/layout.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
@@ -27,7 +27,7 @@ export function TypographyPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Heading"),
-      Text2("Heading component for displaying text with semantic heading levels (h1-h6) and customizable styles."),
+      Text("Heading component for displaying text with semantic heading levels (h1-h6) and customizable styles."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "small" },
@@ -42,28 +42,28 @@ export function TypographyPage() {
     
     Spacer({ minHeight: 16 }),
     
-    // Text2 Component
+    // Text Component
     ComponentShowcase(
       {
         code: `
-        import { Text2 } from "@bunnix/components";
+        import { Text } from "@bunnix/components";
 
-        Text2("Default text");
-        Text2({ color: "secondary" }, "Secondary color");
-        Text2({ weight: "heavy" }, "Heavy weight");
-        Text2({ size: "large" }, "Large text");
+        Text("Default text");
+        Text({ color: "secondary" }, "Secondary color");
+        Text({ weight: "heavy" }, "Heavy weight");
+        Text({ size: "large" }, "Large text");
         `,
       },
-      Heading({ h3: true, color: "secondary" }, "Text2"),
-      Text2("Simple text wrapper component using span element with style extraction support."),
+      Heading({ h3: true, color: "secondary" }, "Text"),
+      Text("Simple text wrapper component using span element with style extraction support."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "small" },
-        Text2("Default text"),
-        Text2({ color: "secondary" }, "Secondary color text"),
-        Text2({ weight: "heavy" }, "Heavy weight text"),
-        Text2({ color: "secondary", weight: "heavy" }, "Heavy secondary text"),
-        Text2({ size: "large" }, "Large text"),
+        Text("Default text"),
+        Text({ color: "secondary" }, "Secondary color text"),
+        Text({ weight: "heavy" }, "Heavy weight text"),
+        Text({ color: "secondary", weight: "heavy" }, "Heavy secondary text"),
+        Text({ size: "large" }, "Large text"),
       ),
     ),
   );

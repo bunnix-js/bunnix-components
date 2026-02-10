@@ -4,7 +4,7 @@
  * Sidebar navigation component with items and selection state.
  *
  * Components:
- * - Sidebar2: Sidebar navigation with headers and clickable items
+ * - Sidebar: Sidebar navigation with headers and clickable items
  *
  * Features:
  * - State binding for items and selected key
@@ -15,11 +15,11 @@
 import Bunnix, { ForEach, useState, Show } from "@bunnix/core";
 import { withNormalizedArgs, withExtractedStyles, isStateLike } from "./utils.mjs";
 import { Column, Row } from "./layout.mjs";
-import { Button2 } from "./buttons.mjs";
-import { Icon2 } from "./media.mjs";
+import { Button } from "./buttons.mjs";
+import { Icon } from "./media.mjs";
 import { Heading } from "./typography.mjs";
 
-const Sidebar2Core = (props, ...children) => {
+const SidebarCore = (props, ...children) => {
   // Resolve items (state or raw value)
   let itemsValue = props.items?.get && props.items?.set
     ? props.items
@@ -42,14 +42,14 @@ const Sidebar2Core = (props, ...children) => {
             item.text,
           )
         : Show(selectedValue, (selected) =>
-            Button2(
+            Button(
               {
                 variant: selected === item.key ? "primary" : "tertiary",
                 click: () => selectedValue.set(item.key),
               },
               Row(
                 { fillWidth: true, alignItems: "center" },
-                item.icon && Icon2({
+                item.icon && Icon({
                   size: 20,
                   name: item.icon,
                   ...(selected !== item.key && { color: "secondary" })
@@ -62,8 +62,29 @@ const Sidebar2Core = (props, ...children) => {
   );
 };
 
-export const Sidebar2 = withNormalizedArgs((props, ...children) =>
+/**
+ * Sidebar navigation component with item selection state.
+ * 
+ * @param {Object} props - Component props
+ * @param {Array<{key: string, text: string, icon?: string, isHeader?: boolean}>|*} props.items - Navigation items array or state object containing items
+ * @param {string|*} props.selected - Currently selected item key or state object for selection
+ * @param {string} [props.padding="regular"] - Padding size: "small" | "regular" | "large"
+ * @param {string} [props.class] - Additional CSS classes
+ * @param {...*} children - Child elements
+ * @returns {*} Sidebar component
+ * 
+ * @example
+ * const selected = useState("home");
+ * Sidebar({
+ *   items: [
+ *     { key: "home", text: "Home", icon: "home" },
+ *     { key: "settings", text: "Settings", icon: "settings", isHeader: true }
+ *   ],
+ *   selected: selected
+ * })
+ */
+export const Sidebar = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
-    Sidebar2Core(finalProps, ...children),
+    SidebarCore(finalProps, ...children),
   )({ padding: "regular", ...props }, ...children),
 );

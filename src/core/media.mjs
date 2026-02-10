@@ -5,7 +5,7 @@
  *
  * Components:
  * - Media: Generic media component that renders images or inline SVG
- * - Icon2: Icon component using the icon registry
+ * - Icon: Icon component using the icon registry
  * - Spinner: Animated loading spinner with customizable size
  * - Avatar: User avatar with support for images or letter initials
  *
@@ -93,24 +93,69 @@ const AvatarCore = (props, ...children) => {
   );
 };
 
+/**
+ * Generic media component for images and inline SVG.
+ * 
+ * @param {Object} props - Component props
+ * @param {string} [props.src] - Image source URL (renders as img element)
+ * @param {string} [props.svg] - Inline SVG content (renders as span with innerHTML)
+ * @param {number} [props.size] - Size in pixels (sets both width and height)
+ * @param {number} [props.width] - Width in pixels
+ * @param {number} [props.height] - Height in pixels
+ * @param {string} [props.class] - Additional CSS classes
+ * @param {...*} children - Child elements
+ * @returns {*} Media component
+ */
 export const Media = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     MediaCore(finalProps, ...children),
   )(props, ...children),
 );
 
-export const Icon2 = withNormalizedArgs((props, ...children) =>
+/**
+ * Icon component using the icon registry.
+ * 
+ * @param {Object} props - Component props
+ * @param {string} props.name - Icon name from the icon registry
+ * @param {number} [props.size=22] - Icon size in pixels
+ * @param {string} [props.color] - Icon color (CSS value)
+ * @param {string} [props.class] - Additional CSS classes
+ * @param {...*} children - Child elements
+ * @returns {*} Icon component
+ */
+export const Icon = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     IconCore(finalProps, ...children),
   )({ size: 22, ...props }, ...children),
 );
 
+/**
+ * Animated loading spinner component.
+ * 
+ * @param {Object} props - Component props
+ * @param {number} [props.size=22] - Spinner size in pixels
+ * @param {string} [props.color] - Spinner color (CSS value, defaults to currentColor)
+ * @param {string} [props.class] - Additional CSS classes
+ * @param {...*} children - Child elements
+ * @returns {*} Spinner component
+ */
 export const Spinner = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     SpinnerCore(finalProps, ...children),
   )({ size: 22, ...props }, ...children),
 );
 
+/**
+ * User avatar component with image or letter initial support.
+ * 
+ * @param {Object} props - Component props
+ * @param {string} [props.src] - Avatar image source URL
+ * @param {string} [props.letter] - Letter initial to display when no image provided
+ * @param {number} [props.size=32] - Avatar size in pixels
+ * @param {string} [props.class] - Additional CSS classes
+ * @param {...*} children - Child elements
+ * @returns {*} Avatar component
+ */
 export const Avatar = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     AvatarCore(finalProps, ...children),
