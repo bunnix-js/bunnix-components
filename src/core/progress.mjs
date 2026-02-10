@@ -9,7 +9,7 @@
  * Features:
  * - Automatic style extraction (width, height, etc.)
  * - Flexible props normalization (supports both props object and direct children)
- * - Color tinting using background color tokens
+ * - Color tinting using foreground color tokens
  * - Percentage-based progress value (0-100)
  */
 import Bunnix from "@bunnix/core";
@@ -24,7 +24,7 @@ const { div } = Bunnix;
  * @param {Object} props - Component props
  * @param {number} [props.value=0] - Progress value (0-100)
  * @param {string} [props.color="primary"] - Bar color variant matching foreground token family
- * Semantic options include: "success" | "warning" | "danger" | "error" | "link"
+ *   Semantic options include: "success" | "warning" | "danger" | "error" | "link"
  * @param {number} [props.height=8] - Bar height in pixels
  * @param {number} [props.width] - Bar width in pixels
  * @param {boolean} [props.fillWidth=true] - Expand to fill container width

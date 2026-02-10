@@ -1,8 +1,22 @@
+/**
+ * Button Components (Next-Gen Core)
+ *
+ * Core button primitives with variant classes and normalized props.
+ *
+ * Components:
+ * - Button: Native button element with semantic variants
+ * - LinkButton: Native button styled as hyperlink/action text
+ *
+ * Notes:
+ * - Button passes `disabled` through as provided (plain boolean or state-like value).
+ * - LinkButton resolves disabled state for interaction guards and native `disabled` attribute.
+ */
 import Bunnix from "@bunnix/core";
 import { withNormalizedArgs, withExtractedStyles, isStateLike } from "./utils.mjs";
 
 const { button } = Bunnix;
 
+/** Native button variant component core logic. */
 const ButtonCore = (props, ...children) => {
   let outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
   let paddingClass = (!props.padding) ? "padding-y-sm padding-x-md" : "padding-y-sm";
@@ -27,6 +41,7 @@ const ButtonCore = (props, ...children) => {
   }, ...children);
 };
 
+/** Native hyperlink-styled button component core logic. */
 const LinkButtonCore = (props, ...children) => {
   let outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
   let variantClass = props.variant || "";

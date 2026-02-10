@@ -12,16 +12,16 @@ This document is the live operating guide for language models and agents working
 
 ```
 src/
-  components/     # package components (public API)
-  styles/         # design system CSS
+  core/           # public core primitives (layout, inputs, buttons, etc.)
   icons/          # svg assets referenced by CSS
   utils/          # shared utilities (maskUtils, sizeUtils, etc.)
   index.mjs       # package JS exports
-  styles.css      # CSS entry (imports styles/main.css)
+  styles.css      # package CSS entry
 @types/
   index.d.ts      # package typings
 playgrounds/
-  src/            # showcase app (imports @bunnix/components)
+  src/            # active showcase app (imports @bunnix/components)
+  src_old/        # archived showcase pages
 ```
 
 ## Package Contract
@@ -60,6 +60,13 @@ playgrounds/
 - `InputField` supports mask prop for formatted input (date, phone, currency, CPF, credit card, etc.).
 - All input components use the same wrapper structure: `column-container no-margin shrink-0 gap-0`.
 
+### Core Buttons
+
+- `Button` and `LinkButton` render native `<button>` elements.
+- Always default `type="button"` unless explicitly provided.
+- `Button` passes `disabled` through as received (plain or state-like value).
+- `LinkButton` resolves disabled state for click guards and native `disabled` attribute.
+
 ### State handling
 
 - Components support both plain values and Bunnix reactive state objects (`useState`).
@@ -70,6 +77,12 @@ playgrounds/
   - Update state on user interaction with `value.set(newValue)`
 - Components with state support: `InputField`, `DatePicker`
 - `InputField` with currency/decimal masks: emits numeric values (e.g., "404.25") not formatted strings (e.g., "$ 404,25").
+
+### ProgressBar
+
+- `ProgressBar` supports plain numeric values and state-like values.
+- Supported color variants include token-style (`primary`, `primary-dimmed`, `secondary`, `tertiary`) and semantic (`success`, `warning`, `danger`, `error`, `link`).
+- `error` maps to `danger`.
 
 ## Design System CSS
 
