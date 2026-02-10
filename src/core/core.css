@@ -6,6 +6,7 @@
 @import "./dialog.css";
 @import "./media.css";
 @import "./input.css";
+@import "./menu.css";
 
 :root {
   color-scheme: light dark;

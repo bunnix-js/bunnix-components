@@ -13,6 +13,7 @@ import { GridPage } from "./pages/grid.mjs";
 import { IconRegistryPage } from "./pages/icon-registry.mjs";
 import { HomePage } from "./pages/home.mjs";
 import { SidebarPage } from "./pages/sidebar.mjs";
+import { MenuPage } from "./pages/menu.mjs";
 
 const sidebarItems = [
   { key: "home", text: "Home", icon: "home" },
@@ -26,6 +27,7 @@ const sidebarItems = [
   { key: "header-components", text: "Components", isHeader: true },
   { key: "buttons", text: "Buttons", icon: "button" },
   { key: "sidebar", text: "Sidebar", icon: "columns-layout" },
+  { key: "menu", text: "Menu", icon: "more-vertical" },
   { key: "media", text: "Media", icon: "image" },
   { key: "inputs", text: "Inputs", icon: "edit" },
   { key: "table", text: "Table", icon: "table" },
@@ -52,6 +54,7 @@ export function App() {
         if (item === "icon-registry") return IconRegistryPage();
         if (item === "buttons") return ButtonsPage();
         if (item === "sidebar") return SidebarPage();
+        if (item === "menu") return MenuPage();
         if (item === "media") return MediaPage();
         if (item === "inputs") return InputsPage();
         if (item === "table") return TablePage();

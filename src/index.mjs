@@ -46,3 +46,4 @@ export { Button2, LinkButton } from "./core/buttons.mjs";
 export { Table2 } from "./core/table.mjs";
 export { TextInput, Select, CheckBox2 } from "./core/inputs.mjs";
 export { useDialog } from "./core/dialog.mjs";
+export { Menu } from "./core/menu.mjs";
