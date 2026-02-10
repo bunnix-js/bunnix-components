@@ -9,13 +9,13 @@
 
 .table thead td,
 .table th {
-  font-weight: var(--font-weight-heavy);
-  padding: var(--padding-sm) var(--padding-md);
+  font-weight: var(--font-weight-heavier);
+  padding: calc(var(--padding-md) * 0.75) var(--padding-md);
   border-bottom: 1px solid var(--color-border-primary);
 }
 
 .table td {
-  padding: var(--padding-sm) var(--padding-md);
+  padding: calc(var(--padding-md) * 0.5) var(--padding-md);
   border-bottom: 1px solid var(--color-border-primary);
 }
 

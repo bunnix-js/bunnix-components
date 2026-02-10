@@ -7,9 +7,6 @@
 
 .menu-items {
   position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 4px;
   background-color: var(--color-bg-primary);
   border: 1px solid var(--color-border-primary);
   border-radius: var(--radius-md);
@@ -17,6 +14,31 @@
   z-index: 1000;
   overflow: hidden;
   padding: 4px;
+}
+
+/* Anchor positions */
+.menu-items--bottomLeft {
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+}
+
+.menu-items--bottomRight {
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+}
+
+.menu-items--topLeft {
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 4px;
+}
+
+.menu-items--topRight {
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 4px;
 }
 
 .menu-divider {

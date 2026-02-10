@@ -8,6 +8,7 @@
 @import "./input.css";
 @import "./menu.css";
 @import "./progress.css";
+@import "./core-mobile.css";
 
 :root {
   color-scheme: light dark;
@@ -397,6 +398,27 @@ body {
   flex-shrink: 0;
 }
 
+/* Layout positioning */
+.sticky-top {
+  position: sticky;
+  top: 0;
+}
+
+.sticky-bottom {
+  position: sticky;
+  bottom: 0;
+}
+
+.fixed-top {
+  position: fixed;
+  top: 0;
+}
+
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+}
+
 /* Spacing: padding */
 .padding-none,
 [padding="none"] {
@@ -610,6 +632,10 @@ body {
 }
 
 /* Effects */
+.drop-shadow {
+  filter: drop-shadow(0px 1px 2px #00000033);
+}
+
 @media (prefers-color-scheme: dark) {
   .dark-color-inverted,
   [dark-color="inverted"],

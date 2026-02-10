@@ -32,7 +32,7 @@ const TableCore = withNormalizedArgs((props, ...children) => {
         headers.map((h) => {
           if (!h.key) return td("");
           if (!(h.key in r)) return td("");
-          return td(r[h.key]);
+          return td({ "data-label": h.content }, r[h.key]);
         }),
       ),
     );
@@ -52,7 +52,7 @@ const TableCore = withNormalizedArgs((props, ...children) => {
 // Apply default Table props at export
 /**
  * Data table component with column headers and row rendering.
- * 
+ *
  * @param {Object} props - Component props
  * @param {Array<{content: *, key: string, size?: number}>} props.headers - Column definitions with content, key for data mapping, and optional size
  * @param {Array<Object>} props.rows - Array of data objects to render as rows (keys should match header keys)
@@ -60,7 +60,7 @@ const TableCore = withNormalizedArgs((props, ...children) => {
  * @param {string} [props.class] - Additional CSS classes
  * @param {...*} children - Child elements
  * @returns {*} Table component
- * 
+ *
  * @example
  * Table({
  *   headers: [

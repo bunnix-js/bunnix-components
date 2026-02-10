@@ -34,8 +34,12 @@ const MenuCore = (props, ...children) => {
   // Resolve trigger
   let trigger = props.trigger || "Menu";
   
+  // Resolve anchor position
+  let anchor = props.anchor || "bottomLeft";
+  
   delete props.items;
   delete props.trigger;
+  delete props.anchor;
   
   // Click outside handler
   useEffect(() => {
@@ -79,7 +83,7 @@ const MenuCore = (props, ...children) => {
     // Menu
     Show(isOpen, (open) => 
       open && div(
-        { class: "menu-items" },
+        { class: `menu-items menu-items--${anchor}` },
         Column(
           { gap: 0 },
           ...items.map((item) => {
@@ -117,6 +121,7 @@ const MenuCore = (props, ...children) => {
  * @param {Function} [props.items[].action] - Optional action to run on click
  * @param {boolean} [props.items[].divider] - If true, renders a divider
  * @param {*} [props.trigger] - Trigger element or function that receives {isOpen, toggle}
+ * @param {string} [props.anchor="bottomLeft"] - Menu anchor position: "topLeft" | "topRight" | "bottomLeft" | "bottomRight"
  * @param {string} [props.class] - Additional CSS classes
  * @param {...*} children - Children elements
  * @returns {*} Menu component

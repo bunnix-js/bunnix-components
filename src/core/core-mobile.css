@@ -1,0 +1,62 @@
+@media (max-width: 720px) {
+  :root {
+    --font-size-xlarge: 20px;
+    --font-size-large: 17px;
+    --font-size-default: 15px;
+    --font-size-small: 13px;
+    --font-size-xmall: 11px;
+
+    --padding-sm: 10px;
+    --padding-md: 12px;
+    --padding-lg: 16px;
+  }
+
+  .grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tbody tr {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--color-border-primary);
+  }
+
+  .table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .table tbody td {
+    display: grid;
+    grid-template-columns: minmax(0.1fr, 0.3fr) 0.5fr;
+    border-bottom: none;
+    padding-top: var(--padding-sm);
+    padding-bottom: 0;
+    row-gap: 0;
+    font-size: var(--font-size-large);
+  }
+
+  .table tbody td:last-child {
+    padding-bottom: var(--padding-sm);
+  }
+
+  .table tbody td[data-label]::before {
+    content: attr(data-label) ": ";
+    font-weight: var(--font-weight-heavier);
+    font-size: var(--font-size-default);
+    color: var(--color-fg-tertiary);
+  }
+
+  .link-button {
+    font-size: var(--font-size-large) !important;
+  }
+
+  .checkbox {
+    width: 28px;
+    height: 28px;
+  }
+}
