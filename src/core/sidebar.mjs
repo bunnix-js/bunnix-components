@@ -12,7 +12,7 @@
  * - Headers support for grouping items
  * - Icon support for items
  */
-import Bunnix, { ForEach, useState } from "@bunnix/core";
+import Bunnix, { ForEach, useState, Show } from "@bunnix/core";
 import { withNormalizedArgs, withExtractedStyles, isStateLike } from "./utils.mjs";
 import { Column, Row } from "./layout.mjs";
 import { Button2 } from "./buttons.mjs";
@@ -41,19 +41,21 @@ const Sidebar2Core = (props, ...children) => {
             { h4: true, color: "tertiary", textSize: "1rem" },
             item.text,
           )
-        : Button2(
-            {
-              variant: selectedValue.get() === item.key ? "primary" : "tertiary",
-              click: () => selectedValue.set(item.key),
-            },
-            Row(
-              { fillWidth: true, alignItems: "center" },
-              item.icon && Icon2({ 
-                name: item.icon, 
-                ...(selectedValue.get() !== item.key && { color: "secondary" })
-              }),
-              Row(item.text),
-            ),
+        : Show(selectedValue, (selected) => 
+            Button2(
+              {
+                variant: selected === item.key ? "primary" : "tertiary",
+                click: () => selectedValue.set(item.key),
+              },
+              Row(
+                { fillWidth: true, alignItems: "center" },
+                item.icon && Icon2({ 
+                  name: item.icon, 
+                  ...(selected !== item.key && { color: "secondary" })
+                }),
+                Row(item.text),
+              ),
+            )
           ),
     ),
   );

@@ -11,7 +11,7 @@ import { ButtonsPage } from "./pages/buttons.mjs";
 import { ColorsPage } from "./pages/colors.mjs";
 import { GridPage } from "./pages/grid.mjs";
 import { IconRegistryPage } from "./pages/icon-registry.mjs";
-import { Heading } from "../../src/core/typography.mjs";
+import { HomePage } from "./pages/home.mjs";
 
 const sidebarItems = [
   { key: "home", text: "Home", icon: "home" },
@@ -42,6 +42,7 @@ export function App() {
     Column(
       { padding: "large" },
       Show(selectedSidebarKey, (item) => {
+        if (item === "home") return HomePage();
         if (item === "colors") return ColorsPage();
         if (item === "layout") return LayoutPage();
         if (item === "grid") return GridPage();
@@ -52,7 +53,6 @@ export function App() {
         if (item === "inputs") return InputsPage();
         if (item === "table") return TablePage();
         if (item === "dialog") return DialogPage();
-        if (item === "home") return Heading({ h2: true }, "Bunnix Components");
       }),
     ),
   );

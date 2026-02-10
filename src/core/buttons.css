@@ -23,6 +23,7 @@
 .button.primary {
   background-color: var(--color-primary);
   color: var(--color-primary-inverted);
+  border: 1px solid transparent;
 }
 
 .button.primary:hover:not(:disabled) {
