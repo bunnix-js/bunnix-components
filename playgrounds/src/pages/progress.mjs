@@ -7,10 +7,9 @@ export function ProgressPage() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      animatedProgress.set((prev) => {
-        const next = prev + 1;
-        return next > 100 ? 0 : next;
-      });
+      const prev = Number(animatedProgress.get?.() ?? 0);
+      const next = prev + 1;
+      animatedProgress.set(next > 100 ? 0 : next);
     }, 50);
 
     return () => clearInterval(interval);
@@ -57,23 +56,55 @@ export function ProgressPage() {
       ),
     }),
 
-    // Color Variants
+    // Semantic Colors
     ComponentShowcase({
-      title: "Color Variants",
-      description: "Using background color tokens for different states",
+      title: "Semantic Colors",
+      description: "Semantic colors for success, warning, danger, and link states.",
       code: `Column(
   { gap: 16 },
-  ProgressBar({ value: 70, color: "primary" }),
-  ProgressBar({ value: 70, color: "secondary" }),
-  ProgressBar({ value: 70, color: "tertiary" }),
-  ProgressBar({ value: 70, color: "danger" }),
+  Column(
+    { gap: 4 },
+    Text("Success: Operation completed"),
+    ProgressBar({ value: 80, color: "success" }),
+  ),
+  Column(
+    { gap: 4 },
+    Text("Warning: Please review"),
+    ProgressBar({ value: 55, color: "warning" }),
+  ),
+  Column(
+    { gap: 4 },
+    Text("Error: Something went wrong"),
+    ProgressBar({ value: 35, color: "error" }),
+  ),
+  Column(
+    { gap: 4 },
+    Text("Link: Click here"),
+    ProgressBar({ value: 65, color: "link" }),
+  ),
 )`,
       example: Column(
         { gap: 16 },
-        ProgressBar({ value: 70, color: "primary" }),
-        ProgressBar({ value: 70, color: "secondary" }),
-        ProgressBar({ value: 70, color: "tertiary" }),
-        ProgressBar({ value: 70, color: "danger" }),
+        Column(
+          { gap: 4 },
+          Text("Success: Operation completed"),
+          ProgressBar({ value: 80, color: "success" }),
+        ),
+        Column(
+          { gap: 4 },
+          Text("Warning: Please review"),
+          ProgressBar({ value: 55, color: "warning" }),
+        ),
+        Column(
+          { gap: 4 },
+          Text("Error: Something went wrong"),
+          ProgressBar({ value: 35, color: "error" }),
+        ),
+        Column(
+          { gap: 4 },
+          Text("Link: Click here"),
+          ProgressBar({ value: 65, color: "link" }),
+        ),
       ),
     }),
 
@@ -105,10 +136,9 @@ export function ProgressPage() {
 
 useEffect(() => {
   const interval = setInterval(() => {
-    progress.set((prev) => {
-      const next = prev + 1;
-      return next > 100 ? 0 : next;
-    });
+    const prev = Number(progress.get?.() ?? 0);
+    const next = prev + 1;
+    progress.set(next > 100 ? 0 : next);
   }, 50);
 
   return () => clearInterval(interval);

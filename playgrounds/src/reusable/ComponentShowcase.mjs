@@ -53,6 +53,7 @@ export const ComponentShowcase = (props, ...children) => {
         : [
             Heading({ h3: true, color: "secondary" }, props.title),
             props.description,
+            props.example,
           ]
     ),
     Code(
