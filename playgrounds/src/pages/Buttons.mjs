@@ -1,78 +1,130 @@
 import Bunnix from "@bunnix/core";
-import { Icon, PageHeader, PageSection, Container } from "@bunnix/components";
-const { div, h5, p, span, hr, button } = Bunnix;
+import { Heading, Text2 } from "../../../src/core/typography.mjs";
+import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
+import { Button2, LinkButton } from "../../../src/core/buttons.mjs";
+import { Icon2 } from "../../../src/core/media.mjs";
+import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
-export default function ButtonsPage() {
-  const headerOffset = "6rem";
-
-  return Container({ type: "page", direction: "column" }, [
-    PageHeader({ 
-      title: "Buttons", 
-      description: "Interactive elements for user actions." 
-    }),
+export function ButtonsPage() {
+  return Column(
+    Heading({ h2: true }, "Button Components"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Core button components for user actions",
+    ),
+    Spacer({ minHeight: 24 }),
     
-    div({ class: "column-container gap-md" }, [
-      PageSection({ title: "Default Variants", stickyOffset: headerOffset }, [
-        div({ class: "grid-flow gap-md items-center" }, [
-          button({ class: "btn" }, "Primary Button"),
-          button({ class: "btn-flat" }, "Flat Button"),
-          button({ class: "btn-outline" }, "Outline Button"),
-          button({ class: "btn-destructive" }, "Destructive"),
-        ])
-      ]),
+    // Button2 Component
+    ComponentShowcase(
+      {
+        code: `
+        import { Button2 } from "@bunnix/components";
 
-      PageSection({ title: "Sizes", stickyOffset: headerOffset }, [
-        div({ class: "grid-flow gap-md items-center" }, [
-          button({ class: "btn" }, "Default size"),
-          button({ class: "btn btn-lg" }, "Large Button"),
-          button({ class: "btn btn-xl" }, "Extra Large"),
-        ])
-      ]),
+        // Default/Primary variant
+        Button2("Primary Button");
 
-      PageSection({ title: "Buttons with Icons", stickyOffset: headerOffset }, [
-        div({ class: "grid-flow gap-md items-center" }, [
-          button({ class: "btn" }, [
-            Icon({ name: "add", fill: "white" }),
-            "Create New"
-          ]),
-          button({ class: "btn-outline" }, [
-            Icon({ name: "gear", fill: "base" }),
-            "Settings"
-          ]),
-          button({ class: "btn-flat" }, [
-            Icon({ name: "logout", fill: "base" }),
-            "Log Out"
-          ]),
-          button({ class: "btn btn-lg" }, [
-            Icon({ name: "download", fill: "white", size: "large" }),
-            "Matching Tint"
-          ]),
-        ])
-      ]),
+        // Secondary variant
+        Button2({ variant: "secondary" }, "Secondary");
 
-      PageSection({ title: "Icon-Only Buttons", stickyOffset: headerOffset }, [
-        div({ class: "grid-flow gap-md items-center" }, [
-          button({ class: "btn" }, [
-            Icon({ name: "star", fill: "white" })
-          ]),
-          button({ class: "btn btn-lg" }, [
-            Icon({ name: "pencil", fill: "white", size: "large" })
-          ]),
-          button({ class: "btn btn-xl" }, [
-            Icon({ name: "person", fill: "white", size: "xlarge" })
-          ]),
-          button({ class: "btn-flat" }, [
-            Icon({ name: "close", fill: "base" }),
-          ]),
-        ])
-      ]),
+        // Tertiary variant
+        Button2({ variant: "tertiary" }, "Tertiary");
 
-      PageSection({ title: "States", stickyOffset: headerOffset }, [
-        div({ class: "grid-flow gap-md items-center" }, [
-          button({ class: "btn", disabled: true }, "Disabled Primary"),
-          button({ class: "btn-flat", disabled: true }, "Disabled Flat"),
-        ])
-      ]),
-    ])
-  ]);
+        // Danger variant
+        Button2({ variant: "danger" }, "Danger");
+
+        // With icon
+        Button2(
+          Icon2({ name: "check", size: 16 }),
+          "With Icon"
+        );
+
+        // Disabled
+        Button2({ disabled: true }, "Disabled");
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Button2"),
+      Text2("Standard button component with multiple variants and states."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        Row(
+          { gap: "small" },
+          Button2("Primary"),
+          Button2({ variant: "secondary" }, "Secondary"),
+          Button2({ variant: "tertiary" }, "Tertiary"),
+          Button2({ variant: "danger" }, "Danger"),
+        ),
+        Row(
+          { gap: "small" },
+          Button2(
+            Icon2({ name: "check", size: 16 }),
+            "With Icon"
+          ),
+          Button2(
+            { variant: "secondary" },
+            Icon2({ name: "star", size: 16 }),
+            "Star"
+          ),
+        ),
+        Row(
+          { gap: "small" },
+          Button2({ disabled: true }, "Disabled Primary"),
+          Button2({ variant: "secondary", disabled: true }, "Disabled Secondary"),
+        ),
+      ),
+    ),
+    
+    Spacer({ minHeight: 16 }),
+    
+    // LinkButton Component
+    ComponentShowcase(
+      {
+        code: `
+        import { LinkButton } from "@bunnix/components";
+
+        // Default/Link variant
+        LinkButton("Link Button");
+
+        // Secondary variant
+        LinkButton({ variant: "secondary" }, "Secondary Link");
+
+        // Tertiary variant
+        LinkButton({ variant: "tertiary" }, "Tertiary Link");
+
+        // Danger variant
+        LinkButton({ variant: "danger" }, "Danger Link");
+
+        // With icon
+        LinkButton(
+          Icon2({ name: "external-link", size: 16 }),
+          "External Link"
+        );
+
+        // Disabled
+        LinkButton({ disabled: true }, "Disabled Link");
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "LinkButton"),
+      Text2("Link-styled button component with underline hover effects."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        Row(
+          { gap: "regular" },
+          LinkButton("Link Button"),
+          LinkButton({ variant: "secondary" }, "Secondary Link"),
+          LinkButton({ variant: "tertiary" }, "Tertiary Link"),
+          LinkButton({ variant: "danger" }, "Danger Link"),
+        ),
+        Row(
+          { gap: "regular" },
+          LinkButton(
+            Icon2({ name: "arrow-right", size: 16 }),
+            "With Icon"
+          ),
+          LinkButton({ disabled: true }, "Disabled Link"),
+        ),
+      ),
+    ),
+  );
 }

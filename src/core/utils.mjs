@@ -34,6 +34,7 @@ export function withExtractedStyles(fn) {
       if (props.color === "success") style.color = "var(--color-success)";
       if (props.color === "warning") style.color = "var(--color-warning)";
       if (props.color === "danger") style.color = "var(--color-danger)";
+      if (props.color === "link") style.color = "var(--color-link)";
       delete finalProps.color;
     }
 
@@ -158,6 +159,16 @@ export function withExtractedStyles(fn) {
       style.marginTop = marginYValue;
       style.marginBottom = marginYValue;
       delete finalProps.marginY;
+    }
+
+    if ("flexGrow" in props) {
+      style.flexGrow = props.flexGrow;
+      delete finalProps.flexGrow;
+    }
+
+    if ("flexShrink" in props) {
+      style.flexShrink = props.flexShrink;
+      delete finalProps.flexShrink;
     }
 
     finalProps.style = style;

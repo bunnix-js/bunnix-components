@@ -70,11 +70,13 @@ const GridCore = (props, ...children) => {
     "row-gap": gap,
   };
 
-  if (layout === "flex") {
+  if (layout === "flow") {
     style = {
       ...style,
+      "display": "flex",
       "flex-wrap": "wrap",
       "flex-direction": "row",
+      "gap": gap
     }
   }
 

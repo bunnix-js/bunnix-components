@@ -5,17 +5,19 @@
  *
  * Components:
  * - Heading: Semantic heading component (h1-h6) with prop-based level selection
+ * - Text2: Simple text wrapper component using span element
  *
  * Features:
  * - Automatic style extraction (width, height, gap, margins, etc.)
  * - Flexible props normalization (supports both props object and direct children)
  * - Semantic HTML heading levels (h1 default, h2-h6 via props)
  * - Usage: Heading({ h2: true }, "Title") renders <h2>Title</h2>
+ * - Usage: Text2("Simple text") or Text2({ color: "secondary" }, "Styled text")
  */
 import Bunnix from "@bunnix/core";
 import { withNormalizedArgs, withExtractedStyles } from "./utils.mjs";
 
-const { h1, h2, h3, h4, h5, h6 } = Bunnix;
+const { h1, h2, h3, h4, h5, h6, span } = Bunnix;
 
 const HeadingCore = withNormalizedArgs((props, ...children) => {
   return withExtractedStyles((finalProps, ...children) => {
@@ -29,8 +31,18 @@ const HeadingCore = withNormalizedArgs((props, ...children) => {
   })(props, ...children);
 });
 
+const Text2Core = (props, ...children) => {
+  return span({ ...props }, ...children);
+};
+
 // Apply default Heading props at export
 export const Heading = (props = {}, ...children) => {
   const propsWithDefaults = { marginY: 0, ...props };
   return HeadingCore(propsWithDefaults, ...children);
 };
+
+export const Text2 = withNormalizedArgs((props, ...children) =>
+  withExtractedStyles((finalProps, ...children) =>
+    Text2Core(finalProps, ...children),
+  )(props, ...children),
+);
