@@ -109,7 +109,7 @@ const TextInputCore = (props, _) => {
     props,
     input({
       ...props,
-      value: rawValue.get(),
+      value: rawValue,
       disabled: props.disabled,
       input: (e) => {
         convertRawValue(e.target.value ?? "");
