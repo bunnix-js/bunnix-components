@@ -128,7 +128,10 @@ const SelectCore = (props, _) => {
     props.value?.get && props.value?.set
       ? props.value
       : useState(props.value ?? "");
-  let options = props.options ?? [];
+  let options =
+    props.options?.get && props.options?.set
+      ? props.options.get()
+      : props.options ?? [];
   let outline = props.outline ?? false;
 
   delete props.options;
