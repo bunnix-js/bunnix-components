@@ -17,7 +17,7 @@ import { withNormalizedArgs, withExtractedStyles, isStateLike } from "./utils.mj
 import { Column, Row } from "./layout.mjs";
 import { Button } from "./buttons.mjs";
 import { Icon } from "./media.mjs";
-import { Heading } from "./typography.mjs";
+import { Heading, Text } from "./typography.mjs";
 
 const SidebarCore = (props, ...children) => {
   // Resolve items (state or raw value)
@@ -54,11 +54,11 @@ const SidebarCore = (props, ...children) => {
               Row(
                 { fillWidth: true, alignItems: "center" },
                 item.icon && Icon({
-                  size: 20,
+                  size: 18,
                   name: item.icon,
                   ...(selected !== item.key && { color: "secondary" })
                 }),
-                Row(item.text),
+                Text({ weight: "heavy" }, item.text),
               ),
             )
           ),
