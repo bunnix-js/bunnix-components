@@ -145,6 +145,19 @@ export interface ProgressBarProps extends LayoutProps {
   color?: "primary" | "primary-dimmed" | "secondary" | "tertiary" | "success" | "warning" | "danger" | "error" | "link" | string;
 }
 
+export interface SidebarItem {
+  key: string;
+  text: string;
+  icon?: string;
+  isHeader?: boolean;
+}
+
+export interface SidebarProps extends LayoutProps {
+  items?: SidebarItem[] | StateLike<SidebarItem[]>;
+  selection?: string | null | StateLike<string | null>;
+  padding?: "small" | "regular" | "large" | string;
+}
+
 export type Component<P = BaseProps> = (props?: P, ...children: BunnixChildren[]) => any;
 
 export const Column: Component<LayoutProps>;
@@ -170,7 +183,7 @@ export const CheckBox: Component<CheckBoxProps>;
 export const Table: Component<TableProps>;
 export const Code: Component<BaseProps & { html?: string; language?: string }>;
 
-export const Sidebar: Component<BaseProps>;
+export const Sidebar: Component<SidebarProps>;
 export const Menu: Component<BaseProps>;
 
 export function useDialog(): {

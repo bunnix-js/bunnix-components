@@ -7,12 +7,12 @@
  * - Sidebar: Sidebar navigation with headers and clickable items
  *
  * Features:
- * - State binding for items and selected key
+ * - State binding for items and selection key
  * - Automatic state resolution (useState object or raw value)
  * - Headers support for grouping items
  * - Icon support for items
  */
-import Bunnix, { ForEach, useState, Show } from "@bunnix/core";
+import Bunnix, { ForEach, useState, Show, Compute } from "@bunnix/core";
 import { withNormalizedArgs, withExtractedStyles, isStateLike } from "./utils.mjs";
 import { Column, Row } from "./layout.mjs";
 import { Button } from "./buttons.mjs";
@@ -25,13 +25,17 @@ const SidebarCore = (props, ...children) => {
     ? props.items
     : useState(props.items ?? []);
 
-  // Resolve selected (state or raw value)
-  let selectedValue = props.selected?.get && props.selected?.set
-    ? props.selected
-    : useState(props.selected ?? "");
+  // Resolve selection (state or raw value)
+  let selectionValue = props.selection?.get && props.selection?.set
+    ? props.selection
+    : useState(props.selection ?? "");
+
+  // Wrap selection in an object so it's always truthy for Show
+  // This allows null selections to render (all items unselected)
+  const selectionWrapper = Compute(selectionValue, (s) => ({ key: s }));
 
   delete props.items;
-  delete props.selected;
+  delete props.selection;
 
   return Column(
     { ...props },
@@ -41,11 +45,11 @@ const SidebarCore = (props, ...children) => {
             { h4: true, color: "tertiary", textSize: "1rem" },
             item.text,
           )
-        : Show(selectedValue, (selected) =>
+        : Show(selectionWrapper, ({ key: selected }) =>
             Button(
               {
                 variant: selected === item.key ? "primary" : "tertiary",
-                click: () => selectedValue.set(item.key),
+                click: () => selectionValue.set(item.key),
               },
               Row(
                 { fillWidth: true, alignItems: "center" },
@@ -64,23 +68,23 @@ const SidebarCore = (props, ...children) => {
 
 /**
  * Sidebar navigation component with item selection state.
- * 
+ *
  * @param {Object} props - Component props
  * @param {Array<{key: string, text: string, icon?: string, isHeader?: boolean}>|*} props.items - Navigation items array or state object containing items
- * @param {string|*} props.selected - Currently selected item key or state object for selection
+ * @param {string|null|*} props.selection - Currently selected item key or state object for selection (supports null for no selection)
  * @param {string} [props.padding="regular"] - Padding size: "small" | "regular" | "large"
  * @param {string} [props.class] - Additional CSS classes
  * @param {...*} children - Child elements
  * @returns {*} Sidebar component
- * 
+ *
  * @example
- * const selected = useState("home");
+ * const selection = useState("home");
  * Sidebar({
  *   items: [
  *     { key: "home", text: "Home", icon: "home" },
  *     { key: "settings", text: "Settings", icon: "settings", isHeader: true }
  *   ],
- *   selected: selected
+ *   selection: selection
  * })
  */
 export const Sidebar = withNormalizedArgs((props, ...children) =>

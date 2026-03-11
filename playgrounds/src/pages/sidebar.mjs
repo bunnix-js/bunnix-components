@@ -8,7 +8,7 @@ const { div } = Bunnix;
 
 export function SidebarPage() {
   // Example 1: Basic sidebar
-  const basicSelected = useState("dashboard");
+  const basicSelection = useState("dashboard");
   const basicItems = [
     { key: "dashboard", text: "Dashboard", icon: "home" },
     { key: "settings", text: "Settings", icon: "settings" },
@@ -16,7 +16,7 @@ export function SidebarPage() {
   ];
 
   // Example 2: Sidebar with headers
-  const groupedSelected = useState("overview");
+  const groupedSelection = useState("overview");
   const groupedItems = [
     { key: "header-main", text: "Main", isHeader: true },
     { key: "overview", text: "Overview", icon: "home" },
@@ -27,7 +27,7 @@ export function SidebarPage() {
   ];
 
   // Example 3: Full navigation sidebar
-  const navSelected = useState("projects");
+  const navSelection = useState("projects");
   const navItems = [
     { key: "header-workspace", text: "Workspace", isHeader: true },
     { key: "projects", text: "Projects", icon: "folder" },
@@ -57,14 +57,14 @@ export function SidebarPage() {
         import { Sidebar } from "@bunnix/components";
         import { useState } from "@bunnix/core";
 
-        const selected = useState("dashboard");
+        const selection = useState("dashboard");
         const items = [
           { key: "dashboard", text: "Dashboard", icon: "home" },
           { key: "settings", text: "Settings", icon: "settings" },
           { key: "profile", text: "Profile", icon: "user" },
         ];
 
-        Sidebar({ items, selected });
+        Sidebar({ items, selection });
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Basic Sidebar"),
@@ -79,13 +79,13 @@ export function SidebarPage() {
             overflow: "hidden",
           },
         },
-        Sidebar({ items: basicItems, selected: basicSelected }),
+        Sidebar({ items: basicItems, selection: basicSelection }),
       ),
       Spacer({ minHeight: 8 }),
       Text(
         { color: "secondary", textSize: "0.875rem" },
         "Selected: ",
-        Text({ weight: "heavy" }, basicSelected.get()),
+        Text({ weight: "heavy" }, basicSelection.get()),
       ),
     ),
 
@@ -98,7 +98,7 @@ export function SidebarPage() {
         import { Sidebar } from "@bunnix/components";
         import { useState } from "@bunnix/core";
 
-        const selected = useState("overview");
+        const selection = useState("overview");
         const items = [
           { key: "header-main", text: "Main", isHeader: true },
           { key: "overview", text: "Overview", icon: "home" },
@@ -108,7 +108,7 @@ export function SidebarPage() {
           { key: "preferences", text: "Preferences", icon: "settings" },
         ];
 
-        Sidebar({ items, selected });
+        Sidebar({ items, selection });
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Sidebar with Headers"),
@@ -123,13 +123,13 @@ export function SidebarPage() {
             overflow: "hidden",
           },
         },
-        Sidebar({ items: groupedItems, selected: groupedSelected }),
+        Sidebar({ items: groupedItems, selection: groupedSelection }),
       ),
       Spacer({ minHeight: 8 }),
       Text(
         { color: "secondary", textSize: "0.875rem" },
         "Selected: ",
-        Text({ weight: "heavy" }, groupedSelected.get()),
+        Text({ weight: "heavy" }, groupedSelection.get()),
       ),
     ),
 
@@ -142,7 +142,7 @@ export function SidebarPage() {
         import { Sidebar } from "@bunnix/components";
         import { useState } from "@bunnix/core";
 
-        const selected = useState("projects");
+        const selection = useState("projects");
         const items = [
           { key: "header-workspace", text: "Workspace", isHeader: true },
           { key: "projects", text: "Projects", icon: "folder" },
@@ -157,7 +157,7 @@ export function SidebarPage() {
           { key: "logout", text: "Logout", icon: "log-out" },
         ];
 
-        Sidebar({ items, selected });
+        Sidebar({ items, selection });
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Full Navigation"),
@@ -172,13 +172,13 @@ export function SidebarPage() {
             overflow: "hidden",
           },
         },
-        Sidebar({ items: navItems, selected: navSelected }),
+        Sidebar({ items: navItems, selection: navSelection }),
       ),
       Spacer({ minHeight: 8 }),
       Text(
         { color: "secondary", textSize: "0.875rem" },
         "Selected: ",
-        Text({ weight: "heavy" }, navSelected.get()),
+        Text({ weight: "heavy" }, navSelection.get()),
       ),
     ),
 
@@ -199,13 +199,13 @@ export function SidebarPage() {
         // State Binding
         // Auto-resolves useState objects or raw values
         const items = useState([...]); // or just [...]
-        const selected = useState("key"); // or just "key"
+        const selection = useState("key"); // or just "key"
 
-        Sidebar({ items, selected });
+        Sidebar({ items, selection });
 
-        // Selected state updates automatically on click
-        selected.get(); // Get current selection
-        selected.set("new-key"); // Programmatically change selection
+        // Selection state updates automatically on click
+        selection.get(); // Get current selection
+        selection.set("new-key"); // Programmatically change selection
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Features"),

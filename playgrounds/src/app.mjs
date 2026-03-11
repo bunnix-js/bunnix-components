@@ -43,7 +43,7 @@ export function App() {
     {
       columns: [{ size: 240 }, { size: "auto" }],
     },
-    Sidebar({ items: sidebarItems, selected: selectedSidebarKey }),
+    Sidebar({ items: sidebarItems, selection: selectedSidebarKey }),
     // Contents
     Column(
       { padding: "large" },
