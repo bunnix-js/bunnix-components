@@ -154,6 +154,7 @@ const SelectCore = (props, _) => {
     select(
       {
         ...props,
+        value: value,
         input: (e) => {
           value.set(e.target.value ?? "");
           props.input && props.input(e);
