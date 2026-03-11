@@ -145,16 +145,25 @@ export interface ProgressBarProps extends LayoutProps {
   color?: "primary" | "primary-dimmed" | "secondary" | "tertiary" | "success" | "warning" | "danger" | "error" | "link" | string;
 }
 
+/** Sidebar navigation item configuration */
 export interface SidebarItem {
+  /** Unique identifier for the sidebar item */
   key: string;
+  /** Display text for the item */
   text: string;
+  /** Optional icon name from the icon registry */
   icon?: string;
+  /** If true, renders as a section header instead of a clickable item */
   isHeader?: boolean;
 }
 
+/** Props for the Sidebar component */
 export interface SidebarProps extends LayoutProps {
+  /** Array of sidebar items or a state object containing items. Supports dynamic updates via StateLike */
   items?: SidebarItem[] | StateLike<SidebarItem[]>;
+  /** Currently selected item key, null for no selection, or a state object. Updates on item click */
   selection?: string | null | StateLike<string | null>;
+  /** Internal padding size. Defaults to "regular" */
   padding?: "small" | "regular" | "large" | string;
 }
 
