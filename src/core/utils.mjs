@@ -3,6 +3,15 @@ export const isStateLike = (value) =>
   typeof value.get === "function" &&
   typeof value.subscribe === "function";
 
+const resolvePadding = (value) => {
+  if (typeof value === "number") return `${value}px`;
+  if (value === "none") return "0";
+  if (value === "sm" || value === "small") return "var(--padding-sm)";
+  if (value === "md" || value === "regular") return "var(--padding-md)";
+  if (value === "lg" || value === "large") return "var(--padding-lg)";
+  return value; // pass-through for custom values (e.g. "8px", "1rem")
+};
+
 export function withNormalizedArgs(fn) {
   return (props = {}, ...children) => {
     const isProps =
@@ -141,6 +150,12 @@ export function withExtractedStyles(fn) {
       delete finalProps.size;
     }
 
+    if ("margin" in props) {
+      style.margin =
+        typeof props.margin === "number" ? `${props.margin}px` : props.margin;
+      delete finalProps.margin;
+    }
+
     if ("marginX" in props) {
       const marginXValue =
         typeof props.marginX === "number"
@@ -191,6 +206,45 @@ export function withExtractedStyles(fn) {
           ? `${props.marginBottom}px`
           : props.marginBottom;
       delete finalProps.marginBottom;
+    }
+
+    if ("padding" in props) {
+      style.padding = resolvePadding(props.padding);
+      delete finalProps.padding;
+    }
+
+    if ("paddingX" in props) {
+      const v = resolvePadding(props.paddingX);
+      style.paddingLeft = v;
+      style.paddingRight = v;
+      delete finalProps.paddingX;
+    }
+
+    if ("paddingY" in props) {
+      const v = resolvePadding(props.paddingY);
+      style.paddingTop = v;
+      style.paddingBottom = v;
+      delete finalProps.paddingY;
+    }
+
+    if ("paddingTop" in props) {
+      style.paddingTop = resolvePadding(props.paddingTop);
+      delete finalProps.paddingTop;
+    }
+
+    if ("paddingBottom" in props) {
+      style.paddingBottom = resolvePadding(props.paddingBottom);
+      delete finalProps.paddingBottom;
+    }
+
+    if ("paddingLeft" in props) {
+      style.paddingLeft = resolvePadding(props.paddingLeft);
+      delete finalProps.paddingLeft;
+    }
+
+    if ("paddingRight" in props) {
+      style.paddingRight = resolvePadding(props.paddingRight);
+      delete finalProps.paddingRight;
     }
 
     if ("top" in props) {

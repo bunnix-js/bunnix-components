@@ -24,8 +24,20 @@ export interface LayoutProps extends BaseProps {
   maxHeight?: number | string;
   fillWidth?: boolean;
   fillHeight?: boolean;
+  margin?: number | string;
   marginX?: number | string;
   marginY?: number | string;
+  marginTop?: number | string;
+  marginBottom?: number | string;
+  marginLeft?: number | string;
+  marginRight?: number | string;
+  padding?: number | string;
+  paddingX?: number | string;
+  paddingY?: number | string;
+  paddingTop?: number | string;
+  paddingBottom?: number | string;
+  paddingLeft?: number | string;
+  paddingRight?: number | string;
 }
 
 export interface GridColumn {
@@ -71,7 +83,7 @@ export interface ButtonProps extends LayoutProps {
   variant?: "primary" | "secondary" | "tertiary" | "danger" | string;
   disabled?: boolean | StateLike<boolean>;
   outline?: boolean;
-  padding?: boolean;
+  padding?: number | string | boolean;
   click?: (event?: any) => void;
 }
 
@@ -163,8 +175,6 @@ export interface SidebarProps extends LayoutProps {
   items?: SidebarItem[] | StateLike<SidebarItem[]>;
   /** Currently selected item key, null for no selection, or a state object. Updates on item click */
   selection?: string | null | StateLike<string | null>;
-  /** Internal padding size. Defaults to "regular" */
-  padding?: "small" | "regular" | "large" | string;
 }
 
 export type Component<P = BaseProps> = (props?: P, ...children: BunnixChildren[]) => any;
