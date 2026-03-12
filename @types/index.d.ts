@@ -159,8 +159,14 @@ export interface ProgressBarProps extends LayoutProps {
 }
 
 export interface OutlineProps extends LayoutProps {
+  /** Always-visible trigger content — accepts any Bunnix node (text, icon, row, etc.) */
   anchor?: BunnixChild;
+  /** Collapsible content shown when expanded — accepts any Bunnix node */
   details?: BunnixChild;
+  /** Whether to render the chevron toggle icon (default: true) */
+  showChevron?: boolean;
+  /** Controlled open/closed state — accepts a static boolean (initial value) or StateLike<boolean> for two-way binding */
+  open?: boolean | StateLike<boolean>;
 }
 
 /** Sidebar navigation item configuration */

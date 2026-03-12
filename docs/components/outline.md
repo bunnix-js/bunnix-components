@@ -25,6 +25,8 @@ Outline({
 
 - `anchor`: `BunnixChild` — Always-visible trigger content (any Bunnix node)
 - `details`: `BunnixChild` — Collapsible content shown when expanded (any Bunnix node)
+- `showChevron`: `boolean` — Whether to render the automatic chevron icon (default: `true`)
+- `open`: `boolean | StateLike<boolean>` — Controlled open/closed state; pass a Bunnix State object for two-way external control
 
 ## Inherited Layout Props:
 
@@ -42,6 +44,8 @@ Outline({
 - **Chevron toggle** — Automatically shows `chevron-down` (closed) or `chevron-up` (open)
 - **Click to toggle** — Clicking anywhere in the anchor row expands/collapses details
 - **Reactive state** — State changes trigger smooth updates
+- **Bindable state** — Pass a Bunnix `useState` object to `open` to control open/closed from outside the component
+- **Optional chevron** — Set `showChevron: false` to suppress the automatic chevron for custom anchor layouts
 
 ## Example: Form Sections
 

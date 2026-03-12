@@ -1,7 +1,8 @@
-import Bunnix from "@bunnix/core";
+import Bunnix, { useState } from "@bunnix/core";
 import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
 import { Icon } from "../../../src/core/media.mjs";
+import { Button } from "../../../src/core/buttons.mjs";
 import { Outline } from "../../../src/core/outline.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
@@ -111,6 +112,86 @@ export function OutlinePage() {
         ),
         details: Column({ gap: "small", paddingTop: "small" },
           Text("Configure your preferences and options here."),
+        ),
+      }),
+    ),
+
+    Spacer({ minHeight: 16 }),
+
+    // Controlled External State
+    (() => {
+      const outlineState = useState(false);
+      return ComponentShowcase(
+        {
+          code: `
+          import { Outline, Text, Column, Button, Row } from "@bunnix/components";
+          import { useState } from "@bunnix/core";
+
+          const outlineState = useState(false);
+
+          Row({ gap: "small", alignItems: "center" },
+            Button({ variant: "secondary", click: () => outlineState.set(true) }, "Expand"),
+            Button({ variant: "secondary", click: () => outlineState.set(false) }, "Collapse"),
+          );
+
+          Outline({
+            open: outlineState,
+            anchor: Text({ weight: "heavy" }, "Externally Controlled"),
+            details: Column({ paddingTop: "small" },
+              Text("This section is controlled by external buttons above."),
+            ),
+          });
+          `,
+        },
+        Heading({ h3: true, color: "secondary" }, "Controlled State"),
+        Text("Bind open/closed state externally — control Outline from outside."),
+        Spacer({ minHeight: 8 }),
+        Row({ gap: "small", alignItems: "center" },
+          Button({ variant: "secondary", click: () => outlineState.set(true) }, "Expand"),
+          Button({ variant: "secondary", click: () => outlineState.set(false) }, "Collapse"),
+        ),
+        Spacer({ minHeight: 8 }),
+        Outline({
+          open: outlineState,
+          anchor: Text({ weight: "heavy" }, "Externally Controlled"),
+          details: Column({ paddingTop: "small" },
+            Text("This section is controlled by external buttons above."),
+          ),
+        }),
+      );
+    })(),
+
+    Spacer({ minHeight: 16 }),
+
+    // Hidden Chevron
+    ComponentShowcase(
+      {
+        code: `
+        import { Outline, Row, Icon, Text, Column } from "@bunnix/components";
+
+        Outline({
+          showChevron: false,
+          anchor: Row({ alignItems: "center", gap: "small" },
+            Icon({ name: "plus-circle", size: 16, color: "secondary" }),
+            Text({ weight: "heavy" }, "Custom Indicator"),
+          ),
+          details: Column({ paddingTop: "small" },
+            Text("No automatic chevron — anchor uses its own icon as indicator."),
+          ),
+        });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Hidden Chevron"),
+      Text("Set showChevron: false to suppress the automatic toggle icon."),
+      Spacer({ minHeight: 8 }),
+      Outline({
+        showChevron: false,
+        anchor: Row({ alignItems: "center", gap: "small" },
+          Icon({ name: "plus-circle", size: 16, color: "secondary" }),
+          Text({ weight: "heavy" }, "Custom Indicator"),
+        ),
+        details: Column({ paddingTop: "small" },
+          Text("No automatic chevron — anchor uses its own icon as indicator."),
         ),
       }),
     ),

@@ -18,11 +18,17 @@ import { Column, Row } from "./layout.mjs";
 import { Icon } from "./media.mjs";
 
 const OutlineCore = (props) => {
-  let { anchor, details } = props;
+  let { anchor, details, showChevron = true } = props;
   delete props.anchor;
   delete props.details;
+  delete props.showChevron;
 
-  const showingDetails = useState(false);
+  // Bindable state: accept external StateLike<boolean> or fallback to internal useState
+  let showingDetails =
+    props.open?.get && props.open?.set
+      ? props.open
+      : useState(props.open ?? false);
+  delete props.open;
 
   const handleToggleDetails = () => {
     showingDetails.set(!showingDetails.get());
@@ -33,10 +39,11 @@ const OutlineCore = (props) => {
     Row(
       { cursor: "pointer", click: handleToggleDetails, fillWidth: true },
       anchor,
-      Show(showingDetails.map((v) => !v), () =>
+      // Only render chevron if showChevron is true
+      showChevron && Show(showingDetails.map((v) => !v), () =>
         Icon({ name: "chevron-down", size: 16, flexShrink: 0 }),
       ),
-      Show(showingDetails, () =>
+      showChevron && Show(showingDetails, () =>
         Icon({ name: "chevron-up", size: 16, flexShrink: 0 }),
       ),
     ),
@@ -53,9 +60,12 @@ const OutlineCore = (props) => {
  * @param {Object} props - Component props (also accepts all LayoutProps: gap, padding, margin, width, etc.)
  * @param {*} props.anchor - Always-visible trigger content (any Bunnix node)
  * @param {*} props.details - Collapsible content shown when expanded (any Bunnix node)
+ * @param {boolean} [props.showChevron=true] - Whether to render the chevron toggle icon
+ * @param {boolean|StateLike<boolean>} [props.open] - Controlled open/closed state; pass a Bunnix State for two-way binding
  * @returns {*} Outline component
  *
  * @example
+ * // Basic usage
  * Outline({
  *   anchor: Row({ alignItems: "center", gap: "small" },
  *     Icon({ name: "doc-text", size: 16 }),
@@ -64,6 +74,23 @@ const OutlineCore = (props) => {
  *   details: Column({ gap: "small", paddingTop: "small" },
  *     Text("Expandable content goes here."),
  *   ),
+ * });
+ *
+ * @example
+ * // With external state control
+ * const outlineState = useState(false);
+ * Outline({
+ *   open: outlineState,
+ *   anchor: Text({ weight: "heavy" }, "Click to expand"),
+ *   details: Text("Controlled from outside"),
+ * });
+ *
+ * @example
+ * // Without chevron
+ * Outline({
+ *   showChevron: false,
+ *   anchor: Text({ weight: "heavy" }, "Custom anchor"),
+ *   details: Text("No automatic chevron"),
  * });
  */
 export const Outline = withNormalizedArgs((props, ...children) =>
