@@ -158,6 +158,11 @@ export interface ProgressBarProps extends LayoutProps {
   color?: "primary" | "primary-dimmed" | "secondary" | "tertiary" | "success" | "warning" | "danger" | "error" | "link" | string;
 }
 
+export interface OutlineProps extends LayoutProps {
+  anchor?: BunnixChild;
+  details?: BunnixChild;
+}
+
 /** Sidebar navigation item configuration */
 export interface SidebarItem {
   /** Unique identifier for the sidebar item */
@@ -205,6 +210,7 @@ export const Code: Component<BaseProps & { html?: string; language?: string }>;
 
 export const Sidebar: Component<SidebarProps>;
 export const Menu: Component<BaseProps>;
+export const Outline: Component<OutlineProps>;
 
 export function useDialog(): {
   Dialog: Component<BaseProps>;

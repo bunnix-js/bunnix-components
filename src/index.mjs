@@ -28,6 +28,7 @@ export { Code } from "./core/code.mjs";
 // Navigation
 export { Sidebar } from "./core/sidebar.mjs";
 export { Menu } from "./core/menu.mjs";
+export { Outline } from "./core/outline.mjs";
 
 // Feedback
 export { useDialog } from "./core/dialog.mjs";

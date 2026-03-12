@@ -14,6 +14,7 @@ import { IconRegistryPage } from "./pages/icon-registry.mjs";
 import { HomePage } from "./pages/home.mjs";
 import { SidebarPage } from "./pages/sidebar.mjs";
 import { MenuPage } from "./pages/menu.mjs";
+import { OutlinePage } from "./pages/outline.mjs";
 import { ProgressPage } from "./pages/progress.mjs";
 
 const sidebarItems = [
@@ -29,8 +30,9 @@ const sidebarItems = [
   { key: "buttons", text: "Buttons", icon: "button" },
   { key: "sidebar", text: "Sidebar", icon: "columns-layout" },
   { key: "menu", text: "Menu", icon: "more-vertical" },
+  { key: "outline", text: "Outline", icon: "chevron-down" },
   { key: "media", text: "Media", icon: "image" },
-  { key: "inputs", text: "Inputs", icon: "edit" },
+  { key: "inputs", text: "Inputs", icon: "square-pencil" },
   { key: "table", text: "Table", icon: "table" },
   { key: "dialog", text: "Dialog", icon: "hand" },
   { key: "progress", text: "Progress", icon: "battery-25" },
@@ -57,6 +59,7 @@ export function App() {
         if (item === "buttons") return ButtonsPage();
         if (item === "sidebar") return SidebarPage();
         if (item === "menu") return MenuPage();
+        if (item === "outline") return OutlinePage();
         if (item === "media") return MediaPage();
         if (item === "inputs") return InputsPage();
         if (item === "table") return TablePage();
