@@ -14,7 +14,7 @@
  * - Flexible props normalization (supports both props object and direct children)
  * - Outline focus states via core.css utilities
  */
-import Bunnix, { useState, useEffect } from "@bunnix/core";
+import Bunnix, { useState, useEffect, ForEach } from "@bunnix/core";
 import { withNormalizedArgs, withExtractedStyles } from "./utils.mjs";
 import { Column, Row } from "./layout.mjs";
 import { Heading } from "./typography.mjs";
@@ -128,24 +128,25 @@ const SelectCore = (props, _) => {
     props.value?.get && props.value?.set
       ? props.value
       : useState(props.value ?? "");
-  let options =
+  let optionsValue =
     props.options?.get && props.options?.set
-      ? props.options.get()
-      : props.options ?? [];
+      ? props.options
+      : useState(props.options ?? []);
   let outline = props.outline ?? false;
 
   delete props.options;
   delete props.outline;
 
-  let childrenOptions = options.map((o, index) => {
-    return option(
+  // Use ForEach for reactive option rendering - updates when value changes
+  let childrenOptions = ForEach(optionsValue, "key", (o, index) =>
+    option(
       {
-        value: o.key ?? `option ${index + 1}`,
+        value: o.key ?? `option ${index() + 1}`,
         selected: o.key === value.get(),
       },
       o.content ?? ``,
-    );
-  });
+    ),
+  );
 
   let defaultClass = `appearance-none padding-sm bg-primary border-primary radius-md flex-grow-1 focus-border-outline ${outline ? "focus-outline-dimmed" : "no-outline"}`;
 
