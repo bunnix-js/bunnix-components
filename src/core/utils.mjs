@@ -81,6 +81,14 @@ export function withExtractedStyles(fn) {
 
     if ("bgColor" in props) {
       style.backgroundColor = props.bgColor;
+      if (props.bgColor === "primary") style.backgroundColor = "var(--color-bg-primary)";
+      if (props.bgColor === "primary-dimmed") style.backgroundColor = "var(--color-bg-primary-dimmed)";
+      if (props.bgColor === "secondary") style.backgroundColor = "var(--color-bg-secondary)";
+      if (props.bgColor === "success") style.backgroundColor = "var(--color-success)";
+      if (props.bgColor === "success-dimmed") style.backgroundColor = "var(--color-success-dimmed)";
+      if (props.bgColor === "warning") style.backgroundColor = "var(--color-warning)";
+      if (props.bgColor === "warning-dimmed") style.backgroundColor = "var(--color-warning-dimmed)";
+      if (props.bgColor === "danger") style.backgroundColor = "var(--color-danger)";
       delete finalProps.bgColor;
     }
 

@@ -10,11 +10,11 @@ export function ColorsPage() {
   const ColorSwatch = (props) =>
     Column(
       { gap: "small", alignItems: "center" },
-      div({
+      Column({
+        bgColor: props.color,
+        width: 80,
+        height: 80,
         style: {
-          width: "80px",
-          height: "80px",
-          backgroundColor: props.color,
           borderRadius: "8px",
           border: "1px solid var(--color-border-primary)",
         },
@@ -88,33 +88,29 @@ export function ColorsPage() {
         code: `
         import { Column } from "@bunnix/components";
 
-        Column(
-          { bg: "primary", padding: "regular" },
-          "Primary background"
-        );
+        // Named tokens resolve to design system CSS variables
+        Column({ bgColor: "primary", padding: "regular" }, "Primary background");
+        Column({ bgColor: "secondary", padding: "regular" }, "Secondary background");
+        Column({ bgColor: "success", padding: "regular" }, "Success background");
 
-        Column(
-          { bg: "primary-dimmed", padding: "regular" },
-          "Primary dimmed background"
-        );
-
-        Column(
-          { bg: "secondary", padding: "regular" },
-          "Secondary background"
-        );
+        // Also accepts raw CSS values
+        Column({ bgColor: "#ff6b6b", padding: "regular" }, "Custom hex color");
+        Column({ bgColor: "rgba(0,0,0,0.1)", padding: "regular" }, "RGBA color");
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Background Colors"),
-      Text("Background color utilities using the bg prop or CSS classes."),
+      Text("Background colors using the bgColor prop. Accepts named tokens or any CSS color value."),
       Spacer({ minHeight: 8 }),
       Grid(
         { layout: "flow", gridGap: 8 },
-        ColorSwatch({ color: "var(--color-bg-primary)", name: "primary" }),
-        ColorSwatch({ color: "var(--color-bg-primary-dimmed)", name: "primary-dimmed" }),
-        ColorSwatch({ color: "var(--color-bg-secondary)", name: "secondary" }),
-        ColorSwatch({ color: "var(--color-success)", name: "success" }),
-        ColorSwatch({ color: "var(--color-warning)", name: "warning" }),
-        ColorSwatch({ color: "var(--color-danger)", name: "danger" }),
+        ColorSwatch({ color: "primary", name: "primary" }),
+        ColorSwatch({ color: "primary-dimmed", name: "primary-dimmed" }),
+        ColorSwatch({ color: "secondary", name: "secondary" }),
+        ColorSwatch({ color: "success", name: "success" }),
+        ColorSwatch({ color: "success-dimmed", name: "success-dimmed" }),
+        ColorSwatch({ color: "warning", name: "warning" }),
+        ColorSwatch({ color: "warning-dimmed", name: "warning-dimmed" }),
+        ColorSwatch({ color: "danger", name: "danger" }),
       ),
     ),
 
@@ -147,7 +143,8 @@ export function ColorsPage() {
 
         // Using with props
         Text({ color: "primary" }, "Text");
-        Column({ bg: "primary" }, "Content");
+        Column({ bgColor: "primary" }, "Content");
+        Column({ bgColor: "#ff0000" }, "Custom color");
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Color Tokens"),
@@ -172,7 +169,7 @@ export function ColorsPage() {
             ),
             Text(
               { color: "secondary" },
-              "• bg: 'primary' | 'primary-dimmed' | 'secondary' | 'success' | 'warning' | 'danger'",
+              "• bgColor: 'primary' | 'primary-dimmed' | 'secondary' | 'success' | 'success-dimmed' | 'warning' | 'warning-dimmed' | 'danger' | <any CSS color>",
             ),
           ),
         ),
