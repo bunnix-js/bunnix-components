@@ -49,6 +49,12 @@ export function MenuPage() {
     { key: "share", text: "Share", icon: "share", action: () => console.log("Share clicked") },
   ];
 
+  // Example 6: Anchor positions
+  const anchorItems = [
+    { key: "a", text: "Action A", action: () => console.log("Action A") },
+    { key: "b", text: "Action B", action: () => console.log("Action B") },
+  ];
+
   return Column(
     Heading({ h2: true }, "Menu Component"),
     Heading(
@@ -233,6 +239,44 @@ export function MenuPage() {
 
     Spacer({ minHeight: 16 }),
 
+    // Anchor Positions
+    ComponentShowcase(
+      {
+        code: `
+        import { Menu } from "@bunnix/components";
+
+        const items = [
+          { key: "a", text: "Action A", action: () => {} },
+          { key: "b", text: "Action B", action: () => {} },
+        ];
+
+        // bottomLeft (default)
+        Menu({ items, trigger: "Bottom Left", anchor: "bottomLeft" });
+
+        // bottomRight
+        Menu({ items, trigger: "Bottom Right", anchor: "bottomRight" });
+
+        // topLeft
+        Menu({ items, trigger: "Top Left", anchor: "topLeft" });
+
+        // topRight
+        Menu({ items, trigger: "Top Right", anchor: "topRight" });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Anchor Positions"),
+      Text("Control where the popover opens relative to the trigger using the anchor prop."),
+      Spacer({ minHeight: 8 }),
+      Row(
+        { gap: "small", flexWrap: "wrap" },
+        Menu({ items: anchorItems, trigger: "Bottom Left", anchor: "bottomLeft" }),
+        Menu({ items: anchorItems, trigger: "Bottom Right", anchor: "bottomRight" }),
+        Menu({ items: anchorItems, trigger: "Top Left", anchor: "topLeft" }),
+        Menu({ items: anchorItems, trigger: "Top Right", anchor: "topRight" }),
+      ),
+    ),
+
+    Spacer({ minHeight: 16 }),
+
     // Features
     ComponentShowcase(
       {
@@ -251,9 +295,13 @@ export function MenuPage() {
         trigger: ({ isOpen, toggle }) => // Custom render function
           Button({ click: toggle }, "Custom")
 
+        // Anchor Positions
+        anchor: "bottomLeft"     // Popover position: bottomLeft | bottomRight | topLeft | topRight
+
         // Auto-closes on:
         // - Item click
         // - Click outside dropdown
+        // - Page scroll
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Features"),
