@@ -80,9 +80,11 @@ export const useDialog = () => {
                 gap: 12,
                 minWidth: state.width ? undefined : 420,
                 maxWidth: state.width ? undefined : 580,
+                maxHeight: state.height ? undefined : "calc(100vh - 32px)",
                 ...(state.width ? { fillWidth: true } : {}),
                 ...(state.height ? { fillHeight: true } : {}),
                 minHeight: 0,
+                overflow: "hidden",
               },
               Row(
                 {
@@ -101,17 +103,17 @@ export const useDialog = () => {
               ),
               state.contents.length > 0 && Column(
                 {
-                  flexGrow: state.height ? 1 : 0,
+                  flexGrow: 1,
                   minHeight: 0,
                 },
                 Column(
                   {
                     gap: 12,
                     paddingX: state.padding,
-                    ...(state.height ? { fillHeight: true } : {}),
+                    fillHeight: true,
                     minHeight: 0,
                     style: {
-                      ...(state.height ? { overflowY: "auto" } : {}),
+                      overflowY: "auto",
                     },
                   },
                   ...state.contents,

@@ -65,10 +65,12 @@ test("Dialog rendering uses section padding and scrollable contents wrapper", ()
   assert.match(dialogSource, /paddingX: state\.padding,/);
   assert.match(dialogSource, /paddingTop: state\.padding,/);
   assert.match(dialogSource, /paddingBottom: state\.padding,/);
+  assert.match(dialogSource, /maxHeight: state\.height \? undefined : "calc\(100vh - 32px\)",/);
   assert.match(dialogSource, /bgColor: "primary",/);
-  assert.match(dialogSource, /style: \{\s*\.\.\.\(state\.height \? \{ overflowY: "auto" \} : \{\}\),\s*\},/m);
-  assert.match(dialogSource, /flexGrow: state\.height \? 1 : 0,/);
-  assert.match(dialogSource, /\.\.\.\(state\.height \? \{ fillHeight: true \} : \{\}\),/);
+  assert.match(dialogSource, /overflow: "hidden",/);
+  assert.match(dialogSource, /style: \{\s*overflowY: "auto",\s*\},/m);
+  assert.match(dialogSource, /flexGrow: 1,/);
+  assert.match(dialogSource, /fillHeight: true,/);
   assert.match(dialogCssSource, /background-color: var\(--color-bg-primary\);/);
   assert.match(dialogCssSource, /overflow: hidden;/);
 });
