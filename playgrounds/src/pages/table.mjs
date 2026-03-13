@@ -37,6 +37,7 @@ export function TablePage() {
             { content: "Role", key: "role", size: 150 },
             { content: "Status", key: "status", size: 100 },
           ],
+          border: "primary",
           rows: data,
         });
         `,
@@ -50,6 +51,7 @@ export function TablePage() {
           { content: "Role", key: "role", size: 150 },
           { content: "Status", key: "status", size: 100 },
         ],
+        border: "primary",
         rows: sampleData,
       }),
     ),

@@ -102,12 +102,11 @@ const GridCore = (props, ...children) => {
   let layout = props.layout ?? "fixed";
   let columns = props.columns ?? [];
   let gap = props.gridGap;
+  let style = { ...(props.style ?? {}) };
 
   delete props.layout;
   delete props.columns;
   delete props.gridGap;
-
-  let style = {};
 
   if (gap !== undefined) {
     style["--grid-gap"] = (typeof gap === "number") ? `${gap}px` : gap;

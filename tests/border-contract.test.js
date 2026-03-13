@@ -12,6 +12,16 @@ const cssSource = readFileSync(
   "utf8",
 );
 
+const layoutSource = readFileSync(
+  new URL("../src/core/layout.mjs", import.meta.url),
+  "utf8",
+);
+
+const tableSource = readFileSync(
+  new URL("../src/core/table.mjs", import.meta.url),
+  "utf8",
+);
+
 test("LayoutProps exposes the resolved border union", () => {
   assert.match(
     typesSource,
@@ -38,5 +48,25 @@ test("core.css exposes secondary and tertiary border selectors", () => {
   assert.match(
     cssSource,
     /\.border-tertiary,\s*\n\[border="tertiary"\]\s*\{\s*\n\s*border:\s*1px solid var\(--color-border-tertiary\);/m,
+  );
+});
+
+test("Grid preserves extracted style values when adding grid styles", () => {
+  assert.match(
+    layoutSource,
+    /let style = \{ \.\.\.\(props\.style \?\? \{\}\) \};/,
+  );
+  assert.match(
+    layoutSource,
+    /style\["--grid-gap"\] = \(typeof gap === "number"\) \? `\$\{gap\}px` : gap;/,
+  );
+});
+
+test("Table maps border prop to class instead of native table border attribute", () => {
+  assert.match(tableSource, /let border = finalProps\.border;/);
+  assert.match(tableSource, /delete finalProps\.border;/);
+  assert.match(
+    tableSource,
+    /class: `table \$\{border \? `border-\$\{border\} ` : ""\}\$\{finalProps\.class \|\| ""\}`\.trim\(\),/,
   );
 });

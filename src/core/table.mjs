@@ -21,9 +21,11 @@ const TableCore = withNormalizedArgs((props, ...children) => {
   return withExtractedStyles((finalProps, ...children) => {
     let headers = finalProps.headers ?? [];
     let rows = finalProps.rows ?? [];
+    let border = finalProps.border;
 
     delete finalProps.headers;
     delete finalProps.rows;
+    delete finalProps.border;
 
     let tcols = headers.map((h) => col({ width: h.size ?? 0 }));
     let theaders = headers.map((h) => td(h.content ?? ""));
@@ -40,7 +42,7 @@ const TableCore = withNormalizedArgs((props, ...children) => {
     return table(
       {
         ...finalProps,
-        class: `table ${finalProps.class || ""}`,
+        class: `table ${border ? `border-${border} ` : ""}${finalProps.class || ""}`.trim(),
       },
       colgroup(tcols),
       thead(theaders),
