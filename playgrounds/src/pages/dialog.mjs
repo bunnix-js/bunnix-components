@@ -3,6 +3,7 @@ import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Grid, Row, Spacer } from "../../../src/core/layout.mjs";
 import { useDialog } from "../../../src/core/dialog.mjs";
 import { Button } from "../../../src/core/buttons.mjs";
+import { Icon } from "../../../src/core/media.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function DialogPage() {
@@ -72,6 +73,45 @@ export function DialogPage() {
         text: "Continue",
         variant: "primary",
         action: () => console.log("Continued"),
+      },
+    });
+  };
+
+  const openSettingsDialog = () => {
+    showDialog({
+      title: Row(
+        { gap: 12, alignItems: "center" },
+        Icon({ name: "hammer", size: 42, color: "secondary" }),
+        Column(
+          { gap: 2 },
+          Heading({ h3: true }, "Workspace Settings"),
+          Text({ color: "secondary" }, "Static configuration preview"),
+        ),
+      ),
+      contents: [
+        Row(
+          { gap: 12, alignItems: "center" },
+          Text({ weight: "heavy", width: 120 }, "Theme"),
+          Text({ color: "secondary" }, "System default"),
+        ),
+        Row(
+          { gap: 12, alignItems: "center" },
+          Text({ weight: "heavy", width: 120 }, "Notifications"),
+          Text({ color: "secondary" }, "Enabled"),
+        ),
+        Row(
+          { gap: 12, alignItems: "center" },
+          Text({ weight: "heavy", width: 120 }, "Auto-save"),
+          Text({ color: "secondary" }, "Every 5 minutes"),
+        ),
+      ],
+      secondary: {
+        text: "Back",
+        variant: "secondary",
+      },
+      confirmation: {
+        text: "Save",
+        variant: "primary",
       },
     });
   };
@@ -148,6 +188,39 @@ export function DialogPage() {
           },
         });
 
+        // Custom title content
+        showDialog({
+          title: Row(
+            { gap: 12, alignItems: "center" },
+            Icon({ name: "hammer", size: 42, color: "secondary" }),
+            Column(
+              { gap: 2 },
+              Heading({ h3: true }, "Workspace Settings"),
+              Text({ color: "secondary" }, "Static configuration preview"),
+            ),
+          ),
+          contents: [
+            Row(
+              { gap: 12, alignItems: "center" },
+              Text({ weight: "heavy", width: 120 }, "Theme"),
+              Text({ color: "secondary" }, "System default"),
+            ),
+            Row(
+              { gap: 12, alignItems: "center" },
+              Text({ weight: "heavy", width: 120 }, "Notifications"),
+              Text({ color: "secondary" }, "Enabled"),
+            ),
+          ],
+          secondary: {
+            text: "Back",
+            variant: "secondary",
+          },
+          confirmation: {
+            text: "Save",
+            variant: "primary",
+          },
+        });
+
         // Render the Dialog component
         Dialog();
         `,
@@ -164,6 +237,7 @@ export function DialogPage() {
           Button({ click: openCustomDialog }, "Custom Dialog"),
           Button({ click: openDangerDialog, variant: "danger" }, "Danger Dialog"),
           Button({ click: openSizedDialog, variant: "secondary" }, "Sized Dialog"),
+          Button({ click: openSettingsDialog, variant: "secondary" }, "Settings Dialog"),
         ),
       ),
     ),

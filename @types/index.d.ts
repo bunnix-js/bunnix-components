@@ -168,7 +168,7 @@ export interface DialogAction {
 export interface DialogConfirmation extends DialogAction {}
 
 export interface ShowDialogOptions {
-  title?: string;
+  title?: string | BunnixChild;
   contents?: any[] | any;
   padding?: number | string;
   width?: number | string;

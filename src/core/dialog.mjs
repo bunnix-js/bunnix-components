@@ -26,6 +26,11 @@ const { dialog } = Bunnix;
 const resolveDialogSize = (value) =>
   typeof value === "number" ? `${value}px` : value;
 
+const renderDialogTitle = (title) =>
+  typeof title === "string"
+    ? Heading({ h3: true, flexShrink: 0 }, title)
+    : title;
+
 /**
  * Creates a dialog controller and render component.
  *
@@ -87,7 +92,7 @@ export const useDialog = () => {
                   paddingTop: state.padding,
                   flexShrink: 0,
                 },
-                Heading({ h3: true, flexShrink: 0 }, state.title),
+                renderDialogTitle(state.title),
                 Spacer(),
                 Button(
                   { variant: "tertiary", click: closeDialog },
@@ -156,7 +161,7 @@ export const useDialog = () => {
      * Opens dialog with provided content and confirmation behavior.
      *
      * @param {Object} [config] - Dialog config
-     * @param {string} [config.title] - Dialog title text
+     * @param {string|*} [config.title] - Dialog title text or custom node
      * @param {Array|*} [config.contents=[]] - Renderable content block(s)
      * @param {number|string} [config.padding="regular"] - Shared dialog section padding
      * @param {number|string} [config.width] - Fixed dialog width

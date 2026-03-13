@@ -19,6 +19,7 @@ const dialogCssSource = readFileSync(
 
 test("Dialog type surface exposes shared action config and optional secondary action", () => {
   assert.match(typesSource, /export interface DialogAction \{/);
+  assert.match(typesSource, /title\?: string \| BunnixChild;/);
   assert.match(typesSource, /padding\?: number \| string;/);
   assert.match(typesSource, /width\?: number \| string;/);
   assert.match(typesSource, /height\?: number \| string;/);
@@ -42,6 +43,14 @@ test("Dialog state and showDialog store layout props and merge optional secondar
   assert.match(dialogSource, /padding = "regular",/);
   assert.match(dialogSource, /width = null,/);
   assert.match(dialogSource, /height = null,/);
+});
+
+test("Dialog title rendering only wraps string titles with Heading", () => {
+  assert.match(
+    dialogSource,
+    /const renderDialogTitle = \(title\) =>\s*typeof title === "string"\s*\? Heading\(\{ h3: true, flexShrink: 0 \}, title\)\s*: title;/m,
+  );
+  assert.match(dialogSource, /renderDialogTitle\(state\.title\),/);
 });
 
 test("Dialog footer renders secondary button before spacer and confirmation button", () => {
