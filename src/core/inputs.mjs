@@ -15,12 +15,19 @@
  * - Outline focus states via core.css utilities
  */
 import Bunnix, { useState, useEffect, ForEach } from "@bunnix/core";
-import { withNormalizedArgs, withExtractedStyles } from "./utils.mjs";
+import { withNormalizedArgs, withExtractedStyles, isStateLike } from "./utils.mjs";
 import { Column, Row } from "./layout.mjs";
-import { Heading } from "./typography.mjs";
+import { Heading, Text } from "./typography.mjs";
+import {
+  findNearestSliderStepIndex,
+  getSliderStepValue,
+  hasSliderStepLabels,
+  isValidSliderSteps,
+  toSliderNumber,
+} from "./sliderUtils.mjs";
 import "./input.css";
 
-const { input, select, option } = Bunnix;
+const { input, select, option, div } = Bunnix;
 
 /**
  * Wraps a component in a Column with a Heading label if props.label exists.
@@ -62,6 +69,12 @@ function wrapCheckBoxIntoLabel(props, component) {
     );
   }
   return component;
+}
+
+function resolveNumericState(propValue, fallback) {
+  return isStateLike(propValue)
+    ? propValue
+    : useState(toSliderNumber(propValue, fallback));
 }
 
 /** Text Input core component and logic */
@@ -198,6 +211,83 @@ const CheckBoxCore = (props, _) => {
   );
 };
 
+const SliderCore = (props, _) => {
+  const customSteps = isValidSliderSteps(props.steps) ? props.steps : null;
+  const outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
+  const minState = resolveNumericState(props.min, 0);
+  const maxState = resolveNumericState(props.max, 100);
+  const stepState = resolveNumericState(props.step, 1);
+  const initialValue = customSteps
+    ? customSteps[0].value
+    : toSliderNumber(props.value, toSliderNumber(minState.get(), 0));
+  const valueState = resolveNumericState(props.value, initialValue);
+  const sliderValue = useState(
+    customSteps
+      ? findNearestSliderStepIndex(customSteps, valueState.get())
+      : toSliderNumber(valueState.get(), toSliderNumber(minState.get(), 0)),
+  );
+  const shouldRenderLabels = customSteps && hasSliderStepLabels(customSteps);
+
+  delete props.outline;
+  delete props.min;
+  delete props.max;
+  delete props.step;
+  delete props.steps;
+  delete props.value;
+
+  useEffect((nextValue) => {
+    if (customSteps) {
+      sliderValue.set(findNearestSliderStepIndex(customSteps, nextValue));
+      return;
+    }
+
+    sliderValue.set(toSliderNumber(nextValue, toSliderNumber(minState.get(), 0)));
+  }, valueState);
+
+  return wrapIntoLabel(
+    props,
+    Column(
+      { gap: "small", class: "slider-field" },
+      input({
+        ...props,
+        type: "range",
+        min: customSteps ? 0 : minState,
+        max: customSteps ? customSteps.length - 1 : maxState,
+        step: customSteps ? 1 : stepState,
+        value: sliderValue,
+        disabled: props.disabled,
+        class: `slider ${outlineClass} ${props.class || ""}`.trim(),
+        input: (e) => {
+          const rawValue = toSliderNumber(e.target.value, sliderValue.get());
+          const nextValue = customSteps
+            ? getSliderStepValue(customSteps, rawValue)
+            : rawValue;
+
+          sliderValue.set(customSteps ? findNearestSliderStepIndex(customSteps, nextValue) : nextValue);
+
+          if (typeof valueState.set === "function") valueState.set(nextValue);
+          props.input && props.input(e);
+        },
+      }),
+      shouldRenderLabels
+        ? div(
+            {
+              class: "slider-step-labels",
+            },
+            customSteps.map((step) =>
+              div(
+                { class: "slider-step-label" },
+                step.label
+                  ? Text({ weight: "heavy", color: "secondary" }, step.label)
+                  : "",
+              ),
+            ),
+          )
+        : null,
+    ),
+  );
+};
+
 // Exports
 
 /**
@@ -261,4 +351,27 @@ export const CheckBox = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     CheckBoxCore(finalProps, ...children),
   )({ textSize: "1rem", ...props }, ...children),
+);
+
+/**
+ * Range slider input with optional discrete step mapping.
+ *
+ * @param {Object} props - Component props
+ * @param {Object|number} [props.value] - Slider value (useState object or number)
+ * @param {Object|number} [props.min=0] - Minimum numeric value in native mode
+ * @param {Object|number} [props.max=100] - Maximum numeric value in native mode
+ * @param {Object|number} [props.step=1] - Step increment in native mode
+ * @param {Array<{value: number, label?: string}>} [props.steps] - Discrete step configuration; ignores min/max/step when valid
+ * @param {string} [props.label] - Label text (wraps in Column with Heading)
+ * @param {boolean} [props.outline] - Show focus outline
+ * @param {boolean} [props.disabled] - Disabled state
+ * @param {Function} [props.input] - Input event handler
+ * @param {string} [props.class] - Additional CSS classes
+ * @param {...*} children - Children elements (ignored)
+ * @returns {*} Slider component
+ */
+export const Slider = withNormalizedArgs((props, ...children) =>
+  withExtractedStyles((finalProps, ...children) =>
+    SliderCore(finalProps, ...children),
+  )({ fillWidth: true, ...props }, ...children),
 );

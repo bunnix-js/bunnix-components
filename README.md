@@ -28,6 +28,7 @@ import {
   Text,
   Button,
   TextInput,
+  Slider,
   ProgressBar,
 } from "@bunnix/components";
 
@@ -40,6 +41,7 @@ Column(
     Button({ variant: "tertiary" }, "Cancel"),
   ),
   TextInput({ label: "Name", placeholder: "Type here" }),
+  Slider({ min: 0, max: 100, step: 5, value: 50 }),
   ProgressBar({ value: 65, color: "success" }),
 );
 ```
@@ -68,7 +70,7 @@ These border tokens automatically adapt to light and dark color schemes, with `s
 - Typography: `Heading`, `Text`
 - Media: `Media`, `Icon`, `Spinner`, `Avatar`
 - Buttons: `Button`, `LinkButton`
-- Inputs: `TextInput`, `Select`, `CheckBox`
+- Inputs: `TextInput`, `Select`, `CheckBox`, `Slider`
 - Data display: `Table`, `Code`
 - Navigation: `Sidebar`, `Menu`
 - Feedback: `useDialog`, `ProgressBar`

@@ -1,13 +1,15 @@
 import Bunnix, { useState } from "@bunnix/core";
 import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Spacer } from "../../../src/core/layout.mjs";
-import { TextInput, Select, CheckBox } from "../../../src/core/inputs.mjs";
+import { TextInput, Select, CheckBox, Slider } from "../../../src/core/inputs.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function InputsPage() {
   const textValue = useState("");
   const selectValue = useState("option1");
   const checkboxValue = useState(false);
+  const sliderValue = useState(50);
+  const customSliderValue = useState(100);
 
   return Column(
     Heading({ h2: true }, "Input Components"),
@@ -122,6 +124,59 @@ export function InputsPage() {
         CheckBox({ checked: checkboxValue }),
         CheckBox({ checked: checkboxValue, label: "Accept terms" }),
         Text({ color: "secondary" }, `Checked: ${checkboxValue.get()}`),
+      ),
+    ),
+
+    Spacer({ minHeight: 16 }),
+
+    ComponentShowcase(
+      {
+        code: `
+        import { Slider } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const value = useState(50);
+        const customValue = useState(100);
+
+        Slider({ value, min: 0, max: 100, step: 5, label: "Volume" });
+
+        Slider({
+          value: customValue,
+          label: "Revenue target",
+          steps: [
+            { value: 10, label: "10K" },
+            { value: 100, label: "100K" },
+            { value: 1000, label: "1000K" },
+          ],
+        });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Slider"),
+      Text("Range input with native linear mode or evenly distributed custom steps."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        Slider({
+          value: sliderValue,
+          min: 0,
+          max: 100,
+          step: 5,
+          label: "Volume",
+        }),
+        Text({ color: "secondary" }, sliderValue.map((value) => `Value: ${value}`)),
+        Slider({
+          value: customSliderValue,
+          label: "Revenue target",
+          steps: [
+            { value: 10, label: "10K" },
+            { value: 100, label: "100K" },
+            { value: 1000, label: "1000K" },
+          ],
+        }),
+        Text(
+          { color: "secondary" },
+          customSliderValue.map((value) => `Selected target: ${value}`),
+        ),
       ),
     ),
   );

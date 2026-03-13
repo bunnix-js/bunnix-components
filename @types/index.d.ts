@@ -131,6 +131,23 @@ export interface CheckBoxProps extends LayoutProps {
   input?: (event?: any) => void;
 }
 
+export interface SliderStep {
+  value: number;
+  label?: string;
+}
+
+export interface SliderProps extends LayoutProps {
+  value?: number | StateLike<number>;
+  min?: number | StateLike<number>;
+  max?: number | StateLike<number>;
+  step?: number | StateLike<number>;
+  steps?: SliderStep[];
+  label?: string;
+  outline?: boolean;
+  disabled?: boolean;
+  input?: (event?: any) => void;
+}
+
 export interface TableHeader {
   content?: any;
   key?: string;
@@ -211,6 +228,7 @@ export const LinkButton: Component<LinkButtonProps>;
 export const TextInput: Component<TextInputProps>;
 export const Select: Component<SelectProps>;
 export const CheckBox: Component<CheckBoxProps>;
+export const Slider: Component<SliderProps>;
 
 export const Table: Component<TableProps>;
 export const Code: Component<BaseProps & { html?: string; language?: string }>;

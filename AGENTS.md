@@ -64,6 +64,8 @@ playgrounds/
 - `InputField`, `DatePicker`, `TimePicker` disable browser autocomplete by default (`autocomplete="off"`).
 - `InputField` supports mask prop for formatted input (date, phone, currency, CPF, credit card, etc.).
 - All input components use the same wrapper structure: `column-container no-margin shrink-0 gap-0`.
+- `Slider` is a native range input that supports either linear mode (`min`/`max`/`step`) or discrete custom-step mode (`steps`).
+- In custom-step mode, `Slider` stores and emits the configured numeric step values, not internal index positions.
 
 ### Core Buttons
 
