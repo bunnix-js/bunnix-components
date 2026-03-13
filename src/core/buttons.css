@@ -14,6 +14,7 @@
   -webkit-user-select: none;
   min-height: 32px;
   font-size: 1rem;
+  font-weight: var(--font-weight-heavy);
 }
 
 .button:disabled {

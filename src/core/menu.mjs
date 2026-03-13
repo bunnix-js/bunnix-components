@@ -19,6 +19,7 @@ import { withNormalizedArgs, withExtractedStyles } from "./utils.mjs";
 import { Column, Row } from "./layout.mjs";
 import { Button } from "./buttons.mjs";
 import { Icon } from "./media.mjs";
+import { Text } from "./typography.mjs";
 import "./menu.css";
 
 const { div } = Bunnix;
@@ -36,8 +37,19 @@ const MenuCore = (props, ...children) => {
   // Resolve trigger
   let trigger = props.trigger || "Menu";
 
-  // Resolve anchor position
-  let anchor = props.anchor || "bottomLeft";
+  // Resolve anchor position (support both kebab-case and camelCase for backward compatibility)
+  let anchorInput = props.anchor || "bottom-left";
+  const anchorMap = {
+    "bottom-left": "bottomLeft",
+    "bottom-right": "bottomRight",
+    "top-left": "topLeft",
+    "top-right": "topRight",
+    "bottomLeft": "bottomLeft",
+    "bottomRight": "bottomRight",
+    "topLeft": "topLeft",
+    "topRight": "topRight",
+  };
+  let anchor = anchorMap[anchorInput] || "bottomLeft";
 
   delete props.items;
   delete props.trigger;
@@ -168,7 +180,7 @@ const MenuCore = (props, ...children) => {
             Row(
               { fillWidth: true, alignItems: "center", gap: "small" },
               item.icon && Icon({ name: item.icon, size: 16 }),
-              item.text || item.key,
+              Text({ weight: "heavy" }, item.text || item.key),
             ),
           );
         })
@@ -193,7 +205,7 @@ const MenuCore = (props, ...children) => {
  * @param {Function} [props.items[].action] - Optional action to run on click
  * @param {boolean} [props.items[].divider] - If true, renders a divider
  * @param {*} [props.trigger] - Trigger element or function that receives {isOpen, toggle}
- * @param {string} [props.anchor="bottomLeft"] - Menu anchor position: "topLeft" | "topRight" | "bottomLeft" | "bottomRight"
+ * @param {string} [props.anchor="bottom-left"] - Menu anchor position: "bottom-left" | "bottom-right" | "top-left" | "top-right" (or camelCase variants for backward compatibility)
  * @param {string} [props.class] - Additional CSS classes
  * @param {...*} children - Children elements
  * @returns {*} Menu component
