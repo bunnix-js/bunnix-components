@@ -55,7 +55,7 @@ const TableCore = withNormalizedArgs((props, ...children) => {
     return table(
       {
         ...finalProps,
-        class: `table ${type !== "regular" ? `table-${type} ` : ""}${border ? `border-${border} ` : ""}${finalProps.class || ""}`.trim(),
+        class: `table ${type !== "regular" ? `table-${type} ` : ""}${hideHeaders ? "table-hide-headers " : ""}${border ? `border-${border} ` : ""}${finalProps.class || ""}`.trim(),
       },
       colgroup(tcols),
       ...(!hideHeaders ? [thead(theaders)] : []),

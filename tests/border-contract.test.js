@@ -69,6 +69,6 @@ test("Table maps border prop to class instead of native table border attribute",
   assert.match(tableSource, /delete finalProps\.border;/);
   assert.match(
     tableSource,
-    /class: `table \$\{type !== "regular" \? `table-\$\{type\} ` : ""\}\$\{border \? `border-\$\{border\} ` : ""\}\$\{finalProps\.class \|\| ""\}`\.trim\(\),/,
+    /class: `table \$\{type !== "regular" \? `table-\$\{type\} ` : ""\}\$\{hideHeaders \? "table-hide-headers " : ""\}\$\{border \? `border-\$\{border\} ` : ""\}\$\{finalProps\.class \|\| ""\}`\.trim\(\),/,
   );
 });

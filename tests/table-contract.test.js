@@ -34,7 +34,7 @@ test("Table omits thead when hideHeaders is enabled", () => {
   assert.match(tableSource, /\.\.\.\(!hideHeaders \? \[thead\(theaders\)\] : \[\]\),/);
   assert.match(
     tableSource,
-    /class: `table \$\{type !== "regular" \? `table-\$\{type\} ` : ""\}\$\{border \? `border-\$\{border\} ` : ""\}\$\{finalProps\.class \|\| ""\}`\.trim\(\),/,
+    /class: `table \$\{type !== "regular" \? `table-\$\{type\} ` : ""\}\$\{hideHeaders \? "table-hide-headers " : ""\}\$\{border \? `border-\$\{border\} ` : ""\}\$\{finalProps\.class \|\| ""\}`\.trim\(\),/,
   );
 });
 
@@ -53,6 +53,8 @@ test("Table renderCell receives record, row index, and field before fallback", (
 });
 
 test("Table alternate-rows CSS removes separators and alternates row backgrounds", () => {
+  assert.match(tableCssSource, /\.table thead td,[\s\S]*height: 40px;/m);
+  assert.match(tableCssSource, /\.table td \{\s*\n\s*height: 40px;/m);
   assert.match(tableCssSource, /\.table\.table-alternate-rows thead td,/);
   assert.match(tableCssSource, /border-bottom: none;/);
   assert.match(
@@ -65,6 +67,6 @@ test("Table alternate-rows CSS removes separators and alternates row backgrounds
   );
   assert.match(
     tableCssSource,
-    /\.table\.table-alternate-rows tbody:first-child tr:nth-child\(odd\) td,[\s\S]*background-color: var\(--color-bg-primary-dimmed\);/m,
+    /\.table\.table-alternate-rows\.table-hide-headers tbody tr:nth-child\(odd\) td,[\s\S]*background-color: var\(--color-bg-primary-dimmed\);/m,
   );
 });
