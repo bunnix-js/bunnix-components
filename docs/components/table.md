@@ -6,40 +6,49 @@ title: Table
 # Table
 
 ```js
-import { Table } from "@bunnix/components";
+import { Table, Text } from "@bunnix/components";
+
+const rows = [
+  { name: "Alice", role: "Developer", status: "Active" },
+  { name: "Bob", role: "Designer", status: "Active" },
+  { name: "Charlie", role: "Manager", status: "Inactive" },
+];
 
 Table({
-  columns: [
-    { field: "name", label: "Name", size: "auto" },
-    { field: "role", label: "Role", size: "30%" }
+  headers: [
+    { content: "Name", key: "name", size: 180 },
+    { content: "Role", key: "role", size: 180 },
+    { content: "Status", key: "status", size: 120 },
   ],
-  data: [
-    { name: "Alex", role: "Developer" },
-    { name: "Sam", role: "Designer" }
-  ]
+  rows,
+  renderCell: (record, rowIndex, field) => {
+    if (field === "status") {
+      return Text(
+        {
+          weight: "heavy",
+          color: record.status === "Active" ? "success" : "secondary",
+        },
+        record.status,
+      );
+    }
+
+    if (field === "name") {
+      return `${rowIndex + 1}. ${record.name}`;
+    }
+  },
 });
 ```
 
 ## Props
 
-- `columns`: Array of column configurations
-  - `field`: string - Field name in data object
-  - `label`: string - Column header label
-  - `size`: "auto" | number | string - Column width (auto, pixels, or percentage)
-- `data`: Array of row objects or Bunnix.State
-- `key`: string - Field name to use as unique row key
-- `renderCell`: function - Custom cell renderer `(columnIndex, field, row, column) => BunnixChild`
-- `cell`: function - Alias for `renderCell`
-- `searchable`: object - Search configuration
-  - `field`: string - Field to search in
-  - `searchText`: string | Bunnix.State - Search query
-- `sortable`: Array of sortable configurations
-  - `field`: string - Field to sort by
-  - `sortType`: "string" | "number" | "date" - Type of sorting
-  - `sorted`: boolean - Initially sorted
-  - `direction`: "asc" | "desc" - Initial sort direction
-- `selection`: function - Callback when rows are selected `(keys) => void`
-- `sort`: function - Custom sort function `(field) => (a, b) => number`
-- `variant`: "regular" | "background" | "bordered"
-- `interactive`: boolean - Enable hover effects
-- `hideHeaders`: boolean - Hide table headers
+- `headers`: Array of column definitions with:
+  - `content`: header cell content
+  - `key`: record field name used for body cells
+  - `size`: optional column width (`number` in pixels or CSS string)
+- `rows`: Array of data records rendered in header order
+- `hideHeaders`: optional boolean that removes the visible header row while preserving column sizing
+- `renderCell`: optional callback `(record, rowIndex, field) => BunnixChild`
+  - called for each keyed body cell
+  - when it returns `undefined`, the table falls back to `record[field]`
+
+`Table` also accepts layout props such as `width`, `height`, `margin`, `padding`, and `border`.

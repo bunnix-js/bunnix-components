@@ -400,12 +400,14 @@ body {
 }
 
 /* Layout positioning */
-.sticky-top {
+.sticky-top,
+[sticky="top"] {
   position: sticky;
   top: 0;
 }
 
-.sticky-bottom {
+.sticky-bottom,
+[sticky="bottom"] {
   position: sticky;
   bottom: 0;
 }

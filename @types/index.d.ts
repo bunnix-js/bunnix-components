@@ -157,6 +157,12 @@ export interface TableHeader {
 export interface TableProps extends LayoutProps {
   headers?: TableHeader[];
   rows?: Array<Record<string, any>>;
+  hideHeaders?: boolean;
+  renderCell?: (
+    record: Record<string, any>,
+    rowIndex: number,
+    field: string,
+  ) => BunnixChild;
 }
 
 export interface DialogAction {

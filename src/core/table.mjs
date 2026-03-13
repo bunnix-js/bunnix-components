@@ -22,19 +22,30 @@ const TableCore = withNormalizedArgs((props, ...children) => {
     let headers = finalProps.headers ?? [];
     let rows = finalProps.rows ?? [];
     let border = finalProps.border;
+    let hideHeaders = finalProps.hideHeaders ?? false;
+    let renderCell = finalProps.renderCell;
 
     delete finalProps.headers;
     delete finalProps.rows;
     delete finalProps.border;
+    delete finalProps.hideHeaders;
+    delete finalProps.renderCell;
 
     let tcols = headers.map((h) => col({ width: h.size ?? 0 }));
     let theaders = headers.map((h) => td(h.content ?? ""));
-    let trows = rows.map((r) =>
+    let trows = rows.map((r, rowIndex) =>
       tr(
         headers.map((h) => {
           if (!h.key) return td("");
+          let renderedCell = renderCell?.(r, rowIndex, h.key);
+          if (renderedCell !== undefined) {
+            return td({ "data-label": h.content }, renderedCell);
+          }
           if (!(h.key in r)) return td("");
-          return td({ "data-label": h.content }, r[h.key]);
+          return td(
+            { "data-label": h.content },
+            r[h.key],
+          );
         }),
       ),
     );
@@ -45,7 +56,7 @@ const TableCore = withNormalizedArgs((props, ...children) => {
         class: `table ${border ? `border-${border} ` : ""}${finalProps.class || ""}`.trim(),
       },
       colgroup(tcols),
-      thead(theaders),
+      ...(!hideHeaders ? [thead(theaders)] : []),
       tbody(trows),
     );
   })(props, ...children);
