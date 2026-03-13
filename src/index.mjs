@@ -19,7 +19,7 @@ export { Media, Icon, Spinner, Avatar } from "./core/media.mjs";
 export { Button, LinkButton } from "./core/buttons.mjs";
 
 // Inputs
-export { TextInput, Select, CheckBox, Slider } from "./core/inputs.mjs";
+export { TextInput, TextArea, Select, CheckBox, Slider } from "./core/inputs.mjs";
 
 // Data Display
 export { Table } from "./core/table.mjs";

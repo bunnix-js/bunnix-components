@@ -1,11 +1,12 @@
 import Bunnix, { useState } from "@bunnix/core";
 import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Spacer } from "../../../src/core/layout.mjs";
-import { TextInput, Select, CheckBox, Slider } from "../../../src/core/inputs.mjs";
+import { TextInput, TextArea, Select, CheckBox, Slider } from "../../../src/core/inputs.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function InputsPage() {
   const textValue = useState("");
+  const textAreaValue = useState("Line one\nLine two");
   const selectValue = useState("option1");
   const checkboxValue = useState(false);
   const sliderValue = useState(50);
@@ -45,6 +46,54 @@ export function InputsPage() {
       ),
     ),
     
+    Spacer({ minHeight: 16 }),
+
+    ComponentShowcase(
+      {
+        code: `
+        import { TextArea } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const value = useState("Line one\\nLine two");
+
+        TextArea({ value, placeholder: "Write a message..." });
+        TextArea({ value, label: "Notes" });
+        TextArea({
+          value,
+          label: "Description",
+          minLines: 3,
+          maxLines: 6,
+          newlineTrigger: "shift-enter",
+          placeholder: "Auto-grow between 3 and 6 lines",
+        });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "TextArea"),
+      Text("Multiline text input with optional label and auto-growing height between min and max lines."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        TextArea({ value: textAreaValue, placeholder: "Write a message..." }),
+        TextArea({ value: textAreaValue, label: "Notes" }),
+        TextArea({
+          value: textAreaValue,
+          label: "Description",
+          minLines: 3,
+          maxLines: 6,
+          newlineTrigger: "shift-enter",
+          placeholder: "Auto-grow between 3 and 6 lines",
+        }),
+        Text(
+          { color: "secondary" },
+          "This example uses Shift+Enter for a new line.",
+        ),
+        Text(
+          { color: "secondary" },
+          textAreaValue.map((value) => `Current text: "${value}"`),
+        ),
+      ),
+    ),
+
     Spacer({ minHeight: 16 }),
     
     // Select Component

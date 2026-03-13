@@ -60,12 +60,14 @@ playgrounds/
 ### Input Components
 
 - `InputField`, `DatePicker`, `TimePicker`, `ComboBox` all support `label` prop for consistency.
+- `TextInput` and `TextArea` also support `label` for consistency with the simplified input set in this package.
 - `DatePicker` and `TimePicker` use text input with masks, showing popover on focus.
 - `InputField`, `DatePicker`, `TimePicker` disable browser autocomplete by default (`autocomplete="off"`).
 - `InputField` supports mask prop for formatted input (date, phone, currency, CPF, credit card, etc.).
 - All input components use the same wrapper structure: `column-container no-margin shrink-0 gap-0`.
 - `Slider` is a native range input that supports either linear mode (`min`/`max`/`step`) or discrete custom-step mode (`steps`).
 - In custom-step mode, `Slider` stores and emits the configured numeric step values, not internal index positions.
+- `TextArea` auto-grows between `minLines` and `maxLines`, starts at `3` lines by default, and supports `newlineTrigger` for Enter-key newline behavior.
 
 ### Core Buttons
 

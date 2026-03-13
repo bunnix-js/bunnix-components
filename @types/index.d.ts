@@ -107,6 +107,18 @@ export interface TextInputProps extends LayoutProps {
   input?: (event?: any) => void;
 }
 
+export interface TextAreaProps extends LayoutProps {
+  value?: string | number | StateLike<any>;
+  placeholder?: string;
+  label?: string;
+  outline?: boolean;
+  disabled?: boolean;
+  minLines?: number;
+  maxLines?: number;
+  newlineTrigger?: "enter" | "shift-enter" | "command-enter";
+  input?: (event?: any) => void;
+}
+
 export interface SelectOption {
   key?: string;
   content?: any;
@@ -239,6 +251,7 @@ export const Button: Component<ButtonProps>;
 export const LinkButton: Component<LinkButtonProps>;
 
 export const TextInput: Component<TextInputProps>;
+export const TextArea: Component<TextAreaProps>;
 export const Select: Component<SelectProps>;
 export const CheckBox: Component<CheckBoxProps>;
 export const Slider: Component<SliderProps>;

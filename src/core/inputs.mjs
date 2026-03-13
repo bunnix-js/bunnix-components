@@ -14,7 +14,7 @@
  * - Flexible props normalization (supports both props object and direct children)
  * - Outline focus states via core.css utilities
  */
-import Bunnix, { useState, useEffect, ForEach } from "@bunnix/core";
+import Bunnix, { useState, useEffect, useRef, ForEach } from "@bunnix/core";
 import { withNormalizedArgs, withExtractedStyles, isStateLike } from "./utils.mjs";
 import { Column, Row } from "./layout.mjs";
 import { Heading, Text } from "./typography.mjs";
@@ -25,9 +25,13 @@ import {
   isValidSliderSteps,
   toSliderNumber,
 } from "./sliderUtils.mjs";
+import {
+  getTextAreaHeightMetrics,
+  resolveTextAreaLines,
+} from "./textareaUtils.mjs";
 import "./input.css";
 
-const { input, select, option, div } = Bunnix;
+const { input, textarea, select, option, div } = Bunnix;
 
 /**
  * Wraps a component in a Column with a Heading label if props.label exists.
@@ -75,6 +79,67 @@ function resolveNumericState(propValue, fallback) {
   return isStateLike(propValue)
     ? propValue
     : useState(toSliderNumber(propValue, fallback));
+}
+
+function getLineHeightPx(node) {
+  if (!node || typeof window === "undefined") return 20;
+
+  const computed = window.getComputedStyle(node);
+  const lineHeight = Number.parseFloat(computed.lineHeight);
+
+  if (Number.isFinite(lineHeight)) return lineHeight;
+
+  const fontSize = Number.parseFloat(computed.fontSize);
+  if (Number.isFinite(fontSize)) return fontSize * 1.5;
+
+  return 20;
+}
+
+function getTextAreaVerticalInset(node) {
+  if (!node || typeof window === "undefined") return 0;
+
+  const computed = window.getComputedStyle(node);
+  const values = [
+    computed.paddingTop,
+    computed.paddingBottom,
+    computed.borderTopWidth,
+    computed.borderBottomWidth,
+  ];
+
+  return values.reduce((total, value) => {
+    const nextValue = Number.parseFloat(value);
+    return total + (Number.isFinite(nextValue) ? nextValue : 0);
+  }, 0);
+}
+
+function resizeTextArea(node, minLines, maxLines) {
+  if (!node) return;
+
+  const metrics = getTextAreaHeightMetrics({
+    lineHeight: getLineHeightPx(node),
+    scrollHeight: node.scrollHeight,
+    minLines,
+    maxLines,
+    verticalInset: getTextAreaVerticalInset(node),
+  });
+
+  node.style.height = "auto";
+  node.style.height = `${metrics.nextHeight}px`;
+  node.style.overflowY = metrics.shouldScroll ? "auto" : "hidden";
+}
+
+function shouldInsertTextAreaNewline(event, newlineTrigger) {
+  if (event.key !== "Enter" || event.isComposing) return true;
+
+  if (newlineTrigger === "shift-enter") {
+    return !!event.shiftKey && !event.metaKey && !event.ctrlKey && !event.altKey;
+  }
+
+  if (newlineTrigger === "command-enter") {
+    return !!event.metaKey && !event.shiftKey && !event.ctrlKey && !event.altKey;
+  }
+
+  return !event.shiftKey && !event.metaKey && !event.ctrlKey && !event.altKey;
 }
 
 /** Text Input core component and logic */
@@ -131,6 +196,63 @@ const TextInputCore = (props, _) => {
       },
       placeholder: placeholder,
       class: `${defaultClass} ${outlineClass} ${props.class || ""}`,
+    }),
+  );
+};
+
+const TextAreaCore = (props, _) => {
+  const value =
+    props.value?.get && props.value?.set
+      ? props.value
+      : useState(props.value ?? "");
+  const rawValue = useState(value.get?.() ?? props.value ?? "");
+  const textAreaRef = useRef(null);
+  const minLines = resolveTextAreaLines(props.minLines, 3);
+  const maxLines = Math.max(minLines, resolveTextAreaLines(props.maxLines, 3));
+  const newlineTrigger = props.newlineTrigger ?? "enter";
+  const placeholder = props.placeholder ?? "";
+  const outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
+  const defaultClass =
+    "padding-sm border-primary radius-md flex-grow-1 focus-border-outline bg-primary text-default";
+
+  delete props.outline;
+  delete props.minLines;
+  delete props.maxLines;
+  delete props.newlineTrigger;
+
+  useEffect((nextValue) => {
+    rawValue.set(nextValue ?? "");
+    resizeTextArea(textAreaRef.current, minLines, maxLines);
+  }, value);
+
+  useEffect(() => {
+    resizeTextArea(textAreaRef.current, minLines, maxLines);
+  }, []);
+
+  return wrapIntoLabel(
+    props,
+    textarea({
+      ...props,
+      ref: textAreaRef,
+      rows: minLines,
+      value: rawValue,
+      disabled: props.disabled,
+      placeholder,
+      class: `textarea ${defaultClass} ${outlineClass} ${props.class || ""}`.trim(),
+      keydown: (e) => {
+        if (e.key === "Enter" && !shouldInsertTextAreaNewline(e, newlineTrigger)) {
+          e.preventDefault();
+        }
+
+        props.keydown && props.keydown(e);
+      },
+      input: (e) => {
+        const nextValue = e.target.value ?? "";
+        rawValue.set(nextValue);
+        value.set(nextValue);
+        resizeTextArea(e.target, minLines, maxLines);
+        props.input && props.input(e);
+      },
     }),
   );
 };
@@ -321,6 +443,29 @@ export const TextInput = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     TextInputCore(finalProps, ...children),
   )({ minHeight: 32, textSize: "1rem", ...props }, ...children),
+);
+
+/**
+ * Multiline text input with optional auto-growing height.
+ *
+ * @param {Object} props - Component props
+ * @param {Object|string|number} [props.value] - Textarea value (useState object or string)
+ * @param {string} [props.placeholder] - Placeholder text
+ * @param {string} [props.label] - Label text (wraps in Column with Heading)
+ * @param {boolean} [props.outline] - Show focus outline (default: false)
+ * @param {boolean} [props.disabled] - Disabled state
+ * @param {number} [props.minLines=3] - Minimum visible lines
+ * @param {number} [props.maxLines=3] - Maximum visible lines before scrolling
+ * @param {string} [props.newlineTrigger="enter"] - Enter key combo that inserts a newline: "enter" | "shift-enter" | "command-enter"
+ * @param {Function} [props.input] - Input event handler
+ * @param {string} [props.class] - Additional CSS classes
+ * @param {...*} children - Children elements (ignored)
+ * @returns {*} TextArea component
+ */
+export const TextArea = withNormalizedArgs((props, ...children) =>
+  withExtractedStyles((finalProps, ...children) =>
+    TextAreaCore(finalProps, ...children),
+  )({ textSize: "1rem", ...props }, ...children),
 );
 
 /**
