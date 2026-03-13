@@ -89,16 +89,26 @@
 }
 
 .slider-step-labels {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
+  position: relative;
   width: 100%;
-  gap: var(--gap-md);
+  min-height: 1.5rem;
 }
 
 .slider-step-label {
-  display: flex;
-  justify-content: center;
-  flex: 0 0 auto;
+  position: absolute;
+  top: 0;
   text-align: center;
+  white-space: nowrap;
+}
+
+.slider-step-label-start {
+  transform: translateX(0);
+}
+
+.slider-step-label-center {
+  transform: translateX(-50%);
+}
+
+.slider-step-label-end {
+  transform: translateX(-100%);
 }

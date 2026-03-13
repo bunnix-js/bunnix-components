@@ -274,9 +274,20 @@ const SliderCore = (props, _) => {
             {
               class: "slider-step-labels",
             },
-            customSteps.map((step) =>
+            customSteps.map((step, index) =>
               div(
-                { class: "slider-step-label" },
+                {
+                  class: `slider-step-label ${
+                    index === 0
+                      ? "slider-step-label-start"
+                      : index === customSteps.length - 1
+                        ? "slider-step-label-end"
+                        : "slider-step-label-center"
+                  }`,
+                  style: {
+                    left: `${(index / (customSteps.length - 1)) * 100}%`,
+                  },
+                },
                 step.label
                   ? Text({ weight: "heavy", color: "secondary" }, step.label)
                   : "",
