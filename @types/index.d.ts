@@ -24,6 +24,7 @@ export interface LayoutProps extends BaseProps {
   maxHeight?: number | string;
   fillWidth?: boolean;
   fillHeight?: boolean;
+  border?: "none" | "primary" | "secondary" | "tertiary" | "transparent";
   bgColor?: "primary" | "primary-dimmed" | "secondary" | "success" | "success-dimmed" | "warning" | "warning-dimmed" | "danger" | string;
   margin?: number | string;
   marginX?: number | string;

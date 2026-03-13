@@ -52,6 +52,11 @@ playgrounds/
 - Variants are component-specific; do not force a shared vocabulary.
 - Colors are handled by component-specific props (`Text.color`, `Badge.tone`, `Icon.fill`).
 
+### Border vocabulary
+
+- Layout-style `border` props use `none | primary | secondary | tertiary | transparent`.
+- `secondary` and `tertiary` borders are first-class design tokens, rendered as progressively softer tones of the primary border in both light and dark schemes.
+
 ### Input Components
 
 - `InputField`, `DatePicker`, `TimePicker`, `ComboBox` all support `label` prop for consistency.

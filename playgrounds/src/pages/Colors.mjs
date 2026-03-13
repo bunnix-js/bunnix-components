@@ -22,6 +22,19 @@ export function ColorsPage() {
       Text({ color: "secondary", textSize: "0.875rem" }, props.name),
     );
 
+  const BorderSwatch = (props) =>
+    Column(
+      { gap: "small", alignItems: "center" },
+      Column({
+        border: props.border,
+        bgColor: "primary-dimmed",
+        width: 80,
+        height: 80,
+        radius: "regular",
+      }),
+      Text({ color: "secondary", textSize: "0.875rem" }, props.name),
+    );
+
   return Column(
     Heading({ h2: true }, "Color System"),
     Heading(
@@ -116,6 +129,39 @@ export function ColorsPage() {
 
     Spacer({ minHeight: 16 }),
 
+    // Border Colors
+    ComponentShowcase(
+      {
+        code: `
+        import { Column, Grid } from "@bunnix/components";
+
+        Grid(
+          { layout: "flow", gridGap: 8 },
+          Column({ border: "none", padding: "regular", radius: "regular" }, "None"),
+          Column({ border: "primary", padding: "regular", radius: "regular" }, "Primary"),
+          Column({ border: "secondary", padding: "regular", radius: "regular" }, "Secondary"),
+          Column({ border: "tertiary", padding: "regular", radius: "regular" }, "Tertiary"),
+          Column({ border: "transparent", padding: "regular", radius: "regular" }, "Transparent"),
+        );
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Border Colors"),
+      Text(
+        "Border tones use the resolved border prop and adapt across light and dark modes, with secondary and tertiary as toned-down primary borders.",
+      ),
+      Spacer({ minHeight: 8 }),
+      Grid(
+        { layout: "flow", gridGap: 8 },
+        BorderSwatch({ border: "none", name: "none" }),
+        BorderSwatch({ border: "primary", name: "primary" }),
+        BorderSwatch({ border: "secondary", name: "secondary" }),
+        BorderSwatch({ border: "tertiary", name: "tertiary" }),
+        BorderSwatch({ border: "transparent", name: "transparent" }),
+      ),
+    ),
+
+    Spacer({ minHeight: 16 }),
+
     // Color Tokens
     ComponentShowcase(
       {
@@ -136,6 +182,8 @@ export function ColorsPage() {
 
         // Border tokens
         var(--color-border-primary)
+        var(--color-border-secondary)
+        var(--color-border-tertiary)
 
         // Using with CSS classes
         .fg-primary { color: var(--color-primary); }
@@ -170,6 +218,10 @@ export function ColorsPage() {
             Text(
               { color: "secondary" },
               "• bgColor: 'primary' | 'primary-dimmed' | 'secondary' | 'success' | 'success-dimmed' | 'warning' | 'warning-dimmed' | 'danger' | <any CSS color>",
+            ),
+            Text(
+              { color: "secondary" },
+              "• border: 'none' | 'primary' | 'secondary' | 'tertiary' | 'transparent'",
             ),
           ),
         ),

@@ -44,6 +44,24 @@ Column(
 );
 ```
 
+## Layout Border Prop
+
+Layout primitives accept a resolved `border` prop:
+
+`"none" | "primary" | "secondary" | "tertiary" | "transparent"`
+
+```js
+Column(
+  { gap: 8 },
+  Column({ border: "primary", padding: "regular", radius: "regular" }, "Primary"),
+  Column({ border: "secondary", padding: "regular", radius: "regular" }, "Secondary"),
+  Column({ border: "tertiary", padding: "regular", radius: "regular" }, "Tertiary"),
+  Column({ border: "transparent", padding: "regular", radius: "regular" }, "Transparent"),
+);
+```
+
+These border tokens automatically adapt to light and dark color schemes, with `secondary` and `tertiary` rendered as softer tones of the primary border.
+
 ## Exported API
 
 - Layout: `Column`, `Row`, `Spacer`, `Grid`
