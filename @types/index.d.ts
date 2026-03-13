@@ -159,16 +159,22 @@ export interface TableProps extends LayoutProps {
   rows?: Array<Record<string, any>>;
 }
 
-export interface DialogConfirmation {
+export interface DialogAction {
   text?: string;
   variant?: string;
   action?: (() => void) | null;
 }
 
+export interface DialogConfirmation extends DialogAction {}
+
 export interface ShowDialogOptions {
   title?: string;
   contents?: any[] | any;
-  confirmation?: DialogConfirmation;
+  padding?: number | string;
+  width?: number | string;
+  height?: number | string;
+  secondary?: DialogAction;
+  confirmation?: DialogAction;
 }
 
 export interface ProgressBarProps extends LayoutProps {

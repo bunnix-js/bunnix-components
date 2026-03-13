@@ -1,12 +1,20 @@
 import Bunnix from "@bunnix/core";
 import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
+import { Column, Grid, Row, Spacer } from "../../../src/core/layout.mjs";
 import { useDialog } from "../../../src/core/dialog.mjs";
 import { Button } from "../../../src/core/buttons.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function DialogPage() {
   const { Dialog, showDialog } = useDialog();
+  const longContents = Array.from({ length: 10 }, (_, index) =>
+    Text(
+      { color: index === 0 ? "primary" : "secondary" },
+      index === 0
+        ? "This dialog demonstrates fixed height with scrolling contents."
+        : `Scrollable line ${index}: extra content stays inside the modal body.`,
+    ),
+  );
 
   const openBasicDialog = () => {
     showDialog({
@@ -35,10 +43,35 @@ export function DialogPage() {
     showDialog({
       title: "Delete Item",
       contents: Text("Are you sure you want to delete this item? This action cannot be undone."),
+      secondary: {
+        text: "Cancel",
+        variant: "secondary",
+        action: () => console.log("Delete cancelled"),
+      },
       confirmation: {
         text: "Delete",
         variant: "danger",
         action: () => console.log("Item deleted"),
+      },
+    });
+  };
+
+  const openSizedDialog = () => {
+    showDialog({
+      title: "Sized Dialog",
+      padding: "large",
+      width: 640,
+      height: 320,
+      contents: longContents,
+      secondary: {
+        text: "Later",
+        variant: "secondary",
+        action: () => console.log("Deferred"),
+      },
+      confirmation: {
+        text: "Continue",
+        variant: "primary",
+        action: () => console.log("Continued"),
       },
     });
   };
@@ -83,10 +116,35 @@ export function DialogPage() {
         showDialog({
           title: "Delete Item",
           contents: Text("Are you sure?"),
+          secondary: {
+            text: "Cancel",
+            variant: "secondary",
+            action: () => console.log("Cancelled"),
+          },
           confirmation: {
             text: "Delete",
             variant: "danger",
             action: () => console.log("Deleted"),
+          },
+        });
+
+        // Fixed-size dialog with custom padding and scrollable contents
+        showDialog({
+          title: "Sized Dialog",
+          padding: "large",
+          width: 640,
+          height: 320,
+          contents: [
+            Text("This dialog demonstrates fixed height."),
+            Text({ color: "secondary" }, "Add enough content and only the body scrolls."),
+          ],
+          secondary: {
+            text: "Later",
+            variant: "secondary",
+          },
+          confirmation: {
+            text: "Continue",
+            variant: "primary",
           },
         });
 
@@ -99,12 +157,13 @@ export function DialogPage() {
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
-        Text("Click the buttons below to open different dialog variants:"),
-        Row(
-          { gap: "regular" },
+        Text("Click the buttons below to open different dialog variants, including a two-button footer:"),
+        Grid(
+          { layout: "flow", gridGap: "regular" },
           Button({ click: openBasicDialog }, "Basic Dialog"),
           Button({ click: openCustomDialog }, "Custom Dialog"),
           Button({ click: openDangerDialog, variant: "danger" }, "Danger Dialog"),
+          Button({ click: openSizedDialog, variant: "secondary" }, "Sized Dialog"),
         ),
       ),
     ),
