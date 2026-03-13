@@ -22,3 +22,24 @@
 .table tr:last-child td {
   border-bottom: none;
 }
+
+.table.table-alternate-rows thead td,
+.table.table-alternate-rows tbody td,
+.table.table-alternate-rows th {
+  border-bottom: none;
+}
+
+.table.table-alternate-rows thead td,
+.table.table-alternate-rows thead th {
+  background-color: var(--color-bg-primary-dimmed);
+}
+
+.table.table-alternate-rows thead + tbody tr:nth-child(even) td,
+.table.table-alternate-rows thead + tbody tr:nth-child(even) th {
+  background-color: var(--color-bg-primary-dimmed);
+}
+
+.table.table-alternate-rows tbody:first-child tr:nth-child(odd) td,
+.table.table-alternate-rows tbody:first-child tr:nth-child(odd) th {
+  background-color: var(--color-bg-primary-dimmed);
+}

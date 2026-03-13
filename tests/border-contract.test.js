@@ -63,10 +63,12 @@ test("Grid preserves extracted style values when adding grid styles", () => {
 });
 
 test("Table maps border prop to class instead of native table border attribute", () => {
+  assert.match(tableSource, /let type = finalProps\.type \?\? "regular";/);
   assert.match(tableSource, /let border = finalProps\.border;/);
+  assert.match(tableSource, /delete finalProps\.type;/);
   assert.match(tableSource, /delete finalProps\.border;/);
   assert.match(
     tableSource,
-    /class: `table \$\{border \? `border-\$\{border\} ` : ""\}\$\{finalProps\.class \|\| ""\}`\.trim\(\),/,
+    /class: `table \$\{type !== "regular" \? `table-\$\{type\} ` : ""\}\$\{border \? `border-\$\{border\} ` : ""\}\$\{finalProps\.class \|\| ""\}`\.trim\(\),/,
   );
 });

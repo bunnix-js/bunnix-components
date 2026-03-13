@@ -12,7 +12,13 @@ const tableSource = readFileSync(
   "utf8",
 );
 
-test("TableProps exposes hideHeaders and renderCell", () => {
+const tableCssSource = readFileSync(
+  new URL("../src/core/table.css", import.meta.url),
+  "utf8",
+);
+
+test("TableProps exposes type, hideHeaders and renderCell", () => {
+  assert.match(typesSource, /type\?: "regular" \| "alternate-rows";/);
   assert.match(typesSource, /hideHeaders\?: boolean;/);
   assert.match(
     typesSource,
@@ -21,9 +27,15 @@ test("TableProps exposes hideHeaders and renderCell", () => {
 });
 
 test("Table omits thead when hideHeaders is enabled", () => {
+  assert.match(tableSource, /let type = finalProps\.type \?\? "regular";/);
+  assert.match(tableSource, /delete finalProps\.type;/);
   assert.match(tableSource, /let hideHeaders = finalProps\.hideHeaders \?\? false;/);
   assert.match(tableSource, /delete finalProps\.hideHeaders;/);
   assert.match(tableSource, /\.\.\.\(!hideHeaders \? \[thead\(theaders\)\] : \[\]\),/);
+  assert.match(
+    tableSource,
+    /class: `table \$\{type !== "regular" \? `table-\$\{type\} ` : ""\}\$\{border \? `border-\$\{border\} ` : ""\}\$\{finalProps\.class \|\| ""\}`\.trim\(\),/,
+  );
 });
 
 test("Table renderCell receives record, row index, and field before fallback", () => {
@@ -37,5 +49,22 @@ test("Table renderCell receives record, row index, and field before fallback", (
   assert.match(
     tableSource,
     /if \(!\(h\.key in r\)\) return td\(""\);/,
+  );
+});
+
+test("Table alternate-rows CSS removes separators and alternates row backgrounds", () => {
+  assert.match(tableCssSource, /\.table\.table-alternate-rows thead td,/);
+  assert.match(tableCssSource, /border-bottom: none;/);
+  assert.match(
+    tableCssSource,
+    /\.table\.table-alternate-rows thead td,[\s\S]*background-color: var\(--color-bg-primary-dimmed\);/m,
+  );
+  assert.match(
+    tableCssSource,
+    /\.table\.table-alternate-rows thead \+ tbody tr:nth-child\(even\) td,[\s\S]*background-color: var\(--color-bg-primary-dimmed\);/m,
+  );
+  assert.match(
+    tableCssSource,
+    /\.table\.table-alternate-rows tbody:first-child tr:nth-child\(odd\) td,[\s\S]*background-color: var\(--color-bg-primary-dimmed\);/m,
   );
 });

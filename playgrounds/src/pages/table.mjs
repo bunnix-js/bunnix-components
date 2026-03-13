@@ -47,6 +47,12 @@ export function TablePage() {
   });
 
   Table({
+    type: "alternate-rows",
+    headers,
+    rows: data,
+  });
+
+  Table({
     headers,
     rows: data,
     hideHeaders: true,
@@ -116,11 +122,11 @@ export function TablePage() {
     Spacer({ minHeight: 24 }),
 
     Row(
-      { border: "primary", radius: "large", overflow: "hidden", alignItems: "stretch", alignItems: "start" },
+      { border: "primary", radius: "large", overflow: "hidden", alignItems: "start" },
       Column(
         { width: "50%", padding: "large", gap: "regular", flexShrink: 0 },
         Heading({ h3: true, color: "secondary" }, "Table"),
-        Text("Data table with column headers, optional hidden headers, and custom cell rendering."),
+        Text("Data table with multiple visual styles, optional hidden headers, and custom cell rendering."),
         Spacer({ minHeight: 8 }),
         Column(
           { gap: 24, fillWidth: true },
@@ -130,6 +136,15 @@ export function TablePage() {
             Table({
               headers,
               border: "primary",
+              rows: sampleData,
+            }),
+          ),
+          Column(
+            { gap: "small" },
+            Text({ color: "secondary", weight: "heavy" }, "Alternate Rows"),
+            Table({
+              type: "alternate-rows",
+              headers,
               rows: sampleData,
             }),
           ),

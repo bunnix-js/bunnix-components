@@ -15,6 +15,7 @@ const rows = [
 ];
 
 Table({
+  type: "alternate-rows",
   headers: [
     { content: "Name", key: "name", size: 180 },
     { content: "Role", key: "role", size: 180 },
@@ -46,6 +47,9 @@ Table({
   - `key`: record field name used for body cells
   - `size`: optional column width (`number` in pixels or CSS string)
 - `rows`: Array of data records rendered in header order
+- `type`: optional visual mode
+  - `"regular"` keeps separator lines and is the default
+  - `"alternate-rows"` removes row separators and alternates row backgrounds using `primary-dimmed`
 - `hideHeaders`: optional boolean that removes the visible header row while preserving column sizing
 - `renderCell`: optional callback `(record, rowIndex, field) => BunnixChild`
   - called for each keyed body cell

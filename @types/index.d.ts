@@ -157,6 +157,7 @@ export interface TableHeader {
 export interface TableProps extends LayoutProps {
   headers?: TableHeader[];
   rows?: Array<Record<string, any>>;
+  type?: "regular" | "alternate-rows";
   hideHeaders?: boolean;
   renderCell?: (
     record: Record<string, any>,
