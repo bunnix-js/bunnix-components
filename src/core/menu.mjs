@@ -77,27 +77,31 @@ const MenuCore = (props, ...children) => {
 
   const computeMenuPos = (rect, anchor) => {
     const GAP = 4;
+    // clientWidth/clientHeight exclude scrollbar width — matches getBoundingClientRect() coordinate space.
+    // window.innerWidth/innerHeight include scrollbar and would produce a consistent gap on the right/bottom.
+    const vw = document.documentElement.clientWidth;
+    const vh = document.documentElement.clientHeight;
     switch (anchor) {
       case "bottomRight":
         return {
           top: `${rect.bottom + GAP}px`,
           left: "auto",
           bottom: "auto",
-          right: `${window.innerWidth - rect.right}px`,
+          right: `${vw - rect.right}px`,
         };
       case "topLeft":
         return {
           top: "auto",
           left: `${rect.left}px`,
-          bottom: `${window.innerHeight - rect.top + GAP}px`,
+          bottom: `${vh - rect.top + GAP}px`,
           right: "auto",
         };
       case "topRight":
         return {
           top: "auto",
           left: "auto",
-          bottom: `${window.innerHeight - rect.top + GAP}px`,
-          right: `${window.innerWidth - rect.right}px`,
+          bottom: `${vh - rect.top + GAP}px`,
+          right: `${vw - rect.right}px`,
         };
       case "bottomLeft":
       default:
@@ -112,7 +116,9 @@ const MenuCore = (props, ...children) => {
 
   const toggleDropdown = () => {
     if (!isOpen.get()) {
-      const rect = triggerRef.current.getBoundingClientRect();
+      // Measure the trigger element (first child), not the wrapper, for accurate right-edge alignment
+      const triggerEl = triggerRef.current.firstElementChild ?? triggerRef.current;
+      const rect = triggerEl.getBoundingClientRect();
       const pos = computeMenuPos(rect, anchor);
       if (popoverRef.current) {
         Object.assign(popoverRef.current.style, pos);
