@@ -9,7 +9,7 @@
  * Features:
  * - Automatic open/close state management
  * - Popover API for overflow-safe rendering (CSS Top Layer)
- * - Browser-native dismiss (click outside, Escape key)
+ * - Browser-native dismiss (click outside, Escape key, page scroll)
  * - Action items with optional icons
  * - Divider support for grouping items
  * - Custom trigger support
@@ -43,16 +43,36 @@ const MenuCore = (props, ...children) => {
   delete props.trigger;
   delete props.anchor;
 
-  // Sync isOpen state from popover toggle events
-  // Handles browser auto-dismiss (click outside, Escape key)
+  // Sync isOpen state from popover toggle events & close on scroll
+  // Handles browser auto-dismiss (click outside, Escape key) + scroll-away behavior
+  // Uses queueMicrotask to defer listener attachment until after popoverRef is assigned by bunnixToDOM
   useEffect(() => {
-    const el = popoverRef.current;
-    if (!el) return;
-    const handleToggle = (e) => {
-      isOpen.set(e.newState === "open");
-    };
-    el.addEventListener("toggle", handleToggle);
-    return () => el.removeEventListener("toggle", handleToggle);
+    queueMicrotask(() => {
+      const el = popoverRef.current;
+      if (!el) return;
+
+      // Close menu when page scrolls (capture phase for early detection)
+      const handleScroll = () => {
+        el.hidePopover();
+      };
+
+      // Sync state when popover opens/closes, manage scroll listener lifecycle
+      const handleToggle = (e) => {
+        const open = e.newState === "open";
+        isOpen.set(open);
+        if (open) {
+          // Attach scroll listener when menu opens
+          window.addEventListener("scroll", handleScroll, true);
+        } else {
+          // Remove scroll listener when menu closes (click outside, Escape, item click, etc.)
+          window.removeEventListener("scroll", handleScroll, true);
+        }
+      };
+
+      el.addEventListener("toggle", handleToggle);
+      // Toggle listener lives with the element and is GC'd when element is removed
+      // Scroll listener is self-managed: attached on open, removed on close
+    });
   });
 
   const computeMenuPos = (rect, anchor) => {
@@ -157,6 +177,7 @@ const MenuCore = (props, ...children) => {
  * Uses the HTML Popover API (`popover="auto"`) to render the dropdown in
  * the CSS Top Layer — fully escaping any `overflow: hidden` ancestor.
  * Browser provides native dismiss on click-outside and Escape key.
+ * Menu also closes automatically when the page scrolls.
  *
  * @param {Object} props - Component props
  * @param {Array<Object>} props.items - Menu items array
