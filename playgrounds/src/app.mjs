@@ -44,28 +44,53 @@ export function App() {
   return Grid(
     {
       columns: [{ size: 240 }, { size: "auto" }],
+      height: "100vh",
+      fillWidth: true,
+      overflow: "hidden",
+      minHeight: 0,
     },
-    Sidebar({ items: sidebarItems, selection: selectedSidebarKey }),
+    Column(
+      {
+        fillHeight: true,
+        overflow: "auto",
+        minHeight: 0,
+      },
+      Sidebar({ items: sidebarItems, selection: selectedSidebarKey }),
+    ),
     // Contents
     Column(
-      { padding: "large" },
-      Show(selectedSidebarKey, (item) => {
-        if (item === "home") return HomePage();
-        if (item === "colors") return ColorsPage();
-        if (item === "layout") return LayoutPage();
-        if (item === "grid") return GridPage();
-        if (item === "typography") return TypographyPage();
-        if (item === "icon-registry") return IconRegistryPage();
-        if (item === "buttons") return ButtonsPage();
-        if (item === "sidebar") return SidebarPage();
-        if (item === "menu") return MenuPage();
-        if (item === "outline") return OutlinePage();
-        if (item === "media") return MediaPage();
-        if (item === "inputs") return InputsPage();
-        if (item === "table") return TablePage();
-        if (item === "dialog") return DialogPage();
-        if (item === "progress") return ProgressPage();
-      }),
+      {
+        fillHeight: true,
+        minHeight: 0,
+        minWidth: 0,
+        overflow: "hidden",
+      },
+      Column(
+        {
+          fillHeight: true,
+          minHeight: 0,
+          minWidth: 0,
+          overflow: "auto",
+          padding: "large",
+        },
+        Show(selectedSidebarKey, (item) => {
+          if (item === "home") return HomePage();
+          if (item === "colors") return ColorsPage();
+          if (item === "layout") return LayoutPage();
+          if (item === "grid") return GridPage();
+          if (item === "typography") return TypographyPage();
+          if (item === "icon-registry") return IconRegistryPage();
+          if (item === "buttons") return ButtonsPage();
+          if (item === "sidebar") return SidebarPage();
+          if (item === "menu") return MenuPage();
+          if (item === "outline") return OutlinePage();
+          if (item === "media") return MediaPage();
+          if (item === "inputs") return InputsPage();
+          if (item === "table") return TablePage();
+          if (item === "dialog") return DialogPage();
+          if (item === "progress") return ProgressPage();
+        }),
+      ),
     ),
   );
 }
