@@ -69,7 +69,7 @@ test("TextArea height metrics clamp between min and max lines", () => {
 });
 
 test("TextArea is exported from the package entrypoint", () => {
-  assert.match(indexSource, /export \{ TextInput, TextArea, Select, CheckBox, Switch, Slider \} from "\.\/core\/inputs\.mjs";/);
+  assert.match(indexSource, /export \{ TextInput, TextArea, Select, CheckBox, Switch, SegmentedPicker, Slider \} from "\.\/core\/inputs\.mjs";/);
   assert.match(indexSource, /export \{ Picker \} from "\.\/core\/inputs\.mjs";/);
 });
 

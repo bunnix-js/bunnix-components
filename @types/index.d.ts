@@ -147,6 +147,22 @@ export interface PickerProps extends LayoutProps {
   input?: (event?: any) => void;
 }
 
+export interface SegmentedPickerItem {
+  key: string;
+  text: string;
+  icon?: string;
+}
+
+export interface SegmentedPickerProps extends LayoutProps {
+  value?: string | StateLike<string>;
+  items?: SegmentedPickerItem[] | StateLike<SegmentedPickerItem[]>;
+  label?: string;
+  outline?: boolean;
+  disabled?: boolean;
+  input?: (event?: any) => void;
+  change?: (event?: any) => void;
+}
+
 export interface SelectOption {
   key?: string;
   content?: any;
@@ -305,6 +321,7 @@ export const TextArea: Component<TextAreaProps>;
 export const Select: Component<SelectProps>;
 export const CheckBox: Component<CheckBoxProps>;
 export const Switch: Component<SwitchProps>;
+export const SegmentedPicker: Component<SegmentedPickerProps>;
 export const Slider: Component<SliderProps>;
 
 export const Table: Component<TableProps>;

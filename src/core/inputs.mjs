@@ -6,6 +6,7 @@
  * Components:
  * - TextInput: Single-line text input with optional placeholder and state binding
  * - Picker: Menu-backed selection input with a selector-style trigger
+ * - SegmentedPicker: iOS-style segmented selection control with optional icons
  * - Select: Dropdown input with mapped options
  * - CheckBox: Simple checkbox input with optional state binding
  * - Switch: OS-style boolean toggle with optional state binding
@@ -346,6 +347,76 @@ const PickerCore = (props, _) => {
   );
 };
 
+const SegmentedPickerCore = (props, _) => {
+  const value =
+    props.value?.get && props.value?.set
+      ? props.value
+      : useState(props.value ?? "");
+  const itemsValue =
+    props.items?.get && props.items?.set
+      ? props.items
+      : useState(props.items ?? []);
+  const outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
+  const segmentedPickerState = Compute(
+    [value, itemsValue],
+    (selectedKey, resolvedItems) =>
+      (resolvedItems ?? []).map((item) => ({
+        ...item,
+        selected: item.key === selectedKey,
+      })),
+  );
+
+  delete props.outline;
+  delete props.items;
+
+  return wrapIntoLabel(
+    props,
+    div(
+      {
+        class: `segmented-picker border-primary bg-primary-dimmed radius-lg ${
+          props.disabled ? "segmented-picker-disabled" : ""
+        } ${outlineClass} ${props.class || ""}`.trim(),
+      },
+      ForEach(segmentedPickerState, "key", (item) =>
+        button(
+          {
+            type: "button",
+            disabled: !!props.disabled,
+            click: () => {
+              if (props.disabled || item.selected) return;
+
+              value.set(item.key);
+
+              const eventLike = {
+                target: { value: item.key },
+                currentTarget: { value: item.key },
+                item,
+              };
+
+              props.change && props.change(eventLike);
+              props.input && props.input(eventLike);
+            },
+            class: `segmented-picker-segment ${
+              item.selected ? "segmented-picker-segment-selected" : ""
+            }`,
+          },
+          Row(
+            {
+              class: "segmented-picker-segment-content",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: item.icon ? "small" : 0,
+              width: "100%",
+            },
+            ...(item.icon ? [Icon({ name: item.icon, size: 16 })] : []),
+            Text({ weight: "heavy" }, item.text),
+          ),
+        ),
+      ),
+    ),
+  );
+};
+
 /** Select core component and logic */
 const SelectCore = (props, _) => {
   let value =
@@ -601,6 +672,27 @@ export const Picker = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     PickerCore(finalProps, ...children),
   )({ minHeight: 32, textSize: "1rem", ...props }, ...children),
+);
+
+/**
+ * iOS-style segmented picker with single keyed selection.
+ *
+ * @param {Object} props - Component props
+ * @param {Object|string} [props.value] - Selected segment key (useState object or string)
+ * @param {Array<{key: string, text: string, icon?: string}>} [props.items] - Segmented picker items
+ * @param {string} [props.label] - Label text (wraps in Column with Heading)
+ * @param {boolean} [props.outline] - Show focus outline
+ * @param {boolean} [props.disabled] - Disabled state
+ * @param {Function} [props.change] - Called with an event-like object after selection
+ * @param {Function} [props.input] - Called with an event-like object after selection
+ * @param {string} [props.class] - Additional CSS classes
+ * @param {...*} children - Children elements (ignored)
+ * @returns {*} SegmentedPicker component
+ */
+export const SegmentedPicker = withNormalizedArgs((props, ...children) =>
+  withExtractedStyles((finalProps, ...children) =>
+    SegmentedPickerCore(finalProps, ...children),
+  )({ textSize: "1rem", ...props }, ...children),
 );
 
 /**

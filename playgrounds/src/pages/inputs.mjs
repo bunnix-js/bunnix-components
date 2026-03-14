@@ -1,7 +1,7 @@
 import Bunnix, { useState } from "@bunnix/core";
 import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Spacer } from "../../../src/core/layout.mjs";
-import { TextInput, TextArea, Select, CheckBox, Switch, Slider } from "../../../src/core/inputs.mjs";
+import { TextInput, TextArea, Select, CheckBox, Switch, SegmentedPicker, Slider } from "../../../src/core/inputs.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function TextInputPage() {
@@ -295,6 +295,82 @@ export function SwitchPage() {
         Switch({ checked: switchValue, label: "Enable notifications" }),
         Switch({ checked: true, disabled: true, label: "Disabled" }),
         Text({ color: "secondary" }, switchValue.map((value) => `Enabled: ${value}`)),
+      ),
+    ),
+  );
+}
+
+export function SegmentedPickerPage() {
+  const textValue = useState("week");
+  const iconValue = useState("calendar");
+
+  return Column(
+    Heading({ h2: true }, "SegmentedPicker Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "iOS-style segmented selection with optional icons",
+    ),
+    Spacer({ minHeight: 24 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { SegmentedPicker } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const timeframe = useState("week");
+        const destination = useState("calendar");
+
+        SegmentedPicker({
+          value: timeframe,
+          items: [
+            { key: "day", text: "Day" },
+            { key: "week", text: "Week" },
+            { key: "month", text: "Month" },
+          ],
+        });
+
+        SegmentedPicker({
+          value: destination,
+          items: [
+            { key: "calendar", text: "Calendar", icon: "calendar" },
+            { key: "messages", text: "Messages", icon: "chat_bubble_2" },
+            { key: "mail", text: "Mail", icon: "envelope" },
+          ],
+        });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "SegmentedPicker"),
+      Text("Classic segmented control for single keyed selection."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        SegmentedPicker({
+          value: textValue,
+          items: [
+            { key: "day", text: "Day" },
+            { key: "week", text: "Week" },
+            { key: "month", text: "Month" },
+          ],
+        }),
+        Text({ color: "secondary" }, textValue.map((value) => `Selected range: ${value}`)),
+        SegmentedPicker({
+          value: iconValue,
+          items: [
+            { key: "calendar", text: "Calendar", icon: "calendar" },
+            { key: "messages", text: "Messages", icon: "chat_bubble_2" },
+            { key: "mail", text: "Mail", icon: "envelope" },
+          ],
+        }),
+        Text({ color: "secondary" }, iconValue.map((value) => `Selected destination: ${value}`)),
+        SegmentedPicker({
+          value: "week",
+          disabled: true,
+          items: [
+            { key: "day", text: "Day" },
+            { key: "week", text: "Week" },
+            { key: "month", text: "Month" },
+          ],
+        }),
       ),
     ),
   );

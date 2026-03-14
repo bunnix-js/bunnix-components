@@ -23,7 +23,7 @@ const cssSource = readFileSync(
 );
 
 test("Switch is exported from the package entrypoint", () => {
-  assert.match(indexSource, /export \{ TextInput, TextArea, Select, CheckBox, Switch, Slider \} from "\.\/core\/inputs\.mjs";/);
+  assert.match(indexSource, /export \{ TextInput, TextArea, Select, CheckBox, Switch, SegmentedPicker, Slider \} from "\.\/core\/inputs\.mjs";/);
 });
 
 test("Switch typings are part of the public type surface", () => {
