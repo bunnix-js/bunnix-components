@@ -10,31 +10,31 @@ export function SidebarPage() {
   // Example 1: Basic sidebar
   const basicSelection = useState("dashboard");
   const basicItems = [
-    { key: "dashboard", text: "Dashboard", icon: "home" },
-    { key: "settings", text: "Settings", icon: "settings" },
-    { key: "profile", text: "Profile", icon: "user" },
+    { key: "dashboard", text: "Dashboard", icon: "house" },
+    { key: "settings", text: "Settings", icon: "gear" },
+    { key: "profile", text: "Profile", icon: "person" },
   ];
 
   // Example 2: Sidebar with headers
   const groupedSelection = useState("overview");
   const groupedItems = [
     { key: "header-main", text: "Main", isHeader: true },
-    { key: "overview", text: "Overview", icon: "home" },
-    { key: "analytics", text: "Analytics", icon: "bar-chart" },
+    { key: "overview", text: "Overview", icon: "house" },
+    { key: "analytics", text: "Analytics", icon: "chart_bar" },
     { key: "header-settings", text: "Settings", isHeader: true },
-    { key: "account", text: "Account", icon: "user" },
-    { key: "preferences", text: "Preferences", icon: "settings" },
+    { key: "account", text: "Account", icon: "person" },
+    { key: "preferences", text: "Preferences", icon: "gear" },
   ];
 
   // Example 3: Nested sidebar
   const nestedSelection = useState("components");
   const nestedItems = [
-    { key: "home", text: "Home", icon: "home" },
+    { key: "home", text: "Home", icon: "house" },
     { key: "header-components", text: "Components", isHeader: true },
     {
       key: "components",
       text: "Components",
-      icon: "columns-layout",
+      icon: "rectangle_grid_1x2",
       children: [
         { key: "buttons", text: "Buttons" },
         {
@@ -47,7 +47,7 @@ export function SidebarPage() {
         },
       ],
     },
-    { key: "settings", text: "Settings", icon: "settings" },
+    { key: "settings", text: "Settings", icon: "gear" },
   ];
 
   // Example 4: Full navigation sidebar
@@ -55,15 +55,15 @@ export function SidebarPage() {
   const navItems = [
     { key: "header-workspace", text: "Workspace", isHeader: true },
     { key: "projects", text: "Projects", icon: "folder" },
-    { key: "tasks", text: "Tasks", icon: "check-square" },
-    { key: "team", text: "Team", icon: "users" },
+    { key: "tasks", text: "Tasks", icon: "checkmark_rectangle" },
+    { key: "team", text: "Team", icon: "person_2" },
     { key: "header-tools", text: "Tools", isHeader: true },
     { key: "calendar", text: "Calendar", icon: "calendar" },
-    { key: "documents", text: "Documents", icon: "file-text" },
-    { key: "messages", text: "Messages", icon: "message-square" },
+    { key: "documents", text: "Documents", icon: "doc_text" },
+    { key: "messages", text: "Messages", icon: "chat_bubble_2" },
     { key: "header-admin", text: "Admin", isHeader: true },
-    { key: "settings", text: "Settings", icon: "settings" },
-    { key: "logout", text: "Logout", icon: "log-out" },
+    { key: "settings", text: "Settings", icon: "gear" },
+    { key: "logout", text: "Logout", icon: "arrow_right_square" },
   ];
 
   return Column(
@@ -83,9 +83,9 @@ export function SidebarPage() {
 
         const selection = useState("dashboard");
         const items = [
-          { key: "dashboard", text: "Dashboard", icon: "home" },
-          { key: "settings", text: "Settings", icon: "settings" },
-          { key: "profile", text: "Profile", icon: "user" },
+          { key: "dashboard", text: "Dashboard", icon: "house" },
+          { key: "settings", text: "Settings", icon: "gear" },
+          { key: "profile", text: "Profile", icon: "person" },
         ];
 
         Sidebar({ items, selection });
@@ -125,11 +125,11 @@ export function SidebarPage() {
         const selection = useState("overview");
         const items = [
           { key: "header-main", text: "Main", isHeader: true },
-          { key: "overview", text: "Overview", icon: "home" },
-          { key: "analytics", text: "Analytics", icon: "bar-chart" },
+          { key: "overview", text: "Overview", icon: "house" },
+          { key: "analytics", text: "Analytics", icon: "chart_bar" },
           { key: "header-settings", text: "Settings", isHeader: true },
-          { key: "account", text: "Account", icon: "user" },
-          { key: "preferences", text: "Preferences", icon: "settings" },
+          { key: "account", text: "Account", icon: "person" },
+          { key: "preferences", text: "Preferences", icon: "gear" },
         ];
 
         Sidebar({ items, selection });
@@ -168,12 +168,12 @@ export function SidebarPage() {
 
         const selection = useState("components");
         const items = [
-          { key: "home", text: "Home", icon: "home" },
+          { key: "home", text: "Home", icon: "house" },
           { key: "header-components", text: "Components", isHeader: true },
           {
             key: "components",
             text: "Components",
-            icon: "columns-layout",
+            icon: "rectangle_grid_1x2",
             children: [
               { key: "buttons", text: "Buttons" },
               {
@@ -186,7 +186,7 @@ export function SidebarPage() {
               },
             ],
           },
-          { key: "settings", text: "Settings", icon: "settings" },
+          { key: "settings", text: "Settings", icon: "gear" },
         ];
 
         Sidebar({ items, selection });
@@ -227,15 +227,15 @@ export function SidebarPage() {
         const items = [
           { key: "header-workspace", text: "Workspace", isHeader: true },
           { key: "projects", text: "Projects", icon: "folder" },
-          { key: "tasks", text: "Tasks", icon: "check-square" },
-          { key: "team", text: "Team", icon: "users" },
+          { key: "tasks", text: "Tasks", icon: "checkmark_rectangle" },
+          { key: "team", text: "Team", icon: "person_2" },
           { key: "header-tools", text: "Tools", isHeader: true },
           { key: "calendar", text: "Calendar", icon: "calendar" },
-          { key: "documents", text: "Documents", icon: "file-text" },
-          { key: "messages", text: "Messages", icon: "message-square" },
+          { key: "documents", text: "Documents", icon: "doc_text" },
+          { key: "messages", text: "Messages", icon: "chat_bubble_2" },
           { key: "header-admin", text: "Admin", isHeader: true },
-          { key: "settings", text: "Settings", icon: "settings" },
-          { key: "logout", text: "Logout", icon: "log-out" },
+          { key: "settings", text: "Settings", icon: "gear" },
+          { key: "logout", text: "Logout", icon: "arrow_right_square" },
         ];
 
         Sidebar({ items, selection });
@@ -273,7 +273,7 @@ export function SidebarPage() {
         {
           key: "unique-key",       // Required: unique identifier
           text: "Display Text",    // Required: text to display
-          icon: "icon-name",       // Optional: icon name from registry
+          icon: "framework7_icon", // Optional: official Framework7 icon name
           isHeader: false          // Optional: renders as header if true
         }
 
@@ -304,7 +304,7 @@ export function SidebarPage() {
         ),
         Text(
           Text({ weight: "heavy" }, "• Icon Support:"),
-          " Optional icons from the icon registry",
+          " Optional Framework7 icon names on root-level items",
         ),
         Text(
           Text({ weight: "heavy" }, "• Nested Groups:"),

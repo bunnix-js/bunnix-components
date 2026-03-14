@@ -91,7 +91,7 @@ const renderSidebarItem = ({
         ...(hasChildren
           ? [
               Icon({
-                name: isExpanded ? "chevron-down" : "chevron-right",
+                name: isExpanded ? "chevron_down" : "chevron_right",
                 size: 16,
                 ...(isSelected ? {} : { color: "secondary" }),
               }),

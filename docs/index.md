@@ -33,7 +33,7 @@ import "@bunnix/components/styles.css";
 import { Button, Icon } from "@bunnix/components";
 
 Button({ variant: "regular" }, [
-  Icon({ name: "star", fill: "white" }),
+  Icon({ name: "star", color: "primary-inverted" }),
   "Star"
 ]);
 ```

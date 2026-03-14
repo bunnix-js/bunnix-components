@@ -23,7 +23,7 @@ export function ButtonPage() {
         Button({ variant: "tertiary" }, "Tertiary");
         Button({ variant: "danger" }, "Danger");
         Button(
-          Icon({ name: "check", size: 16 }),
+          Icon({ name: "checkmark", size: 16 }),
           "With Icon"
         );
         Button({ disabled: true }, "Disabled");
@@ -44,7 +44,7 @@ export function ButtonPage() {
         Row(
           { gap: "small" },
           Button(
-            Icon({ name: "check", size: 16 }),
+            Icon({ name: "checkmark", size: 16 }),
             "With Icon"
           ),
           Button(
@@ -81,7 +81,7 @@ export function LinkButtonPage() {
         LinkButton({ variant: "tertiary" }, "Tertiary Link");
         LinkButton({ variant: "danger" }, "Danger Link");
         LinkButton(
-          Icon({ name: "external-link", size: 16 }),
+          Icon({ name: "arrow_up_right_square", size: 16 }),
           "External Link"
         );
         LinkButton({ disabled: true }, "Disabled Link");
@@ -102,7 +102,7 @@ export function LinkButtonPage() {
         Row(
           { gap: "regular" },
           LinkButton(
-            Icon({ name: "arrow-right", size: 16 }),
+            Icon({ name: "arrow_right", size: 16 }),
             "With Icon"
           ),
           LinkButton({ disabled: true }, "Disabled Link"),

@@ -18,7 +18,7 @@ import { OutlinePage } from "./pages/outline.mjs";
 import { ProgressPage } from "./pages/progress.mjs";
 
 const sidebarItems = [
-  { key: "home", text: "Home", icon: "home" },
+  { key: "home", text: "Home", icon: "house" },
   { key: "header-core", text: "Core", isHeader: true },
   {
     key: "layout",
@@ -31,12 +31,12 @@ const sidebarItems = [
       { key: "alignment", text: "Alignment" },
     ],
   },
-  { key: "colors", text: "Colors", icon: "palette" },
+  { key: "colors", text: "Colors", icon: "paintbrush" },
   { key: "grid", text: "Grid", icon: "grid" },
   {
     key: "typography",
     text: "Typography",
-    icon: "text",
+    icon: "textformat",
     children: [
       { key: "heading", text: "Heading" },
       { key: "text", text: "Text" },
@@ -48,13 +48,13 @@ const sidebarItems = [
   {
     key: "buttons",
     text: "Buttons",
-    icon: "button",
+    icon: "rectangle_on_rectangle",
     children: [
       { key: "button", text: "Button" },
       { key: "link-button", text: "LinkButton" },
     ],
   },
-  { key: "sidebar", text: "Sidebar", icon: "columns-layout" },
+  { key: "sidebar", text: "Sidebar", icon: "rectangle_grid_1x2" },
   {
     key: "menus",
     text: "Menus",
@@ -63,11 +63,11 @@ const sidebarItems = [
       { key: "picker", text: "Picker" },
     ],
   },
-  { key: "outline", text: "Outline", icon: "chevron-down" },
+  { key: "outline", text: "Outline", icon: "chevron_down" },
   {
     key: "media",
     text: "Media",
-    icon: "image",
+    icon: "photo",
     children: [
       { key: "media-display", text: "Media" },
       { key: "icon", text: "Icon" },
@@ -78,7 +78,7 @@ const sidebarItems = [
   {
     key: "inputs",
     text: "Inputs",
-    icon: "square-pencil",
+    icon: "square_pencil",
     children: [
       { key: "text-input", text: "TextInput" },
       { key: "text-area", text: "TextArea" },
@@ -89,11 +89,11 @@ const sidebarItems = [
   },
   { key: "table", text: "Table", icon: "table" },
   { key: "dialog", text: "Dialog", icon: "hand" },
-  { key: "progress", text: "Progress", icon: "battery-25" },
+  { key: "progress", text: "Progress", icon: "battery_25" },
 ];
 
 const contentPageKeys = new Set([
-  "home",
+  "house",
   "colors",
   "column",
   "row",
@@ -124,8 +124,8 @@ const contentPageKeys = new Set([
 ]);
 
 export function App() {
-  const selectedSidebarKey = useState("home");
-  const displayedPageKey = useState("home");
+  const selectedSidebarKey = useState("house");
+  const displayedPageKey = useState("house");
 
   useEffect((selectedKey) => {
     if (contentPageKeys.has(selectedKey)) displayedPageKey.set(selectedKey);
@@ -164,7 +164,7 @@ export function App() {
           padding: "large",
         },
         Show(displayedPageKey, (item) => {
-          if (item === "home") return HomePage();
+          if (item === "house") return HomePage();
           if (item === "colors") return ColorsPage();
           if (item === "column") return ColumnPage();
           if (item === "row") return RowPage();

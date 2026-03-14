@@ -98,7 +98,7 @@ export const useDialog = () => {
                 Spacer(),
                 Button(
                   { variant: "tertiary", click: closeDialog },
-                  Icon({ name: "close", color: "secondary", size: 20 }),
+                  Icon({ name: "xmark", color: "secondary", size: 20 }),
                 ),
               ),
               state.contents.length > 0 && Column(

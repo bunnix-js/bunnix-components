@@ -11,7 +11,7 @@ Import the stylesheet once:
 import "@bunnix/components/styles.css";
 ```
 
-This provides component styles, design tokens, and utility classes. Icon assets are referenced by CSS `url(...)` and require bundler asset handling.
+This provides component styles, design tokens, and utility classes. Framework7 icon font assets are referenced by CSS `url(...)` and require bundler asset handling.
 
 Core utilities:
 
@@ -19,4 +19,4 @@ Core utilities:
 - Surfaces: `box*`, `card`, `shadow`, `rounded*`
 - Buttons: `btn`, `btn-flat`, `btn-outline`, `btn-destructive`, `btn-lg`, `btn-xl`
 - Forms: `input-lg`, `input-xl`
-- Icons: `icon`, `icon-<name>`, `icon-xs|sm|lg|xl`, `icon-*` color utilities
+- Icons: `icon`, `f7-icons`

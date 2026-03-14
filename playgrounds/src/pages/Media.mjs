@@ -71,19 +71,19 @@ export function IconPage() {
 
         Icon({ name: "star" });
         Icon({ name: "heart", size: 32 });
-        Icon({ name: "check", color: "success" });
-        Icon({ name: "close", color: "danger", size: 24 });
+        Icon({ name: "checkmark", color: "success" });
+        Icon({ name: "xmark", color: "danger", size: 24 });
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Icon"),
-      Text("Icon component using the icon registry with customizable size and color."),
+      Text("Icon component using official Framework7 icon names with customizable size and color."),
       Spacer({ minHeight: 8 }),
       Row(
         { gap: "regular", alignItems: "center" },
         Icon({ name: "star" }),
         Icon({ name: "heart", size: 32 }),
-        Icon({ name: "check", color: "success" }),
-        Icon({ name: "close", color: "danger", size: 24 }),
+        Icon({ name: "checkmark", color: "success" }),
+        Icon({ name: "xmark", color: "danger", size: 24 }),
       ),
     ),
   );

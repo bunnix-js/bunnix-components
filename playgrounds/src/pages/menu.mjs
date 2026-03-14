@@ -17,34 +17,34 @@ export function MenuPage() {
 
   // Example 2: Dropdown with icons
   const iconItems = [
-    { key: "edit", text: "Edit", icon: "edit", action: () => console.log("Edit clicked") },
-    { key: "copy", text: "Copy", icon: "copy", action: () => console.log("Copy clicked") },
+    { key: "edit", text: "Edit", icon: "pencil", action: () => console.log("Edit clicked") },
+    { key: "copy", text: "Copy", icon: "doc_on_doc", action: () => console.log("Copy clicked") },
     { key: "delete", text: "Delete", icon: "trash", action: () => console.log("Delete clicked") },
   ];
 
   // Example 3: Dropdown with dividers
   const groupedItems = [
-    { key: "new", text: "New File", icon: "file", action: () => console.log("New File") },
+    { key: "new", text: "New File", icon: "doc", action: () => console.log("New File") },
     { key: "open", text: "Open", icon: "folder", action: () => console.log("Open") },
     { divider: true },
-    { key: "save", text: "Save", icon: "check", action: () => console.log("Save") },
+    { key: "save", text: "Save", icon: "checkmark", action: () => console.log("Save") },
     { key: "export", text: "Export", icon: "download", action: () => console.log("Export") },
     { divider: true },
-    { key: "settings", text: "Settings", icon: "settings", action: () => console.log("Settings") },
+    { key: "settings", text: "Settings", icon: "gear", action: () => console.log("Settings") },
   ];
 
   // Example 4: Custom trigger
   const customItems = [
-    { key: "home", text: "Home", icon: "home", action: () => console.log("Home") },
-    { key: "profile", text: "Profile", icon: "user", action: () => console.log("Profile") },
-    { key: "settings", text: "Settings", icon: "settings", action: () => console.log("Settings") },
+    { key: "home", text: "Home", icon: "house", action: () => console.log("Home") },
+    { key: "profile", text: "Profile", icon: "person", action: () => console.log("Profile") },
+    { key: "settings", text: "Settings", icon: "gear", action: () => console.log("Settings") },
     { divider: true },
-    { key: "logout", text: "Logout", icon: "log-out", action: () => console.log("Logout") },
+    { key: "logout", text: "Logout", icon: "arrow_right_square", action: () => console.log("Logout") },
   ];
 
   // Example 5: With actions
   const actionItems = [
-    { key: "refresh", text: "Refresh", icon: "refresh-cw", action: () => console.log("Refresh clicked") },
+    { key: "refresh", text: "Refresh", icon: "arrow_2_circlepath", action: () => console.log("Refresh clicked") },
     { key: "download", text: "Download", icon: "download", action: () => console.log("Download clicked") },
     { divider: true },
     { key: "share", text: "Share", icon: "share", action: () => console.log("Share clicked") },
@@ -100,8 +100,8 @@ export function MenuPage() {
         import { Menu } from "@bunnix/components";
 
         const items = [
-          { key: "edit", text: "Edit", icon: "edit", action: () => console.log("Edit") },
-          { key: "copy", text: "Copy", icon: "copy", action: () => console.log("Copy") },
+          { key: "edit", text: "Edit", icon: "pencil", action: () => console.log("Edit") },
+          { key: "copy", text: "Copy", icon: "doc_on_doc", action: () => console.log("Copy") },
           { key: "delete", text: "Delete", icon: "trash", action: () => console.log("Delete") },
         ];
 
@@ -109,7 +109,7 @@ export function MenuPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "With Icons"),
-      Text("Menu items with icons from the icon registry."),
+      Text("Menu items with optional Framework7 icons."),
       Spacer({ minHeight: 8 }),
       Menu({
         items: iconItems,
@@ -126,13 +126,13 @@ export function MenuPage() {
         import { Menu } from "@bunnix/components";
 
         const items = [
-          { key: "new", text: "New File", icon: "file", action: () => console.log("New") },
+          { key: "new", text: "New File", icon: "doc", action: () => console.log("New") },
           { key: "open", text: "Open", icon: "folder", action: () => console.log("Open") },
           { divider: true },
-          { key: "save", text: "Save", icon: "check", action: () => console.log("Save") },
+          { key: "save", text: "Save", icon: "checkmark", action: () => console.log("Save") },
           { key: "export", text: "Export", icon: "download", action: () => console.log("Export") },
           { divider: true },
-          { key: "settings", text: "Settings", icon: "settings", action: () => console.log("Settings") },
+          { key: "settings", text: "Settings", icon: "gear", action: () => console.log("Settings") },
         ];
 
         Menu({ items, trigger: "File" });
@@ -157,10 +157,10 @@ export function MenuPage() {
         import { Avatar } from "@bunnix/components";
 
         const items = [
-          { key: "profile", text: "Profile", icon: "user", action: () => console.log("Profile") },
-          { key: "settings", text: "Settings", icon: "settings", action: () => console.log("Settings") },
+          { key: "profile", text: "Profile", icon: "person", action: () => console.log("Profile") },
+          { key: "settings", text: "Settings", icon: "gear", action: () => console.log("Settings") },
           { divider: true },
-          { key: "logout", text: "Logout", icon: "log-out", action: () => console.log("Logout") },
+          { key: "logout", text: "Logout", icon: "arrow_right_square", action: () => console.log("Logout") },
         ];
 
         Menu({
@@ -201,7 +201,7 @@ export function MenuPage() {
           { 
             key: "refresh", 
             text: "Refresh", 
-            icon: "refresh-cw",
+            icon: "arrow_2_circlepath",
             action: () => console.log("Refresh") 
           },
           { 
@@ -286,7 +286,7 @@ export function MenuPage() {
         {
           key: "unique-key",       // Required: unique identifier
           text: "Display Text",    // Required: text to display
-          icon: "icon-name",       // Optional: icon from registry
+          icon: "framework7_icon", // Optional: official Framework7 icon name
           action: () => {},        // Optional: function to call on click
           divider: false           // Optional: renders divider if true
         }
@@ -316,7 +316,7 @@ export function MenuPage() {
         ),
         Text(
           Text({ weight: "heavy" }, "• Icon Support:"),
-          " Optional icons from the icon registry",
+          " Optional icons from the Framework7 icon font",
         ),
         Text(
           Text({ weight: "heavy" }, "• Dividers:"),
@@ -373,8 +373,8 @@ export function PickerPage() {
           value: iconValue,
           items: [
             { key: "calendar", text: "Calendar", icon: "calendar" },
-            { key: "messages", text: "Messages", icon: "message-square" },
-            { key: "documents", text: "Documents", icon: "file-text" },
+            { key: "messages", text: "Messages", icon: "chat_bubble_2" },
+            { key: "documents", text: "Documents", icon: "doc_text" },
           ],
         });
         `,
@@ -396,9 +396,9 @@ export function PickerPage() {
           value: iconPickerValue,
           items: [
             { key: "calendar", text: "Calendar", icon: "calendar" },
-            { key: "messages", text: "Messages", icon: "message-square" },
+            { key: "messages", text: "Messages", icon: "chat_bubble_2" },
             { key: "divider-1", divider: true },
-            { key: "documents", text: "Documents", icon: "file-text" },
+            { key: "documents", text: "Documents", icon: "doc_text" },
           ],
         }),
         Text(

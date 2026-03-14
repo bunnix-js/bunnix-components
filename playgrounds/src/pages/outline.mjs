@@ -50,7 +50,7 @@ export function OutlinePage() {
 
         Outline({
           anchor: Row({ alignItems: "center", gap: "small" },
-            Icon({ name: "doc-richtext", size: 16, color: "secondary" }),
+            Icon({ name: "doc_richtext", size: 16, color: "secondary" }),
             Text({ weight: "heavy" }, "Documentation"),
           ),
           details: Column({ gap: "small", paddingTop: "small" },
@@ -66,7 +66,7 @@ export function OutlinePage() {
       Spacer({ minHeight: 8 }),
       Outline({
         anchor: Row({ alignItems: "center", gap: "small" },
-          Icon({ name: "doc-richtext", size: 16, color: "secondary" }),
+          Icon({ name: "doc_richtext", size: 16, color: "secondary" }),
           Text({ weight: "heavy" }, "Documentation"),
         ),
         details: Column({ gap: "small", paddingTop: "small" },
@@ -90,7 +90,7 @@ export function OutlinePage() {
           padding: "regular",
           bgColor: "primary-dimmed",
           anchor: Row({ alignItems: "center", gap: "small" },
-            Icon({ name: "settings", size: 16 }),
+            Icon({ name: "gear", size: 16 }),
             Text({ weight: "heavy" }, "Settings"),
           ),
           details: Column({ gap: "small", paddingTop: "small" },
@@ -107,7 +107,7 @@ export function OutlinePage() {
         padding: "regular",
         bgColor: "primary-dimmed",
         anchor: Row({ alignItems: "center", gap: "small" },
-          Icon({ name: "settings", size: 16 }),
+          Icon({ name: "gear", size: 16 }),
           Text({ weight: "heavy" }, "Settings"),
         ),
         details: Column({ gap: "small", paddingTop: "small" },
@@ -172,7 +172,7 @@ export function OutlinePage() {
         Outline({
           showChevron: false,
           anchor: Row({ alignItems: "center", gap: "small" },
-            Icon({ name: "plus-circle", size: 16, color: "secondary" }),
+            Icon({ name: "add", size: 16, color: "secondary" }),
             Text({ weight: "heavy" }, "Custom Indicator"),
           ),
           details: Column({ paddingTop: "small" },
@@ -187,7 +187,7 @@ export function OutlinePage() {
       Outline({
         showChevron: false,
         anchor: Row({ alignItems: "center", gap: "small" },
-          Icon({ name: "plus-circle", size: 16, color: "secondary" }),
+          Icon({ name: "add", size: 16, color: "secondary" }),
           Text({ weight: "heavy" }, "Custom Indicator"),
         ),
         details: Column({ paddingTop: "small" },

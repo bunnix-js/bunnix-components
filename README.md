@@ -54,7 +54,7 @@ Column(
     value: "calendar",
     items: [
       { key: "calendar", text: "Calendar", icon: "calendar" },
-      { key: "messages", text: "Messages", icon: "message-square" },
+      { key: "messages", text: "Messages", icon: "chat_bubble_2" },
     ],
   }),
   Slider({ min: 0, max: 100, step: 5, value: 50 }),

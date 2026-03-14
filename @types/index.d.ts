@@ -254,7 +254,7 @@ export interface SidebarItem {
   key: string;
   /** Display text for the item */
   text: string;
-  /** Optional icon name from the icon registry */
+  /** Optional official Framework7 icon name */
   icon?: string;
   /** If true, renders as a section header instead of a clickable item */
   isHeader?: boolean;

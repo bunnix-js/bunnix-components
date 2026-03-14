@@ -41,10 +41,10 @@ const OutlineCore = (props) => {
       anchor,
       // Only render chevron if showChevron is true
       showChevron && Show(showingDetails.map((v) => !v), () =>
-        Icon({ name: "chevron-down", size: 16, flexShrink: 0 }),
+        Icon({ name: "chevron_down", size: 16, flexShrink: 0 }),
       ),
       showChevron && Show(showingDetails, () =>
-        Icon({ name: "chevron-up", size: 16, flexShrink: 0 }),
+        Icon({ name: "chevron_up", size: 16, flexShrink: 0 }),
       ),
     ),
     Show(showingDetails, () => details),
@@ -68,7 +68,7 @@ const OutlineCore = (props) => {
  * // Basic usage
  * Outline({
  *   anchor: Row({ alignItems: "center", gap: "small" },
- *     Icon({ name: "doc-text", size: 16 }),
+ *     Icon({ name: "doc_text", size: 16 }),
  *     Text({ weight: "heavy" }, "Section Title"),
  *   ),
  *   details: Column({ gap: "small", paddingTop: "small" },

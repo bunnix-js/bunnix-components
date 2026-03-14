@@ -30,8 +30,7 @@
       "default": "./src/index.mjs"
     },
     "./styles": "./src/core/core.css",
-    "./core.css": "./src/core/core.css",
-    "./icons/*": "./src/icons/*"
+    "./core.css": "./src/core/core.css"
   },
   "sideEffects": [
     "./src/core/*.css"
@@ -41,10 +40,7 @@
     "@types"
   ],
   "scripts": {
-    "test": "node --test",
-    "sanitize:icons": "node scripts/sanitizeSvgs.mjs",
-    "prebuild": "npm run sanitize:icons && node scripts/generateIconRegistry.mjs",
-    "build:icons": "npm run sanitize:icons && node scripts/generateIconRegistry.mjs"
+    "test": "node --test"
   },
   "peerDependencies": {
     "@bunnix/core": "^0.9.4"

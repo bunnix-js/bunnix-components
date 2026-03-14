@@ -331,7 +331,7 @@ const PickerCore = (props, _) => {
                   : []),
               ),
               Spacer(),
-              Icon({ name: "chevron-down", size: 16, color: "secondary" }),
+              Icon({ name: "chevron_down", size: 16, color: "secondary" }),
             ),
           ),
       }),

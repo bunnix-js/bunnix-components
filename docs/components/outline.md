@@ -12,7 +12,7 @@ import { Outline, Row, Icon, Text, Column } from "@bunnix/components";
 
 Outline({
   anchor: Row({ alignItems: "center", gap: "small" },
-    Icon({ name: "doc-text", size: 16 }),
+    Icon({ name: "doc_text", size: 16 }),
     Text({ weight: "heavy" }, "Section Title"),
   ),
   details: Column({ gap: "small", paddingTop: "small" },

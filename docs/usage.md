@@ -23,7 +23,7 @@ By default, `Text` and `Icon` inherit a button’s foreground color. You can sti
 
 ```js
 Button({ variant: "outline" }, [
-  Icon({ name: "star", fill: "tertiary" }),
+  Icon({ name: "star", color: "secondary" }),
   Text({ type: "text", color: "tertiary" }, "Star")
 ]);
 ```

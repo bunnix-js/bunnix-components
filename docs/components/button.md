@@ -9,7 +9,7 @@ title: Button
 import { Button, Icon } from "@bunnix/components";
 
 Button({ variant: "regular", size: "regular" }, [
-  Icon({ name: "star", fill: "white" }),
+  Icon({ name: "star", color: "primary-inverted" }),
   "Star"
 ]);
 ```

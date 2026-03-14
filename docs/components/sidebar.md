@@ -12,18 +12,18 @@ import { useState } from "@bunnix/core";
 const selection = useState("components");
 
 const items = [
-  { key: "home", text: "Home", icon: "home" },
+  { key: "home", text: "Home", icon: "house" },
   { key: "header-components", text: "Components", isHeader: true },
   {
     key: "components",
     text: "Components",
-    icon: "columns-layout",
+    icon: "rectangle_grid_1x2",
     children: [
       { key: "buttons", text: "Buttons" },
       { key: "inputs", text: "Inputs" },
     ],
   },
-  { key: "settings", text: "Settings", icon: "settings" },
+  { key: "settings", text: "Settings", icon: "gear" },
 ];
 
 Sidebar({ items, selection });

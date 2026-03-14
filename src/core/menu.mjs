@@ -201,7 +201,7 @@ const MenuCore = (props, ...children) => {
  * @param {Array<Object>} props.items - Menu items array
  * @param {string} props.items[].key - Unique identifier for the item
  * @param {string} props.items[].text - Display text for the item
- * @param {string} [props.items[].icon] - Optional icon name from registry
+ * @param {string} [props.items[].icon] - Optional official Framework7 icon name
  * @param {Function} [props.items[].action] - Optional action to run on click
  * @param {boolean} [props.items[].divider] - If true, renders a divider
  * @param {*} [props.trigger] - Trigger element or function that receives {isOpen, toggle}

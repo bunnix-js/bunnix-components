@@ -48,7 +48,7 @@ test("Playground sidebar groups multi-component pages into nested items", () => 
 });
 
 test("Playground app preserves displayed content when a non-page parent item is selected", () => {
-  assert.match(appSource, /const displayedPageKey = useState\("home"\);/);
+  assert.match(appSource, /const displayedPageKey = useState\("house"\);/);
   assert.match(appSource, /if \(contentPageKeys\.has\(selectedKey\)\) displayedPageKey\.set\(selectedKey\);/);
   assert.doesNotMatch(appSource, /"layout",\s*"grid"/);
   assert.doesNotMatch(appSource, /"typography",\s*"icon-registry"/);

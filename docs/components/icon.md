@@ -8,7 +8,7 @@ title: Icon
 ```js
 import { Icon } from "@bunnix/components";
 
-Icon({ name: "star", fill: "base", size: "regular" });
+Icon({ name: "star", color: "secondary", size: 24 });
 ```
 
 Props:

@@ -56,7 +56,7 @@ test("Picker trigger renders selected icon and text with blank-state support", (
   assert.match(inputsSource, /selectedItem\?\.icon/);
   assert.match(inputsSource, /selectedItem\.text \?\? selectedItem\.key/);
   assert.match(inputsSource, /minHeight: props\.style\?\.minHeight \?\? "32px"/);
-  assert.match(inputsSource, /Icon\(\{ name: "chevron-down", size: 16, color: "secondary" \}\)/);
+  assert.match(inputsSource, /Icon\(\{ name: "chevron_down", size: 16, color: "secondary" \}\)/);
 });
 
 test("Picker CSS hook exists", () => {
