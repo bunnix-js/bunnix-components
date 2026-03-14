@@ -6,26 +6,19 @@ import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function MediaPage() {
   return Column(
-    Heading({ h2: true }, "Media Components"),
+    Heading({ h2: true }, "Media Component"),
     Heading(
       { h4: true, color: "secondary", weight: "heavy" },
-      "Core media components for icons, spinners, and avatars",
+      "Generic image and inline SVG rendering",
     ),
     Spacer({ minHeight: 24 }),
-
-    // Media Component
     ComponentShowcase(
       {
         code: `
         import { Media } from "@bunnix/components";
 
-        // Image
         Media({ src: "https://picsum.photos/300/200" });
-
-        // With custom size
         Media({ src: "https://picsum.photos/300/200", width: 200, height: 150 });
-
-        // SVG inline
         Media({
           svg: '<svg>...</svg>',
           width: 40,
@@ -60,10 +53,17 @@ export function MediaPage() {
         ),
       ),
     ),
+  );
+}
 
-    Spacer({ minHeight: 16 }),
-
-    // Icon Component
+export function IconPage() {
+  return Column(
+    Heading({ h2: true }, "Icon Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Registry-backed icons with configurable size and color",
+    ),
+    Spacer({ minHeight: 24 }),
     ComponentShowcase(
       {
         code: `
@@ -86,10 +86,17 @@ export function MediaPage() {
         Icon({ name: "close", color: "danger", size: 24 }),
       ),
     ),
+  );
+}
 
-    Spacer({ minHeight: 16 }),
-
-    // Spinner Component
+export function SpinnerPage() {
+  return Column(
+    Heading({ h2: true }, "Spinner Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Animated loading feedback with size and color controls",
+    ),
+    Spacer({ minHeight: 24 }),
     ComponentShowcase(
       {
         code: `
@@ -110,10 +117,17 @@ export function MediaPage() {
         Spinner({ color: "primary", size: 40 }),
       ),
     ),
+  );
+}
 
-    Spacer({ minHeight: 16 }),
-
-    // Avatar Component
+export function AvatarPage() {
+  return Column(
+    Heading({ h2: true }, "Avatar Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Letter and image-based avatars",
+    ),
+    Spacer({ minHeight: 24 }),
     ComponentShowcase(
       {
         code: `

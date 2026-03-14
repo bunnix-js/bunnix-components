@@ -4,23 +4,16 @@ import { Column, Spacer } from "../../../src/core/layout.mjs";
 import { TextInput, TextArea, Select, CheckBox, Slider } from "../../../src/core/inputs.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
-export function InputsPage() {
+export function TextInputPage() {
   const textValue = useState("");
-  const textAreaValue = useState("Line one\nLine two");
-  const selectValue = useState("option1");
-  const checkboxValue = useState(false);
-  const sliderValue = useState(50);
-  const customSliderValue = useState(100);
 
   return Column(
-    Heading({ h2: true }, "Input Components"),
+    Heading({ h2: true }, "TextInput Component"),
     Heading(
       { h4: true, color: "secondary", weight: "heavy" },
-      "Core input components for user interaction",
+      "Single-line text input with state binding",
     ),
     Spacer({ minHeight: 24 }),
-    
-    // TextInput Component
     ComponentShowcase(
       {
         code: `
@@ -45,9 +38,19 @@ export function InputsPage() {
         Text({ color: "secondary" }, `Current value: "${textValue.get()}"`),
       ),
     ),
-    
-    Spacer({ minHeight: 16 }),
+  );
+}
 
+export function TextAreaPage() {
+  const textAreaValue = useState("Line one\nLine two");
+
+  return Column(
+    Heading({ h2: true }, "TextArea Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Multiline text input with auto-growing height",
+    ),
+    Spacer({ minHeight: 24 }),
     ComponentShowcase(
       {
         code: `
@@ -93,8 +96,19 @@ export function InputsPage() {
         ),
       ),
     ),
-    
-    // Select Component
+  );
+}
+
+export function SelectPage() {
+  const selectValue = useState("option1");
+
+  return Column(
+    Heading({ h2: true }, "Select Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Dropdown select input with mapped options",
+    ),
+    Spacer({ minHeight: 24 }),
     ComponentShowcase(
       {
         code: `
@@ -147,10 +161,19 @@ export function InputsPage() {
         Text({ color: "secondary" }, `Selected: ${selectValue.get()}`),
       ),
     ),
-    
-    Spacer({ minHeight: 16 }),
-    
-    // CheckBox Component
+  );
+}
+
+export function CheckBoxPage() {
+  const checkboxValue = useState(false);
+
+  return Column(
+    Heading({ h2: true }, "CheckBox Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Boolean input with optional label",
+    ),
+    Spacer({ minHeight: 24 }),
     ComponentShowcase(
       {
         code: `
@@ -173,9 +196,20 @@ export function InputsPage() {
         Text({ color: "secondary" }, `Checked: ${checkboxValue.get()}`),
       ),
     ),
+  );
+}
 
-    Spacer({ minHeight: 16 }),
+export function SliderPage() {
+  const sliderValue = useState(50);
+  const customSliderValue = useState(100);
 
+  return Column(
+    Heading({ h2: true }, "Slider Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Range input with native and discrete step modes",
+    ),
+    Spacer({ minHeight: 24 }),
     ComponentShowcase(
       {
         code: `

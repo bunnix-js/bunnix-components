@@ -20,8 +20,8 @@ const items = [
     icon: "columns-layout",
     expanded: true,
     children: [
-      { key: "buttons", text: "Buttons", icon: "button" },
-      { key: "inputs", text: "Inputs", icon: "square-pencil" },
+      { key: "buttons", text: "Buttons" },
+      { key: "inputs", text: "Inputs" },
     ],
   },
   { key: "settings", text: "Settings", icon: "settings" },
@@ -49,6 +49,7 @@ Behavior:
 - Header items render as non-clickable section labels.
 - Leaf items render as selectable buttons.
 - Items with `children` render a chevron on the right.
+- Only root-level items render leading icons; nested children ignore `icon`.
 - Parent items remain selectable.
 - Clicking a parent item updates `selection` to the parent `key` and toggles its expanded state.
 - Clicking a child item only updates `selection` to the child `key`.

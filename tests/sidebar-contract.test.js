@@ -20,6 +20,7 @@ test("Sidebar type surface exposes nested item support", () => {
 
 test("Sidebar renders chevrons and recursive nested children", () => {
   assert.match(sidebarSource, /name: isExpanded \? "chevron-down" : "chevron-right"/);
+  assert.match(sidebarSource, /\.\.\.\(level === 0 && item\.icon/);
   assert.match(
     sidebarSource,
     /\.\.\.item\.children\.map\(\(child(?:, childIndex)?\) =>\s*renderSidebarItem\(\{/m,

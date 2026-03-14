@@ -72,7 +72,7 @@ const renderSidebarItem = ({
           gap: "small",
           ...(level > 0 ? { paddingLeft: level * 20 } : {}),
         },
-        ...(item.icon
+        ...(level === 0 && item.icon
           ? [
               Icon({
                 size: 18,

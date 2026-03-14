@@ -37,14 +37,13 @@ export function SidebarPage() {
       icon: "columns-layout",
       expanded: true,
       children: [
-        { key: "buttons", text: "Buttons", icon: "button" },
+        { key: "buttons", text: "Buttons" },
         {
           key: "forms",
           text: "Forms",
-          icon: "square-pencil",
           children: [
-            { key: "inputs", text: "Inputs", icon: "square-pencil" },
-            { key: "dialog", text: "Dialog", icon: "hand" },
+            { key: "inputs", text: "Inputs" },
+            { key: "dialog", text: "Dialog" },
           ],
         },
       ],
@@ -178,14 +177,13 @@ export function SidebarPage() {
             icon: "columns-layout",
             expanded: true,
             children: [
-              { key: "buttons", text: "Buttons", icon: "button" },
+              { key: "buttons", text: "Buttons" },
               {
                 key: "forms",
                 text: "Forms",
-                icon: "square-pencil",
                 children: [
-                  { key: "inputs", text: "Inputs", icon: "square-pencil" },
-                  { key: "dialog", text: "Dialog", icon: "hand" },
+                  { key: "inputs", text: "Inputs" },
+                  { key: "dialog", text: "Dialog" },
                 ],
               },
             ],
@@ -197,7 +195,7 @@ export function SidebarPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Nested Sidebar"),
-      Text("Parent items stay selectable while expanding or collapsing their nested children."),
+      Text("Parent items stay selectable while expanding or collapsing their nested children. Only root-level items render leading icons."),
       Spacer({ minHeight: 8 }),
       div(
         {
@@ -312,7 +310,7 @@ export function SidebarPage() {
         ),
         Text(
           Text({ weight: "heavy" }, "• Nested Groups:"),
-          " Parent items can expand recursive child navigation",
+          " Parent items can expand recursive child navigation, and only root nested items render icons",
         ),
         Text(
           Text({ weight: "heavy" }, "• Visual Feedback:"),

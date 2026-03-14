@@ -1,13 +1,13 @@
 import Bunnix, { Show, useEffect, useState } from "@bunnix/core";
 import { Column, Grid } from "../../src/core/layout.mjs";
 import { Sidebar } from "../../src/core/sidebar.mjs";
-import { LayoutPage } from "./pages/layout.mjs";
-import { TypographyPage } from "./pages/typography.mjs";
-import { MediaPage } from "./pages/media.mjs";
-import { InputsPage } from "./pages/inputs.mjs";
+import { AlignmentPage, ColumnPage, RowPage, SpacerPage } from "./pages/Layout.mjs";
+import { HeadingPage, TextPage } from "./pages/Typography.mjs";
+import { AvatarPage, IconPage, MediaPage, SpinnerPage } from "./pages/Media.mjs";
+import { CheckBoxPage, SelectPage, SliderPage, TextAreaPage, TextInputPage } from "./pages/inputs.mjs";
 import { TablePage } from "./pages/table.mjs";
 import { DialogPage } from "./pages/dialog.mjs";
-import { ButtonsPage } from "./pages/buttons.mjs";
+import { ButtonPage, LinkButtonPage } from "./pages/Buttons.mjs";
 import { ColorsPage } from "./pages/colors.mjs";
 import { GridPage } from "./pages/grid.mjs";
 import { IconRegistryPage } from "./pages/icon-registry.mjs";
@@ -20,27 +20,79 @@ import { ProgressPage } from "./pages/progress.mjs";
 const sidebarItems = [
   { key: "home", text: "Home", icon: "home" },
   { key: "header-core", text: "Core", isHeader: true },
-  { key: "layout", text: "Layout", icon: "table" },
+  {
+    key: "layout",
+    text: "Layout",
+    icon: "table",
+    expanded: true,
+    children: [
+      { key: "column", text: "Column" },
+      { key: "row", text: "Row" },
+      { key: "spacer", text: "Spacer" },
+      { key: "alignment", text: "Alignment" },
+    ],
+  },
   { key: "colors", text: "Colors", icon: "palette" },
   { key: "grid", text: "Grid", icon: "grid" },
-  { key: "typography", text: "Typography", icon: "text" },
+  {
+    key: "typography",
+    text: "Typography",
+    icon: "text",
+    expanded: true,
+    children: [
+      { key: "heading", text: "Heading" },
+      { key: "text", text: "Text" },
+    ],
+  },
   { key: "header-icons", text: "Icon Registry", isHeader: true },
   { key: "icon-registry", text: "Icons", icon: "star" },
   { key: "header-components", text: "Components", isHeader: true },
-  { key: "buttons", text: "Buttons", icon: "button" },
+  {
+    key: "buttons",
+    text: "Buttons",
+    icon: "button",
+    expanded: true,
+    children: [
+      { key: "button", text: "Button" },
+      { key: "link-button", text: "LinkButton" },
+    ],
+  },
   { key: "sidebar", text: "Sidebar", icon: "columns-layout" },
   {
     key: "menus",
     text: "Menus",
     expanded: true,
     children: [
-      { key: "menu", text: "Menu", icon: "more-vertical" },
-      { key: "picker", text: "Picker", icon: "square-pencil" },
+      { key: "menu", text: "Menu" },
+      { key: "picker", text: "Picker" },
     ],
   },
   { key: "outline", text: "Outline", icon: "chevron-down" },
-  { key: "media", text: "Media", icon: "image" },
-  { key: "inputs", text: "Inputs", icon: "square-pencil" },
+  {
+    key: "media",
+    text: "Media",
+    icon: "image",
+    expanded: true,
+    children: [
+      { key: "media-display", text: "Media" },
+      { key: "icon", text: "Icon" },
+      { key: "spinner", text: "Spinner" },
+      { key: "avatar", text: "Avatar" },
+    ],
+  },
+  {
+    key: "inputs",
+    text: "Inputs",
+    icon: "square-pencil",
+    expanded: true,
+    children: [
+      { key: "text-input", text: "TextInput" },
+      { key: "text-area", text: "TextArea" },
+      { key: "select", text: "Select" },
+      { key: "checkbox", text: "CheckBox" },
+      { key: "slider", text: "Slider" },
+    ],
+  },
   { key: "table", text: "Table", icon: "table" },
   { key: "dialog", text: "Dialog", icon: "hand" },
   { key: "progress", text: "Progress", icon: "battery-25" },
@@ -49,17 +101,29 @@ const sidebarItems = [
 const contentPageKeys = new Set([
   "home",
   "colors",
-  "layout",
+  "column",
+  "row",
+  "spacer",
+  "alignment",
   "grid",
-  "typography",
+  "heading",
+  "text",
   "icon-registry",
-  "buttons",
+  "button",
+  "link-button",
   "sidebar",
   "menu",
   "picker",
   "outline",
-  "media",
-  "inputs",
+  "media-display",
+  "icon",
+  "spinner",
+  "avatar",
+  "text-input",
+  "text-area",
+  "select",
+  "checkbox",
+  "slider",
   "table",
   "dialog",
   "progress",
@@ -108,17 +172,29 @@ export function App() {
         Show(displayedPageKey, (item) => {
           if (item === "home") return HomePage();
           if (item === "colors") return ColorsPage();
-          if (item === "layout") return LayoutPage();
+          if (item === "column") return ColumnPage();
+          if (item === "row") return RowPage();
+          if (item === "spacer") return SpacerPage();
+          if (item === "alignment") return AlignmentPage();
           if (item === "grid") return GridPage();
-          if (item === "typography") return TypographyPage();
+          if (item === "heading") return HeadingPage();
+          if (item === "text") return TextPage();
           if (item === "icon-registry") return IconRegistryPage();
-          if (item === "buttons") return ButtonsPage();
+          if (item === "button") return ButtonPage();
+          if (item === "link-button") return LinkButtonPage();
           if (item === "sidebar") return SidebarPage();
           if (item === "menu") return MenuPage();
           if (item === "picker") return PickerPage();
           if (item === "outline") return OutlinePage();
-          if (item === "media") return MediaPage();
-          if (item === "inputs") return InputsPage();
+          if (item === "media-display") return MediaPage();
+          if (item === "icon") return IconPage();
+          if (item === "spinner") return SpinnerPage();
+          if (item === "avatar") return AvatarPage();
+          if (item === "text-input") return TextInputPage();
+          if (item === "text-area") return TextAreaPage();
+          if (item === "select") return SelectPage();
+          if (item === "checkbox") return CheckBoxPage();
+          if (item === "slider") return SliderPage();
           if (item === "table") return TablePage();
           if (item === "dialog") return DialogPage();
           if (item === "progress") return ProgressPage();
