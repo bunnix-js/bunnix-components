@@ -5,7 +5,7 @@
  *
  * Components:
  * - TextInput: Single-line text input with optional placeholder and state binding
- * - DropdownPicker: Menu-backed selection input with a selector-style trigger
+ * - Picker: Menu-backed selection input with a selector-style trigger
  * - Select: Dropdown input with mapped options
  * - CheckBox: Simple checkbox input with optional state binding
  *
@@ -260,7 +260,7 @@ const TextAreaCore = (props, _) => {
   );
 };
 
-const DropdownPickerCore = (props, _) => {
+const PickerCore = (props, _) => {
   const value =
     props.value?.get && props.value?.set
       ? props.value
@@ -315,14 +315,14 @@ const DropdownPickerCore = (props, _) => {
               style: {
                 minHeight: props.style?.minHeight ?? "32px",
               },
-              class: `dropdown-picker-trigger ${defaultClass} ${outlineClass} ${
-                props.disabled ? "dropdown-picker-trigger-disabled" : ""
+              class: `picker-trigger ${defaultClass} ${outlineClass} ${
+                props.disabled ? "picker-trigger-disabled" : ""
               }`.trim(),
             },
             Row(
               { fillWidth: true, alignItems: "center", gap: "small" },
               div(
-                { class: "dropdown-picker-selection" },
+                { class: "picker-selection" },
                 ...(selectedItem?.icon
                   ? [Icon({ name: selectedItem.icon, size: 16 })]
                   : []),
@@ -563,11 +563,11 @@ export const TextArea = withNormalizedArgs((props, ...children) =>
  * @param {Function} [props.input] - Called with an event-like object after selection
  * @param {string} [props.class] - Additional CSS classes
  * @param {...*} children - Children elements (ignored)
- * @returns {*} DropdownPicker component
+ * @returns {*} Picker component
  */
-export const DropdownPicker = withNormalizedArgs((props, ...children) =>
+export const Picker = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
-    DropdownPickerCore(finalProps, ...children),
+    PickerCore(finalProps, ...children),
   )({ minHeight: 32, textSize: "1rem", ...props }, ...children),
 );
 

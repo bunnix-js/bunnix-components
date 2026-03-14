@@ -137,7 +137,7 @@ export interface MenuItem {
   divider?: boolean;
 }
 
-export interface DropdownPickerProps extends LayoutProps {
+export interface PickerProps extends LayoutProps {
   value?: string | StateLike<string>;
   items?: MenuItem[] | StateLike<MenuItem[]>;
   label?: string;
@@ -292,7 +292,6 @@ export const LinkButton: Component<LinkButtonProps>;
 
 export const TextInput: Component<TextInputProps>;
 export const TextArea: Component<TextAreaProps>;
-export const DropdownPicker: Component<DropdownPickerProps>;
 export const Select: Component<SelectProps>;
 export const CheckBox: Component<CheckBoxProps>;
 export const Slider: Component<SliderProps>;
@@ -301,6 +300,7 @@ export const Table: Component<TableProps>;
 export const Code: Component<BaseProps & { html?: string; language?: string }>;
 
 export const Sidebar: Component<SidebarProps>;
+export const Picker: Component<PickerProps>;
 export const Menu: Component<MenuProps>;
 export const Outline: Component<OutlineProps>;
 

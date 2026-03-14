@@ -22,33 +22,36 @@ const indexSource = readFileSync(
   "utf8",
 );
 
-test("DropdownPicker and MenuItem are part of the public type surface", () => {
+test("Picker and MenuItem are part of the public type surface", () => {
   assert.match(typesSource, /export interface MenuItem \{/);
   assert.match(typesSource, /key: string;/);
   assert.match(typesSource, /divider\?: boolean;/);
-  assert.match(typesSource, /export interface DropdownPickerProps extends LayoutProps \{/);
+  assert.match(typesSource, /export interface PickerProps extends LayoutProps \{/);
   assert.match(typesSource, /items\?: MenuItem\[] \| StateLike<MenuItem\[]>;/);
   assert.match(typesSource, /anchor\?: MenuAnchor;/);
-  assert.match(typesSource, /export const DropdownPicker: Component<DropdownPickerProps>;/);
+  assert.match(typesSource, /export const Picker: Component<PickerProps>;/);
   assert.match(typesSource, /export const Menu: Component<MenuProps>;/);
+  assert.doesNotMatch(typesSource, /DropdownPicker/);
 });
 
-test("DropdownPicker is exported from the package entrypoint", () => {
+test("Picker is exported from the package entrypoint", () => {
   assert.match(
     indexSource,
-    /export \{ TextInput, TextArea, DropdownPicker, Select, CheckBox, Slider \} from "\.\/core\/inputs\.mjs";/,
+    /export \{ Picker \} from "\.\/core\/inputs\.mjs";/,
   );
+  assert.doesNotMatch(indexSource, /DropdownPicker/);
 });
 
-test("DropdownPicker composes Menu and updates value on item click", () => {
-  assert.match(inputsSource, /const DropdownPickerCore = \(props, _\) => \{/);
+test("Picker composes Menu and updates value on item click", () => {
+  assert.match(inputsSource, /const PickerCore = \(props, _\) => \{/);
   assert.match(inputsSource, /Show\(pickerState, \(\{ selectedItem, menuItems \}\) =>\s*Menu\(\{/m);
   assert.match(inputsSource, /value\.set\(item\.key\);/);
   assert.match(inputsSource, /target: \{ value: item\.key \}/);
   assert.doesNotMatch(inputsSource, /item\.action\(\)/);
+  assert.doesNotMatch(inputsSource, /DropdownPicker/);
 });
 
-test("DropdownPicker trigger renders selected icon and text with blank-state support", () => {
+test("Picker trigger renders selected icon and text with blank-state support", () => {
   assert.match(inputsSource, /const selectedItem = \(resolvedItems \?\? \[\]\)\.find\(/);
   assert.match(inputsSource, /selectedItem\?\.icon/);
   assert.match(inputsSource, /selectedItem\.text \?\? selectedItem\.key/);
@@ -56,7 +59,8 @@ test("DropdownPicker trigger renders selected icon and text with blank-state sup
   assert.match(inputsSource, /Icon\(\{ name: "chevron-down", size: 16, color: "secondary" \}\)/);
 });
 
-test("DropdownPicker CSS hook exists", () => {
-  assert.match(inputCssSource, /\.dropdown-picker-trigger \{/);
-  assert.match(inputCssSource, /\.dropdown-picker-selection \{/);
+test("Picker CSS hook exists", () => {
+  assert.match(inputCssSource, /\.picker-trigger \{/);
+  assert.match(inputCssSource, /\.picker-selection \{/);
+  assert.doesNotMatch(inputCssSource, /dropdown-picker/);
 });

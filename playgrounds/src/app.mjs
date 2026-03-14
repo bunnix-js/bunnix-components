@@ -1,4 +1,4 @@
-import Bunnix, { Show, useState } from "@bunnix/core";
+import Bunnix, { Show, useEffect, useState } from "@bunnix/core";
 import { Column, Grid } from "../../src/core/layout.mjs";
 import { Sidebar } from "../../src/core/sidebar.mjs";
 import { LayoutPage } from "./pages/layout.mjs";
@@ -13,7 +13,7 @@ import { GridPage } from "./pages/grid.mjs";
 import { IconRegistryPage } from "./pages/icon-registry.mjs";
 import { HomePage } from "./pages/home.mjs";
 import { SidebarPage } from "./pages/sidebar.mjs";
-import { MenuPage } from "./pages/menu.mjs";
+import { MenuPage, PickerPage } from "./pages/menu.mjs";
 import { OutlinePage } from "./pages/outline.mjs";
 import { ProgressPage } from "./pages/progress.mjs";
 
@@ -29,7 +29,15 @@ const sidebarItems = [
   { key: "header-components", text: "Components", isHeader: true },
   { key: "buttons", text: "Buttons", icon: "button" },
   { key: "sidebar", text: "Sidebar", icon: "columns-layout" },
-  { key: "menu", text: "Menu", icon: "more-vertical" },
+  {
+    key: "menus",
+    text: "Menus",
+    expanded: true,
+    children: [
+      { key: "menu", text: "Menu", icon: "more-vertical" },
+      { key: "picker", text: "Picker", icon: "square-pencil" },
+    ],
+  },
   { key: "outline", text: "Outline", icon: "chevron-down" },
   { key: "media", text: "Media", icon: "image" },
   { key: "inputs", text: "Inputs", icon: "square-pencil" },
@@ -38,8 +46,32 @@ const sidebarItems = [
   { key: "progress", text: "Progress", icon: "battery-25" },
 ];
 
+const contentPageKeys = new Set([
+  "home",
+  "colors",
+  "layout",
+  "grid",
+  "typography",
+  "icon-registry",
+  "buttons",
+  "sidebar",
+  "menu",
+  "picker",
+  "outline",
+  "media",
+  "inputs",
+  "table",
+  "dialog",
+  "progress",
+]);
+
 export function App() {
   const selectedSidebarKey = useState("home");
+  const displayedPageKey = useState("home");
+
+  useEffect((selectedKey) => {
+    if (contentPageKeys.has(selectedKey)) displayedPageKey.set(selectedKey);
+  }, selectedSidebarKey);
 
   return Grid(
     {
@@ -73,7 +105,7 @@ export function App() {
           overflow: "auto",
           padding: "large",
         },
-        Show(selectedSidebarKey, (item) => {
+        Show(displayedPageKey, (item) => {
           if (item === "home") return HomePage();
           if (item === "colors") return ColorsPage();
           if (item === "layout") return LayoutPage();
@@ -83,6 +115,7 @@ export function App() {
           if (item === "buttons") return ButtonsPage();
           if (item === "sidebar") return SidebarPage();
           if (item === "menu") return MenuPage();
+          if (item === "picker") return PickerPage();
           if (item === "outline") return OutlinePage();
           if (item === "media") return MediaPage();
           if (item === "inputs") return InputsPage();

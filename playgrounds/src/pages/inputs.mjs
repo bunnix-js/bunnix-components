@@ -1,14 +1,12 @@
 import Bunnix, { useState } from "@bunnix/core";
 import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Spacer } from "../../../src/core/layout.mjs";
-import { TextInput, TextArea, DropdownPicker, Select, CheckBox, Slider } from "../../../src/core/inputs.mjs";
+import { TextInput, TextArea, Select, CheckBox, Slider } from "../../../src/core/inputs.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function InputsPage() {
   const textValue = useState("");
   const textAreaValue = useState("Line one\nLine two");
-  const dropdownPickerValue = useState("");
-  const iconDropdownPickerValue = useState("calendar");
   const selectValue = useState("option1");
   const checkboxValue = useState(false);
   const sliderValue = useState(50);
@@ -95,73 +93,6 @@ export function InputsPage() {
         ),
       ),
     ),
-
-    Spacer({ minHeight: 16 }),
-
-    ComponentShowcase(
-      {
-        code: `
-        import { DropdownPicker } from "@bunnix/components";
-        import { useState } from "@bunnix/core";
-
-        const value = useState("");
-        const iconValue = useState("calendar");
-
-        DropdownPicker({
-          value,
-          items: [
-            { key: "overview", text: "Overview" },
-            { key: "analytics", text: "Analytics" },
-            { key: "settings", text: "Settings" },
-          ],
-        });
-
-        DropdownPicker({
-          value: iconValue,
-          label: "Destination",
-          items: [
-            { key: "calendar", text: "Calendar", icon: "calendar" },
-            { key: "messages", text: "Messages", icon: "message-square" },
-            { key: "documents", text: "Documents", icon: "file-text" },
-          ],
-        });
-        `,
-      },
-      Heading({ h3: true, color: "secondary" }, "DropdownPicker"),
-      Text("Menu-backed selector that shows the currently selected item icon and text in the trigger."),
-      Spacer({ minHeight: 8 }),
-      Column(
-        { gap: "regular" },
-        DropdownPicker({
-          value: dropdownPickerValue,
-          items: [
-            { key: "overview", text: "Overview" },
-            { key: "analytics", text: "Analytics" },
-            { key: "settings", text: "Settings" },
-          ],
-        }),
-        DropdownPicker({
-          value: iconDropdownPickerValue,
-          label: "Destination",
-          items: [
-            { key: "calendar", text: "Calendar", icon: "calendar" },
-            { key: "messages", text: "Messages", icon: "message-square" },
-            { key: "divider-1", divider: true },
-            { key: "documents", text: "Documents", icon: "file-text" },
-          ],
-        }),
-        Text(
-          { color: "secondary" },
-          dropdownPickerValue.map((value) => `Selected: ${value || "(blank)"}`),
-        ),
-        Text(
-          { color: "secondary" },
-          iconDropdownPickerValue.map((value) => `Selected destination: ${value}`),
-        ),
-      ),
-    ),
-
-    Spacer({ minHeight: 16 }),
     
     // Select Component
     ComponentShowcase(

@@ -83,7 +83,8 @@ test("Slider detects whether any custom step labels should be rendered", () => {
 });
 
 test("Slider is exported from the package entrypoint", () => {
-  assert.match(indexSource, /export \{ TextInput, TextArea, DropdownPicker, Select, CheckBox, Slider \} from "\.\/core\/inputs\.mjs";/);
+  assert.match(indexSource, /export \{ TextInput, TextArea, Select, CheckBox, Slider \} from "\.\/core\/inputs\.mjs";/);
+  assert.match(indexSource, /export \{ Picker \} from "\.\/core\/inputs\.mjs";/);
 });
 
 test("Slider typings are part of the public type surface", () => {

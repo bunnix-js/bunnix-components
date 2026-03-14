@@ -2,6 +2,7 @@ import Bunnix, { useState } from "@bunnix/core";
 import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
 import { Menu } from "../../../src/core/menu.mjs";
+import { Picker } from "../../../src/core/inputs.mjs";
 import { Button } from "../../../src/core/buttons.mjs";
 import { Icon, Avatar } from "../../../src/core/media.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
@@ -332,6 +333,81 @@ export function MenuPage() {
         Text(
           Text({ weight: "heavy" }, "• Auto Close:"),
           " Closes on item click or click outside",
+        ),
+      ),
+    ),
+  );
+}
+
+export function PickerPage() {
+  const pickerValue = useState("");
+  const iconPickerValue = useState("calendar");
+
+  return Column(
+    Heading({ h2: true }, "Picker Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Menu-backed selector that shows the selected item icon and text",
+    ),
+    Spacer({ minHeight: 24 }),
+
+    ComponentShowcase(
+      {
+        code: `
+        import { Picker } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const value = useState("");
+        const iconValue = useState("calendar");
+
+        Picker({
+          value,
+          items: [
+            { key: "overview", text: "Overview" },
+            { key: "analytics", text: "Analytics" },
+            { key: "settings", text: "Settings" },
+          ],
+        });
+
+        Picker({
+          value: iconValue,
+          items: [
+            { key: "calendar", text: "Calendar", icon: "calendar" },
+            { key: "messages", text: "Messages", icon: "message-square" },
+            { key: "documents", text: "Documents", icon: "file-text" },
+          ],
+        });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Picker"),
+      Text("Picker reuses Menu items but behaves like a selector, showing the current choice in the trigger."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        Picker({
+          value: pickerValue,
+          items: [
+            { key: "overview", text: "Overview" },
+            { key: "analytics", text: "Analytics" },
+            { key: "settings", text: "Settings" },
+          ],
+        }),
+        Picker({
+          value: iconPickerValue,
+          items: [
+            { key: "calendar", text: "Calendar", icon: "calendar" },
+            { key: "messages", text: "Messages", icon: "message-square" },
+            { key: "divider-1", divider: true },
+            { key: "documents", text: "Documents", icon: "file-text" },
+          ],
+        }),
+        Text(
+          { color: "secondary" },
+          pickerValue.map((value) => `Selected: ${value || "(blank)"}`),
+        ),
+        Text(
+          { color: "secondary" },
+          iconPickerValue.map((value) => `Selected destination: ${value}`),
         ),
       ),
     ),

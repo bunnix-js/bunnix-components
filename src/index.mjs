@@ -19,7 +19,7 @@ export { Media, Icon, Spinner, Avatar } from "./core/media.mjs";
 export { Button, LinkButton } from "./core/buttons.mjs";
 
 // Inputs
-export { TextInput, TextArea, DropdownPicker, Select, CheckBox, Slider } from "./core/inputs.mjs";
+export { TextInput, TextArea, Select, CheckBox, Slider } from "./core/inputs.mjs";
 
 // Data Display
 export { Table } from "./core/table.mjs";
@@ -27,6 +27,7 @@ export { Code } from "./core/code.mjs";
 
 // Navigation
 export { Sidebar } from "./core/sidebar.mjs";
+export { Picker } from "./core/inputs.mjs";
 export { Menu } from "./core/menu.mjs";
 export { Outline } from "./core/outline.mjs";
 
