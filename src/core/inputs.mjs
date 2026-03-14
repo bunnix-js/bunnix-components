@@ -8,6 +8,7 @@
  * - Picker: Menu-backed selection input with a selector-style trigger
  * - Select: Dropdown input with mapped options
  * - CheckBox: Simple checkbox input with optional state binding
+ * - Switch: OS-style boolean toggle with optional state binding
  *
  * Features:
  * - Two-way binding with useState objects
@@ -82,6 +83,12 @@ function resolveNumericState(propValue, fallback) {
   return isStateLike(propValue)
     ? propValue
     : useState(toSliderNumber(propValue, fallback));
+}
+
+function resolveBooleanState(propValue) {
+  return isStateLike(propValue)
+    ? propValue
+    : useState(!!propValue);
 }
 
 function getLineHeightPx(node) {
@@ -387,10 +394,7 @@ const SelectCore = (props, _) => {
 /** Checkbox core component and logic */
 const CheckBoxCore = (props, _) => {
   let checkedValue = "checked" in props ? props.checked : props.value;
-  let checked =
-    checkedValue?.get && checkedValue?.set
-      ? checkedValue
-      : useState(!!checkedValue);
+  let checked = resolveBooleanState(checkedValue);
   let outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
   let defaultClass =
     "cursor-pointer border-primary radius-md focus-border-outline bg-primary";
@@ -411,6 +415,34 @@ const CheckBoxCore = (props, _) => {
         props.input && props.input(e);
       },
       class: `checkbox ${defaultClass} ${outlineClass} ${props.class || ""}`,
+    }),
+  );
+};
+
+const SwitchCore = (props, _) => {
+  let checkedValue = "checked" in props ? props.checked : props.value;
+  let checked = resolveBooleanState(checkedValue);
+  let outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
+  let defaultClass =
+    "cursor-pointer border-primary focus-border-outline bg-primary";
+
+  delete props.outline;
+  delete props.checked;
+  delete props.value;
+
+  return wrapCheckBoxIntoLabel(
+    props,
+    input({
+      ...props,
+      type: "checkbox",
+      role: "switch",
+      checked: !!checked.get(),
+      change: (e) => {
+        checked.set(!!e.target.checked);
+        props.change && props.change(e);
+        props.input && props.input(e);
+      },
+      class: `switch ${defaultClass} ${outlineClass} ${props.class || ""}`.trim(),
     }),
   );
 };
@@ -609,6 +641,27 @@ export const Select = withNormalizedArgs((props, ...children) =>
 export const CheckBox = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     CheckBoxCore(finalProps, ...children),
+  )({ textSize: "1rem", ...props }, ...children),
+);
+
+/**
+ * OS-style switch toggle with state binding.
+ *
+ * @param {Object} props - Component props
+ * @param {Object|boolean} [props.checked] - Checked state (useState object or boolean)
+ * @param {Object|boolean} [props.value] - Alias for checked state
+ * @param {boolean} [props.outline] - Show focus outline
+ * @param {string} [props.label] - Label text (wraps in Row with Heading)
+ * @param {boolean} [props.disabled] - Disabled state
+ * @param {Function} [props.change] - Change event handler
+ * @param {Function} [props.input] - Input event handler
+ * @param {string} [props.class] - Additional CSS classes
+ * @param {...*} children - Children elements (ignored)
+ * @returns {*} Switch component
+ */
+export const Switch = withNormalizedArgs((props, ...children) =>
+  withExtractedStyles((finalProps, ...children) =>
+    SwitchCore(finalProps, ...children),
   )({ textSize: "1rem", ...props }, ...children),
 );
 

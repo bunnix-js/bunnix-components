@@ -4,7 +4,7 @@ import { Sidebar } from "../../src/core/sidebar.mjs";
 import { AlignmentPage, ColumnPage, RowPage, SpacerPage } from "./pages/Layout.mjs";
 import { HeadingPage, TextPage } from "./pages/Typography.mjs";
 import { AvatarPage, IconPage, MediaPage, SpinnerPage } from "./pages/Media.mjs";
-import { CheckBoxPage, SelectPage, SliderPage, TextAreaPage, TextInputPage } from "./pages/inputs.mjs";
+import { CheckBoxPage, SelectPage, SliderPage, SwitchPage, TextAreaPage, TextInputPage } from "./pages/inputs.mjs";
 import { TablePage } from "./pages/table.mjs";
 import { DialogPage } from "./pages/dialog.mjs";
 import { ButtonPage, LinkButtonPage } from "./pages/Buttons.mjs";
@@ -85,6 +85,7 @@ const sidebarItems = [
       { key: "text-area", text: "TextArea" },
       { key: "select", text: "Select" },
       { key: "checkbox", text: "CheckBox" },
+      { key: "switch", text: "Switch" },
       { key: "slider", text: "Slider" },
     ],
   },
@@ -118,6 +119,7 @@ const contentPageKeys = new Set([
   "text-area",
   "select",
   "checkbox",
+  "switch",
   "slider",
   "table",
   "dialog",
@@ -189,6 +191,7 @@ export function App() {
           if (item === "text-area") return TextAreaPage();
           if (item === "select") return SelectPage();
           if (item === "checkbox") return CheckBoxPage();
+          if (item === "switch") return SwitchPage();
           if (item === "slider") return SliderPage();
           if (item === "table") return TablePage();
           if (item === "dialog") return DialogPage();

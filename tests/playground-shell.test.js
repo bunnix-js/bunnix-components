@@ -42,7 +42,7 @@ test("Playground sidebar groups multi-component pages into nested items", () => 
   assert.match(appSource, /key: "typography",\s*text: "Typography",[\s\S]*children: \[[\s\S]*key: "heading", text: "Heading"[\s\S]*key: "text", text: "Text"[\s\S]*\]/m);
   assert.match(appSource, /key: "buttons",\s*text: "Buttons",[\s\S]*children: \[[\s\S]*key: "button", text: "Button"[\s\S]*key: "link-button", text: "LinkButton"[\s\S]*\]/m);
   assert.match(appSource, /key: "media",\s*text: "Media",[\s\S]*children: \[[\s\S]*key: "media-display", text: "Media"[\s\S]*key: "icon", text: "Icon"[\s\S]*key: "spinner", text: "Spinner"[\s\S]*key: "avatar", text: "Avatar"[\s\S]*\]/m);
-  assert.match(appSource, /key: "inputs",\s*text: "Inputs",[\s\S]*children: \[[\s\S]*key: "text-input", text: "TextInput"[\s\S]*key: "text-area", text: "TextArea"[\s\S]*key: "select", text: "Select"[\s\S]*key: "checkbox", text: "CheckBox"[\s\S]*key: "slider", text: "Slider"[\s\S]*\]/m);
+  assert.match(appSource, /key: "inputs",\s*text: "Inputs",[\s\S]*children: \[[\s\S]*key: "text-input", text: "TextInput"[\s\S]*key: "text-area", text: "TextArea"[\s\S]*key: "select", text: "Select"[\s\S]*key: "checkbox", text: "CheckBox"[\s\S]*key: "switch", text: "Switch"[\s\S]*key: "slider", text: "Slider"[\s\S]*\]/m);
   assert.match(appSource, /key: "menus",\s*text: "Menus",[\s\S]*children: \[[\s\S]*key: "menu", text: "Menu"[\s\S]*key: "picker", text: "Picker"[\s\S]*\]/m);
   assert.doesNotMatch(appSource, /expanded: true/);
 });
@@ -81,6 +81,7 @@ test("Playground app routes every nested child key to its dedicated page builder
   assert.match(appSource, /if \(item === "text-area"\) return TextAreaPage\(\);/);
   assert.match(appSource, /if \(item === "select"\) return SelectPage\(\);/);
   assert.match(appSource, /if \(item === "checkbox"\) return CheckBoxPage\(\);/);
+  assert.match(appSource, /if \(item === "switch"\) return SwitchPage\(\);/);
   assert.match(appSource, /if \(item === "slider"\) return SliderPage\(\);/);
   assert.match(appSource, /if \(item === "menu"\) return MenuPage\(\);/);
   assert.match(appSource, /if \(item === "picker"\) return PickerPage\(\);/);
@@ -107,6 +108,7 @@ test("Split playground page files export the expected child page builders", () =
   assert.match(inputsPageSource, /export function TextAreaPage\(\) \{/);
   assert.match(inputsPageSource, /export function SelectPage\(\) \{/);
   assert.match(inputsPageSource, /export function CheckBoxPage\(\) \{/);
+  assert.match(inputsPageSource, /export function SwitchPage\(\) \{/);
   assert.match(inputsPageSource, /export function SliderPage\(\) \{/);
 
   assert.match(menuPageSource, /export function MenuPage\(\) \{/);

@@ -29,6 +29,7 @@ import {
   Button,
   TextInput,
   TextArea,
+  Switch,
   Slider,
   Picker,
   ProgressBar,
@@ -50,6 +51,7 @@ Column(
     newlineTrigger: "shift-enter",
     placeholder: "Write more...",
   }),
+  Switch({ checked: false, label: "Enable sync" }),
   Picker({
     value: "calendar",
     items: [
@@ -86,7 +88,7 @@ These border tokens automatically adapt to light and dark color schemes, with `s
 - Typography: `Heading`, `Text`
 - Media: `Media`, `Icon`, `Spinner`, `Avatar`
 - Buttons: `Button`, `LinkButton`
-- Inputs: `TextInput`, `TextArea`, `Select`, `CheckBox`, `Slider`
+- Inputs: `TextInput`, `TextArea`, `Select`, `CheckBox`, `Switch`, `Slider`
 - Data display: `Table`, `Code`
 - Navigation: `Sidebar`, `Picker`, `Menu`
 - Feedback: `useDialog`, `ProgressBar`

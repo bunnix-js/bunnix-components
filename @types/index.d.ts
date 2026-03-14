@@ -171,6 +171,16 @@ export interface CheckBoxProps extends LayoutProps {
   input?: (event?: any) => void;
 }
 
+export interface SwitchProps extends LayoutProps {
+  checked?: boolean | StateLike<boolean>;
+  value?: boolean | StateLike<boolean>;
+  label?: string;
+  outline?: boolean;
+  disabled?: boolean;
+  change?: (event?: any) => void;
+  input?: (event?: any) => void;
+}
+
 export interface SliderStep {
   value: number;
   label?: string;
@@ -294,6 +304,7 @@ export const TextInput: Component<TextInputProps>;
 export const TextArea: Component<TextAreaProps>;
 export const Select: Component<SelectProps>;
 export const CheckBox: Component<CheckBoxProps>;
+export const Switch: Component<SwitchProps>;
 export const Slider: Component<SliderProps>;
 
 export const Table: Component<TableProps>;

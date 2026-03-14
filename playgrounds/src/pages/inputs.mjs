@@ -1,7 +1,7 @@
 import Bunnix, { useState } from "@bunnix/core";
 import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Spacer } from "../../../src/core/layout.mjs";
-import { TextInput, TextArea, Select, CheckBox, Slider } from "../../../src/core/inputs.mjs";
+import { TextInput, TextArea, Select, CheckBox, Switch, Slider } from "../../../src/core/inputs.mjs";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function TextInputPage() {
@@ -258,6 +258,43 @@ export function SliderPage() {
           { color: "secondary" },
           customSliderValue.map((value) => `Selected target: ${value}`),
         ),
+      ),
+    ),
+  );
+}
+
+export function SwitchPage() {
+  const switchValue = useState(false);
+
+  return Column(
+    Heading({ h2: true }, "Switch Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "OS-style boolean toggle with state binding",
+    ),
+    Spacer({ minHeight: 24 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { Switch } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const enabled = useState(false);
+
+        Switch({ checked: enabled });
+        Switch({ checked: enabled, label: "Enable notifications" });
+        Switch({ checked: true, disabled: true, label: "Disabled" });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Switch"),
+      Text("OS-style toggle switch with optional label and boolean state binding."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        Switch({ checked: switchValue }),
+        Switch({ checked: switchValue, label: "Enable notifications" }),
+        Switch({ checked: true, disabled: true, label: "Disabled" }),
+        Text({ color: "secondary" }, switchValue.map((value) => `Enabled: ${value}`)),
       ),
     ),
   );
