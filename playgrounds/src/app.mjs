@@ -54,10 +54,11 @@ const sidebarItems = [
       { key: "link-button", text: "LinkButton" },
     ],
   },
-  { key: "sidebar", text: "Sidebar", icon: "rectangle_grid_1x2" },
+  { key: "sidebar", text: "Sidebar", icon: "sidebar_left" },
   {
     key: "menus",
     text: "Menus",
+    icon: "cursor_rays",
     children: [
       { key: "menu", text: "Menu" },
       { key: "picker", text: "Picker" },
@@ -88,7 +89,7 @@ const sidebarItems = [
     ],
   },
   { key: "table", text: "Table", icon: "table" },
-  { key: "dialog", text: "Dialog", icon: "hand" },
+  { key: "dialog", text: "Dialog", icon: "macwindow" },
   { key: "progress", text: "Progress", icon: "battery_25" },
 ];
 

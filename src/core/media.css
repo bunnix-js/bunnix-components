@@ -2,7 +2,7 @@
   font-family: "Framework7 Icons";
   font-style: normal;
   font-weight: 400;
-  src: url("../font-face/framework7-core-icons.woff2") format("woff2");
+  src: url("../font-face/Framework7Icons-Regular.woff2") format("woff2");
 }
 
 /* Icon Base Styles */
@@ -22,6 +22,8 @@
   font-family: "Framework7 Icons";
   font-weight: normal;
   font-style: normal;
+  font-size: 28px;
+  line-height: 1;
   letter-spacing: normal;
   text-transform: none;
   display: inline-block;
