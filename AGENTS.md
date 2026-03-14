@@ -61,6 +61,7 @@ playgrounds/
 
 - `InputField`, `DatePicker`, `TimePicker`, `ComboBox` all support `label` prop for consistency.
 - `TextInput` and `TextArea` also support `label` for consistency with the simplified input set in this package.
+- `DropdownPicker` also supports `label` and reuses the `Menu` item shape while showing the selected item icon/text in its trigger.
 - `DatePicker` and `TimePicker` use text input with masks, showing popover on focus.
 - `InputField`, `DatePicker`, `TimePicker` disable browser autocomplete by default (`autocomplete="off"`).
 - `InputField` supports mask prop for formatted input (date, phone, currency, CPF, credit card, etc.).

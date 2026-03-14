@@ -26,6 +26,29 @@
   background-size: 1rem;
 }
 
+.dropdown-picker-trigger {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  width: 100%;
+  color: var(--color-fg-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.dropdown-picker-trigger-disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.dropdown-picker-selection {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 1.25rem;
+}
+
 .checkbox {
   appearance: none;
   -webkit-appearance: none;

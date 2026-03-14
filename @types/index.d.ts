@@ -119,6 +119,34 @@ export interface TextAreaProps extends LayoutProps {
   input?: (event?: any) => void;
 }
 
+export type MenuAnchor =
+  | "bottom-left"
+  | "bottom-right"
+  | "top-left"
+  | "top-right"
+  | "bottomLeft"
+  | "bottomRight"
+  | "topLeft"
+  | "topRight";
+
+export interface MenuItem {
+  key: string;
+  text?: string;
+  icon?: string;
+  action?: (() => void) | null;
+  divider?: boolean;
+}
+
+export interface DropdownPickerProps extends LayoutProps {
+  value?: string | StateLike<string>;
+  items?: MenuItem[] | StateLike<MenuItem[]>;
+  label?: string;
+  outline?: boolean;
+  disabled?: boolean;
+  anchor?: MenuAnchor;
+  input?: (event?: any) => void;
+}
+
 export interface SelectOption {
   key?: string;
   content?: any;
@@ -212,6 +240,14 @@ export interface OutlineProps extends LayoutProps {
   open?: boolean | StateLike<boolean>;
 }
 
+export interface MenuProps extends LayoutProps {
+  items?: MenuItem[] | StateLike<MenuItem[]>;
+  trigger?:
+    | BunnixChild
+    | ((state: { isOpen: boolean; toggle: () => void }) => BunnixChild);
+  anchor?: MenuAnchor;
+}
+
 /** Sidebar navigation item configuration */
 export interface SidebarItem {
   /** Unique identifier for the sidebar item */
@@ -256,6 +292,7 @@ export const LinkButton: Component<LinkButtonProps>;
 
 export const TextInput: Component<TextInputProps>;
 export const TextArea: Component<TextAreaProps>;
+export const DropdownPicker: Component<DropdownPickerProps>;
 export const Select: Component<SelectProps>;
 export const CheckBox: Component<CheckBoxProps>;
 export const Slider: Component<SliderProps>;
@@ -264,7 +301,7 @@ export const Table: Component<TableProps>;
 export const Code: Component<BaseProps & { html?: string; language?: string }>;
 
 export const Sidebar: Component<SidebarProps>;
-export const Menu: Component<BaseProps>;
+export const Menu: Component<MenuProps>;
 export const Outline: Component<OutlineProps>;
 
 export function useDialog(): {

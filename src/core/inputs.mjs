@@ -5,6 +5,7 @@
  *
  * Components:
  * - TextInput: Single-line text input with optional placeholder and state binding
+ * - DropdownPicker: Menu-backed selection input with a selector-style trigger
  * - Select: Dropdown input with mapped options
  * - CheckBox: Simple checkbox input with optional state binding
  *
@@ -14,10 +15,12 @@
  * - Flexible props normalization (supports both props object and direct children)
  * - Outline focus states via core.css utilities
  */
-import Bunnix, { useState, useEffect, useRef, ForEach } from "@bunnix/core";
+import Bunnix, { Compute, useState, useEffect, useRef, ForEach, Show } from "@bunnix/core";
 import { withNormalizedArgs, withExtractedStyles, isStateLike } from "./utils.mjs";
-import { Column, Row } from "./layout.mjs";
+import { Column, Row, Spacer } from "./layout.mjs";
 import { Heading, Text } from "./typography.mjs";
+import { Icon } from "./media.mjs";
+import { Menu } from "./menu.mjs";
 import {
   findNearestSliderStepIndex,
   getSliderStepValue,
@@ -31,7 +34,7 @@ import {
 } from "./textareaUtils.mjs";
 import "./input.css";
 
-const { input, textarea, select, option, div } = Bunnix;
+const { input, textarea, select, option, div, button } = Bunnix;
 
 /**
  * Wraps a component in a Column with a Heading label if props.label exists.
@@ -257,6 +260,85 @@ const TextAreaCore = (props, _) => {
   );
 };
 
+const DropdownPickerCore = (props, _) => {
+  const value =
+    props.value?.get && props.value?.set
+      ? props.value
+      : useState(props.value ?? "");
+  const itemsValue =
+    props.items?.get && props.items?.set
+      ? props.items
+      : useState(props.items ?? []);
+  const outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
+  const defaultClass =
+    "padding-sm border-primary radius-md flex-grow-1 focus-border-outline bg-primary text-default";
+  const pickerState = Compute([value, itemsValue], (selectedKey, resolvedItems) => {
+    const selectedItem = (resolvedItems ?? []).find(
+      (item) => !item.divider && item.key === selectedKey,
+    );
+
+    const menuItems = (resolvedItems ?? []).map((item) => {
+      if (item.divider) return item;
+
+      return {
+        ...item,
+        action: () => {
+          value.set(item.key);
+          props.input &&
+            props.input({
+              target: { value: item.key },
+              currentTarget: { value: item.key },
+              item,
+            });
+        },
+      };
+    });
+
+    return { selectedItem, menuItems };
+  });
+
+  delete props.outline;
+  delete props.items;
+
+  return wrapIntoLabel(
+    props,
+    Show(pickerState, ({ selectedItem, menuItems }) =>
+      Menu({
+        ...props,
+        items: menuItems,
+        trigger: ({ toggle }) =>
+          button(
+            {
+              type: "button",
+              disabled: !!props.disabled,
+              click: props.disabled ? undefined : toggle,
+              style: {
+                minHeight: props.style?.minHeight ?? "32px",
+              },
+              class: `dropdown-picker-trigger ${defaultClass} ${outlineClass} ${
+                props.disabled ? "dropdown-picker-trigger-disabled" : ""
+              }`.trim(),
+            },
+            Row(
+              { fillWidth: true, alignItems: "center", gap: "small" },
+              div(
+                { class: "dropdown-picker-selection" },
+                ...(selectedItem?.icon
+                  ? [Icon({ name: selectedItem.icon, size: 16 })]
+                  : []),
+                ...(selectedItem
+                  ? [Text({ weight: "heavy" }, selectedItem.text ?? selectedItem.key)]
+                  : []),
+              ),
+              Spacer(),
+              Icon({ name: "chevron-down", size: 16, color: "secondary" }),
+            ),
+          ),
+      }),
+    ),
+  );
+};
+
 /** Select core component and logic */
 const SelectCore = (props, _) => {
   let value =
@@ -466,6 +548,27 @@ export const TextArea = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     TextAreaCore(finalProps, ...children),
   )({ textSize: "1rem", ...props }, ...children),
+);
+
+/**
+ * Menu-backed selector with input-like trigger rendering.
+ *
+ * @param {Object} props - Component props
+ * @param {Object|string} [props.value] - Selected item key (useState object or string)
+ * @param {Array<{key: string, text?: string, icon?: string, action?: Function, divider?: boolean}>} [props.items] - Menu-style items array
+ * @param {string} [props.label] - Label text (wraps in Column with Heading)
+ * @param {boolean} [props.outline] - Show focus outline
+ * @param {boolean} [props.disabled] - Disabled state
+ * @param {string} [props.anchor="bottom-left"] - Menu anchor position
+ * @param {Function} [props.input] - Called with an event-like object after selection
+ * @param {string} [props.class] - Additional CSS classes
+ * @param {...*} children - Children elements (ignored)
+ * @returns {*} DropdownPicker component
+ */
+export const DropdownPicker = withNormalizedArgs((props, ...children) =>
+  withExtractedStyles((finalProps, ...children) =>
+    DropdownPickerCore(finalProps, ...children),
+  )({ minHeight: 32, textSize: "1rem", ...props }, ...children),
 );
 
 /**

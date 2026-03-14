@@ -29,6 +29,7 @@ import {
   Button,
   TextInput,
   TextArea,
+  DropdownPicker,
   Slider,
   ProgressBar,
 } from "@bunnix/components";
@@ -48,6 +49,13 @@ Column(
     maxLines: 6,
     newlineTrigger: "shift-enter",
     placeholder: "Write more...",
+  }),
+  DropdownPicker({
+    value: "calendar",
+    items: [
+      { key: "calendar", text: "Calendar", icon: "calendar" },
+      { key: "messages", text: "Messages", icon: "message-square" },
+    ],
   }),
   Slider({ min: 0, max: 100, step: 5, value: 50 }),
   ProgressBar({ value: 65, color: "success" }),
@@ -78,7 +86,7 @@ These border tokens automatically adapt to light and dark color schemes, with `s
 - Typography: `Heading`, `Text`
 - Media: `Media`, `Icon`, `Spinner`, `Avatar`
 - Buttons: `Button`, `LinkButton`
-- Inputs: `TextInput`, `TextArea`, `Select`, `CheckBox`, `Slider`
+- Inputs: `TextInput`, `TextArea`, `DropdownPicker`, `Select`, `CheckBox`, `Slider`
 - Data display: `Table`, `Code`
 - Navigation: `Sidebar`, `Menu`
 - Feedback: `useDialog`, `ProgressBar`
