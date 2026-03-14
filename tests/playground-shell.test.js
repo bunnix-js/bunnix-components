@@ -44,6 +44,7 @@ test("Playground sidebar groups multi-component pages into nested items", () => 
   assert.match(appSource, /key: "media",\s*text: "Media",[\s\S]*children: \[[\s\S]*key: "media-display", text: "Media"[\s\S]*key: "icon", text: "Icon"[\s\S]*key: "spinner", text: "Spinner"[\s\S]*key: "avatar", text: "Avatar"[\s\S]*\]/m);
   assert.match(appSource, /key: "inputs",\s*text: "Inputs",[\s\S]*children: \[[\s\S]*key: "text-input", text: "TextInput"[\s\S]*key: "text-area", text: "TextArea"[\s\S]*key: "select", text: "Select"[\s\S]*key: "checkbox", text: "CheckBox"[\s\S]*key: "slider", text: "Slider"[\s\S]*\]/m);
   assert.match(appSource, /key: "menus",\s*text: "Menus",[\s\S]*children: \[[\s\S]*key: "menu", text: "Menu"[\s\S]*key: "picker", text: "Picker"[\s\S]*\]/m);
+  assert.doesNotMatch(appSource, /expanded: true/);
 });
 
 test("Playground app preserves displayed content when a non-page parent item is selected", () => {

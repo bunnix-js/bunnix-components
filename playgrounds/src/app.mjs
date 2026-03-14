@@ -24,7 +24,6 @@ const sidebarItems = [
     key: "layout",
     text: "Layout",
     icon: "table",
-    expanded: true,
     children: [
       { key: "column", text: "Column" },
       { key: "row", text: "Row" },
@@ -38,7 +37,6 @@ const sidebarItems = [
     key: "typography",
     text: "Typography",
     icon: "text",
-    expanded: true,
     children: [
       { key: "heading", text: "Heading" },
       { key: "text", text: "Text" },
@@ -51,7 +49,6 @@ const sidebarItems = [
     key: "buttons",
     text: "Buttons",
     icon: "button",
-    expanded: true,
     children: [
       { key: "button", text: "Button" },
       { key: "link-button", text: "LinkButton" },
@@ -61,7 +58,6 @@ const sidebarItems = [
   {
     key: "menus",
     text: "Menus",
-    expanded: true,
     children: [
       { key: "menu", text: "Menu" },
       { key: "picker", text: "Picker" },
@@ -72,7 +68,6 @@ const sidebarItems = [
     key: "media",
     text: "Media",
     icon: "image",
-    expanded: true,
     children: [
       { key: "media-display", text: "Media" },
       { key: "icon", text: "Icon" },
@@ -84,7 +79,6 @@ const sidebarItems = [
     key: "inputs",
     text: "Inputs",
     icon: "square-pencil",
-    expanded: true,
     children: [
       { key: "text-input", text: "TextInput" },
       { key: "text-area", text: "TextArea" },

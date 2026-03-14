@@ -18,7 +18,6 @@ const items = [
     key: "components",
     text: "Components",
     icon: "columns-layout",
-    expanded: true,
     children: [
       { key: "buttons", text: "Buttons" },
       { key: "inputs", text: "Inputs" },
@@ -53,4 +52,6 @@ Behavior:
 - Parent items remain selectable.
 - Clicking a parent item updates `selection` to the parent `key` and toggles its expanded state.
 - Clicking a child item only updates `selection` to the child `key`.
-- `expanded` seeds the initial open state for nested groups; later expand/collapse state is managed internally by `Sidebar`.
+- Nested groups default to collapsed unless their own `key` is the selected key.
+- `expanded` seeds the initial open state for nested groups when the parent is not the selected key; later expand/collapse state is managed internally by `Sidebar`.
+- Selecting a child key does not auto-expand ancestor groups.

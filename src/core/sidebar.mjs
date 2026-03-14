@@ -14,16 +14,21 @@ import { Button } from "./buttons.mjs";
 import { Icon } from "./media.mjs";
 import { Heading, Text } from "./typography.mjs";
 
-const buildExpansionState = (items = [], currentState = {}) => {
+const resolveSelectionValue = (selection) => {
+  if (selection?.get) return selection.get();
+  return selection ?? "";
+};
+
+const buildExpansionState = (items = [], currentState = {}, selectedKey = "") => {
   const nextState = { ...currentState };
 
   for (const item of items) {
     if (Array.isArray(item.children) && item.children.length > 0) {
       if (!(item.key in nextState)) {
-        nextState[item.key] = item.expanded ?? false;
+        nextState[item.key] = item.key === selectedKey || (item.expanded ?? false);
       }
 
-      Object.assign(nextState, buildExpansionState(item.children, nextState));
+      Object.assign(nextState, buildExpansionState(item.children, nextState, selectedKey));
     }
   }
 
@@ -123,18 +128,21 @@ const renderSidebarItem = ({
 };
 
 const SidebarCore = (props, ...children) => {
+  const initialSelection = resolveSelectionValue(props.selection);
   let itemsValue = props.items?.get && props.items?.set
     ? props.items
     : useState(props.items ?? []);
   let selectionValue = props.selection?.get && props.selection?.set
     ? props.selection
     : useState(props.selection ?? "");
-  let expandedItemsValue = useState(buildExpansionState(itemsValue.get?.() ?? props.items ?? []));
+  let expandedItemsValue = useState(
+    buildExpansionState(itemsValue.get?.() ?? props.items ?? [], {}, initialSelection),
+  );
   const selectionWrapper = Compute(selectionValue, (selected) => ({ selected }));
 
   useEffect((nextItems) => {
     const currentState = expandedItemsValue.get() ?? {};
-    const nextState = buildExpansionState(nextItems ?? [], currentState);
+    const nextState = buildExpansionState(nextItems ?? [], currentState, resolveSelectionValue(selectionValue));
 
     if (JSON.stringify(currentState) !== JSON.stringify(nextState)) {
       expandedItemsValue.set(nextState);

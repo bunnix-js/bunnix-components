@@ -35,7 +35,6 @@ export function SidebarPage() {
       key: "components",
       text: "Components",
       icon: "columns-layout",
-      expanded: true,
       children: [
         { key: "buttons", text: "Buttons" },
         {
@@ -175,7 +174,6 @@ export function SidebarPage() {
             key: "components",
             text: "Components",
             icon: "columns-layout",
-            expanded: true,
             children: [
               { key: "buttons", text: "Buttons" },
               {
@@ -195,7 +193,7 @@ export function SidebarPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Nested Sidebar"),
-      Text("Parent items stay selectable while expanding or collapsing their nested children. Only root-level items render leading icons."),
+      Text("Parent items stay selectable while expanding or collapsing their nested children. Nested groups start collapsed unless their own key is selected, and only root-level items render leading icons."),
       Spacer({ minHeight: 8 }),
       div(
         {

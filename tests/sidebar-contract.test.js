@@ -36,7 +36,15 @@ test("Sidebar parent click selects the parent key and toggles expansion", () => 
 });
 
 test("Sidebar seeds nested expansion state from item.expanded", () => {
-  assert.match(sidebarSource, /const buildExpansionState = \(items = \[\], currentState = \{\}\) => \{/);
-  assert.match(sidebarSource, /nextState\[item\.key\] = item\.expanded \?\? false;/);
-  assert.match(sidebarSource, /expandedItemsValue = useState\(buildExpansionState\(itemsValue\.get\?\.\(\) \?\? props\.items \?\? \[\]\)\);/);
+  assert.match(sidebarSource, /const buildExpansionState = \(items = \[\], currentState = \{\}, selectedKey = ""\) => \{/);
+  assert.match(sidebarSource, /nextState\[item\.key\] = item\.key === selectedKey \|\| \(item\.expanded \?\? false\);/);
+  assert.match(sidebarSource, /const initialSelection = resolveSelectionValue\(props\.selection\);/);
+  assert.match(sidebarSource, /buildExpansionState\(itemsValue\.get\?\.\(\) \?\? props\.items \?\? \[\], \{\}, initialSelection\)/);
+  assert.match(sidebarSource, /buildExpansionState\(nextItems \?\? \[\], currentState, resolveSelectionValue\(selectionValue\)\)/);
+});
+
+test("Sidebar does not auto-expand ancestors for selected child keys", () => {
+  assert.doesNotMatch(sidebarSource, /descendant/i);
+  assert.doesNotMatch(sidebarSource, /child.*selected.*expand/i);
+  assert.match(sidebarSource, /item\.key === selectedKey \|\| \(item\.expanded \?\? false\)/);
 });
