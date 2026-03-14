@@ -1,17 +1,28 @@
-import Bunnix from "@bunnix/core";
+import { Compute, ForEach, useState } from "@bunnix/core";
 import { Heading, Text } from "../../../src/core/typography.mjs";
 import { Column, Spacer, Grid, Row } from "../../../src/core/layout.mjs";
 import { Icon } from "../../../src/core/media.mjs";
 import { Button, LinkButton } from "../../../src/core/buttons.mjs";
-import {
-  framework7IconNames,
-  framework7IconsSourceCount,
-} from "../data/framework7-icons.mjs";
+import { TextInput } from "../../../src/core/inputs.mjs";
+import { framework7IconNames } from "../data/framework7-icons.mjs";
 
 const OFFICIAL_ICONS_URL = "https://framework7.io/icons/";
 const OFFICIAL_RELEASE_URL = "https://github.com/framework7io/framework7-icons/releases/tag/v5.0.5";
 
 export function IconRegistryPage() {
+  const searchValue = useState("");
+  const filteredIconNames = Compute(searchValue, (query) => {
+    const normalizedQuery = `${query ?? ""}`.trim().toLowerCase();
+
+    if (!normalizedQuery) {
+      return framework7IconNames.map((iconName) => ({ key: iconName, iconName }));
+    }
+
+    return framework7IconNames
+      .filter((iconName) => iconName.toLowerCase().includes(normalizedQuery))
+      .map((iconName) => ({ key: iconName, iconName }));
+  });
+
   const IconCard = (iconName) => Button(
     {
       variant: "tertiary",
@@ -43,10 +54,18 @@ export function IconRegistryPage() {
     Heading({ h2: true }, "Framework7 Icons"),
     Heading(
       { h4: true, color: "secondary", weight: "heavy" },
-      `${framework7IconNames.length} unique ligatures from the official v5.0.5 package`,
+      filteredIconNames.map((items) =>
+        `${items.length} of ${framework7IconNames.length} unique ligatures from the official v5.0.5 package`,
+      ),
     ),
     Spacer({ minHeight: 24 }),
     Text('Click any icon card to copy `Icon({ name: "..." })`.'),
+    Spacer({ minHeight: 12 }),
+    TextInput({
+      type: "search",
+      value: searchValue,
+      placeholder: "Search icons...",
+    }),
     Spacer({ minHeight: 12 }),
     Row(
       { gap: "regular" },
@@ -75,7 +94,7 @@ export function IconRegistryPage() {
         ],
         gridGap: 12,
       },
-      ...framework7IconNames.map((iconName) => IconCard(iconName)),
+      ForEach(filteredIconNames, "key", (item) => IconCard(item.iconName)),
     ),
   );
 }

@@ -48,11 +48,13 @@ test("Icon playground page uses the checked-in official Framework7 package snaps
   assert.doesNotMatch(iconPageSource, /iconRegistry/);
   assert.match(iconPageSource, /Heading\(\{ h2: true \}, "Framework7 Icons"\)/);
   assert.match(iconPageSource, /framework7IconNames/);
-  assert.match(iconPageSource, /framework7IconsSourceCount/);
-  assert.match(iconPageSource, /framework7IconsMirrorUrl/);
   assert.match(iconPageSource, /navigator\.clipboard\.writeText/);
+  assert.match(iconPageSource, /TextInput\(\{/);
+  assert.match(iconPageSource, /type: "search"/);
+  assert.match(iconPageSource, /toLowerCase\(\)\.includes\(normalizedQuery\)/);
   assert.doesNotMatch(iconPageSource, /fetch\(/);
-  assert.match(iconPageSource, /window\.open\(framework7IconsMirrorUrl/);
+  assert.match(iconPageSource, /window\.open\(OFFICIAL_ICONS_URL/);
+  assert.match(iconPageSource, /window\.open\(OFFICIAL_RELEASE_URL/);
 });
 
 test("Checked-in Framework7 icon snapshot contains official package metadata and a full icon list", () => {
