@@ -222,6 +222,10 @@ export interface SidebarItem {
   icon?: string;
   /** If true, renders as a section header instead of a clickable item */
   isHeader?: boolean;
+  /** Optional nested child items rendered below this item when expanded */
+  children?: SidebarItem[];
+  /** Initial expanded state for items that have nested children */
+  expanded?: boolean;
 }
 
 /** Props for the Sidebar component */

@@ -26,7 +26,33 @@ export function SidebarPage() {
     { key: "preferences", text: "Preferences", icon: "settings" },
   ];
 
-  // Example 3: Full navigation sidebar
+  // Example 3: Nested sidebar
+  const nestedSelection = useState("components");
+  const nestedItems = [
+    { key: "home", text: "Home", icon: "home" },
+    { key: "header-components", text: "Components", isHeader: true },
+    {
+      key: "components",
+      text: "Components",
+      icon: "columns-layout",
+      expanded: true,
+      children: [
+        { key: "buttons", text: "Buttons", icon: "button" },
+        {
+          key: "forms",
+          text: "Forms",
+          icon: "square-pencil",
+          children: [
+            { key: "inputs", text: "Inputs", icon: "square-pencil" },
+            { key: "dialog", text: "Dialog", icon: "hand" },
+          ],
+        },
+      ],
+    },
+    { key: "settings", text: "Settings", icon: "settings" },
+  ];
+
+  // Example 4: Full navigation sidebar
   const navSelection = useState("projects");
   const navItems = [
     { key: "header-workspace", text: "Workspace", isHeader: true },
@@ -135,6 +161,65 @@ export function SidebarPage() {
 
     Spacer({ minHeight: 16 }),
 
+    // Nested Sidebar
+    ComponentShowcase(
+      {
+        code: `
+        import { Sidebar } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const selection = useState("components");
+        const items = [
+          { key: "home", text: "Home", icon: "home" },
+          { key: "header-components", text: "Components", isHeader: true },
+          {
+            key: "components",
+            text: "Components",
+            icon: "columns-layout",
+            expanded: true,
+            children: [
+              { key: "buttons", text: "Buttons", icon: "button" },
+              {
+                key: "forms",
+                text: "Forms",
+                icon: "square-pencil",
+                children: [
+                  { key: "inputs", text: "Inputs", icon: "square-pencil" },
+                  { key: "dialog", text: "Dialog", icon: "hand" },
+                ],
+              },
+            ],
+          },
+          { key: "settings", text: "Settings", icon: "settings" },
+        ];
+
+        Sidebar({ items, selection });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Nested Sidebar"),
+      Text("Parent items stay selectable while expanding or collapsing their nested children."),
+      Spacer({ minHeight: 8 }),
+      div(
+        {
+          style: {
+            border: "1px solid var(--color-border-primary)",
+            borderRadius: "8px",
+            width: "260px",
+            overflow: "hidden",
+          },
+        },
+        Sidebar({ items: nestedItems, selection: nestedSelection }),
+      ),
+      Spacer({ minHeight: 8 }),
+      Text(
+        { color: "secondary", textSize: "0.875rem" },
+        "Selected: ",
+        nestedSelection.map((value) => Text({ weight: "heavy" }, value)),
+      ),
+    ),
+
+    Spacer({ minHeight: 16 }),
+
     // Full Navigation Sidebar
     ComponentShowcase(
       {
@@ -224,6 +309,10 @@ export function SidebarPage() {
         Text(
           Text({ weight: "heavy" }, "• Icon Support:"),
           " Optional icons from the icon registry",
+        ),
+        Text(
+          Text({ weight: "heavy" }, "• Nested Groups:"),
+          " Parent items can expand recursive child navigation",
         ),
         Text(
           Text({ weight: "heavy" }, "• Visual Feedback:"),
