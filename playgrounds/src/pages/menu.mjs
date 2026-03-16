@@ -362,7 +362,7 @@ export function PickerPage() {
 
         Picker({
           value,
-          items: [
+          options: [
             { key: "overview", text: "Overview" },
             { key: "analytics", text: "Analytics" },
             { key: "settings", text: "Settings" },
@@ -371,7 +371,7 @@ export function PickerPage() {
 
         Picker({
           value: iconValue,
-          items: [
+          options: [
             { key: "calendar", text: "Calendar", icon: "calendar" },
             { key: "messages", text: "Messages", icon: "chat_bubble_2" },
             { key: "documents", text: "Documents", icon: "doc_text" },
@@ -380,13 +380,13 @@ export function PickerPage() {
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Picker"),
-      Text("Picker reuses Menu items but behaves like a selector, showing the current choice in the trigger."),
+      Text("Picker uses Menu-shaped options but behaves like a selector, showing the current choice in the trigger."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
         Picker({
           value: pickerValue,
-          items: [
+          options: [
             { key: "overview", text: "Overview" },
             { key: "analytics", text: "Analytics" },
             { key: "settings", text: "Settings" },
@@ -394,7 +394,7 @@ export function PickerPage() {
         }),
         Picker({
           value: iconPickerValue,
-          items: [
+          options: [
             { key: "calendar", text: "Calendar", icon: "calendar" },
             { key: "messages", text: "Messages", icon: "chat_bubble_2" },
             { key: "divider-1", divider: true },

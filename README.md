@@ -48,13 +48,12 @@ Column(
     label: "Notes",
     minLines: 3,
     maxLines: 6,
-    newlineTrigger: "shift-enter",
     placeholder: "Write more...",
   }),
   Switch({ checked: false, label: "Enable sync" }),
   Picker({
     value: "calendar",
-    items: [
+    options: [
       { key: "calendar", text: "Calendar", icon: "calendar" },
       { key: "messages", text: "Messages", icon: "chat_bubble_2" },
     ],

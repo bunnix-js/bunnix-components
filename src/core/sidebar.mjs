@@ -8,7 +8,7 @@
  * - Parent items stay selectable while toggling their child groups
  */
 import { Compute, Show, useEffect, useState } from "@bunnix/core";
-import { withNormalizedArgs, withExtractedStyles } from "./utils.mjs";
+import { withNormalizedArgs, withExtractedStyles, resolveCollectionState } from "./utils.mjs";
 import { Column, Row, Spacer } from "./layout.mjs";
 import { Button } from "./buttons.mjs";
 import { Icon } from "./media.mjs";
@@ -35,114 +35,136 @@ const buildExpansionState = (items = [], currentState = {}, selectedKey = "") =>
   return nextState;
 };
 
+const hasSidebarItem = (items = [], key) => {
+  for (const item of items) {
+    if (item.key === key) return true;
+    if (Array.isArray(item.children) && hasSidebarItem(item.children, key)) return true;
+  }
+
+  return false;
+};
+
 const renderSidebarItem = ({
   item,
   index,
   level,
-  selectionWrapper,
+  selected,
   expandedItems,
   setSelection,
   toggleExpanded,
 }) => {
-  return Show(selectionWrapper, ({ selected }) => {
-    if (item.isHeader) {
-      return Heading(
-        {
-          h4: true,
-          color: "tertiary",
-          textSize: "1rem",
-          marginTop: index > 0 ? "regular" : 0,
-          ...(level > 0 ? { paddingLeft: level * 20 } : {}),
-        },
-        item.text,
-      );
-    }
-
-    const hasChildren = Array.isArray(item.children) && item.children.length > 0;
-    const isExpanded = !!expandedItems[item.key];
-    const isSelected = selected === item.key;
-
-    const button = Button(
+  if (item.isHeader) {
+    return Heading(
       {
-        variant: isSelected ? "primary" : "tertiary",
-        click: () => {
-          setSelection(item.key);
-          if (hasChildren) toggleExpanded(item.key);
-        },
+        h4: true,
+        color: "tertiary",
+        textSize: "1rem",
+        marginTop: index > 0 ? "regular" : 0,
+        ...(level > 0 ? { paddingLeft: level * 20 } : {}),
       },
-      Row(
-        {
-          fillWidth: true,
-          alignItems: "center",
-          gap: "small",
-          ...(level > 0 ? { paddingLeft: level * 20 } : {}),
-        },
-        ...(level === 0 && item.icon
-          ? [
-              Icon({
-                size: 18,
-                name: item.icon,
-                ...(isSelected ? {} : { color: "secondary" }),
-              }),
-            ]
-          : []),
-        Text({ weight: "heavy" }, item.text),
-        Spacer(),
-        ...(hasChildren
-          ? [
-              Icon({
-                name: isExpanded ? "chevron_down" : "chevron_right",
-                size: 16,
-                ...(isSelected ? {} : { color: "secondary" }),
-              }),
-            ]
-          : []),
-      ),
+      item.text,
     );
+  }
 
-    if (!hasChildren) return button;
+  const hasChildren = Array.isArray(item.children) && item.children.length > 0;
+  const isExpanded = !!expandedItems[item.key];
+  const isSelected = selected === item.key;
 
-    return Column(
-      { gap: 4 },
-      button,
-      ...(isExpanded
+  const button = Button(
+    {
+      variant: isSelected ? "primary" : "tertiary",
+      click: () => {
+        setSelection(item.key);
+        if (hasChildren) toggleExpanded(item.key);
+      },
+    },
+    Row(
+      {
+        fillWidth: true,
+        alignItems: "center",
+        gap: "small",
+        ...(level > 0 ? { paddingLeft: level * 20 } : {}),
+      },
+      ...(level === 0 && item.icon
         ? [
-            Column(
-              { gap: 4 },
-              ...item.children.map((child, childIndex) =>
-                renderSidebarItem({
-                  item: child,
-                  index: childIndex,
-                  level: level + 1,
-                  selectionWrapper,
-                  expandedItems,
-                  setSelection,
-                  toggleExpanded,
-                }),
-              ),
-            ),
+            Icon({
+              size: 18,
+              name: item.icon,
+              ...(isSelected ? {} : { color: "secondary" }),
+            }),
           ]
         : []),
-    );
-  });
+      Text({ weight: "heavy" }, item.text),
+      Spacer(),
+      ...(hasChildren
+        ? [
+            Icon({
+              name: isExpanded ? "chevron_down" : "chevron_right",
+              size: 16,
+              ...(isSelected ? {} : { color: "secondary" }),
+            }),
+          ]
+        : []),
+    ),
+  );
+
+  if (!hasChildren) return button;
+
+  return Column(
+    { gap: 4 },
+    button,
+    ...(isExpanded
+      ? [
+          Column(
+            { gap: 4 },
+            ...item.children.map((child, childIndex) =>
+              renderSidebarItem({
+                item: child,
+                index: childIndex,
+                level: level + 1,
+                selected,
+                expandedItems,
+                setSelection,
+                toggleExpanded,
+              }),
+            ),
+          ),
+        ]
+      : []),
+  );
 };
 
 const SidebarCore = (props, ...children) => {
   const initialSelection = resolveSelectionValue(props.selection);
-  let itemsValue = props.items?.get && props.items?.set
-    ? props.items
-    : useState(props.items ?? []);
+  let itemsValue = resolveCollectionState(props.items, []);
   let selectionValue = props.selection?.get && props.selection?.set
     ? props.selection
-    : useState(props.selection ?? "");
+    : useState(props.selection ?? null);
   let expandedItemsValue = useState(
     buildExpansionState(itemsValue.get?.() ?? props.items ?? [], {}, initialSelection),
   );
-  const selectionWrapper = Compute(selectionValue, (selected) => ({ selected }));
+  const sidebarState = Compute(
+    [itemsValue, expandedItemsValue, selectionValue],
+    (resolvedItems, expandedItems, selected) => ({
+      resolvedItems: resolvedItems ?? [],
+      expandedItems: expandedItems ?? {},
+      selected,
+    }),
+  );
 
   useEffect((nextItems) => {
     const currentState = expandedItemsValue.get() ?? {};
-    const nextState = buildExpansionState(nextItems ?? [], currentState, resolveSelectionValue(selectionValue));
+    const resolvedSelection = resolveSelectionValue(selectionValue);
+
+    if (resolvedSelection && !hasSidebarItem(nextItems ?? [], resolvedSelection)) {
+      selectionValue.set && selectionValue.set(null);
+    }
+
+    const nextState = buildExpansionState(
+      nextItems ?? [],
+      currentState,
+      resolveSelectionValue(selectionValue),
+    );
 
     if (JSON.stringify(currentState) !== JSON.stringify(nextState)) {
       expandedItemsValue.set(nextState);
@@ -164,21 +186,19 @@ const SidebarCore = (props, ...children) => {
     });
   };
 
-  return Show(itemsValue, (resolvedItems) =>
-    Show(expandedItemsValue, (expandedItems) =>
-      Column(
-        { ...props, gap: 4 },
-        ...(resolvedItems ?? []).map((item, index) =>
-          renderSidebarItem({
-            item,
-            index,
-            level: 0,
-            selectionWrapper,
-            expandedItems,
-            setSelection,
-            toggleExpanded,
-          }),
-        ),
+  return Show(sidebarState, ({ resolvedItems, expandedItems, selected }) =>
+    Column(
+      { ...props, gap: 4 },
+      ...resolvedItems.map((item, index) =>
+        renderSidebarItem({
+          item,
+          index,
+          level: 0,
+          selected,
+          expandedItems,
+          setSelection,
+          toggleExpanded,
+        }),
       ),
     ),
   );

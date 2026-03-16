@@ -18,7 +18,12 @@
  * - Outline focus states via core.css utilities
  */
 import Bunnix, { Compute, useState, useEffect, useRef, ForEach, Show } from "@bunnix/core";
-import { withNormalizedArgs, withExtractedStyles, isStateLike } from "./utils.mjs";
+import {
+  withNormalizedArgs,
+  withExtractedStyles,
+  isStateLike,
+  resolveCollectionState,
+} from "./utils.mjs";
 import { Column, Row, Spacer } from "./layout.mjs";
 import { Heading, Text } from "./typography.mjs";
 import { Icon } from "./media.mjs";
@@ -92,6 +97,24 @@ function resolveBooleanState(propValue) {
     : useState(!!propValue);
 }
 
+function resolveInputFocusClass(outline) {
+  return outline ? "focus-border-outline focus-outline-dimmed" : "no-outline";
+}
+
+function syncFocusedNode(node, shouldFocus) {
+  if (!node || typeof node.focus !== "function" || typeof node.blur !== "function") return;
+  if (shouldFocus) {
+    if (typeof document === "undefined" || document.activeElement !== node) {
+      node.focus();
+    }
+    return;
+  }
+
+  if (typeof document === "undefined" || document.activeElement === node) {
+    node.blur();
+  }
+}
+
 function getLineHeightPx(node) {
   if (!node || typeof window === "undefined") return 20;
 
@@ -139,18 +162,9 @@ function resizeTextArea(node, minLines, maxLines) {
   node.style.overflowY = metrics.shouldScroll ? "auto" : "hidden";
 }
 
-function shouldInsertTextAreaNewline(event, newlineTrigger) {
+function shouldInsertTextAreaNewline(event) {
   if (event.key !== "Enter" || event.isComposing) return true;
-
-  if (newlineTrigger === "shift-enter") {
-    return !!event.shiftKey && !event.metaKey && !event.ctrlKey && !event.altKey;
-  }
-
-  if (newlineTrigger === "command-enter") {
-    return !!event.metaKey && !event.shiftKey && !event.ctrlKey && !event.altKey;
-  }
-
-  return !event.shiftKey && !event.metaKey && !event.ctrlKey && !event.altKey;
+  return !!event.shiftKey && !event.metaKey && !event.ctrlKey && !event.altKey;
 }
 
 /** Text Input core component and logic */
@@ -159,12 +173,16 @@ const TextInputCore = (props, _) => {
     props.value?.get && props.value?.set
       ? props.value
       : useState(props.value ?? "");
+  let focusedValue = isStateLike(props.focused) ? props.focused : null;
+  let shouldAutoFocus = !focusedValue && !!props.focused;
+  let inputRef = useRef(null);
   let placeholder = props.placeholder ?? "";
-  let outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
+  let focusClass = resolveInputFocusClass(props.outline);
   let defaultClass =
-    "padding-sm border-primary radius-md flex-grow-1 focus-border-outline bg-primary text-default";
+    "padding-sm border-primary radius-md flex-grow-1 bg-primary text-default";
 
   delete props.outline;
+  delete props.focused;
 
   let rawValue = useState("");
 
@@ -175,6 +193,12 @@ const TextInputCore = (props, _) => {
       rawValue.set(val);
     }
   }, value);
+
+  if (focusedValue) {
+    useEffect((isFocused) => {
+      syncFocusedNode(inputRef.current, !!isFocused);
+    }, focusedValue);
+  }
 
   const convertRawValue = (val) => {
     rawValue.set(val);
@@ -198,15 +222,23 @@ const TextInputCore = (props, _) => {
     props,
     input({
       ...props,
+      ref: inputRef,
+      autofocus: shouldAutoFocus,
       value: rawValue,
       disabled: props.disabled,
+      focus: () => {
+        if (focusedValue?.set) focusedValue.set(true);
+      },
+      blur: () => {
+        if (focusedValue?.set) focusedValue.set(false);
+      },
       input: (e) => {
         convertRawValue(e.target.value ?? "");
         // value.set(e.target.value ?? "");
         props.input && props.input(e);
       },
       placeholder: placeholder,
-      class: `${defaultClass} ${outlineClass} ${props.class || ""}`,
+      class: `${defaultClass} ${focusClass} ${props.class || ""}`,
     }),
   );
 };
@@ -216,20 +248,21 @@ const TextAreaCore = (props, _) => {
     props.value?.get && props.value?.set
       ? props.value
       : useState(props.value ?? "");
+  const focusedValue = isStateLike(props.focused) ? props.focused : null;
+  const shouldAutoFocus = !focusedValue && !!props.focused;
   const rawValue = useState(value.get?.() ?? props.value ?? "");
   const textAreaRef = useRef(null);
   const minLines = resolveTextAreaLines(props.minLines, 3);
   const maxLines = Math.max(minLines, resolveTextAreaLines(props.maxLines, 3));
-  const newlineTrigger = props.newlineTrigger ?? "enter";
   const placeholder = props.placeholder ?? "";
-  const outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
+  const focusClass = resolveInputFocusClass(props.outline);
   const defaultClass =
-    "padding-sm border-primary radius-md flex-grow-1 focus-border-outline bg-primary text-default";
+    "padding-sm radius-md flex-grow-1 bg-primary text-default";
 
   delete props.outline;
+  delete props.focused;
   delete props.minLines;
   delete props.maxLines;
-  delete props.newlineTrigger;
 
   useEffect((nextValue) => {
     rawValue.set(nextValue ?? "");
@@ -240,19 +273,33 @@ const TextAreaCore = (props, _) => {
     resizeTextArea(textAreaRef.current, minLines, maxLines);
   }, []);
 
+  if (focusedValue) {
+    useEffect((isFocused) => {
+      syncFocusedNode(textAreaRef.current, !!isFocused);
+    }, focusedValue);
+  }
+
   return wrapIntoLabel(
     props,
     textarea({
       ...props,
       ref: textAreaRef,
+      autofocus: shouldAutoFocus,
       rows: minLines,
       value: rawValue,
       disabled: props.disabled,
       placeholder,
-      class: `textarea ${defaultClass} ${outlineClass} ${props.class || ""}`.trim(),
+      class: `textarea ${defaultClass} ${focusClass} ${props.class || ""}`.trim(),
+      focus: () => {
+        if (focusedValue?.set) focusedValue.set(true);
+      },
+      blur: () => {
+        if (focusedValue?.set) focusedValue.set(false);
+      },
       keydown: (e) => {
-        if (e.key === "Enter" && !shouldInsertTextAreaNewline(e, newlineTrigger)) {
+        if (e.key === "Enter" && !shouldInsertTextAreaNewline(e)) {
           e.preventDefault();
+          e.target?.form?.requestSubmit?.();
         }
 
         props.keydown && props.keydown(e);
@@ -273,76 +320,99 @@ const PickerCore = (props, _) => {
     props.value?.get && props.value?.set
       ? props.value
       : useState(props.value ?? "");
-  const itemsValue =
-    props.items?.get && props.items?.set
-      ? props.items
-      : useState(props.items ?? []);
-  const outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
+  const optionsValue = resolveCollectionState(props.options ?? props.items, []);
+  const disabledValue = resolveBooleanState(props.disabled);
+  const labelProps = props.label ? { label: props.label } : {};
+  const anchor = props.anchor;
+  const focusClass = resolveInputFocusClass(props.outline);
   const defaultClass =
-    "padding-sm border-primary radius-md flex-grow-1 focus-border-outline bg-primary text-default";
-  const pickerState = Compute([value, itemsValue], (selectedKey, resolvedItems) => {
-    const selectedItem = (resolvedItems ?? []).find(
-      (item) => !item.divider && item.key === selectedKey,
+    "padding-sm border-primary radius-md flex-grow-1 bg-primary text-default";
+  const pickerState = Compute([value, optionsValue, disabledValue], (selectedKey, resolvedOptions, isDisabled) => {
+    const selectedItem = (resolvedOptions ?? []).find(
+      (option) => !option.divider && option.key === selectedKey,
     );
 
-    const menuItems = (resolvedItems ?? []).map((item) => {
-      if (item.divider) return item;
+    const menuOptions = (resolvedOptions ?? []).map((option) => {
+      if (option.divider) return option;
 
       return {
-        ...item,
+        ...option,
         action: () => {
-          value.set(item.key);
+          value.set(option.key);
           props.input &&
             props.input({
-              target: { value: item.key },
-              currentTarget: { value: item.key },
-              item,
+              target: { value: option.key },
+              currentTarget: { value: option.key },
+              option,
             });
         },
       };
     });
 
-    return { selectedItem, menuItems };
+    return { selectedItem, menuOptions, isDisabled: !!isDisabled };
   });
 
-  delete props.outline;
-  delete props.items;
+  useEffect(({ selectedItem }) => {
+    const selectedKey = value.get();
+    if (!selectedKey || selectedItem) return;
+
+    value.set("");
+    props.input &&
+      props.input({
+        target: { value: "" },
+        currentTarget: { value: "" },
+        option: null,
+      });
+  }, pickerState);
+
+  const triggerProps = { ...props };
+  delete triggerProps.value;
+  delete triggerProps.options;
+  delete triggerProps.items;
+  delete triggerProps.label;
+  delete triggerProps.input;
+  delete triggerProps.anchor;
+  delete triggerProps.disabled;
+  delete triggerProps.outline;
 
   return wrapIntoLabel(
-    props,
-    Show(pickerState, ({ selectedItem, menuItems }) =>
-      Menu({
-        ...props,
-        items: menuItems,
-        trigger: ({ toggle }) =>
-          button(
-            {
-              type: "button",
-              disabled: !!props.disabled,
-              click: props.disabled ? undefined : toggle,
-              style: {
-                minHeight: props.style?.minHeight ?? "32px",
+    labelProps,
+    Show(pickerState, ({ selectedItem, menuOptions, isDisabled }) =>
+      withExtractedStyles((finalTriggerProps) =>
+        Menu({
+          ...(anchor ? { anchor } : {}),
+          items: menuOptions,
+          trigger: ({ toggle }) =>
+            button(
+              {
+                ...finalTriggerProps,
+                type: "button",
+                disabled: disabledValue,
+                click: () => {
+                  if (isDisabled) return;
+                  toggle();
+                },
+                class: `picker-trigger ${defaultClass} ${focusClass} ${
+                  isDisabled ? "picker-trigger-disabled" : ""
+                } ${finalTriggerProps.class || ""}`.trim(),
               },
-              class: `picker-trigger ${defaultClass} ${outlineClass} ${
-                props.disabled ? "picker-trigger-disabled" : ""
-              }`.trim(),
-            },
-            Row(
-              { fillWidth: true, alignItems: "center", gap: "small" },
-              div(
-                { class: "picker-selection" },
-                ...(selectedItem?.icon
-                  ? [Icon({ name: selectedItem.icon, size: 16 })]
-                  : []),
-                ...(selectedItem
-                  ? [Text({ weight: "heavy" }, selectedItem.text ?? selectedItem.key)]
-                  : []),
+              Row(
+                { fillWidth: true, alignItems: "center", gap: "small" },
+                div(
+                  { class: "picker-selection" },
+                  ...(selectedItem?.icon
+                    ? [Icon({ name: selectedItem.icon, size: 16 })]
+                    : []),
+                  ...(selectedItem
+                    ? [Text({ weight: "heavy" }, selectedItem.text ?? selectedItem.key)]
+                    : []),
+                ),
+                Spacer(),
+                Icon({ name: "chevron_down", size: 16, color: "secondary" }),
               ),
-              Spacer(),
-              Icon({ name: "chevron_down", size: 16, color: "secondary" }),
             ),
-          ),
-      }),
+        })
+      )({ minHeight: 32, textSize: "1rem", ...triggerProps }),
     ),
   );
 };
@@ -352,19 +422,36 @@ const SegmentedPickerCore = (props, _) => {
     props.value?.get && props.value?.set
       ? props.value
       : useState(props.value ?? "");
-  const itemsValue =
-    props.items?.get && props.items?.set
-      ? props.items
-      : useState(props.items ?? []);
-  const outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
+  const itemsValue = resolveCollectionState(props.items, []);
+  const focusClass = resolveInputFocusClass(props.outline);
   const segmentedPickerState = Compute(
     [value, itemsValue],
     (selectedKey, resolvedItems) =>
-      (resolvedItems ?? []).map((item) => ({
-        ...item,
-        selected: item.key === selectedKey,
-      })),
+      ({
+        selectedKey,
+        selectedItem: (resolvedItems ?? []).find((item) => item.key === selectedKey) ?? null,
+        segments: (resolvedItems ?? []).map((item) => ({
+          ...item,
+          selected: item.key === selectedKey,
+        })),
+      }),
   );
+  const segmentedPickerItems = segmentedPickerState.map((state) => state.segments);
+
+  useEffect(({ selectedKey, selectedItem }) => {
+    if (!selectedKey || selectedItem) return;
+
+    value.set("");
+
+    const eventLike = {
+      target: { value: "" },
+      currentTarget: { value: "" },
+      item: null,
+    };
+
+    props.change && props.change(eventLike);
+    props.input && props.input(eventLike);
+  }, segmentedPickerState);
 
   delete props.outline;
   delete props.items;
@@ -375,9 +462,9 @@ const SegmentedPickerCore = (props, _) => {
       {
         class: `segmented-picker border-primary bg-primary-dimmed radius-lg ${
           props.disabled ? "segmented-picker-disabled" : ""
-        } ${outlineClass} ${props.class || ""}`.trim(),
+        } ${focusClass} ${props.class || ""}`.trim(),
       },
-      ForEach(segmentedPickerState, "key", (item) =>
+      ForEach(segmentedPickerItems, "key", (item) =>
         button(
           {
             type: "button",
@@ -423,11 +510,25 @@ const SelectCore = (props, _) => {
     props.value?.get && props.value?.set
       ? props.value
       : useState(props.value ?? "");
-  let optionsValue =
-    props.options?.get && props.options?.set
-      ? props.options
-      : useState(props.options ?? []);
-  let outline = props.outline ?? false;
+  let optionsValue = resolveCollectionState(props.options, []);
+  let focusClass = resolveInputFocusClass(props.outline);
+  const selectedOptionState = Compute([value, optionsValue], (selectedKey, resolvedOptions) => {
+    const options = resolvedOptions ?? [];
+    const selectedOption = options.find((option) => option.key === selectedKey);
+    return { selectedKey, selectedOption };
+  });
+
+  useEffect(({ selectedKey, selectedOption }) => {
+    if (!selectedKey || selectedOption) return;
+
+    value.set("");
+    props.input &&
+      props.input({
+        target: { value: "" },
+        currentTarget: { value: "" },
+        option: null,
+      });
+  }, selectedOptionState);
 
   delete props.options;
   delete props.outline;
@@ -436,14 +537,14 @@ const SelectCore = (props, _) => {
   let childrenOptions = ForEach(optionsValue, "key", (o, index) =>
     option(
       {
-        value: o.key ?? `option ${index() + 1}`,
+        value: o.key ?? `option ${index + 1}`,
         selected: o.key === value.get(),
       },
       o.content ?? ``,
     ),
   );
 
-  let defaultClass = `appearance-none padding-sm bg-primary border-primary radius-md flex-grow-1 focus-border-outline ${outline ? "focus-outline-dimmed" : "no-outline"}`;
+  let defaultClass = `appearance-none padding-sm bg-primary border-primary radius-md flex-grow-1 ${focusClass}`;
 
   return wrapIntoLabel(
     props,
@@ -466,10 +567,9 @@ const SelectCore = (props, _) => {
 const CheckBoxCore = (props, _) => {
   let checkedValue = "checked" in props ? props.checked : props.value;
   let checked = resolveBooleanState(checkedValue);
-  let outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
+  let focusClass = resolveInputFocusClass(props.outline);
   let defaultClass =
-    "cursor-pointer border-primary radius-md focus-border-outline bg-primary";
-
+    "cursor-pointer border-primary radius-md bg-primary";
   delete props.outline;
   delete props.checked;
   delete props.value;
@@ -485,7 +585,7 @@ const CheckBoxCore = (props, _) => {
         props.change && props.change(e);
         props.input && props.input(e);
       },
-      class: `checkbox ${defaultClass} ${outlineClass} ${props.class || ""}`,
+      class: `checkbox ${defaultClass} ${focusClass} ${props.class || ""}`,
     }),
   );
 };
@@ -493,10 +593,9 @@ const CheckBoxCore = (props, _) => {
 const SwitchCore = (props, _) => {
   let checkedValue = "checked" in props ? props.checked : props.value;
   let checked = resolveBooleanState(checkedValue);
-  let outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
+  let focusClass = resolveInputFocusClass(props.outline);
   let defaultClass =
-    "cursor-pointer border-primary focus-border-outline bg-primary";
-
+    "cursor-pointer border-primary bg-primary";
   delete props.outline;
   delete props.checked;
   delete props.value;
@@ -513,27 +612,53 @@ const SwitchCore = (props, _) => {
         props.change && props.change(e);
         props.input && props.input(e);
       },
-      class: `switch ${defaultClass} ${outlineClass} ${props.class || ""}`.trim(),
+      class: `switch ${defaultClass} ${focusClass} ${props.class || ""}`.trim(),
     }),
   );
 };
 
 const SliderCore = (props, _) => {
-  const customSteps = isValidSliderSteps(props.steps) ? props.steps : null;
-  const outlineClass = props.outline ? "focus-outline-dimmed" : "no-outline";
+  const focusClass = resolveInputFocusClass(props.outline);
+  const stepsValue = resolveCollectionState(props.steps, []);
+  const customStepsState = Compute(stepsValue, (steps) =>
+    isValidSliderSteps(steps) ? steps : null,
+  );
   const minState = resolveNumericState(props.min, 0);
   const maxState = resolveNumericState(props.max, 100);
   const stepState = resolveNumericState(props.step, 1);
-  const initialValue = customSteps
-    ? customSteps[0].value
+  const initialCustomSteps = customStepsState.get();
+  const initialValue = initialCustomSteps
+    ? initialCustomSteps[0].value
     : toSliderNumber(props.value, toSliderNumber(minState.get(), 0));
   const valueState = resolveNumericState(props.value, initialValue);
   const sliderValue = useState(
-    customSteps
-      ? findNearestSliderStepIndex(customSteps, valueState.get())
+    initialCustomSteps
+      ? findNearestSliderStepIndex(initialCustomSteps, valueState.get())
       : toSliderNumber(valueState.get(), toSliderNumber(minState.get(), 0)),
   );
-  const shouldRenderLabels = customSteps && hasSliderStepLabels(customSteps);
+  const sliderBoundsState = Compute(
+    [customStepsState, minState, maxState, stepState],
+    (steps, min, max, step) => ({
+      min: steps ? 0 : min,
+      max: steps ? steps.length - 1 : max,
+      step: steps ? 1 : step,
+    }),
+  );
+  const sliderStepLabels = Compute(customStepsState, (steps) =>
+    steps && hasSliderStepLabels(steps)
+      ? steps.map((step, index) => ({
+          ...step,
+          position: steps.length === 1 ? 0 : (index / (steps.length - 1)) * 100,
+          alignment:
+            index === 0
+              ? "slider-step-label-start"
+              : index === steps.length - 1
+                ? "slider-step-label-end"
+                : "slider-step-label-center",
+        }))
+      : [],
+  );
+  const shouldRenderLabels = sliderStepLabels.map((steps) => steps.length > 0);
 
   delete props.outline;
   delete props.min;
@@ -543,6 +668,7 @@ const SliderCore = (props, _) => {
   delete props.value;
 
   useEffect((nextValue) => {
+    const customSteps = customStepsState.get();
     if (customSteps) {
       sliderValue.set(findNearestSliderStepIndex(customSteps, nextValue));
       return;
@@ -551,6 +677,28 @@ const SliderCore = (props, _) => {
     sliderValue.set(toSliderNumber(nextValue, toSliderNumber(minState.get(), 0)));
   }, valueState);
 
+  useEffect((customSteps) => {
+    const currentValue = toSliderNumber(valueState.get(), toSliderNumber(minState.get(), 0));
+
+    if (customSteps) {
+      const nextStep = customSteps.find((step) => step.value === currentValue) ?? customSteps[0];
+      sliderValue.set(findNearestSliderStepIndex(customSteps, nextStep.value));
+
+      if (nextStep.value !== currentValue) {
+        valueState.set(nextStep.value);
+        props.input &&
+          props.input({
+            target: { value: nextStep.value },
+            currentTarget: { value: nextStep.value },
+            step: nextStep,
+          });
+      }
+      return;
+    }
+
+    sliderValue.set(currentValue);
+  }, customStepsState);
+
   return wrapIntoLabel(
     props,
     Column(
@@ -558,14 +706,15 @@ const SliderCore = (props, _) => {
       input({
         ...props,
         type: "range",
-        min: customSteps ? 0 : minState,
-        max: customSteps ? customSteps.length - 1 : maxState,
-        step: customSteps ? 1 : stepState,
+        min: sliderBoundsState.map((bounds) => bounds.min),
+        max: sliderBoundsState.map((bounds) => bounds.max),
+        step: sliderBoundsState.map((bounds) => bounds.step),
         value: sliderValue,
         disabled: props.disabled,
-        class: `slider ${outlineClass} ${props.class || ""}`.trim(),
+        class: `slider ${focusClass} ${props.class || ""}`.trim(),
         input: (e) => {
           const rawValue = toSliderNumber(e.target.value, sliderValue.get());
+          const customSteps = customStepsState.get();
           const nextValue = customSteps
             ? getSliderStepValue(customSteps, rawValue)
             : rawValue;
@@ -576,32 +725,26 @@ const SliderCore = (props, _) => {
           props.input && props.input(e);
         },
       }),
-      shouldRenderLabels
-        ? div(
-            {
-              class: "slider-step-labels",
-            },
-            customSteps.map((step, index) =>
-              div(
-                {
-                  class: `slider-step-label ${
-                    index === 0
-                      ? "slider-step-label-start"
-                      : index === customSteps.length - 1
-                        ? "slider-step-label-end"
-                        : "slider-step-label-center"
-                  }`,
-                  style: {
-                    left: `${(index / (customSteps.length - 1)) * 100}%`,
-                  },
+      Show(shouldRenderLabels, () =>
+        div(
+          {
+            class: "slider-step-labels",
+          },
+          ForEach(sliderStepLabels, "value", (step) =>
+            div(
+              {
+                class: `slider-step-label ${step.alignment}`,
+                style: {
+                  left: `${step.position}%`,
                 },
-                step.label
-                  ? Text({ weight: "heavy", color: "secondary" }, step.label)
-                  : "",
-              ),
+              },
+              step.label
+                ? Text({ weight: "heavy", color: "secondary" }, step.label)
+                : "",
             ),
-          )
-        : null,
+          ),
+        ),
+      ),
     ),
   );
 };
@@ -641,7 +784,7 @@ export const TextInput = withNormalizedArgs((props, ...children) =>
  * @param {boolean} [props.disabled] - Disabled state
  * @param {number} [props.minLines=3] - Minimum visible lines
  * @param {number} [props.maxLines=3] - Maximum visible lines before scrolling
- * @param {string} [props.newlineTrigger="enter"] - Enter key combo that inserts a newline: "enter" | "shift-enter" | "command-enter"
+ * Shift+Enter inserts a newline. Enter submits the parent form when available.
  * @param {Function} [props.input] - Input event handler
  * @param {string} [props.class] - Additional CSS classes
  * @param {...*} children - Children elements (ignored)
@@ -650,7 +793,7 @@ export const TextInput = withNormalizedArgs((props, ...children) =>
 export const TextArea = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     TextAreaCore(finalProps, ...children),
-  )({ textSize: "1rem", ...props }, ...children),
+  )({ textSize: "1rem", border: "primary", ...props }, ...children),
 );
 
 /**
@@ -658,7 +801,7 @@ export const TextArea = withNormalizedArgs((props, ...children) =>
  *
  * @param {Object} props - Component props
  * @param {Object|string} [props.value] - Selected item key (useState object or string)
- * @param {Array<{key: string, text?: string, icon?: string, action?: Function, divider?: boolean}>} [props.items] - Menu-style items array
+ * @param {Array<{key: string, text?: string, icon?: string, action?: Function, divider?: boolean}>} [props.options] - Menu-style options array
  * @param {string} [props.label] - Label text (wraps in Column with Heading)
  * @param {boolean} [props.outline] - Show focus outline
  * @param {boolean} [props.disabled] - Disabled state
@@ -669,9 +812,7 @@ export const TextArea = withNormalizedArgs((props, ...children) =>
  * @returns {*} Picker component
  */
 export const Picker = withNormalizedArgs((props, ...children) =>
-  withExtractedStyles((finalProps, ...children) =>
-    PickerCore(finalProps, ...children),
-  )({ minHeight: 32, textSize: "1rem", ...props }, ...children),
+  PickerCore(props, ...children),
 );
 
 /**

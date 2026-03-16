@@ -14,8 +14,8 @@
  * - Divider support for grouping items
  * - Custom trigger support
  */
-import Bunnix, { useState, useEffect, useRef, Show } from "@bunnix/core";
-import { withNormalizedArgs, withExtractedStyles } from "./utils.mjs";
+import Bunnix, { useState, useEffect, useRef, ForEach, Compute } from "@bunnix/core";
+import { withNormalizedArgs, withExtractedStyles, resolveCollectionState } from "./utils.mjs";
 import { Column, Row } from "./layout.mjs";
 import { Button } from "./buttons.mjs";
 import { Icon } from "./media.mjs";
@@ -30,9 +30,14 @@ const MenuCore = (props, ...children) => {
   const popoverRef = useRef(null);
 
   // Resolve items (state or raw value)
-  let items = props.items?.get && props.items?.set
-    ? props.items.get()
-    : props.items ?? [];
+  const itemsValue = resolveCollectionState(props.items, []);
+  const keyedItemsValue = Compute(itemsValue, (resolvedItems) =>
+    (resolvedItems ?? []).map((item, index) =>
+      item?.divider && (item.key === undefined || item.key === null)
+        ? { ...item, key: `divider-${index}` }
+        : item,
+    ),
+  );
 
   // Resolve trigger
   let trigger = props.trigger || "Menu";
@@ -166,7 +171,7 @@ const MenuCore = (props, ...children) => {
       { class: "menu-items", popover: "auto", ref: popoverRef },
       Column(
         { gap: 0 },
-        ...items.map((item) => {
+        ForEach(keyedItemsValue, "key", (item) => {
           if (item.divider) {
             return div({ class: "menu-divider" });
           }

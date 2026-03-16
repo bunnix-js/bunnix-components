@@ -17,7 +17,9 @@ const tableCssSource = readFileSync(
   "utf8",
 );
 
-test("TableProps exposes type, hideHeaders and renderCell", () => {
+test("TableProps exposes type, hideHeaders, renderCell, and reactive data collections", () => {
+  assert.match(typesSource, /headers\?: TableHeader\[] \| StateLike<TableHeader\[]>;/);
+  assert.match(typesSource, /rows\?: Array<Record<string, any>> \| StateLike<Array<Record<string, any>>>;/);
   assert.match(typesSource, /type\?: "regular" \| "alternate-rows";/);
   assert.match(typesSource, /hideHeaders\?: boolean;/);
   assert.match(
@@ -27,11 +29,14 @@ test("TableProps exposes type, hideHeaders and renderCell", () => {
 });
 
 test("Table omits thead when hideHeaders is enabled", () => {
+  assert.match(tableSource, /const headersValue = resolveCollectionState\(finalProps\.headers, \[\]\);/);
+  assert.match(tableSource, /const rowsValue = resolveCollectionState\(finalProps\.rows, \[\]\);/);
   assert.match(tableSource, /let type = finalProps\.type \?\? "regular";/);
   assert.match(tableSource, /delete finalProps\.type;/);
   assert.match(tableSource, /let hideHeaders = finalProps\.hideHeaders \?\? false;/);
   assert.match(tableSource, /delete finalProps\.hideHeaders;/);
-  assert.match(tableSource, /\.\.\.\(!hideHeaders \? \[thead\(theaders\)\] : \[\]\),/);
+  assert.match(tableSource, /colgroup\(ForEach\(headersValue, "key", \(h\) => col\(\{ width: h\.size \?\? 0 \}\)\)\),/);
+  assert.match(tableSource, /\.\.\.\(!hideHeaders\s*\?\s*\[thead\(ForEach\(headersValue, "key", \(h\) => td\(h\.content \?\? ""\)\)\)\]\s*:\s*\[\]\),/m);
   assert.match(
     tableSource,
     /class: `table \$\{type !== "regular" \? `table-\$\{type\} ` : ""\}\$\{hideHeaders \? "table-hide-headers " : ""\}\$\{border \? `border-\$\{border\} ` : ""\}\$\{finalProps\.class \|\| ""\}`\.trim\(\),/,
@@ -41,6 +46,8 @@ test("Table omits thead when hideHeaders is enabled", () => {
 test("Table renderCell receives record, row index, and field before fallback", () => {
   assert.match(tableSource, /let renderCell = finalProps\.renderCell;/);
   assert.match(tableSource, /delete finalProps\.renderCell;/);
+  assert.match(tableSource, /ForEach\(rowsValue, \{\}, \(r, rowIndex\) =>/);
+  assert.match(tableSource, /ForEach\(headersValue, "key", \(h\) => \{/);
   assert.match(tableSource, /let renderedCell = renderCell\?\.\(r, rowIndex, h\.key\);/);
   assert.match(
     tableSource,

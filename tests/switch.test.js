@@ -35,14 +35,16 @@ test("Switch typings are part of the public type surface", () => {
 
 test("Switch implementation resolves boolean state and updates it on change", () => {
   assert.match(inputsSource, /function resolveBooleanState\(propValue\) \{/);
+  assert.match(inputsSource, /function resolveInputFocusClass\(outline\) \{/);
   assert.match(inputsSource, /const SwitchCore = \(props, _\) => \{/);
   assert.match(inputsSource, /let checkedValue = "checked" in props \? props\.checked : props\.value;/);
   assert.match(inputsSource, /let checked = resolveBooleanState\(checkedValue\);/);
+  assert.match(inputsSource, /let focusClass = resolveInputFocusClass\(props\.outline\);/);
   assert.match(inputsSource, /role: "switch",/);
   assert.match(inputsSource, /checked\.set\(!!e\.target\.checked\);/);
   assert.match(inputsSource, /props\.change && props\.change\(e\);/);
   assert.match(inputsSource, /props\.input && props\.input\(e\);/);
-  assert.match(inputsSource, /class: `switch \$\{defaultClass\} \$\{outlineClass\} \$\{props\.class \|\| ""\}`\.trim\(\),/);
+  assert.match(inputsSource, /class: `switch \$\{defaultClass\} \$\{focusClass\} \$\{props\.class \|\| ""\}`\.trim\(\),/);
 });
 
 test("Switch CSS hook exists", () => {

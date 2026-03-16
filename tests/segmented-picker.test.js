@@ -40,16 +40,25 @@ test("SegmentedPicker typings are part of the public type surface", () => {
 test("SegmentedPicker implementation resolves keyed state and renders optional icons", () => {
   assert.match(inputsSource, /const SegmentedPickerCore = \(props, _\) => \{/);
   assert.match(inputsSource, /props\.value\?\.get && props\.value\?\.set/);
-  assert.match(inputsSource, /props\.items\?\.get && props\.items\?\.set/);
+  assert.match(inputsSource, /const itemsValue = resolveCollectionState\(props\.items, \[\]\);/);
   assert.match(inputsSource, /const segmentedPickerState = Compute\(/);
   assert.match(inputsSource, /selected: item\.key === selectedKey,/);
-  assert.match(inputsSource, /ForEach\(segmentedPickerState, "key", \(item\) =>/);
+  assert.match(inputsSource, /selectedItem: \(resolvedItems \?\? \[\]\)\.find\(\(item\) => item\.key === selectedKey\) \?\? null,/);
+  assert.match(inputsSource, /const segmentedPickerItems = segmentedPickerState\.map\(\(state\) => state\.segments\);/);
+  assert.match(inputsSource, /ForEach\(segmentedPickerItems, "key", \(item\) =>/);
   assert.match(inputsSource, /if \(props\.disabled \|\| item\.selected\) return;/);
   assert.match(inputsSource, /value\.set\(item\.key\);/);
   assert.match(inputsSource, /props\.change && props\.change\(eventLike\);/);
   assert.match(inputsSource, /props\.input && props\.input\(eventLike\);/);
   assert.match(inputsSource, /item\.selected \? "segmented-picker-segment-selected" : ""/);
   assert.match(inputsSource, /\.\.\.\(item\.icon \? \[Icon\(\{ name: item\.icon, size: 16 \}\)\] : \[\]\)/);
+});
+
+test("SegmentedPicker clears invalid selections when items update", () => {
+  assert.match(inputsSource, /useEffect\(\(\{ selectedKey, selectedItem \}\) => \{/);
+  assert.match(inputsSource, /if \(!selectedKey \|\| selectedItem\) return;/);
+  assert.match(inputsSource, /value\.set\(""\);/);
+  assert.match(inputsSource, /item: null,/);
 });
 
 test("SegmentedPicker CSS hook exists", () => {

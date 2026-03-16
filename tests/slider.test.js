@@ -89,8 +89,21 @@ test("Slider is exported from the package entrypoint", () => {
 
 test("Slider typings are part of the public type surface", () => {
   assert.match(typesSource, /export interface SliderProps extends LayoutProps \{/);
-  assert.match(typesSource, /steps\?: SliderStep\[\];/);
+  assert.match(typesSource, /steps\?: SliderStep\[] \| StateLike<SliderStep\[]>;/);
   assert.match(typesSource, /export const Slider: Component<SliderProps>;/);
+});
+
+test("Slider reacts to stateful step collections and resets invalid values", () => {
+  const inputsSource = readFileSync(
+    new URL("../src/core/inputs.mjs", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(inputsSource, /const stepsValue = resolveCollectionState\(props\.steps, \[\]\);/);
+  assert.match(inputsSource, /const customStepsState = Compute\(stepsValue, \(steps\) =>/);
+  assert.match(inputsSource, /const nextStep = customSteps\.find\(\(step\) => step\.value === currentValue\) \?\? customSteps\[0\];/);
+  assert.match(inputsSource, /valueState\.set\(nextStep\.value\);/);
+  assert.match(inputsSource, /props\.input &&\s*props\.input\(\{\s*target: \{ value: nextStep\.value \},/m);
 });
 
 test("Slider CSS hooks exist for the range input and step labels", () => {

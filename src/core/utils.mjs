@@ -1,7 +1,12 @@
+import { useState } from "@bunnix/core";
+
 export const isStateLike = (value) =>
   value &&
   typeof value.get === "function" &&
   typeof value.subscribe === "function";
+
+export const resolveCollectionState = (value, fallback = []) =>
+  isStateLike(value) ? value : useState(value ?? fallback);
 
 const resolvePadding = (value) => {
   if (typeof value === "number") return `${value}px`;
@@ -60,6 +65,14 @@ export function withExtractedStyles(fn) {
       delete finalProps.textSize;
     }
 
+    if ("fontSize" in props) {
+      style.fontSize =
+        typeof props.fontSize === "number"
+          ? `${props.fontSize}px`
+          : props.fontSize;
+      delete finalProps.fontSize;
+    }
+
     if ("weight" in props) {
       if (typeof props.weight === "number") {
         style.fontWeight = props.weight;
@@ -77,6 +90,16 @@ export function withExtractedStyles(fn) {
     if ("overflow" in props) {
       style.overflow = props.overflow;
       delete finalProps.overflow;
+    }
+
+    if ("overflowX" in props) {
+      style.overflowX = props.overflowX;
+      delete finalProps.overflowX;
+    }
+
+    if ("overflowY" in props) {
+      style.overflowY = props.overflowY;
+      delete finalProps.overflowY;
     }
 
     if ("bgColor" in props) {
@@ -295,6 +318,11 @@ export function withExtractedStyles(fn) {
     if ("flexShrink" in props) {
       style.flexShrink = props.flexShrink;
       delete finalProps.flexShrink;
+    }
+
+    if ("zIndex" in props) {
+      style.zIndex = props.zIndex;
+      delete finalProps.zIndex;
     }
 
     finalProps.style = style;

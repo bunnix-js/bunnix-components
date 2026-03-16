@@ -24,10 +24,12 @@ const indexSource = readFileSync(
 
 test("Picker and MenuItem are part of the public type surface", () => {
   assert.match(typesSource, /export interface MenuItem \{/);
-  assert.match(typesSource, /key: string;/);
+  assert.match(typesSource, /key\?: string;/);
   assert.match(typesSource, /divider\?: boolean;/);
   assert.match(typesSource, /export interface PickerProps extends LayoutProps \{/);
-  assert.match(typesSource, /items\?: MenuItem\[] \| StateLike<MenuItem\[]>;/);
+  assert.match(typesSource, /options\?: MenuItem\[] \| StateLike<MenuItem\[]>;/);
+  assert.match(typesSource, /outline\?: boolean;/);
+  assert.match(typesSource, /disabled\?: boolean \| StateLike<boolean>;/);
   assert.match(typesSource, /anchor\?: MenuAnchor;/);
   assert.match(typesSource, /export const Picker: Component<PickerProps>;/);
   assert.match(typesSource, /export const Menu: Component<MenuProps>;/);
@@ -44,18 +46,34 @@ test("Picker is exported from the package entrypoint", () => {
 
 test("Picker composes Menu and updates value on item click", () => {
   assert.match(inputsSource, /const PickerCore = \(props, _\) => \{/);
-  assert.match(inputsSource, /Show\(pickerState, \(\{ selectedItem, menuItems \}\) =>\s*Menu\(\{/m);
-  assert.match(inputsSource, /value\.set\(item\.key\);/);
-  assert.match(inputsSource, /target: \{ value: item\.key \}/);
+  assert.match(inputsSource, /const optionsValue = resolveCollectionState\(props\.options \?\? props\.items, \[\]\);/);
+  assert.match(inputsSource, /const focusClass = resolveInputFocusClass\(props\.outline\);/);
+  assert.match(inputsSource, /Show\(pickerState, \(\{ selectedItem, menuOptions, isDisabled \}\) =>\s*withExtractedStyles\(\(finalTriggerProps\) =>\s*Menu\(\{/m);
+  assert.match(inputsSource, /value\.set\(option\.key\);/);
+  assert.match(inputsSource, /target: \{ value: option\.key \}/);
   assert.doesNotMatch(inputsSource, /item\.action\(\)/);
   assert.doesNotMatch(inputsSource, /DropdownPicker/);
 });
 
 test("Picker trigger renders selected icon and text with blank-state support", () => {
-  assert.match(inputsSource, /const selectedItem = \(resolvedItems \?\? \[\]\)\.find\(/);
+  assert.match(inputsSource, /const disabledValue = resolveBooleanState\(props\.disabled\);/);
+  assert.match(inputsSource, /const triggerProps = \{ \.\.\.props \};/);
+  assert.match(inputsSource, /delete triggerProps\.options;/);
+  assert.match(inputsSource, /delete triggerProps\.items;/);
+  assert.match(inputsSource, /withExtractedStyles\(\(finalTriggerProps\) =>/);
+  assert.match(inputsSource, /\)\(\{ minHeight: 32, textSize: "1rem", \.\.\.triggerProps \}\),/);
+  assert.match(inputsSource, /class: `picker-trigger \$\{defaultClass\} \$\{focusClass\} \$\{/);
+  assert.match(inputsSource, /const selectedItem = \(resolvedOptions \?\? \[\]\)\.find\(/);
+  assert.match(inputsSource, /const pickerState = Compute\(\[value, optionsValue, disabledValue\],/);
+  assert.match(inputsSource, /useEffect\(\(\{ selectedItem \}\) => \{/);
+  assert.match(inputsSource, /if \(!selectedKey \|\| selectedItem\) return;/);
+  assert.match(inputsSource, /value\.set\(""\);/);
+  assert.match(inputsSource, /option: null,/);
+  assert.match(inputsSource, /disabled: disabledValue,/);
+  assert.match(inputsSource, /click: \(\) => \{\s*if \(isDisabled\) return;\s*toggle\(\);\s*\}/m);
+  assert.match(inputsSource, /isDisabled \? "picker-trigger-disabled" : ""/);
   assert.match(inputsSource, /selectedItem\?\.icon/);
   assert.match(inputsSource, /selectedItem\.text \?\? selectedItem\.key/);
-  assert.match(inputsSource, /minHeight: props\.style\?\.minHeight \?\? "32px"/);
   assert.match(inputsSource, /Icon\(\{ name: "chevron_down", size: 16, color: "secondary" \}\)/);
 });
 

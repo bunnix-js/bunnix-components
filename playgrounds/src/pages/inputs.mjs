@@ -66,7 +66,6 @@ export function TextAreaPage() {
           label: "Description",
           minLines: 3,
           maxLines: 6,
-          newlineTrigger: "shift-enter",
           placeholder: "Auto-grow between 3 and 6 lines",
         });
         `,
@@ -83,12 +82,11 @@ export function TextAreaPage() {
           label: "Description",
           minLines: 3,
           maxLines: 6,
-          newlineTrigger: "shift-enter",
           placeholder: "Auto-grow between 3 and 6 lines",
         }),
         Text(
           { color: "secondary" },
-          "This example uses Shift+Enter for a new line.",
+          "Use Shift+Enter for a new line. Enter submits the parent form when available.",
         ),
         Text(
           { color: "secondary" },

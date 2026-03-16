@@ -16,6 +16,10 @@ export type StateLike<T = any> = {
 
 export interface LayoutProps extends BaseProps {
   gap?: number | string;
+  fontSize?: number | string;
+  overflow?: string;
+  overflowX?: string;
+  overflowY?: string;
   width?: number | string;
   height?: number | string;
   minWidth?: number | string;
@@ -24,6 +28,7 @@ export interface LayoutProps extends BaseProps {
   maxHeight?: number | string;
   fillWidth?: boolean;
   fillHeight?: boolean;
+  zIndex?: number | string;
   border?: "none" | "primary" | "secondary" | "tertiary" | "transparent";
   bgColor?: "primary" | "primary-dimmed" | "secondary" | "success" | "success-dimmed" | "warning" | "warning-dimmed" | "danger" | string;
   margin?: number | string;
@@ -99,6 +104,7 @@ export interface LinkButtonProps extends LayoutProps {
 
 export interface TextInputProps extends LayoutProps {
   value?: string | number | Date | StateLike<any>;
+  focused?: boolean | StateLike<boolean>;
   placeholder?: string;
   type?: string;
   label?: string;
@@ -109,13 +115,13 @@ export interface TextInputProps extends LayoutProps {
 
 export interface TextAreaProps extends LayoutProps {
   value?: string | number | StateLike<any>;
+  focused?: boolean | StateLike<boolean>;
   placeholder?: string;
   label?: string;
   outline?: boolean;
   disabled?: boolean;
   minLines?: number;
   maxLines?: number;
-  newlineTrigger?: "enter" | "shift-enter" | "command-enter";
   input?: (event?: any) => void;
 }
 
@@ -130,7 +136,7 @@ export type MenuAnchor =
   | "topRight";
 
 export interface MenuItem {
-  key: string;
+  key?: string;
   text?: string;
   icon?: string;
   action?: (() => void) | null;
@@ -139,10 +145,10 @@ export interface MenuItem {
 
 export interface PickerProps extends LayoutProps {
   value?: string | StateLike<string>;
-  items?: MenuItem[] | StateLike<MenuItem[]>;
+  options?: MenuItem[] | StateLike<MenuItem[]>;
   label?: string;
   outline?: boolean;
-  disabled?: boolean;
+  disabled?: boolean | StateLike<boolean>;
   anchor?: MenuAnchor;
   input?: (event?: any) => void;
 }
@@ -170,7 +176,7 @@ export interface SelectOption {
 
 export interface SelectProps extends LayoutProps {
   value?: string | StateLike<string>;
-  options?: SelectOption[];
+  options?: SelectOption[] | StateLike<SelectOption[]>;
   label?: string;
   outline?: boolean;
   disabled?: boolean;
@@ -207,7 +213,7 @@ export interface SliderProps extends LayoutProps {
   min?: number | StateLike<number>;
   max?: number | StateLike<number>;
   step?: number | StateLike<number>;
-  steps?: SliderStep[];
+  steps?: SliderStep[] | StateLike<SliderStep[]>;
   label?: string;
   outline?: boolean;
   disabled?: boolean;
@@ -221,8 +227,8 @@ export interface TableHeader {
 }
 
 export interface TableProps extends LayoutProps {
-  headers?: TableHeader[];
-  rows?: Array<Record<string, any>>;
+  headers?: TableHeader[] | StateLike<TableHeader[]>;
+  rows?: Array<Record<string, any>> | StateLike<Array<Record<string, any>>>;
   type?: "regular" | "alternate-rows";
   hideHeaders?: boolean;
   renderCell?: (
@@ -298,7 +304,10 @@ export interface SidebarProps extends LayoutProps {
   selection?: string | null | StateLike<string | null>;
 }
 
-export type Component<P = BaseProps> = (props?: P, ...children: BunnixChildren[]) => any;
+export type Component<P = BaseProps> = {
+  (...children: BunnixChildren[]): any;
+  (props: P, ...children: BunnixChildren[]): any;
+};
 
 export const Column: Component<LayoutProps>;
 export const Row: Component<LayoutProps>;

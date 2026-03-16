@@ -12,15 +12,15 @@
  * - Column-based data mapping with headers array (content, key, size)
  * - Row rendering from data objects mapped to header keys
  */
-import Bunnix from "@bunnix/core";
-import { withNormalizedArgs, withExtractedStyles } from "./utils.mjs";
+import Bunnix, { ForEach } from "@bunnix/core";
+import { withNormalizedArgs, withExtractedStyles, resolveCollectionState } from "./utils.mjs";
 
 const { table, colgroup, col, thead, tbody, tr, td } = Bunnix;
 
 const TableCore = withNormalizedArgs((props, ...children) => {
   return withExtractedStyles((finalProps, ...children) => {
-    let headers = finalProps.headers ?? [];
-    let rows = finalProps.rows ?? [];
+    const headersValue = resolveCollectionState(finalProps.headers, []);
+    const rowsValue = resolveCollectionState(finalProps.rows, []);
     let type = finalProps.type ?? "regular";
     let border = finalProps.border;
     let hideHeaders = finalProps.hideHeaders ?? false;
@@ -33,33 +33,33 @@ const TableCore = withNormalizedArgs((props, ...children) => {
     delete finalProps.hideHeaders;
     delete finalProps.renderCell;
 
-    let tcols = headers.map((h) => col({ width: h.size ?? 0 }));
-    let theaders = headers.map((h) => td(h.content ?? ""));
-    let trows = rows.map((r, rowIndex) =>
-      tr(
-        headers.map((h) => {
-          if (!h.key) return td("");
-          let renderedCell = renderCell?.(r, rowIndex, h.key);
-          if (renderedCell !== undefined) {
-            return td({ "data-label": h.content }, renderedCell);
-          }
-          if (!(h.key in r)) return td("");
-          return td(
-            { "data-label": h.content },
-            r[h.key],
-          );
-        }),
-      ),
-    );
-
     return table(
       {
         ...finalProps,
         class: `table ${type !== "regular" ? `table-${type} ` : ""}${hideHeaders ? "table-hide-headers " : ""}${border ? `border-${border} ` : ""}${finalProps.class || ""}`.trim(),
       },
-      colgroup(tcols),
-      ...(!hideHeaders ? [thead(theaders)] : []),
-      tbody(trows),
+      colgroup(ForEach(headersValue, "key", (h) => col({ width: h.size ?? 0 }))),
+      ...(!hideHeaders
+        ? [thead(ForEach(headersValue, "key", (h) => td(h.content ?? "")))]
+        : []),
+      tbody(
+        ForEach(rowsValue, {}, (r, rowIndex) =>
+          tr(
+            ForEach(headersValue, "key", (h) => {
+              if (!h.key) return td("");
+              let renderedCell = renderCell?.(r, rowIndex, h.key);
+              if (renderedCell !== undefined) {
+                return td({ "data-label": h.content }, renderedCell);
+              }
+              if (!(h.key in r)) return td("");
+              return td(
+                { "data-label": h.content },
+                r[h.key],
+              );
+            }),
+          ),
+        ),
+      ),
     );
   })(props, ...children);
 });

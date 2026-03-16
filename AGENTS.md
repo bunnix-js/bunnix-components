@@ -68,7 +68,7 @@ playgrounds/
 - `Switch` follows the `CheckBox` boolean API shape (`checked` with `value` alias) but renders as an OS-style sliding toggle.
 - `Slider` is a native range input that supports either linear mode (`min`/`max`/`step`) or discrete custom-step mode (`steps`).
 - In custom-step mode, `Slider` stores and emits the configured numeric step values, not internal index positions.
-- `TextArea` auto-grows between `minLines` and `maxLines`, starts at `3` lines by default, and supports `newlineTrigger` for Enter-key newline behavior.
+- `TextArea` auto-grows between `minLines` and `maxLines`, starts at `3` lines by default, uses `Shift+Enter` for new lines, and submits the parent form on `Enter` when available.
 
 ### Core Buttons
 
@@ -79,7 +79,7 @@ playgrounds/
 
 ### Navigation Components
 
-- `Picker` is a Menu-backed selector that reuses the `Menu` item shape and shows the selected item icon/text in its trigger.
+- `Picker` is a Menu-backed selector that uses an `options` prop with the `Menu` item shape and shows the selected item icon/text in its trigger.
 
 ### State handling
 
