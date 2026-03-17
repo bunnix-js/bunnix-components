@@ -32,6 +32,10 @@ test("LayoutProps exposes the resolved border union", () => {
 test("core.css defines secondary and tertiary border tokens", () => {
   assert.match(
     cssSource,
+    /--color-fg-secondary:\s*light-dark\(#737373,\s*#aaa\);/,
+  );
+  assert.match(
+    cssSource,
     /--color-border-secondary:\s*light-dark\(#E0E0E0,\s*#2E2E2E\);/,
   );
   assert.match(

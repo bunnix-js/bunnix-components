@@ -397,8 +397,10 @@ const PickerCore = (props, _) => {
           Menu({
             ...(anchor ? { anchor } : {}),
             items: menuOptions,
-            trigger: ({ toggle }) =>
-              button(
+            trigger: ({ toggle }) => {
+              const triggerColor = finalTriggerProps.style?.color;
+
+              return button(
                 {
                   ...finalTriggerProps,
                   type: "button",
@@ -416,16 +418,35 @@ const PickerCore = (props, _) => {
                   div(
                     { class: "picker-selection" },
                     ...(selectedItem?.icon
-                      ? [Icon({ name: selectedItem.icon, size: 16 })]
+                      ? [
+                          Icon({
+                            name: selectedItem.icon,
+                            size: 16,
+                            ...(triggerColor ? { color: triggerColor } : {}),
+                          }),
+                        ]
                       : []),
                     ...(selectedItem
-                      ? [Text({ weight: "heavy" }, selectedItem.text ?? selectedItem.key)]
+                      ? [
+                          Text(
+                            {
+                              weight: "heavy",
+                              ...(triggerColor ? { color: triggerColor } : {}),
+                            },
+                            selectedItem.text ?? selectedItem.key,
+                          ),
+                        ]
                       : []),
                   ),
                   Spacer(),
-                  Icon({ name: "chevron_down", size: 16, color: "secondary" }),
+                  Icon({
+                    name: "chevron_down",
+                    size: 16,
+                    ...(triggerColor ? { color: triggerColor } : { color: "secondary" }),
+                  }),
                 ),
-              ),
+              );
+            },
           })
         )({ minHeight: 32, textSize: "1rem", ...triggerProps }),
       ),
