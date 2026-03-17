@@ -1,33 +1,31 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
+import { Heading, Text, Column, Row, Spacer } from "@bunnix/components";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 const { div } = Bunnix;
 
-export function LayoutPage() {
-  // Helper for demo boxes
-  const DemoBox = (text) => div(
-    { 
-      style: { 
-        padding: "12px", 
-        backgroundColor: "var(--color-bg-secondary)", 
+function DemoBox(text) {
+  return div(
+    {
+      style: {
+        padding: "12px",
+        backgroundColor: "var(--color-bg-secondary)",
         borderRadius: "6px",
-        border: "1px solid var(--color-border-primary)"
-      } 
+        border: "1px solid var(--color-border-primary)",
+      },
     },
-    Text(text)
+    Text(text),
   );
+}
 
+export function ColumnPage() {
   return Column(
-    Heading({ h2: true }, "Layout Components"),
+    Heading({ h2: true }, "Column Component"),
     Heading(
       { h4: true, color: "secondary", weight: "heavy" },
-      "Core layout components for stacking children",
+      "Column container for stacking children vertically",
     ),
     Spacer({ minHeight: 24 }),
-    
-    // Column Component
     ComponentShowcase(
       {
         code: `
@@ -66,10 +64,17 @@ export function LayoutPage() {
         ),
       ),
     ),
-    
-    Spacer({ minHeight: 16 }),
-    
-    // Row Component
+  );
+}
+
+export function RowPage() {
+  return Column(
+    Heading({ h2: true }, "Row Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Row container for arranging children horizontally",
+    ),
+    Spacer({ minHeight: 24 }),
     ComponentShowcase(
       {
         code: `
@@ -108,10 +113,17 @@ export function LayoutPage() {
         ),
       ),
     ),
-    
-    Spacer({ minHeight: 16 }),
-    
-    // Spacer Component
+  );
+}
+
+export function SpacerPage() {
+  return Column(
+    Heading({ h2: true }, "Spacer Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Flexible spacing for rows and columns",
+    ),
+    Spacer({ minHeight: 24 }),
     ComponentShowcase(
       {
         code: `
@@ -166,10 +178,17 @@ export function LayoutPage() {
         ),
       ),
     ),
-    
-    Spacer({ minHeight: 16 }),
-    
-    // Alignment Examples
+  );
+}
+
+export function AlignmentPage() {
+  return Column(
+    Heading({ h2: true }, "Alignment"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Control how children align inside rows and columns",
+    ),
+    Spacer({ minHeight: 24 }),
     ComponentShowcase(
       {
         code: `

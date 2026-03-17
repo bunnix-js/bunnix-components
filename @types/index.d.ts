@@ -16,6 +16,10 @@ export type StateLike<T = any> = {
 
 export interface LayoutProps extends BaseProps {
   gap?: number | string;
+  fontSize?: number | string;
+  overflow?: string;
+  overflowX?: string;
+  overflowY?: string;
   width?: number | string;
   height?: number | string;
   minWidth?: number | string;
@@ -24,8 +28,24 @@ export interface LayoutProps extends BaseProps {
   maxHeight?: number | string;
   fillWidth?: boolean;
   fillHeight?: boolean;
+  zIndex?: number | string;
+  border?: "none" | "primary" | "secondary" | "tertiary" | "transparent";
+  bgColor?: "primary" | "primary-dimmed" | "secondary" | "success" | "success-dimmed" | "warning" | "warning-dimmed" | "danger" | string;
+  margin?: number | string;
   marginX?: number | string;
   marginY?: number | string;
+  marginTop?: number | string;
+  marginBottom?: number | string;
+  marginLeft?: number | string;
+  marginRight?: number | string;
+  padding?: number | string;
+  paddingX?: number | string;
+  paddingY?: number | string;
+  paddingTop?: number | string;
+  paddingBottom?: number | string;
+  paddingLeft?: number | string;
+  paddingRight?: number | string;
+  borderRadius?: number | string;
 }
 
 export interface GridColumn {
@@ -71,7 +91,7 @@ export interface ButtonProps extends LayoutProps {
   variant?: "primary" | "secondary" | "tertiary" | "danger" | string;
   disabled?: boolean | StateLike<boolean>;
   outline?: boolean;
-  padding?: boolean;
+  padding?: number | string | boolean;
   click?: (event?: any) => void;
 }
 
@@ -85,12 +105,69 @@ export interface LinkButtonProps extends LayoutProps {
 
 export interface TextInputProps extends LayoutProps {
   value?: string | number | Date | StateLike<any>;
+  focused?: boolean | StateLike<boolean>;
   placeholder?: string;
   type?: string;
   label?: string;
   outline?: boolean;
   disabled?: boolean;
   input?: (event?: any) => void;
+}
+
+export interface TextAreaProps extends LayoutProps {
+  value?: string | number | StateLike<any>;
+  focused?: boolean | StateLike<boolean>;
+  placeholder?: string;
+  label?: string;
+  outline?: boolean;
+  disabled?: boolean;
+  minLines?: number;
+  maxLines?: number;
+  input?: (event?: any) => void;
+}
+
+export type MenuAnchor =
+  | "bottom-left"
+  | "bottom-right"
+  | "top-left"
+  | "top-right"
+  | "bottomLeft"
+  | "bottomRight"
+  | "topLeft"
+  | "topRight";
+
+export interface MenuItem {
+  key?: string;
+  text?: string;
+  icon?: string;
+  action?: (() => void) | null;
+  divider?: boolean;
+}
+
+export interface PickerProps extends LayoutProps {
+  value?: string | StateLike<string>;
+  options?: MenuItem[] | StateLike<MenuItem[]>;
+  label?: string;
+  outline?: boolean;
+  disabled?: boolean | StateLike<boolean>;
+  anchor?: MenuAnchor;
+  input?: (event?: any) => void;
+}
+
+export interface SegmentedPickerItem {
+  key: string;
+  text: string;
+  icon?: string;
+}
+
+export interface SegmentedPickerProps extends LayoutProps {
+  value?: string | StateLike<string>;
+  items?: SegmentedPickerItem[] | StateLike<SegmentedPickerItem[]>;
+  label?: string;
+  outline?: boolean;
+  disabled?: boolean;
+  input?: (event?: any) => void;
+  change?: (event?: any) => void;
 }
 
 export interface SelectOption {
@@ -100,7 +177,7 @@ export interface SelectOption {
 
 export interface SelectProps extends LayoutProps {
   value?: string | StateLike<string>;
-  options?: SelectOption[];
+  options?: SelectOption[] | StateLike<SelectOption[]>;
   label?: string;
   outline?: boolean;
   disabled?: boolean;
@@ -117,6 +194,33 @@ export interface CheckBoxProps extends LayoutProps {
   input?: (event?: any) => void;
 }
 
+export interface SwitchProps extends LayoutProps {
+  checked?: boolean | StateLike<boolean>;
+  value?: boolean | StateLike<boolean>;
+  label?: string;
+  outline?: boolean;
+  disabled?: boolean;
+  change?: (event?: any) => void;
+  input?: (event?: any) => void;
+}
+
+export interface SliderStep {
+  value: number;
+  label?: string;
+}
+
+export interface SliderProps extends LayoutProps {
+  value?: number | StateLike<number>;
+  min?: number | StateLike<number>;
+  max?: number | StateLike<number>;
+  step?: number | StateLike<number>;
+  steps?: SliderStep[] | StateLike<SliderStep[]>;
+  label?: string;
+  outline?: boolean;
+  disabled?: boolean;
+  input?: (event?: any) => void;
+}
+
 export interface TableHeader {
   content?: any;
   key?: string;
@@ -124,20 +228,33 @@ export interface TableHeader {
 }
 
 export interface TableProps extends LayoutProps {
-  headers?: TableHeader[];
-  rows?: Array<Record<string, any>>;
+  headers?: TableHeader[] | StateLike<TableHeader[]>;
+  rows?: Array<Record<string, any>> | StateLike<Array<Record<string, any>>>;
+  type?: "regular" | "alternate-rows";
+  hideHeaders?: boolean;
+  renderCell?: (
+    record: Record<string, any>,
+    rowIndex: number,
+    field: string,
+  ) => BunnixChild;
 }
 
-export interface DialogConfirmation {
+export interface DialogAction {
   text?: string;
   variant?: string;
   action?: (() => void) | null;
 }
 
+export interface DialogConfirmation extends DialogAction {}
+
 export interface ShowDialogOptions {
-  title?: string;
+  title?: string | BunnixChild;
   contents?: any[] | any;
-  confirmation?: DialogConfirmation;
+  padding?: number | string;
+  width?: number | string;
+  height?: number | string;
+  secondary?: DialogAction;
+  confirmation?: DialogAction;
 }
 
 export interface ProgressBarProps extends LayoutProps {
@@ -145,7 +262,53 @@ export interface ProgressBarProps extends LayoutProps {
   color?: "primary" | "primary-dimmed" | "secondary" | "tertiary" | "success" | "warning" | "danger" | "error" | "link" | string;
 }
 
-export type Component<P = BaseProps> = (props?: P, ...children: BunnixChildren[]) => any;
+export interface OutlineProps extends LayoutProps {
+  /** Always-visible trigger content — accepts any Bunnix node (text, icon, row, etc.) */
+  anchor?: BunnixChild;
+  /** Collapsible content shown when expanded — accepts any Bunnix node */
+  details?: BunnixChild;
+  /** Whether to render the chevron toggle icon (default: true) */
+  showChevron?: boolean;
+  /** Controlled open/closed state — accepts a static boolean (initial value) or StateLike<boolean> for two-way binding */
+  open?: boolean | StateLike<boolean>;
+}
+
+export interface MenuProps extends LayoutProps {
+  items?: MenuItem[] | StateLike<MenuItem[]>;
+  trigger?:
+    | BunnixChild
+    | ((state: { isOpen: boolean; toggle: () => void }) => BunnixChild);
+  anchor?: MenuAnchor;
+}
+
+/** Sidebar navigation item configuration */
+export interface SidebarItem {
+  /** Unique identifier for the sidebar item */
+  key: string;
+  /** Display text for the item */
+  text: string;
+  /** Optional official Framework7 icon name */
+  icon?: string;
+  /** If true, renders as a section header instead of a clickable item */
+  isHeader?: boolean;
+  /** Optional nested child items rendered below this item when expanded */
+  children?: SidebarItem[];
+  /** Initial expanded state for items that have nested children */
+  expanded?: boolean;
+}
+
+/** Props for the Sidebar component */
+export interface SidebarProps extends LayoutProps {
+  /** Array of sidebar items or a state object containing items. Supports dynamic updates via StateLike */
+  items?: SidebarItem[] | StateLike<SidebarItem[]>;
+  /** Currently selected item key, null for no selection, or a state object. Updates on item click */
+  selection?: string | null | StateLike<string | null>;
+}
+
+export type Component<P = BaseProps> = {
+  (...children: BunnixChildren[]): any;
+  (props: P, ...children: BunnixChildren[]): any;
+};
 
 export const Column: Component<LayoutProps>;
 export const Row: Component<LayoutProps>;
@@ -164,14 +327,20 @@ export const Button: Component<ButtonProps>;
 export const LinkButton: Component<LinkButtonProps>;
 
 export const TextInput: Component<TextInputProps>;
+export const TextArea: Component<TextAreaProps>;
 export const Select: Component<SelectProps>;
 export const CheckBox: Component<CheckBoxProps>;
+export const Switch: Component<SwitchProps>;
+export const SegmentedPicker: Component<SegmentedPickerProps>;
+export const Slider: Component<SliderProps>;
 
 export const Table: Component<TableProps>;
 export const Code: Component<BaseProps & { html?: string; language?: string }>;
 
-export const Sidebar: Component<BaseProps>;
-export const Menu: Component<BaseProps>;
+export const Sidebar: Component<SidebarProps>;
+export const Picker: Component<PickerProps>;
+export const Menu: Component<MenuProps>;
+export const Outline: Component<OutlineProps>;
 
 export function useDialog(): {
   Dialog: Component<BaseProps>;
@@ -181,11 +350,6 @@ export function useDialog(): {
 export const ProgressBar: Component<ProgressBarProps>;
 
 declare module "@bunnix/components/styles.css" {
-  const content: string;
-  export default content;
-}
-
-declare module "@bunnix/components/styles" {
   const content: string;
   export default content;
 }

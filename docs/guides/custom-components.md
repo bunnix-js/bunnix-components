@@ -8,14 +8,14 @@ title: Custom Components
 You can build custom UI using the same utilities and tokens.
 
 ```js
-import Bunnix from "@bunnix/core";
-const { div, span } = Bunnix;
+import { Icon, Row, Text } from "@bunnix/components";
 
 export default function Tag({ label }) {
-  return div({ class: "card row-container gap-sm items-center" }, [
-    span({ class: "icon icon-tag icon-base icon-sm" }),
-    span({ class: "text-primary text-sm" }, label)
-  ]);
+  return Row(
+    { class: "card", padding: "small", gap: "small", alignItems: "center" },
+    Icon({ name: "tag", size: 14, color: "secondary" }),
+    Text(label),
+  );
 }
 ```
 

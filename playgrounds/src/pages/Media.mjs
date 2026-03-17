@@ -1,31 +1,22 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
-import { Media, Icon, Spinner, Avatar } from "../../../src/core/media.mjs";
+import { Heading, Text, Column, Row, Spacer, Media, Icon, Spinner, Avatar } from "@bunnix/components";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function MediaPage() {
   return Column(
-    Heading({ h2: true }, "Media Components"),
+    Heading({ h2: true }, "Media Component"),
     Heading(
       { h4: true, color: "secondary", weight: "heavy" },
-      "Core media components for icons, spinners, and avatars",
+      "Generic image and inline SVG rendering",
     ),
     Spacer({ minHeight: 24 }),
-
-    // Media Component
     ComponentShowcase(
       {
         code: `
         import { Media } from "@bunnix/components";
 
-        // Image
         Media({ src: "https://picsum.photos/300/200" });
-
-        // With custom size
         Media({ src: "https://picsum.photos/300/200", width: 200, height: 150 });
-
-        // SVG inline
         Media({
           svg: '<svg>...</svg>',
           width: 40,
@@ -60,10 +51,17 @@ export function MediaPage() {
         ),
       ),
     ),
+  );
+}
 
-    Spacer({ minHeight: 16 }),
-
-    // Icon Component
+export function IconPage() {
+  return Column(
+    Heading({ h2: true }, "Icon Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Registry-backed icons with configurable size and color",
+    ),
+    Spacer({ minHeight: 24 }),
     ComponentShowcase(
       {
         code: `
@@ -71,25 +69,32 @@ export function MediaPage() {
 
         Icon({ name: "star" });
         Icon({ name: "heart", size: 32 });
-        Icon({ name: "check", color: "success" });
-        Icon({ name: "close", color: "danger", size: 24 });
+        Icon({ name: "checkmark", color: "success" });
+        Icon({ name: "xmark", color: "danger", size: 24 });
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Icon"),
-      Text("Icon component using the icon registry with customizable size and color."),
+      Text("Icon component using official Framework7 icon names with customizable size and color."),
       Spacer({ minHeight: 8 }),
       Row(
         { gap: "regular", alignItems: "center" },
         Icon({ name: "star" }),
         Icon({ name: "heart", size: 32 }),
-        Icon({ name: "check", color: "success" }),
-        Icon({ name: "close", color: "danger", size: 24 }),
+        Icon({ name: "checkmark", color: "success" }),
+        Icon({ name: "xmark", color: "danger", size: 24 }),
       ),
     ),
+  );
+}
 
-    Spacer({ minHeight: 16 }),
-
-    // Spinner Component
+export function SpinnerPage() {
+  return Column(
+    Heading({ h2: true }, "Spinner Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Animated loading feedback with size and color controls",
+    ),
+    Spacer({ minHeight: 24 }),
     ComponentShowcase(
       {
         code: `
@@ -110,10 +115,17 @@ export function MediaPage() {
         Spinner({ color: "primary", size: 40 }),
       ),
     ),
+  );
+}
 
-    Spacer({ minHeight: 16 }),
-
-    // Avatar Component
+export function AvatarPage() {
+  return Column(
+    Heading({ h2: true }, "Avatar Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Letter and image-based avatars",
+    ),
+    Spacer({ minHeight: 24 }),
     ComponentShowcase(
       {
         code: `

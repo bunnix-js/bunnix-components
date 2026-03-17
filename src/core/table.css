@@ -10,15 +10,38 @@
 .table thead td,
 .table th {
   font-weight: var(--font-weight-heavier);
+  height: 40px;
   padding: calc(var(--padding-md) * 0.75) var(--padding-md);
   border-bottom: 1px solid var(--color-border-primary);
 }
 
 .table td {
+  height: 40px;
   padding: calc(var(--padding-md) * 0.5) var(--padding-md);
   border-bottom: 1px solid var(--color-border-primary);
 }
 
 .table tr:last-child td {
   border-bottom: none;
+}
+
+.table.table-alternate-rows thead td,
+.table.table-alternate-rows tbody td,
+.table.table-alternate-rows th {
+  border-bottom: none;
+}
+
+.table.table-alternate-rows thead td,
+.table.table-alternate-rows thead th {
+  background-color: var(--color-bg-primary-dimmed);
+}
+
+.table.table-alternate-rows thead + tbody tr:nth-child(even) td,
+.table.table-alternate-rows thead + tbody tr:nth-child(even) th {
+  background-color: var(--color-bg-primary-dimmed);
+}
+
+.table.table-alternate-rows.table-hide-headers tbody tr:nth-child(odd) td,
+.table.table-alternate-rows.table-hide-headers tbody tr:nth-child(odd) th {
+  background-color: var(--color-bg-primary-dimmed);
 }

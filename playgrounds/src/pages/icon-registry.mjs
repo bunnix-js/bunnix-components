@@ -1,47 +1,96 @@
-import Bunnix from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Spacer, Grid } from "../../../src/core/layout.mjs";
-import { Icon } from "../../../src/core/media.mjs";
-import { iconRegistry } from "../../../src/utils/iconRegistry.generated.mjs";
-const { div } = Bunnix;
+import { Compute, ForEach, useState } from "@bunnix/core";
+import { Heading, Text, Column, Spacer, Grid, Row, Icon, Button, LinkButton, TextInput } from "@bunnix/components";
+import { framework7IconNames } from "../data/framework7-icons.mjs";
+
+const OFFICIAL_ICONS_URL = "https://framework7.io/icons/";
+const OFFICIAL_RELEASE_URL = "https://github.com/framework7io/framework7-icons/releases/tag/v5.0.5";
 
 export function IconRegistryPage() {
-  const iconNames = Object.keys(iconRegistry);
+  const searchValue = useState("");
+  const filteredIconNames = Compute(searchValue, (query) => {
+    const normalizedQuery = `${query ?? ""}`.trim().toLowerCase();
 
-  const IconCard = (iconName) => Column(
+    if (!normalizedQuery) {
+      return framework7IconNames.map((iconName) => ({ key: iconName, iconName }));
+    }
+
+    return framework7IconNames
+      .filter((iconName) => iconName.toLowerCase().includes(normalizedQuery))
+      .map((iconName) => ({ key: iconName, iconName }));
+  });
+
+  const IconCard = (iconName) => Button(
     {
-      padding: "regular",
-      border: "primary",
+      variant: "tertiary",
+      padding: false,
       radius: "regular",
-      alignItems: "center",
-      gap: "small",
       style: {
-        minWidth: "100px",
+        minWidth: "120px",
+        minHeight: "120px",
         cursor: "pointer",
       },
       click: () => {
         navigator.clipboard.writeText(`Icon({ name: "${iconName}" })`);
       },
     },
-    Icon({ name: iconName, size: 32 }),
-    Text({ color: "secondary", textSize: "0.75rem", textAlign: "center" }, iconName),
+    Column(
+      {
+        padding: "regular",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "small",
+        width: "100%",
+      },
+      Icon({ name: iconName, size: 32 }),
+      Text({ color: "secondary", textSize: "0.75rem", textAlign: "center" }, iconName),
+    ),
   );
 
   return Column(
-    Heading({ h2: true }, "Icon Registry"),
+    Heading({ h2: true }, "Framework7 Icons"),
     Heading(
       { h4: true, color: "secondary", weight: "heavy" },
-      `${iconNames.length} icons available in the registry`,
+      filteredIconNames.map((items) =>
+        `${items.length} of ${framework7IconNames.length} unique ligatures from the official v5.0.5 package`,
+      ),
     ),
     Spacer({ minHeight: 24 }),
-    Text("Click any icon to copy its code to clipboard."),
+    Text('Click any icon card to copy `Icon({ name: "..." })`.'),
+    Spacer({ minHeight: 12 }),
+    TextInput({
+      type: "search",
+      value: searchValue,
+      placeholder: "Search icons...",
+    }),
+    Spacer({ minHeight: 12 }),
+    Row(
+      { gap: "regular" },
+      LinkButton(
+        {
+          click: () => window.open(OFFICIAL_ICONS_URL, "_blank", "noopener,noreferrer"),
+        },
+        "Official Icons Site",
+      ),
+      LinkButton(
+        {
+          click: () => window.open(OFFICIAL_RELEASE_URL, "_blank", "noopener,noreferrer"),
+        },
+        "v5.0.5 Release",
+      ),
+    ),
     Spacer({ minHeight: 16 }),
     Grid(
       {
-        layout: "flow",
+        columns: [
+          { size: "auto" },
+          { size: "auto" },
+          { size: "auto" },
+          { size: "auto" },
+          { size: "auto" },
+        ],
         gridGap: 12,
       },
-      ...iconNames.map(iconName => IconCard(iconName))
+      ForEach(filteredIconNames, "key", (item) => IconCard(item.iconName)),
     ),
   );
 }

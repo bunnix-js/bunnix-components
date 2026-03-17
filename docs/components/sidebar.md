@@ -9,50 +9,49 @@ title: Sidebar
 import { Sidebar } from "@bunnix/components";
 import { useState } from "@bunnix/core";
 
-const page = useState("typography");
+const selection = useState("components");
 
 const items = [
-  { id: "typography", label: "Typography", icon: "text" },
-  { id: "colors", label: "Colors", icon: "palette" },
-  { isHeader: true, label: "Components" },
+  { key: "home", text: "Home", icon: "house" },
+  { key: "header-components", text: "Components", isHeader: true },
   {
-    id: "components",
-    label: "Components",
-    icon: "cube",
-    isExpanded: true,
+    key: "components",
+    text: "Components",
+    icon: "rectangle_grid_1x2",
     children: [
-      { id: "components-button", label: "Button", icon: "button" },
-      { id: "components-icon", label: "Icon", icon: "star" },
+      { key: "buttons", text: "Buttons" },
+      { key: "inputs", text: "Inputs" },
     ],
   },
+  { key: "settings", text: "Settings", icon: "gear" },
 ];
 
-Sidebar({
-  items,
-  selection: page,
-  onItemSelect: (id) => page.set(id),
-  searchable: true,
-});
+Sidebar({ items, selection });
 ```
 
-Props (common):
+Props:
 
-- `items`: `SidebarItem[]`
-- `selection`: `string | state` (reactive state supported)
-- `onItemSelect`: `(id?: string) => void`
-- `searchable`: `boolean`
-- `searchProps`: `Record<string, unknown>` (passed to `SearchBox`)
-- `leading`: `children | (() => children)`
-- `trailing`: `children | (() => children)`
+- `items`: `SidebarItem[] | StateLike<SidebarItem[]>`
+- `selection`: `string | null | StateLike<string | null>`
 
 `SidebarItem`:
 
-- `id`: `string`
-- `label`: `string`
-- `icon`: `string` (`"person"` becomes `"icon-person"`, or pass `"icon-person"` directly)
-- `href`: `string | null` (defaults to `#${id}`; set to `null` to skip hash updates)
-- `badge`: `string | number | { value, tone, variant, size }`
-- `children`: `SidebarItem[]`
-- `isExpanded`: `boolean` (initial expand state when item has children)
-- `isHeader`: `boolean`
-- `isSeparator`: `boolean`
+- `key`: `string`
+- `text`: `string`
+- `icon?`: `string`
+- `isHeader?`: `boolean`
+- `children?`: `SidebarItem[]`
+- `expanded?`: `boolean`
+
+Behavior:
+
+- Header items render as non-clickable section labels.
+- Leaf items render as selectable buttons.
+- Items with `children` render a chevron on the right.
+- Only root-level items render leading icons; nested children ignore `icon`.
+- Parent items remain selectable.
+- Clicking a parent item updates `selection` to the parent `key` and toggles its expanded state.
+- Clicking a child item only updates `selection` to the child `key`.
+- Nested groups default to collapsed unless their own `key` is the selected key.
+- `expanded` seeds the initial open state for nested groups when the parent is not the selected key; later expand/collapse state is managed internally by `Sidebar`.
+- Selecting a child key does not auto-expand ancestor groups.

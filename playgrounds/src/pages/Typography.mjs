@@ -1,18 +1,15 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Spacer } from "../../../src/core/layout.mjs";
+import { Heading, Text, Column, Spacer } from "@bunnix/components";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
-export function TypographyPage() {
+export function HeadingPage() {
   return Column(
-    Heading({ h2: true }, "Typography Components"),
+    Heading({ h2: true }, "Heading Component"),
     Heading(
       { h4: true, color: "secondary", weight: "heavy" },
-      "Core typography components for text display",
+      "Semantic heading levels with style controls",
     ),
     Spacer({ minHeight: 24 }),
-    
-    // Heading Component
     ComponentShowcase(
       {
         code: `
@@ -39,10 +36,17 @@ export function TypographyPage() {
         Heading({ h6: true }, "Heading 6"),
       ),
     ),
-    
-    Spacer({ minHeight: 16 }),
-    
-    // Text Component
+  );
+}
+
+export function TextPage() {
+  return Column(
+    Heading({ h2: true }, "Text Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Inline text styles and color variants",
+    ),
+    Spacer({ minHeight: 24 }),
     ComponentShowcase(
       {
         code: `

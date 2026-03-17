@@ -25,6 +25,8 @@
   --color-bg-secondary: light-dark(#EDEDED, #1A1A1A);
 
   --color-border-primary: light-dark(#D2D2D2, #3D3D3D);
+  --color-border-secondary: light-dark(#E0E0E0, #2E2E2E);
+  --color-border-tertiary: light-dark(#ECECEC, #242424);
   --color-outline: light-dark(#000, #fff);
   --color-outline-dimmed: light-dark(#444, #555);
 
@@ -398,12 +400,14 @@ body {
 }
 
 /* Layout positioning */
-.sticky-top {
+.sticky-top,
+[sticky="top"] {
   position: sticky;
   top: 0;
 }
 
-.sticky-bottom {
+.sticky-bottom,
+[sticky="bottom"] {
   position: sticky;
   bottom: 0;
 }
@@ -490,6 +494,16 @@ body {
 .border-primary,
 [border="primary"] {
   border: 1px solid var(--color-border-primary);
+}
+
+.border-secondary,
+[border="secondary"] {
+  border: 1px solid var(--color-border-secondary);
+}
+
+.border-tertiary,
+[border="tertiary"] {
+  border: 1px solid var(--color-border-tertiary);
 }
 
 .border-transparent,

@@ -1,45 +1,67 @@
 import Bunnix, { useState } from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
-import { Sidebar } from "../../../src/core/sidebar.mjs";
+import { Heading, Text, Column, Row, Spacer, Sidebar } from "@bunnix/components";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 const { div } = Bunnix;
 
 export function SidebarPage() {
   // Example 1: Basic sidebar
-  const basicSelected = useState("dashboard");
+  const basicSelection = useState("dashboard");
   const basicItems = [
-    { key: "dashboard", text: "Dashboard", icon: "home" },
-    { key: "settings", text: "Settings", icon: "settings" },
-    { key: "profile", text: "Profile", icon: "user" },
+    { key: "dashboard", text: "Dashboard", icon: "house" },
+    { key: "settings", text: "Settings", icon: "gear" },
+    { key: "profile", text: "Profile", icon: "person" },
   ];
 
   // Example 2: Sidebar with headers
-  const groupedSelected = useState("overview");
+  const groupedSelection = useState("overview");
   const groupedItems = [
     { key: "header-main", text: "Main", isHeader: true },
-    { key: "overview", text: "Overview", icon: "home" },
-    { key: "analytics", text: "Analytics", icon: "bar-chart" },
+    { key: "overview", text: "Overview", icon: "house" },
+    { key: "analytics", text: "Analytics", icon: "chart_bar" },
     { key: "header-settings", text: "Settings", isHeader: true },
-    { key: "account", text: "Account", icon: "user" },
-    { key: "preferences", text: "Preferences", icon: "settings" },
+    { key: "account", text: "Account", icon: "person" },
+    { key: "preferences", text: "Preferences", icon: "gear" },
   ];
 
-  // Example 3: Full navigation sidebar
-  const navSelected = useState("projects");
+  // Example 3: Nested sidebar
+  const nestedSelection = useState("components");
+  const nestedItems = [
+    { key: "home", text: "Home", icon: "house" },
+    { key: "header-components", text: "Components", isHeader: true },
+    {
+      key: "components",
+      text: "Components",
+      icon: "rectangle_grid_1x2",
+      children: [
+        { key: "buttons", text: "Buttons" },
+        {
+          key: "forms",
+          text: "Forms",
+          children: [
+            { key: "inputs", text: "Inputs" },
+            { key: "dialog", text: "Dialog" },
+          ],
+        },
+      ],
+    },
+    { key: "settings", text: "Settings", icon: "gear" },
+  ];
+
+  // Example 4: Full navigation sidebar
+  const navSelection = useState("projects");
   const navItems = [
     { key: "header-workspace", text: "Workspace", isHeader: true },
     { key: "projects", text: "Projects", icon: "folder" },
-    { key: "tasks", text: "Tasks", icon: "check-square" },
-    { key: "team", text: "Team", icon: "users" },
+    { key: "tasks", text: "Tasks", icon: "checkmark_rectangle" },
+    { key: "team", text: "Team", icon: "person_2" },
     { key: "header-tools", text: "Tools", isHeader: true },
     { key: "calendar", text: "Calendar", icon: "calendar" },
-    { key: "documents", text: "Documents", icon: "file-text" },
-    { key: "messages", text: "Messages", icon: "message-square" },
+    { key: "documents", text: "Documents", icon: "doc_text" },
+    { key: "messages", text: "Messages", icon: "chat_bubble_2" },
     { key: "header-admin", text: "Admin", isHeader: true },
-    { key: "settings", text: "Settings", icon: "settings" },
-    { key: "logout", text: "Logout", icon: "log-out" },
+    { key: "settings", text: "Settings", icon: "gear" },
+    { key: "logout", text: "Logout", icon: "arrow_right_square" },
   ];
 
   return Column(
@@ -57,14 +79,14 @@ export function SidebarPage() {
         import { Sidebar } from "@bunnix/components";
         import { useState } from "@bunnix/core";
 
-        const selected = useState("dashboard");
+        const selection = useState("dashboard");
         const items = [
-          { key: "dashboard", text: "Dashboard", icon: "home" },
-          { key: "settings", text: "Settings", icon: "settings" },
-          { key: "profile", text: "Profile", icon: "user" },
+          { key: "dashboard", text: "Dashboard", icon: "house" },
+          { key: "settings", text: "Settings", icon: "gear" },
+          { key: "profile", text: "Profile", icon: "person" },
         ];
 
-        Sidebar({ items, selected });
+        Sidebar({ items, selection });
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Basic Sidebar"),
@@ -79,13 +101,13 @@ export function SidebarPage() {
             overflow: "hidden",
           },
         },
-        Sidebar({ items: basicItems, selected: basicSelected }),
+        Sidebar({ items: basicItems, selection: basicSelection }),
       ),
       Spacer({ minHeight: 8 }),
       Text(
         { color: "secondary", textSize: "0.875rem" },
         "Selected: ",
-        Text({ weight: "heavy" }, basicSelected.get()),
+        Text({ weight: "heavy" }, basicSelection.get()),
       ),
     ),
 
@@ -98,17 +120,17 @@ export function SidebarPage() {
         import { Sidebar } from "@bunnix/components";
         import { useState } from "@bunnix/core";
 
-        const selected = useState("overview");
+        const selection = useState("overview");
         const items = [
           { key: "header-main", text: "Main", isHeader: true },
-          { key: "overview", text: "Overview", icon: "home" },
-          { key: "analytics", text: "Analytics", icon: "bar-chart" },
+          { key: "overview", text: "Overview", icon: "house" },
+          { key: "analytics", text: "Analytics", icon: "chart_bar" },
           { key: "header-settings", text: "Settings", isHeader: true },
-          { key: "account", text: "Account", icon: "user" },
-          { key: "preferences", text: "Preferences", icon: "settings" },
+          { key: "account", text: "Account", icon: "person" },
+          { key: "preferences", text: "Preferences", icon: "gear" },
         ];
 
-        Sidebar({ items, selected });
+        Sidebar({ items, selection });
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Sidebar with Headers"),
@@ -123,13 +145,70 @@ export function SidebarPage() {
             overflow: "hidden",
           },
         },
-        Sidebar({ items: groupedItems, selected: groupedSelected }),
+        Sidebar({ items: groupedItems, selection: groupedSelection }),
       ),
       Spacer({ minHeight: 8 }),
       Text(
         { color: "secondary", textSize: "0.875rem" },
         "Selected: ",
-        Text({ weight: "heavy" }, groupedSelected.get()),
+        Text({ weight: "heavy" }, groupedSelection.get()),
+      ),
+    ),
+
+    Spacer({ minHeight: 16 }),
+
+    // Nested Sidebar
+    ComponentShowcase(
+      {
+        code: `
+        import { Sidebar } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const selection = useState("components");
+        const items = [
+          { key: "home", text: "Home", icon: "house" },
+          { key: "header-components", text: "Components", isHeader: true },
+          {
+            key: "components",
+            text: "Components",
+            icon: "rectangle_grid_1x2",
+            children: [
+              { key: "buttons", text: "Buttons" },
+              {
+                key: "forms",
+                text: "Forms",
+                children: [
+                  { key: "inputs", text: "Inputs" },
+                  { key: "dialog", text: "Dialog" },
+                ],
+              },
+            ],
+          },
+          { key: "settings", text: "Settings", icon: "gear" },
+        ];
+
+        Sidebar({ items, selection });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Nested Sidebar"),
+      Text("Parent items stay selectable while expanding or collapsing their nested children. Nested groups start collapsed unless their own key is selected, and only root-level items render leading icons."),
+      Spacer({ minHeight: 8 }),
+      div(
+        {
+          style: {
+            border: "1px solid var(--color-border-primary)",
+            borderRadius: "8px",
+            width: "260px",
+            overflow: "hidden",
+          },
+        },
+        Sidebar({ items: nestedItems, selection: nestedSelection }),
+      ),
+      Spacer({ minHeight: 8 }),
+      Text(
+        { color: "secondary", textSize: "0.875rem" },
+        "Selected: ",
+        nestedSelection.map((value) => Text({ weight: "heavy" }, value)),
       ),
     ),
 
@@ -142,22 +221,22 @@ export function SidebarPage() {
         import { Sidebar } from "@bunnix/components";
         import { useState } from "@bunnix/core";
 
-        const selected = useState("projects");
+        const selection = useState("projects");
         const items = [
           { key: "header-workspace", text: "Workspace", isHeader: true },
           { key: "projects", text: "Projects", icon: "folder" },
-          { key: "tasks", text: "Tasks", icon: "check-square" },
-          { key: "team", text: "Team", icon: "users" },
+          { key: "tasks", text: "Tasks", icon: "checkmark_rectangle" },
+          { key: "team", text: "Team", icon: "person_2" },
           { key: "header-tools", text: "Tools", isHeader: true },
           { key: "calendar", text: "Calendar", icon: "calendar" },
-          { key: "documents", text: "Documents", icon: "file-text" },
-          { key: "messages", text: "Messages", icon: "message-square" },
+          { key: "documents", text: "Documents", icon: "doc_text" },
+          { key: "messages", text: "Messages", icon: "chat_bubble_2" },
           { key: "header-admin", text: "Admin", isHeader: true },
-          { key: "settings", text: "Settings", icon: "settings" },
-          { key: "logout", text: "Logout", icon: "log-out" },
+          { key: "settings", text: "Settings", icon: "gear" },
+          { key: "logout", text: "Logout", icon: "arrow_right_square" },
         ];
 
-        Sidebar({ items, selected });
+        Sidebar({ items, selection });
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Full Navigation"),
@@ -172,13 +251,13 @@ export function SidebarPage() {
             overflow: "hidden",
           },
         },
-        Sidebar({ items: navItems, selected: navSelected }),
+        Sidebar({ items: navItems, selection: navSelection }),
       ),
       Spacer({ minHeight: 8 }),
       Text(
         { color: "secondary", textSize: "0.875rem" },
         "Selected: ",
-        Text({ weight: "heavy" }, navSelected.get()),
+        Text({ weight: "heavy" }, navSelection.get()),
       ),
     ),
 
@@ -192,20 +271,20 @@ export function SidebarPage() {
         {
           key: "unique-key",       // Required: unique identifier
           text: "Display Text",    // Required: text to display
-          icon: "icon-name",       // Optional: icon name from registry
+          icon: "framework7_icon", // Optional: official Framework7 icon name
           isHeader: false          // Optional: renders as header if true
         }
 
         // State Binding
         // Auto-resolves useState objects or raw values
         const items = useState([...]); // or just [...]
-        const selected = useState("key"); // or just "key"
+        const selection = useState("key"); // or just "key"
 
-        Sidebar({ items, selected });
+        Sidebar({ items, selection });
 
-        // Selected state updates automatically on click
-        selected.get(); // Get current selection
-        selected.set("new-key"); // Programmatically change selection
+        // Selection state updates automatically on click
+        selection.get(); // Get current selection
+        selection.set("new-key"); // Programmatically change selection
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Features"),
@@ -223,7 +302,11 @@ export function SidebarPage() {
         ),
         Text(
           Text({ weight: "heavy" }, "• Icon Support:"),
-          " Optional icons from the icon registry",
+          " Optional Framework7 icon names on root-level items",
+        ),
+        Text(
+          Text({ weight: "heavy" }, "• Nested Groups:"),
+          " Parent items can expand recursive child navigation, and only root nested items render icons",
         ),
         Text(
           Text({ weight: "heavy" }, "• Visual Feedback:"),

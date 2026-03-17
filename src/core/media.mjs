@@ -5,14 +5,14 @@
  *
  * Components:
  * - Media: Generic media component that renders images or inline SVG
- * - Icon: Icon component using the icon registry
+ * - Icon: Icon component using the Framework7 icon font
  * - Spinner: Animated loading spinner with customizable size
  * - Avatar: User avatar with support for images or letter initials
  *
  * Features:
  * - Automatic style extraction (width, height, size, etc.)
  * - Flexible props normalization (supports both props object and direct children)
- * - SVG support via innerHTML for icons and spinners
+ * - Font-based icon rendering plus inline SVG support for spinners
  * - Avatar size and appearance customization
  */
 import Bunnix, { Show, useState } from "@bunnix/core";
@@ -21,9 +21,8 @@ import {
   withExtractedStyles,
   isStateLike,
 } from "./utils.mjs";
-import { iconRegistry } from "../utils/iconRegistry.generated.mjs";
 
-const { span, img } = Bunnix;
+const { span, img, i } = Bunnix;
 
 const MediaCore = (props, ...children) => {
   if ("svg" in props) {
@@ -38,15 +37,16 @@ const MediaCore = (props, ...children) => {
 const IconCore = (props, ...children) => {
   const { name, ...restProps } = props;
   if (!name) return null;
+  const style = { ...(restProps.style || {}) };
+  if (!style.fontSize && (style.width || style.height)) {
+    style.fontSize = style.width || style.height;
+  }
 
-  const svgContent = iconRegistry[name] || "";
-  if (!svgContent) return null;
-
-  return span({
+  return i({
     ...restProps,
-    innerHTML: svgContent,
-    class: `icon ${restProps.class || ""}`,
-  });
+    style,
+    class: `icon f7-icons ${restProps.class || ""}`.trim(),
+  }, name);
 };
 
 const spinnerSvg = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
@@ -113,10 +113,10 @@ export const Media = withNormalizedArgs((props, ...children) =>
 );
 
 /**
- * Icon component using the icon registry.
+ * Icon component using the Framework7 icon font ligatures.
  * 
  * @param {Object} props - Component props
- * @param {string} props.name - Icon name from the icon registry
+ * @param {string} props.name - Official Framework7 icon name
  * @param {number} [props.size=22] - Icon size in pixels
  * @param {string} [props.color] - Icon color (CSS value)
  * @param {string} [props.class] - Additional CSS classes

@@ -12,4 +12,4 @@ Common utilities you can use to build custom components:
 - Buttons: `btn`, `btn-flat`, `btn-outline`, `btn-destructive`, `btn-lg`, `btn-xl`
 - Forms: `input-lg`, `input-xl`
 - Typography: `text-*`, `text-sm|base|lg|xl`, `text-mono`
-- Icons: `icon`, `icon-<name>`, `icon-xs|sm|lg|xl`
+- Icons: `icon`, `f7-icons`

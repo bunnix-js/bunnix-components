@@ -1,7 +1,31 @@
+import { useState } from "@bunnix/core";
+
 export const isStateLike = (value) =>
   value &&
   typeof value.get === "function" &&
   typeof value.subscribe === "function";
+
+export const resolveCollectionState = (value, fallback = []) =>
+  isStateLike(value) ? value : useState(value ?? fallback);
+
+const resolvePadding = (value) => {
+  if (typeof value === "number") return `${value}px`;
+  if (value === "none") return "0";
+  if (value === "sm" || value === "small") return "var(--padding-sm)";
+  if (value === "md" || value === "regular") return "var(--padding-md)";
+  if (value === "lg" || value === "large") return "var(--padding-lg)";
+  return value; // pass-through for custom values (e.g. "8px", "1rem")
+};
+
+const resolveBorderRadius = (value) => {
+  if (typeof value === "number") return `${value}px`;
+  if (value === "none") return "0";
+  if (value === "md" || value === "regular") return "var(--radius-md)";
+  if (value === "lg" || value === "large") return "var(--radius-lg)";
+  if (value === "pill") return "9999px";
+  if (value === "circle") return "9999%";
+  return value;
+};
 
 export function withNormalizedArgs(fn) {
   return (props = {}, ...children) => {
@@ -51,6 +75,14 @@ export function withExtractedStyles(fn) {
       delete finalProps.textSize;
     }
 
+    if ("fontSize" in props) {
+      style.fontSize =
+        typeof props.fontSize === "number"
+          ? `${props.fontSize}px`
+          : props.fontSize;
+      delete finalProps.fontSize;
+    }
+
     if ("weight" in props) {
       if (typeof props.weight === "number") {
         style.fontWeight = props.weight;
@@ -70,8 +102,26 @@ export function withExtractedStyles(fn) {
       delete finalProps.overflow;
     }
 
+    if ("overflowX" in props) {
+      style.overflowX = props.overflowX;
+      delete finalProps.overflowX;
+    }
+
+    if ("overflowY" in props) {
+      style.overflowY = props.overflowY;
+      delete finalProps.overflowY;
+    }
+
     if ("bgColor" in props) {
       style.backgroundColor = props.bgColor;
+      if (props.bgColor === "primary") style.backgroundColor = "var(--color-bg-primary)";
+      if (props.bgColor === "primary-dimmed") style.backgroundColor = "var(--color-bg-primary-dimmed)";
+      if (props.bgColor === "secondary") style.backgroundColor = "var(--color-bg-secondary)";
+      if (props.bgColor === "success") style.backgroundColor = "var(--color-success)";
+      if (props.bgColor === "success-dimmed") style.backgroundColor = "var(--color-success-dimmed)";
+      if (props.bgColor === "warning") style.backgroundColor = "var(--color-warning)";
+      if (props.bgColor === "warning-dimmed") style.backgroundColor = "var(--color-warning-dimmed)";
+      if (props.bgColor === "danger") style.backgroundColor = "var(--color-danger)";
       delete finalProps.bgColor;
     }
 
@@ -141,6 +191,12 @@ export function withExtractedStyles(fn) {
       delete finalProps.size;
     }
 
+    if ("margin" in props) {
+      style.margin =
+        typeof props.margin === "number" ? `${props.margin}px` : props.margin;
+      delete finalProps.margin;
+    }
+
     if ("marginX" in props) {
       const marginXValue =
         typeof props.marginX === "number"
@@ -193,6 +249,50 @@ export function withExtractedStyles(fn) {
       delete finalProps.marginBottom;
     }
 
+    if ("padding" in props) {
+      style.padding = resolvePadding(props.padding);
+      delete finalProps.padding;
+    }
+
+    if ("paddingX" in props) {
+      const v = resolvePadding(props.paddingX);
+      style.paddingLeft = v;
+      style.paddingRight = v;
+      delete finalProps.paddingX;
+    }
+
+    if ("paddingY" in props) {
+      const v = resolvePadding(props.paddingY);
+      style.paddingTop = v;
+      style.paddingBottom = v;
+      delete finalProps.paddingY;
+    }
+
+    if ("paddingTop" in props) {
+      style.paddingTop = resolvePadding(props.paddingTop);
+      delete finalProps.paddingTop;
+    }
+
+    if ("paddingBottom" in props) {
+      style.paddingBottom = resolvePadding(props.paddingBottom);
+      delete finalProps.paddingBottom;
+    }
+
+    if ("paddingLeft" in props) {
+      style.paddingLeft = resolvePadding(props.paddingLeft);
+      delete finalProps.paddingLeft;
+    }
+
+    if ("paddingRight" in props) {
+      style.paddingRight = resolvePadding(props.paddingRight);
+      delete finalProps.paddingRight;
+    }
+
+    if ("borderRadius" in props) {
+      style.borderRadius = resolveBorderRadius(props.borderRadius);
+      delete finalProps.borderRadius;
+    }
+
     if ("top" in props) {
       style.top =
         typeof props.top === "number"
@@ -233,6 +333,11 @@ export function withExtractedStyles(fn) {
     if ("flexShrink" in props) {
       style.flexShrink = props.flexShrink;
       delete finalProps.flexShrink;
+    }
+
+    if ("zIndex" in props) {
+      style.zIndex = props.zIndex;
+      delete finalProps.zIndex;
     }
 
     finalProps.style = style;

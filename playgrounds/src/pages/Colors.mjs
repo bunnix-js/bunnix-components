@@ -1,6 +1,5 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Grid, Row, Spacer } from "../../../src/core/layout.mjs";
+import { Heading, Text, Column, Grid, Row, Spacer } from "@bunnix/components";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 const { div } = Bunnix;
@@ -10,14 +9,27 @@ export function ColorsPage() {
   const ColorSwatch = (props) =>
     Column(
       { gap: "small", alignItems: "center" },
-      div({
+      Column({
+        bgColor: props.color,
+        width: 80,
+        height: 80,
         style: {
-          width: "80px",
-          height: "80px",
-          backgroundColor: props.color,
           borderRadius: "8px",
           border: "1px solid var(--color-border-primary)",
         },
+      }),
+      Text({ color: "secondary", textSize: "0.875rem" }, props.name),
+    );
+
+  const BorderSwatch = (props) =>
+    Column(
+      { gap: "small", alignItems: "center" },
+      Column({
+        border: props.border,
+        bgColor: "primary-dimmed",
+        width: 80,
+        height: 80,
+        radius: "regular",
       }),
       Text({ color: "secondary", textSize: "0.875rem" }, props.name),
     );
@@ -88,33 +100,62 @@ export function ColorsPage() {
         code: `
         import { Column } from "@bunnix/components";
 
-        Column(
-          { bg: "primary", padding: "regular" },
-          "Primary background"
-        );
+        // Named tokens resolve to design system CSS variables
+        Column({ bgColor: "primary", padding: "regular" }, "Primary background");
+        Column({ bgColor: "secondary", padding: "regular" }, "Secondary background");
+        Column({ bgColor: "success", padding: "regular" }, "Success background");
 
-        Column(
-          { bg: "primary-dimmed", padding: "regular" },
-          "Primary dimmed background"
-        );
-
-        Column(
-          { bg: "secondary", padding: "regular" },
-          "Secondary background"
-        );
+        // Also accepts raw CSS values
+        Column({ bgColor: "#ff6b6b", padding: "regular" }, "Custom hex color");
+        Column({ bgColor: "rgba(0,0,0,0.1)", padding: "regular" }, "RGBA color");
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Background Colors"),
-      Text("Background color utilities using the bg prop or CSS classes."),
+      Text("Background colors using the bgColor prop. Accepts named tokens or any CSS color value."),
       Spacer({ minHeight: 8 }),
       Grid(
         { layout: "flow", gridGap: 8 },
-        ColorSwatch({ color: "var(--color-bg-primary)", name: "primary" }),
-        ColorSwatch({ color: "var(--color-bg-primary-dimmed)", name: "primary-dimmed" }),
-        ColorSwatch({ color: "var(--color-bg-secondary)", name: "secondary" }),
-        ColorSwatch({ color: "var(--color-success)", name: "success" }),
-        ColorSwatch({ color: "var(--color-warning)", name: "warning" }),
-        ColorSwatch({ color: "var(--color-danger)", name: "danger" }),
+        ColorSwatch({ color: "primary", name: "primary" }),
+        ColorSwatch({ color: "primary-dimmed", name: "primary-dimmed" }),
+        ColorSwatch({ color: "secondary", name: "secondary" }),
+        ColorSwatch({ color: "success", name: "success" }),
+        ColorSwatch({ color: "success-dimmed", name: "success-dimmed" }),
+        ColorSwatch({ color: "warning", name: "warning" }),
+        ColorSwatch({ color: "warning-dimmed", name: "warning-dimmed" }),
+        ColorSwatch({ color: "danger", name: "danger" }),
+      ),
+    ),
+
+    Spacer({ minHeight: 16 }),
+
+    // Border Colors
+    ComponentShowcase(
+      {
+        code: `
+        import { Column, Grid } from "@bunnix/components";
+
+        Grid(
+          { layout: "flow", gridGap: 8 },
+          Column({ border: "none", padding: "regular", radius: "regular" }, "None"),
+          Column({ border: "primary", padding: "regular", radius: "regular" }, "Primary"),
+          Column({ border: "secondary", padding: "regular", radius: "regular" }, "Secondary"),
+          Column({ border: "tertiary", padding: "regular", radius: "regular" }, "Tertiary"),
+          Column({ border: "transparent", padding: "regular", radius: "regular" }, "Transparent"),
+        );
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Border Colors"),
+      Text(
+        "Border tones use the resolved border prop and adapt across light and dark modes, with secondary and tertiary as toned-down primary borders.",
+      ),
+      Spacer({ minHeight: 8 }),
+      Grid(
+        { layout: "flow", gridGap: 8 },
+        BorderSwatch({ border: "none", name: "none" }),
+        BorderSwatch({ border: "primary", name: "primary" }),
+        BorderSwatch({ border: "secondary", name: "secondary" }),
+        BorderSwatch({ border: "tertiary", name: "tertiary" }),
+        BorderSwatch({ border: "transparent", name: "transparent" }),
       ),
     ),
 
@@ -140,6 +181,8 @@ export function ColorsPage() {
 
         // Border tokens
         var(--color-border-primary)
+        var(--color-border-secondary)
+        var(--color-border-tertiary)
 
         // Using with CSS classes
         .fg-primary { color: var(--color-primary); }
@@ -147,7 +190,8 @@ export function ColorsPage() {
 
         // Using with props
         Text({ color: "primary" }, "Text");
-        Column({ bg: "primary" }, "Content");
+        Column({ bgColor: "primary" }, "Content");
+        Column({ bgColor: "#ff0000" }, "Custom color");
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Color Tokens"),
@@ -172,7 +216,11 @@ export function ColorsPage() {
             ),
             Text(
               { color: "secondary" },
-              "• bg: 'primary' | 'primary-dimmed' | 'secondary' | 'success' | 'warning' | 'danger'",
+              "• bgColor: 'primary' | 'primary-dimmed' | 'secondary' | 'success' | 'success-dimmed' | 'warning' | 'warning-dimmed' | 'danger' | <any CSS color>",
+            ),
+            Text(
+              { color: "secondary" },
+              "• border: 'none' | 'primary' | 'secondary' | 'tertiary' | 'transparent'",
             ),
           ),
         ),

@@ -1,44 +1,28 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
-import { Button, LinkButton } from "../../../src/core/buttons.mjs";
-import { Icon } from "../../../src/core/media.mjs";
+import { Heading, Text, Column, Row, Spacer, Button, LinkButton, Icon } from "@bunnix/components";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
-export function ButtonsPage() {
+export function ButtonPage() {
   return Column(
-    Heading({ h2: true }, "Button Components"),
+    Heading({ h2: true }, "Button Component"),
     Heading(
       { h4: true, color: "secondary", weight: "heavy" },
-      "Core button components for user actions",
+      "Standard button variants, icons, and disabled states",
     ),
     Spacer({ minHeight: 24 }),
-    
-    // Button Component
     ComponentShowcase(
       {
         code: `
         import { Button } from "@bunnix/components";
 
-        // Default/Primary variant
         Button("Primary Button");
-
-        // Secondary variant
         Button({ variant: "secondary" }, "Secondary");
-
-        // Tertiary variant
         Button({ variant: "tertiary" }, "Tertiary");
-
-        // Danger variant
         Button({ variant: "danger" }, "Danger");
-
-        // With icon
         Button(
-          Icon({ name: "check", size: 16 }),
+          Icon({ name: "checkmark", size: 16 }),
           "With Icon"
         );
-
-        // Disabled
         Button({ disabled: true }, "Disabled");
         `,
       },
@@ -57,7 +41,7 @@ export function ButtonsPage() {
         Row(
           { gap: "small" },
           Button(
-            Icon({ name: "check", size: 16 }),
+            Icon({ name: "checkmark", size: 16 }),
             "With Icon"
           ),
           Button(
@@ -73,34 +57,30 @@ export function ButtonsPage() {
         ),
       ),
     ),
-    
-    Spacer({ minHeight: 16 }),
-    
-    // LinkButton Component
+  );
+}
+
+export function LinkButtonPage() {
+  return Column(
+    Heading({ h2: true }, "LinkButton Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Link-styled button variants and icon usage",
+    ),
+    Spacer({ minHeight: 24 }),
     ComponentShowcase(
       {
         code: `
         import { LinkButton } from "@bunnix/components";
 
-        // Default/Link variant
         LinkButton("Link Button");
-
-        // Secondary variant
         LinkButton({ variant: "secondary" }, "Secondary Link");
-
-        // Tertiary variant
         LinkButton({ variant: "tertiary" }, "Tertiary Link");
-
-        // Danger variant
         LinkButton({ variant: "danger" }, "Danger Link");
-
-        // With icon
         LinkButton(
-          Icon({ name: "external-link", size: 16 }),
+          Icon({ name: "arrow_up_right_square", size: 16 }),
           "External Link"
         );
-
-        // Disabled
         LinkButton({ disabled: true }, "Disabled Link");
         `,
       },
@@ -119,7 +99,7 @@ export function ButtonsPage() {
         Row(
           { gap: "regular" },
           LinkButton(
-            Icon({ name: "arrow-right", size: 16 }),
+            Icon({ name: "arrow_right", size: 16 }),
             "With Icon"
           ),
           LinkButton({ disabled: true }, "Disabled Link"),

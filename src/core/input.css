@@ -26,6 +26,75 @@
   background-size: 1rem;
 }
 
+.picker-trigger {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  width: 100%;
+  color: var(--color-fg-primary);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.picker-trigger-disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.picker-selection {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 1.25rem;
+}
+
+.segmented-picker {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 2px;
+  padding: 2px;
+  width: 100%;
+}
+
+.segmented-picker-disabled {
+  opacity: 0.6;
+}
+
+.segmented-picker-segment {
+  appearance: none;
+  -webkit-appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid transparent;
+  border-radius: 0.625rem;
+  background: transparent;
+  color: var(--color-fg-primary);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.segmented-picker-segment-content {
+  margin: 0 auto;
+  text-align: center;
+  justify-content: center;
+}
+
+.segmented-picker-segment-selected {
+  background-color: var(--color-bg-primary);
+  border-color: var(--color-border-primary);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
+}
+
 .checkbox {
   appearance: none;
   -webkit-appearance: none;
@@ -46,4 +115,137 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 80%;
+}
+
+.switch {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  flex-shrink: 0;
+  width: 44px;
+  height: 26px;
+  border-radius: 9999px;
+  background-color: var(--color-bg-primary-dimmed);
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.switch::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  background-color: var(--color-border-primary);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.18);
+  transition: transform 0.18s ease;
+}
+
+.switch:checked {
+  background-color: var(--color-success-dimmed);
+  border-color: var(--color-success-dimmed);
+}
+
+.switch:checked::before {
+  background-color: var(--color-bg-primary);
+}
+
+.switch:checked::before {
+  transform: translateX(18px);
+}
+
+.switch:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  color: var(--color-fg-primary);
+  caret-color: var(--color-fg-primary);
+  font: inherit;
+  line-height: 1.5;
+  vertical-align: top;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  overflow-x: hidden;
+  resize: none;
+  outline: none;
+}
+
+.textarea::placeholder {
+  color: var(--color-fg-tertiary);
+}
+
+.slider {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 1.25rem;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-runnable-track {
+  height: 0.25rem;
+  border-radius: 9999px;
+  background-color: var(--color-border-primary);
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1rem;
+  height: 1rem;
+  margin-top: -0.375rem;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 9999px;
+  background-color: var(--color-bg-primary);
+}
+
+.slider::-moz-range-track {
+  height: 0.25rem;
+  border-radius: 9999px;
+  background-color: var(--color-border-primary);
+}
+
+.slider::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid var(--color-border-primary);
+  border-radius: 9999px;
+  background-color: var(--color-bg-primary);
+}
+
+.slider-step-labels {
+  position: relative;
+  width: 100%;
+  min-height: 1.5rem;
+}
+
+.slider-step-label {
+  position: absolute;
+  top: 0;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.slider-step-label-start {
+  transform: translateX(0);
+}
+
+.slider-step-label-center {
+  transform: translateX(-50%);
+}
+
+.slider-step-label-end {
+  transform: translateX(-100%);
 }

@@ -28,6 +28,10 @@ import {
   Text,
   Button,
   TextInput,
+  TextArea,
+  Switch,
+  Slider,
+  Picker,
   ProgressBar,
 } from "@bunnix/components";
 
@@ -40,9 +44,42 @@ Column(
     Button({ variant: "tertiary" }, "Cancel"),
   ),
   TextInput({ label: "Name", placeholder: "Type here" }),
+  TextArea({
+    label: "Notes",
+    minLines: 3,
+    maxLines: 6,
+    placeholder: "Write more...",
+  }),
+  Switch({ checked: false, label: "Enable sync" }),
+  Picker({
+    value: "calendar",
+    options: [
+      { key: "calendar", text: "Calendar", icon: "calendar" },
+      { key: "messages", text: "Messages", icon: "chat_bubble_2" },
+    ],
+  }),
+  Slider({ min: 0, max: 100, step: 5, value: 50 }),
   ProgressBar({ value: 65, color: "success" }),
 );
 ```
+
+## Layout Border Prop
+
+Layout primitives accept a resolved `border` prop:
+
+`"none" | "primary" | "secondary" | "tertiary" | "transparent"`
+
+```js
+Column(
+  { gap: 8 },
+  Column({ border: "primary", padding: "regular", radius: "regular" }, "Primary"),
+  Column({ border: "secondary", padding: "regular", radius: "regular" }, "Secondary"),
+  Column({ border: "tertiary", padding: "regular", radius: "regular" }, "Tertiary"),
+  Column({ border: "transparent", padding: "regular", radius: "regular" }, "Transparent"),
+);
+```
+
+These border tokens automatically adapt to light and dark color schemes, with `secondary` and `tertiary` rendered as softer tones of the primary border.
 
 ## Exported API
 
@@ -50,9 +87,9 @@ Column(
 - Typography: `Heading`, `Text`
 - Media: `Media`, `Icon`, `Spinner`, `Avatar`
 - Buttons: `Button`, `LinkButton`
-- Inputs: `TextInput`, `Select`, `CheckBox`
+- Inputs: `TextInput`, `TextArea`, `Select`, `CheckBox`, `Switch`, `Slider`
 - Data display: `Table`, `Code`
-- Navigation: `Sidebar`, `Menu`
+- Navigation: `Sidebar`, `Picker`, `Menu`
 - Feedback: `useDialog`, `ProgressBar`
 
 ## ProgressBar Colors
@@ -78,9 +115,9 @@ Primary consumer stylesheet:
 
 - `@bunnix/components/styles.css`
 
-Optional core styles (advanced use):
+Canonical public stylesheet:
 
-- `@bunnix/components/src/core/core.css`
+- `@bunnix/components/styles.css`
 - `@bunnix/components/src/core/input.css`
 - `@bunnix/components/src/core/table.css`
 

@@ -1,6 +1,5 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Spacer, Grid } from "../../../src/core/layout.mjs";
+import { Heading, Text, Column, Spacer, Grid } from "@bunnix/components";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 const { div } = Bunnix;
@@ -225,7 +224,45 @@ export function GridPage() {
     ),
     
     Spacer({ minHeight: 16 }),
-    
+
+    ComponentShowcase(
+      {
+        code: `
+        import { Grid, Text } from "@bunnix/components";
+
+        Grid(
+          {
+            columns: [{ size: "1fr" }, { size: "1fr" }],
+            padding: "regular",
+            paddingX: "large",
+            paddingY: "small",
+            border: "primary",
+            radius: "regular",
+          },
+          Text("Item 1"),
+          Text("Item 2"),
+        );
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Grid Padding"),
+      Text("Grid now preserves extracted padding styles alongside grid-specific layout styles."),
+      Spacer({ minHeight: 8 }),
+      Grid(
+        {
+          columns: [{ size: "1fr" }, { size: "1fr" }],
+          padding: "regular",
+          paddingX: "large",
+          paddingY: "small",
+          border: "primary",
+          radius: "regular",
+        },
+        DemoBox("Padding"),
+        DemoBox("Preserved"),
+      ),
+    ),
+
+    Spacer({ minHeight: 16 }),
+
     // Complex Layouts
     ComponentShowcase(
       {

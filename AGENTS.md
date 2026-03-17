@@ -52,13 +52,23 @@ playgrounds/
 - Variants are component-specific; do not force a shared vocabulary.
 - Colors are handled by component-specific props (`Text.color`, `Badge.tone`, `Icon.fill`).
 
+### Border vocabulary
+
+- Layout-style `border` props use `none | primary | secondary | tertiary | transparent`.
+- `secondary` and `tertiary` borders are first-class design tokens, rendered as progressively softer tones of the primary border in both light and dark schemes.
+
 ### Input Components
 
 - `InputField`, `DatePicker`, `TimePicker`, `ComboBox` all support `label` prop for consistency.
+- `TextInput`, `TextArea`, and `Switch` also support `label` for consistency with the simplified input set in this package.
 - `DatePicker` and `TimePicker` use text input with masks, showing popover on focus.
 - `InputField`, `DatePicker`, `TimePicker` disable browser autocomplete by default (`autocomplete="off"`).
 - `InputField` supports mask prop for formatted input (date, phone, currency, CPF, credit card, etc.).
 - All input components use the same wrapper structure: `column-container no-margin shrink-0 gap-0`.
+- `Switch` follows the `CheckBox` boolean API shape (`checked` with `value` alias) but renders as an OS-style sliding toggle.
+- `Slider` is a native range input that supports either linear mode (`min`/`max`/`step`) or discrete custom-step mode (`steps`).
+- In custom-step mode, `Slider` stores and emits the configured numeric step values, not internal index positions.
+- `TextArea` auto-grows between `minLines` and `maxLines`, starts at `3` lines by default, uses `Shift+Enter` for new lines, and submits the parent form on `Enter` when available.
 
 ### Core Buttons
 
@@ -66,6 +76,10 @@ playgrounds/
 - Always default `type="button"` unless explicitly provided.
 - `Button` passes `disabled` through as received (plain or state-like value).
 - `LinkButton` resolves disabled state for click guards and native `disabled` attribute.
+
+### Navigation Components
+
+- `Picker` is a Menu-backed selector that uses an `options` prop with the `Menu` item shape and shows the selected item icon/text in its trigger.
 
 ### State handling
 
