@@ -13,6 +13,10 @@ Icon({ name: "star", color: "secondary", size: 24 });
 
 Props:
 
-- `name`: icon slug (e.g. `"star"`)
-- `fill`: `base | white | secondary | tertiary | quaternary | destructive`
-- `size`: `xsmall | small | regular | large | xlarge`
+- `name`: official Framework7 icon ligature (e.g. `"star"`)
+- `color`: any CSS color or design token-resolved color value
+- `size`: numeric size in pixels or a CSS size value
+
+Framework7 icon discovery:
+
+- [framework7.io/icons](https://framework7.io/icons/)

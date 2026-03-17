@@ -1,10 +1,5 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
-import { Icon } from "../../../src/core/media.mjs";
-import { Table } from "../../../src/core/table.mjs";
-import { Button } from "../../../src/core/buttons.mjs";
-import { Code } from "../../../src/core/code.mjs";
+import { Heading, Text, Column, Row, Spacer, Icon, Table, Button, Code } from "@bunnix/components";
 
 export function TablePage() {
   const sampleData = [

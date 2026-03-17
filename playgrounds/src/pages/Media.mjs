@@ -1,7 +1,5 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
-import { Media, Icon, Spinner, Avatar } from "../../../src/core/media.mjs";
+import { Heading, Text, Column, Row, Spacer, Media, Icon, Spinner, Avatar } from "@bunnix/components";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function MediaPage() {

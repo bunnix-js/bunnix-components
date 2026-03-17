@@ -1,9 +1,5 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Grid, Row, Spacer } from "../../../src/core/layout.mjs";
-import { useDialog } from "../../../src/core/dialog.mjs";
-import { Button } from "../../../src/core/buttons.mjs";
-import { Icon } from "../../../src/core/media.mjs";
+import { Heading, Text, Column, Grid, Row, Spacer, useDialog, Button, Icon } from "@bunnix/components";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function DialogPage() {

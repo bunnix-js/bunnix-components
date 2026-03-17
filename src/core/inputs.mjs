@@ -328,6 +328,9 @@ const PickerCore = (props, _) => {
   const defaultClass =
     "padding-sm border-primary radius-md flex-grow-1 bg-primary text-default";
   const pickerState = Compute([value, optionsValue, disabledValue], (selectedKey, resolvedOptions, isDisabled) => {
+    const firstSelectableOption = (resolvedOptions ?? []).find(
+      (option) => !option.divider && option.key !== undefined && option.key !== null,
+    );
     const selectedItem = (resolvedOptions ?? []).find(
       (option) => !option.divider && option.key === selectedKey,
     );
@@ -349,19 +352,29 @@ const PickerCore = (props, _) => {
       };
     });
 
-    return { selectedItem, menuOptions, isDisabled: !!isDisabled };
+    return { selectedItem, firstSelectableOption, menuOptions, isDisabled: !!isDisabled };
   });
 
-  useEffect(({ selectedItem }) => {
+  useEffect(({ selectedItem, firstSelectableOption }) => {
     const selectedKey = value.get();
     if (!selectedKey || selectedItem) return;
+    if (!firstSelectableOption) {
+      value.set("");
+      props.input &&
+        props.input({
+          target: { value: "" },
+          currentTarget: { value: "" },
+          option: null,
+        });
+      return;
+    }
 
-    value.set("");
+    value.set(firstSelectableOption.key);
     props.input &&
       props.input({
-        target: { value: "" },
-        currentTarget: { value: "" },
-        option: null,
+        target: { value: firstSelectableOption.key },
+        currentTarget: { value: firstSelectableOption.key },
+        option: firstSelectableOption,
       });
   }, pickerState);
 
@@ -377,42 +390,45 @@ const PickerCore = (props, _) => {
 
   return wrapIntoLabel(
     labelProps,
-    Show(pickerState, ({ selectedItem, menuOptions, isDisabled }) =>
-      withExtractedStyles((finalTriggerProps) =>
-        Menu({
-          ...(anchor ? { anchor } : {}),
-          items: menuOptions,
-          trigger: ({ toggle }) =>
-            button(
-              {
-                ...finalTriggerProps,
-                type: "button",
-                disabled: disabledValue,
-                click: () => {
-                  if (isDisabled) return;
-                  toggle();
+    div(
+      {},
+      Show(pickerState, ({ selectedItem, menuOptions, isDisabled }) =>
+        withExtractedStyles((finalTriggerProps) =>
+          Menu({
+            ...(anchor ? { anchor } : {}),
+            items: menuOptions,
+            trigger: ({ toggle }) =>
+              button(
+                {
+                  ...finalTriggerProps,
+                  type: "button",
+                  disabled: disabledValue,
+                  click: () => {
+                    if (isDisabled) return;
+                    toggle();
+                  },
+                  class: `picker-trigger ${defaultClass} ${focusClass} ${
+                    isDisabled ? "picker-trigger-disabled" : ""
+                  } ${finalTriggerProps.class || ""}`.trim(),
                 },
-                class: `picker-trigger ${defaultClass} ${focusClass} ${
-                  isDisabled ? "picker-trigger-disabled" : ""
-                } ${finalTriggerProps.class || ""}`.trim(),
-              },
-              Row(
-                { fillWidth: true, alignItems: "center", gap: "small" },
-                div(
-                  { class: "picker-selection" },
-                  ...(selectedItem?.icon
-                    ? [Icon({ name: selectedItem.icon, size: 16 })]
-                    : []),
-                  ...(selectedItem
-                    ? [Text({ weight: "heavy" }, selectedItem.text ?? selectedItem.key)]
-                    : []),
+                Row(
+                  { fillWidth: true, alignItems: "center", gap: "small" },
+                  div(
+                    { class: "picker-selection" },
+                    ...(selectedItem?.icon
+                      ? [Icon({ name: selectedItem.icon, size: 16 })]
+                      : []),
+                    ...(selectedItem
+                      ? [Text({ weight: "heavy" }, selectedItem.text ?? selectedItem.key)]
+                      : []),
+                  ),
+                  Spacer(),
+                  Icon({ name: "chevron_down", size: 16, color: "secondary" }),
                 ),
-                Spacer(),
-                Icon({ name: "chevron_down", size: 16, color: "secondary" }),
               ),
-            ),
-        })
-      )({ minHeight: 32, textSize: "1rem", ...triggerProps }),
+          })
+        )({ minHeight: 32, textSize: "1rem", ...triggerProps }),
+      ),
     ),
   );
 };

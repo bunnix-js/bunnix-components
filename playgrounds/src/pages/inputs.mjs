@@ -1,7 +1,5 @@
 import Bunnix, { useState } from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Spacer } from "../../../src/core/layout.mjs";
-import { TextInput, TextArea, Select, CheckBox, Switch, SegmentedPicker, Slider } from "../../../src/core/inputs.mjs";
+import { Heading, Text, Column, Spacer, TextInput, TextArea, Select, CheckBox, Switch, SegmentedPicker, Slider } from "@bunnix/components";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function TextInputPage() {

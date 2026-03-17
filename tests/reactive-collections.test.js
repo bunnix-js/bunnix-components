@@ -30,9 +30,17 @@ const inputsSource = readFileSync(
 test("Shared collection helper preserves state-like sources", () => {
   assert.match(utilsSource, /export const resolveCollectionState = \(value, fallback = \[\]\) =>/);
   assert.match(utilsSource, /isStateLike\(value\) \? value : useState\(value \?\? fallback\)/);
+  assert.match(typesSource, /borderRadius\?: number \| string;/);
   assert.match(typesSource, /overflow\?: string;/);
   assert.match(typesSource, /overflowX\?: string;/);
   assert.match(typesSource, /overflowY\?: string;/);
+  assert.match(utilsSource, /const resolveBorderRadius = \(value\) => \{/);
+  assert.match(utilsSource, /if \(value === "md" \|\| value === "regular"\) return "var\(--radius-md\)";/);
+  assert.match(utilsSource, /if \(value === "lg" \|\| value === "large"\) return "var\(--radius-lg\)";/);
+  assert.match(utilsSource, /if \(value === "pill"\) return "9999px";/);
+  assert.match(utilsSource, /if \(value === "circle"\) return "9999%";/);
+  assert.match(utilsSource, /if \("borderRadius" in props\) \{/);
+  assert.match(utilsSource, /style\.borderRadius = resolveBorderRadius\(props\.borderRadius\);/);
   assert.match(utilsSource, /if \("fontSize" in props\) \{/);
   assert.match(utilsSource, /typeof props\.fontSize === "number"/);
   assert.match(utilsSource, /if \("overflowX" in props\) \{/);

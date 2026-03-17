@@ -1,6 +1,5 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Spacer } from "../../../src/core/layout.mjs";
+import { Heading, Text, Column, Spacer } from "@bunnix/components";
 
 export function HomePage() {
   return Column(

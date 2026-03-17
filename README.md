@@ -115,9 +115,9 @@ Primary consumer stylesheet:
 
 - `@bunnix/components/styles.css`
 
-Optional core styles (advanced use):
+Canonical public stylesheet:
 
-- `@bunnix/components/src/core/core.css`
+- `@bunnix/components/styles.css`
 - `@bunnix/components/src/core/input.css`
 - `@bunnix/components/src/core/table.css`
 

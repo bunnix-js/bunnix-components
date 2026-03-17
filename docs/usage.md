@@ -15,7 +15,7 @@ import { Button, Icon, Text } from "@bunnix/components";
 
 Button({ variant: "regular" }, [
   Icon({ name: "star" }),
-  Text({ type: "text" }, "Star")
+  Text("Star")
 ]);
 ```
 
@@ -24,7 +24,7 @@ By default, `Text` and `Icon` inherit a button’s foreground color. You can sti
 ```js
 Button({ variant: "outline" }, [
   Icon({ name: "star", color: "secondary" }),
-  Text({ type: "text", color: "tertiary" }, "Star")
+  Text({ color: "tertiary" }, "Star")
 ]);
 ```
 

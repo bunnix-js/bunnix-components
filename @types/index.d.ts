@@ -45,6 +45,7 @@ export interface LayoutProps extends BaseProps {
   paddingBottom?: number | string;
   paddingLeft?: number | string;
   paddingRight?: number | string;
+  borderRadius?: number | string;
 }
 
 export interface GridColumn {
@@ -349,11 +350,6 @@ export function useDialog(): {
 export const ProgressBar: Component<ProgressBarProps>;
 
 declare module "@bunnix/components/styles.css" {
-  const content: string;
-  export default content;
-}
-
-declare module "@bunnix/components/styles" {
   const content: string;
   export default content;
 }

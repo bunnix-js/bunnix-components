@@ -1,7 +1,5 @@
 import Bunnix, { useState } from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
-import { Sidebar } from "../../../src/core/sidebar.mjs";
+import { Heading, Text, Column, Row, Spacer, Sidebar } from "@bunnix/components";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 const { div } = Bunnix;

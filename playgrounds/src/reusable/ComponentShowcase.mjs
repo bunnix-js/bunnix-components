@@ -1,7 +1,5 @@
 import Bunnix from "@bunnix/core";
-import { Heading } from "../../../src/core/typography.mjs";
-import { Column, Row } from "../../../src/core/layout.mjs";
-import { Code } from "../../../src/core/code.mjs";
+import { Heading, Column, Row, Code } from "@bunnix/components";
 
 /**
  * Reusable component showcase template for playground pages.

@@ -1,6 +1,6 @@
 {
   "name": "@bunnix/components",
-  "version": "0.10.3",
+  "version": "0.11.0",
   "description": "Bunnix components: a set of bunnix ready components for modern web apps.",
   "keywords": [
     "bunnix",
@@ -29,8 +29,7 @@
       "types": "./@types/index.d.ts",
       "default": "./src/index.mjs"
     },
-    "./styles": "./src/core/core.css",
-    "./core.css": "./src/core/core.css"
+    "./styles.css": "./src/core/core.css"
   },
   "sideEffects": [
     "./src/core/*.css"

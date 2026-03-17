@@ -1,10 +1,5 @@
 import Bunnix, { useState } from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
-import { Menu } from "../../../src/core/menu.mjs";
-import { Picker } from "../../../src/core/inputs.mjs";
-import { Button } from "../../../src/core/buttons.mjs";
-import { Icon, Avatar } from "../../../src/core/media.mjs";
+import { Heading, Text, Column, Row, Spacer, Menu, Picker, Button, Icon, Avatar } from "@bunnix/components";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function MenuPage() {

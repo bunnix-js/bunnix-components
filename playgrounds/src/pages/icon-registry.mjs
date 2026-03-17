@@ -1,9 +1,5 @@
 import { Compute, ForEach, useState } from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Spacer, Grid, Row } from "../../../src/core/layout.mjs";
-import { Icon } from "../../../src/core/media.mjs";
-import { Button, LinkButton } from "../../../src/core/buttons.mjs";
-import { TextInput } from "../../../src/core/inputs.mjs";
+import { Heading, Text, Column, Spacer, Grid, Row, Icon, Button, LinkButton, TextInput } from "@bunnix/components";
 import { framework7IconNames } from "../data/framework7-icons.mjs";
 
 const OFFICIAL_ICONS_URL = "https://framework7.io/icons/";

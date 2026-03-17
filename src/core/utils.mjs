@@ -17,6 +17,16 @@ const resolvePadding = (value) => {
   return value; // pass-through for custom values (e.g. "8px", "1rem")
 };
 
+const resolveBorderRadius = (value) => {
+  if (typeof value === "number") return `${value}px`;
+  if (value === "none") return "0";
+  if (value === "md" || value === "regular") return "var(--radius-md)";
+  if (value === "lg" || value === "large") return "var(--radius-lg)";
+  if (value === "pill") return "9999px";
+  if (value === "circle") return "9999%";
+  return value;
+};
+
 export function withNormalizedArgs(fn) {
   return (props = {}, ...children) => {
     const isProps =
@@ -276,6 +286,11 @@ export function withExtractedStyles(fn) {
     if ("paddingRight" in props) {
       style.paddingRight = resolvePadding(props.paddingRight);
       delete finalProps.paddingRight;
+    }
+
+    if ("borderRadius" in props) {
+      style.borderRadius = resolveBorderRadius(props.borderRadius);
+      delete finalProps.borderRadius;
     }
 
     if ("top" in props) {

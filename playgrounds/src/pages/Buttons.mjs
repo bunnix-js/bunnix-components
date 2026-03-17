@@ -1,8 +1,5 @@
 import Bunnix from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
-import { Button, LinkButton } from "../../../src/core/buttons.mjs";
-import { Icon } from "../../../src/core/media.mjs";
+import { Heading, Text, Column, Row, Spacer, Button, LinkButton, Icon } from "@bunnix/components";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function ButtonPage() {

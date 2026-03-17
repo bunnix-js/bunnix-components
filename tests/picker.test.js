@@ -48,7 +48,7 @@ test("Picker composes Menu and updates value on item click", () => {
   assert.match(inputsSource, /const PickerCore = \(props, _\) => \{/);
   assert.match(inputsSource, /const optionsValue = resolveCollectionState\(props\.options \?\? props\.items, \[\]\);/);
   assert.match(inputsSource, /const focusClass = resolveInputFocusClass\(props\.outline\);/);
-  assert.match(inputsSource, /Show\(pickerState, \(\{ selectedItem, menuOptions, isDisabled \}\) =>\s*withExtractedStyles\(\(finalTriggerProps\) =>\s*Menu\(\{/m);
+  assert.match(inputsSource, /div\(\s*\{\},\s*Show\(pickerState, \(\{ selectedItem, menuOptions, isDisabled \}\) =>\s*withExtractedStyles\(\(finalTriggerProps\) =>\s*Menu\(\{/m);
   assert.match(inputsSource, /value\.set\(option\.key\);/);
   assert.match(inputsSource, /target: \{ value: option\.key \}/);
   assert.doesNotMatch(inputsSource, /item\.action\(\)/);
@@ -64,10 +64,14 @@ test("Picker trigger renders selected icon and text with blank-state support", (
   assert.match(inputsSource, /\)\(\{ minHeight: 32, textSize: "1rem", \.\.\.triggerProps \}\),/);
   assert.match(inputsSource, /class: `picker-trigger \$\{defaultClass\} \$\{focusClass\} \$\{/);
   assert.match(inputsSource, /const selectedItem = \(resolvedOptions \?\? \[\]\)\.find\(/);
+  assert.match(inputsSource, /const firstSelectableOption = \(resolvedOptions \?\? \[\]\)\.find\(/);
   assert.match(inputsSource, /const pickerState = Compute\(\[value, optionsValue, disabledValue\],/);
-  assert.match(inputsSource, /useEffect\(\(\{ selectedItem \}\) => \{/);
+  assert.match(inputsSource, /useEffect\(\(\{ selectedItem, firstSelectableOption \}\) => \{/);
   assert.match(inputsSource, /if \(!selectedKey \|\| selectedItem\) return;/);
-  assert.match(inputsSource, /value\.set\(""\);/);
+  assert.match(inputsSource, /if \(!firstSelectableOption\) \{/);
+  assert.match(inputsSource, /value\.set\(firstSelectableOption\.key\);/);
+  assert.match(inputsSource, /target: \{ value: firstSelectableOption\.key \},/);
+  assert.match(inputsSource, /option: firstSelectableOption,/);
   assert.match(inputsSource, /option: null,/);
   assert.match(inputsSource, /disabled: disabledValue,/);
   assert.match(inputsSource, /click: \(\) => \{\s*if \(isDisabled\) return;\s*toggle\(\);\s*\}/m);

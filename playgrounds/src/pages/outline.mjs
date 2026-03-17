@@ -1,9 +1,5 @@
 import Bunnix, { useState } from "@bunnix/core";
-import { Heading, Text } from "../../../src/core/typography.mjs";
-import { Column, Row, Spacer } from "../../../src/core/layout.mjs";
-import { Icon } from "../../../src/core/media.mjs";
-import { Button } from "../../../src/core/buttons.mjs";
-import { Outline } from "../../../src/core/outline.mjs";
+import { Heading, Text, Column, Row, Spacer, Icon, Button, Outline } from "@bunnix/components";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function OutlinePage() {

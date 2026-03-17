@@ -1,6 +1,5 @@
 import Bunnix, { Show, useEffect, useState } from "@bunnix/core";
-import { Column, Grid } from "../../src/core/layout.mjs";
-import { Sidebar } from "../../src/core/sidebar.mjs";
+import { Column, Grid, Sidebar } from "@bunnix/components";
 import { AlignmentPage, ColumnPage, RowPage, SpacerPage } from "./pages/Layout.mjs";
 import { HeadingPage, TextPage } from "./pages/Typography.mjs";
 import { AvatarPage, IconPage, MediaPage, SpinnerPage } from "./pages/Media.mjs";
