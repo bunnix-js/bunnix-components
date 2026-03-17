@@ -76,9 +76,13 @@ test("Picker trigger renders selected icon and text with blank-state support", (
   assert.match(inputsSource, /disabled: disabledValue,/);
   assert.match(inputsSource, /click: \(\) => \{\s*if \(isDisabled\) return;\s*toggle\(\);\s*\}/m);
   assert.match(inputsSource, /isDisabled \? "picker-trigger-disabled" : ""/);
+  assert.match(inputsSource, /const triggerColor = finalTriggerProps\.style\?\.color;/);
   assert.match(inputsSource, /selectedItem\?\.icon/);
+  assert.match(inputsSource, /triggerColor \? \{ color: triggerColor \} : \{\}/);
+  assert.match(inputsSource, /Text\(\s*\{\s*weight: "heavy",\s*\.\.\.\(triggerColor \? \{ color: triggerColor \} : \{\}\),/m);
   assert.match(inputsSource, /selectedItem\.text \?\? selectedItem\.key/);
-  assert.match(inputsSource, /Icon\(\{ name: "chevron_down", size: 16, color: "secondary" \}\)/);
+  assert.match(inputsSource, /name: "chevron_down"/);
+  assert.match(inputsSource, /\.\.\.\(triggerColor \? \{ color: triggerColor \} : \{ color: "secondary" \}\)/);
 });
 
 test("Picker CSS hook exists", () => {

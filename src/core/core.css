@@ -16,7 +16,7 @@
   --color-fg-primary: light-dark(black, white);
   --color-fg-primary-dimmed: light-dark(#868686, #ebebeb);
   --color-fg-primary-inverted: light-dark(white, black);
-  --color-fg-secondary: light-dark(#444, #aaa);
+  --color-fg-secondary: light-dark(#737373, #aaa);
   --color-fg-tertiary: light-dark(#888, #777);
   --color-fg-on-danger: light-dark(#fff, #fff);
 
