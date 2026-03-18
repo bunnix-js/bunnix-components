@@ -352,13 +352,20 @@ const PickerCore = (props, _) => {
       };
     });
 
-    return { selectedItem, firstSelectableOption, menuOptions, isDisabled: !!isDisabled };
+    return {
+      selectedItem,
+      firstSelectableOption,
+      displayItem: selectedItem ?? firstSelectableOption ?? null,
+      menuOptions,
+      isDisabled: !!isDisabled,
+    };
   });
 
   useEffect(({ selectedItem, firstSelectableOption }) => {
     const selectedKey = value.get();
-    if (selectedKey && selectedItem) return;
+    if (selectedItem) return;
     if (!firstSelectableOption) {
+      if (!selectedKey) return;
       value.set("");
       props.input &&
         props.input({
@@ -392,7 +399,7 @@ const PickerCore = (props, _) => {
     labelProps,
     div(
       {},
-      Show(pickerState, ({ selectedItem, menuOptions, isDisabled }) =>
+      Show(pickerState, ({ displayItem, menuOptions, isDisabled }) =>
         withExtractedStyles((finalTriggerProps) =>
           Menu({
             ...(anchor ? { anchor } : {}),
@@ -417,23 +424,23 @@ const PickerCore = (props, _) => {
                   { fillWidth: true, alignItems: "center", gap: "small" },
                   div(
                     { class: "picker-selection" },
-                    ...(selectedItem?.icon
+                    ...(displayItem?.icon
                       ? [
                           Icon({
-                            name: selectedItem.icon,
+                            name: displayItem.icon,
                             size: 16,
                             ...(triggerColor ? { color: triggerColor } : {}),
                           }),
                         ]
                       : []),
-                    ...(selectedItem
+                    ...(displayItem
                       ? [
                           Text(
                             {
                               weight: "heavy",
                               ...(triggerColor ? { color: triggerColor } : {}),
                             },
-                            selectedItem.text ?? selectedItem.key,
+                            displayItem.text ?? displayItem.key,
                           ),
                         ]
                       : []),
