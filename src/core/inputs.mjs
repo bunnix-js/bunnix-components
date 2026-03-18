@@ -357,7 +357,7 @@ const PickerCore = (props, _) => {
 
   useEffect(({ selectedItem, firstSelectableOption }) => {
     const selectedKey = value.get();
-    if (!selectedKey || selectedItem) return;
+    if (selectedKey && selectedItem) return;
     if (!firstSelectableOption) {
       value.set("");
       props.input &&
