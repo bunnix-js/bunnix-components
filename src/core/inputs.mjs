@@ -149,6 +149,7 @@ function getTextAreaVerticalInset(node) {
 function resizeTextArea(node, minLines, maxLines) {
   if (!node) return;
 
+  node.style.height = "auto";
   const metrics = getTextAreaHeightMetrics({
     lineHeight: getLineHeightPx(node),
     scrollHeight: node.scrollHeight,
@@ -157,7 +158,6 @@ function resizeTextArea(node, minLines, maxLines) {
     verticalInset: getTextAreaVerticalInset(node),
   });
 
-  node.style.height = "auto";
   node.style.height = `${metrics.nextHeight}px`;
   node.style.overflowY = metrics.shouldScroll ? "auto" : "hidden";
 }
