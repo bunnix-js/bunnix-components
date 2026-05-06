@@ -1,6 +1,6 @@
 {
   "name": "@bunnix/components",
-  "version": "0.11.3",
+  "version": "0.11.4",
   "description": "Bunnix components: a set of bunnix ready components for modern web apps.",
   "keywords": [
     "bunnix",
@@ -42,9 +42,9 @@
     "test": "node --test"
   },
   "peerDependencies": {
-    "@bunnix/core": "^0.9.4"
+    "@bunnix/core": "^0.10.0"
   },
   "devDependencies": {
-    "@bunnix/core": "^0.9.4"
+    "@bunnix/core": "^0.10.0"
   }
 }
