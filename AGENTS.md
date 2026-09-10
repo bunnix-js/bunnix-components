@@ -159,3 +159,7 @@ When adding utilities, update `README.md` and keep the list concise.
 - Changes to CSS utilities should be reflected in `README.md`.
 - Keep this AGENTS.md updated with any new conventions or package decisions.
 - Use header comments for component purpose and key features, not inline comments for obvious operations.
+
+## Release automation
+
+Release preparation uses the user-supplied version. Main stages packages using Node.js 24 and npm 11.15.0 with the existing NPM_TOKEN. The staging helper verifies npm’s package-name-keyed publish JSON against stage view metadata before reporting a stage ID. Approval is manual on npmjs.com with 2FA; GitHub releases stay drafts until publication is confirmed and explicitly authorized. PR tests run for every target branch. Event titles and bodies enter shell validation only through step environment variables. See docs/RELEASING.md.

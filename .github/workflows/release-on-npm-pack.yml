@@ -1,8 +1,8 @@
-name: Create Release on npm pack
+name: Create draft release after staging
 
 on:
   workflow_run:
-    workflows: ['Publish to npm']
+    workflows: ['Stage npm package']
     types: [completed]
     branches: [main]
 
@@ -12,37 +12,25 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.workflow_run.head_branch }}
-
-      - name: Extract version from package.json
-        id: version
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Ensure draft release exists
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           VERSION=$(node -p "require('./package.json').version")
-          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
-          echo "TAG=v$VERSION" >> $GITHUB_OUTPUT
-
-      - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.version.outputs.TAG }}
-          release_name: "Release ${{ steps.version.outputs.VERSION }}"
-          body: |
-            ## @bunnix/components v${{ steps.version.outputs.VERSION }}
-
-            This release was automatically created after successful npm pack.
-
-            ### Installation
-            ```bash
-            npm install @bunnix/components@${{ steps.version.outputs.VERSION }}
-            ```
-
-            For more information, see the [documentation](https://github.com/bunnix-js/bunnix-components).
-          draft: false
-          prerelease: false
+          TAG="v$VERSION"
+          gh api --paginate "repos/$GITHUB_REPOSITORY/releases" --jq '.[].tag_name' > /tmp/release-tags
+          if grep -Fxq "$TAG" /tmp/release-tags; then
+            echo "Release $TAG already exists; leaving its state unchanged."
+          else
+            gh release create "$TAG" --draft --target "$RELEASE_SHA" \
+              --title "Release $VERSION" \
+              --notes "Awaiting manual npmjs.com approval with 2FA. Confirm npm publication and checksum before explicitly publishing this GitHub release. See docs/RELEASING.md."
+          fi
