@@ -18,6 +18,7 @@ export function ButtonPage() {
         Button("Primary Button");
         Button({ variant: "secondary" }, "Secondary");
         Button({ variant: "tertiary" }, "Tertiary");
+        Button({ variant: "flat" }, "Flat");
         Button({ variant: "danger" }, "Danger");
         Button(
           Icon({ name: "checkmark", size: 16 }),
@@ -36,6 +37,7 @@ export function ButtonPage() {
           Button("Primary"),
           Button({ variant: "secondary" }, "Secondary"),
           Button({ variant: "tertiary" }, "Tertiary"),
+          Button({ variant: "flat" }, "Flat"),
           Button({ variant: "danger" }, "Danger"),
         ),
         Row(
