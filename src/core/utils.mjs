@@ -89,12 +89,17 @@ export function withExtractedStyles(fn) {
       } else {
         if (props.weight === "regular" || props.weight === "default")
           style.fontWeight = "var(--font-weight-default)";
-        if (props.weight === "heavy")
+        if (props.weight === "heavy" || props.weight === "medium")
           style.fontWeight = "var(--font-weight-heavy)";
-        if (props.weight === "heavier")
+        if (props.weight === "heavier" || props.weight === "bold")
           style.fontWeight = "var(--font-weight-heavier)";
       }
       delete finalProps.weight;
+    }
+
+    if ("fontWeight" in props) {
+      style.fontWeight = props.fontWeight;
+      delete finalProps.fontWeight;
     }
 
     if ("overflow" in props) {
@@ -123,6 +128,11 @@ export function withExtractedStyles(fn) {
       if (props.bgColor === "warning-dimmed") style.backgroundColor = "var(--color-warning-dimmed)";
       if (props.bgColor === "danger") style.backgroundColor = "var(--color-danger)";
       delete finalProps.bgColor;
+    }
+
+    if ("background" in props) {
+      style.background = props.background;
+      delete finalProps.background;
     }
 
     if ("width" in props) {
