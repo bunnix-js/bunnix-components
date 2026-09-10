@@ -88,7 +88,7 @@ export interface IconProps extends LayoutProps {
 
 export interface ButtonProps extends LayoutProps {
   type?: string;
-  variant?: "primary" | "secondary" | "tertiary" | "danger" | string;
+  variant?: "primary" | "secondary" | "tertiary" | "flat" | "danger" | string;
   disabled?: boolean | StateLike<boolean>;
   outline?: boolean;
   padding?: number | string | boolean;
