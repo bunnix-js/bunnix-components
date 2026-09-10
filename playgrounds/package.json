@@ -17,11 +17,11 @@
     "style-loader": "^4.0.0",
     "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.3"
+    "webpack-dev-server": "^6.0.0"
   },
   "dependencies": {
     "@bunnix/components": "file:..",
-    "@bunnix/core": "^0.9.4",
+    "@bunnix/core": "^0.10.0",
     "prismjs": "^1.30.0"
   }
 }
