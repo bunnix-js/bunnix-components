@@ -1,5 +1,6 @@
 node_modules/
 dist/
 .agents/
+.worktrees/
 
 .DS_Store
