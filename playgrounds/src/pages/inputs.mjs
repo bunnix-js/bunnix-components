@@ -533,7 +533,8 @@ export function SliderPage() {
 }
 
 export function SwitchPage() {
-  const switchValue = useState(false);
+  const baseEnabled = useState(false);
+  const boundEnabled = useState(false);
 
   return Column(
     Heading({ h2: true }, "Switch Component"),
@@ -552,18 +553,58 @@ export function SwitchPage() {
 
         Switch({ checked: enabled });
         Switch({ checked: enabled, label: "Enable notifications" });
-        Switch({ checked: true, disabled: true, label: "Disabled" });
         `,
       },
-      Heading({ h3: true, color: "secondary" }, "Switch"),
-      Text("OS-style toggle switch with optional label and boolean state binding."),
+      Heading({ h3: true, color: "secondary" }, "Base Toggle"),
+      Text("Sliding toggle with optional label."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
-        Switch({ checked: switchValue }),
-        Switch({ checked: switchValue, label: "Enable notifications" }),
-        Switch({ checked: true, disabled: true, label: "Disabled" }),
-        Text({ color: "secondary" }, switchValue.map((value) => `Enabled: ${value}`)),
+        Switch({ checked: baseEnabled }),
+        Switch({ checked: baseEnabled, label: "Enable notifications" }),
+      ),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { Switch, Text } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const enabled = useState(false);
+
+        Switch({ checked: enabled, label: "Checked binding" });
+        Switch({ value: enabled, label: "Via value alias" });
+        Text(enabled.map((v) => \`Enabled: \${v}\`));
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Reactive Binding"),
+      Text("Two-way binding with useState; checked and value alias share the same state."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        Switch({ checked: boundEnabled, label: "Checked binding" }),
+        Switch({ value: boundEnabled, label: "Via value alias" }),
+        Text({ color: "secondary" }, boundEnabled.map((value) => `Enabled: ${value}`)),
+      ),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { Switch } from "@bunnix/components";
+
+        Switch({ checked: true, disabled: true, label: "Disabled on" });
+        Switch({ checked: false, disabled: true, label: "Disabled off" });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Disabled"),
+      Text("Disabled state blocks interaction."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        Switch({ checked: true, disabled: true, label: "Disabled on" }),
+        Switch({ checked: false, disabled: true, label: "Disabled off" }),
       ),
     ),
   );
