@@ -42,6 +42,7 @@ Column(
     { gap: 8 },
     Button({ variant: "primary" }, "Save"),
     Button({ variant: "tertiary" }, "Cancel"),
+    Button({ variant: "quaternary" }, "More"),
   ),
   TextInput({ label: "Name", placeholder: "Type here" }),
   TextArea({

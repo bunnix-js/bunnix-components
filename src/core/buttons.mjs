@@ -72,7 +72,7 @@ const LinkButtonCore = (props, ...children) => {
  * Standard button component with multiple variants and states.
  * 
  * @param {Object} props - Component props
- * @param {string} [props.variant="primary"] - Button style variant: "primary" | "secondary" | "tertiary" | "danger"
+ * @param {string} [props.variant="primary"] - Button style variant: "primary" | "secondary" | "tertiary" | "quaternary" | "danger"
  * @param {boolean} [props.disabled] - Disabled state
  * @param {boolean} [props.outline=false] - Show focus outline
  * @param {boolean} [props.padding=true] - Apply default padding (can be disabled for custom layouts)

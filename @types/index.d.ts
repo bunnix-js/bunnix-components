@@ -17,6 +17,7 @@ export type StateLike<T = any> = {
 export interface LayoutProps extends BaseProps {
   gap?: number | string;
   fontSize?: number | string;
+  textSize?: number | string;
   overflow?: string;
   overflowX?: string;
   overflowY?: string;
@@ -88,7 +89,7 @@ export interface IconProps extends LayoutProps {
 
 export interface ButtonProps extends LayoutProps {
   type?: string;
-  variant?: "primary" | "secondary" | "tertiary" | "danger" | string;
+  variant?: "primary" | "secondary" | "tertiary" | "quaternary" | "danger" | string;
   disabled?: boolean | StateLike<boolean>;
   outline?: boolean;
   padding?: number | string | boolean;

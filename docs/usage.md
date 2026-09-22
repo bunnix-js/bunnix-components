@@ -13,7 +13,7 @@ Basic usage:
 import "@bunnix/components/styles.css";
 import { Button, Icon, Text } from "@bunnix/components";
 
-Button({ variant: "regular" }, [
+Button([
   Icon({ name: "star" }),
   Text("Star")
 ]);
@@ -22,7 +22,7 @@ Button({ variant: "regular" }, [
 By default, `Text` and `Icon` inherit a button’s foreground color. You can still override per element:
 
 ```js
-Button({ variant: "outline" }, [
+Button({ variant: "secondary" }, [
   Icon({ name: "star", color: "secondary" }),
   Text({ color: "tertiary" }, "Star")
 ]);
