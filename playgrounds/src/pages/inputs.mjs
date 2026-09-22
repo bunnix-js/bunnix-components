@@ -206,7 +206,9 @@ export function TextAreaPage() {
 }
 
 export function SelectPage() {
-  const selectValue = useState("option1");
+  const baseValue = useState("option1");
+  const boundValue = useState("option2");
+  const renderValue = useState("small");
 
   return Column(
     Heading({ h2: true }, "Select Component"),
@@ -231,6 +233,28 @@ export function SelectPage() {
             { key: "option3", content: "Option 3" },
           ],
         });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Base Dropdown"),
+      Text("Dropdown with options keyed by value."),
+      Spacer({ minHeight: 8 }),
+      Select({
+        value: baseValue,
+        options: [
+          { key: "option1", content: "Option 1" },
+          { key: "option2", content: "Option 2" },
+          { key: "option3", content: "Option 3" },
+        ],
+      }),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { Select, Text } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const value = useState("option2");
 
         Select({
           value,
@@ -238,25 +262,19 @@ export function SelectPage() {
           options: [
             { key: "option1", content: "Option 1" },
             { key: "option2", content: "Option 2" },
+            { key: "option3", content: "Option 3" },
           ],
         });
+        Text(value.map((v) => \`Selected: "\${v}"\`));
         `,
       },
-      Heading({ h3: true, color: "secondary" }, "Select"),
-      Text("Dropdown select input with mapped options and state binding."),
+      Heading({ h3: true, color: "secondary" }, "Reactive Binding"),
+      Text("Two-way binding with useState; external edits sync via value.get/set."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
         Select({
-          value: selectValue,
-          options: [
-            { key: "option1", content: "Option 1" },
-            { key: "option2", content: "Option 2" },
-            { key: "option3", content: "Option 3" },
-          ],
-        }),
-        Select({
-          value: selectValue,
+          value: boundValue,
           label: "Choose option",
           options: [
             { key: "option1", content: "Option 1" },
@@ -264,8 +282,41 @@ export function SelectPage() {
             { key: "option3", content: "Option 3" },
           ],
         }),
-        Text({ color: "secondary" }, `Selected: ${selectValue.get()}`),
+        Text({ color: "secondary" }, boundValue.map((v) => `Selected: "${v}"`)),
       ),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { Select } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const value = useState("small");
+
+        Select({
+          value,
+          label: "Size",
+          options: [
+            { key: "small", content: "Small — compact" },
+            { key: "medium", content: "Medium — balanced" },
+            { key: "large", content: "Large — spacious" },
+          ],
+        });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Option Rendering"),
+      Text("Labels and content strings render from the options array; keys stay stable."),
+      Spacer({ minHeight: 8 }),
+      Select({
+        value: renderValue,
+        label: "Size",
+        options: [
+          { key: "small", content: "Small — compact" },
+          { key: "medium", content: "Medium — balanced" },
+          { key: "large", content: "Large — spacious" },
+        ],
+      }),
     ),
   );
 }
