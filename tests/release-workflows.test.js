@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { stagePackage, npmJson } from '../scripts/stage-package.mjs';
 
-const pkg = { name: '@bunnix/components', version: '0.11.5' };
+const pkg = { name: '@bunnix/components', version: '0.11.6' };
 const stageId = '12345678-1234-1234-1234-123456789abc';
 const staged = { ...pkg, stageId, shasum: 'a'.repeat(40) };
 const viewed = { id: stageId, packageName: pkg.name, version: pkg.version, shasum: staged.shasum };
@@ -18,7 +18,7 @@ test('stages and verifies a version even when registry latest is newer', () => {
   assert.deepEqual(runner.calls, [['view', pkg.name, 'versions', '--json'], ['stage', 'publish', '--access', 'public', '--json'], ['stage', 'view', stageId, '--json']]);
 });
 test('skips an exact published version even when it is not latest', () => {
-  const runner = mock([['0.11.5', '0.12.0']]);
+  const runner = mock([['0.11.6', '0.12.0']]);
   assert.match(stagePackage(pkg, runner), /Skipped/);
   assert.equal(runner.calls.length, 1);
 });
