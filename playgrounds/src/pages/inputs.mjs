@@ -398,8 +398,9 @@ export function CheckBoxPage() {
 }
 
 export function SliderPage() {
-  const sliderValue = useState(50);
-  const customSliderValue = useState(100);
+  const linearValue = useState(50);
+  const discreteValue = useState(100);
+  const reactiveValue = useState(30);
 
   return Column(
     Heading({ h2: true }, "Slider Component"),
@@ -415,12 +416,32 @@ export function SliderPage() {
         import { useState } from "@bunnix/core";
 
         const value = useState(50);
-        const customValue = useState(100);
 
         Slider({ value, min: 0, max: 100, step: 5, label: "Volume" });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Linear Mode"),
+      Text("Native range input with min, max and step increments."),
+      Spacer({ minHeight: 8 }),
+      Slider({
+        value: linearValue,
+        min: 0,
+        max: 100,
+        step: 5,
+        label: "Volume",
+      }),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { Slider } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const value = useState(100);
 
         Slider({
-          value: customValue,
+          value,
           label: "Revenue target",
           steps: [
             { value: 10, label: "10K" },
@@ -430,32 +451,82 @@ export function SliderPage() {
         });
         `,
       },
-      Heading({ h3: true, color: "secondary" }, "Slider"),
-      Text("Range input with native linear mode or evenly distributed custom steps."),
+      Heading({ h3: true, color: "secondary" }, "Discrete Steps"),
+      Text("Evenly distributed custom steps storing the configured numeric values."),
+      Spacer({ minHeight: 8 }),
+      Slider({
+        value: discreteValue,
+        label: "Revenue target",
+        steps: [
+          { value: 10, label: "10K" },
+          { value: 100, label: "100K" },
+          { value: 1000, label: "1000K" },
+        ],
+      }),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { Slider, Text } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const value = useState(30);
+
+        Slider({ value, min: 0, max: 100, step: 5, label: "Brightness" });
+        Text(value.map((v) => \`Value: \${v}\`));
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Reactive Value"),
+      Text("Two-way binding with useState; external edits sync via value.get/set."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
         Slider({
-          value: sliderValue,
+          value: reactiveValue,
           min: 0,
           max: 100,
           step: 5,
-          label: "Volume",
+          label: "Brightness",
         }),
-        Text({ color: "secondary" }, sliderValue.map((value) => `Value: ${value}`)),
+        Text({ color: "secondary" }, reactiveValue.map((value) => `Value: ${value}`)),
+      ),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { Slider } from "@bunnix/components";
+
+        Slider({ value: 40, min: 0, max: 100, label: "Disabled", disabled: true });
         Slider({
-          value: customSliderValue,
-          label: "Revenue target",
+          value: 100,
+          label: "Disabled target",
+          disabled: true,
+          steps: [
+            { value: 10, label: "10K" },
+            { value: 100, label: "100K" },
+            { value: 1000, label: "1000K" },
+          ],
+        });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Disabled"),
+      Text("Disabled state blocks interaction. Accepts a plain boolean or reactive state."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        Slider({ value: 40, min: 0, max: 100, label: "Disabled", disabled: true }),
+        Slider({
+          value: 100,
+          label: "Disabled target",
+          disabled: true,
           steps: [
             { value: 10, label: "10K" },
             { value: 100, label: "100K" },
             { value: 1000, label: "1000K" },
           ],
         }),
-        Text(
-          { color: "secondary" },
-          customSliderValue.map((value) => `Selected target: ${value}`),
-        ),
       ),
     ),
   );
