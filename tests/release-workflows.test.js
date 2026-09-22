@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { stagePackage, npmJson } from '../scripts/stage-package.mjs';
 
-const pkg = { name: '@bunnix/components', version: '0.11.6' };
+const pkg = { name: '@bunnix/components', version: '0.12.0' };
 const stageId = '12345678-1234-1234-1234-123456789abc';
 const staged = { ...pkg, stageId, shasum: 'a'.repeat(40) };
 const viewed = { id: stageId, packageName: pkg.name, version: pkg.version, shasum: staged.shasum };
@@ -13,12 +13,12 @@ function mock(responses) {
   return { calls, run(args) { calls.push(args); let result = responses.shift(); if (args[0] === 'stage' && args[1] === 'publish' && !(result instanceof Error)) result = { [pkg.name]: result }; if (result instanceof Error) throw result; return result; } };
 }
 test('stages and verifies a version even when registry latest is newer', () => {
-  const runner = mock([['0.11.4', '0.12.0'], staged, viewed]);
+  const runner = mock([['0.11.4', '0.13.0'], staged, viewed]);
   assert.match(stagePackage(pkg, runner), new RegExp(stageId));
   assert.deepEqual(runner.calls, [['view', pkg.name, 'versions', '--json'], ['stage', 'publish', '--access', 'public', '--json'], ['stage', 'view', stageId, '--json']]);
 });
 test('skips an exact published version even when it is not latest', () => {
-  const runner = mock([['0.11.6', '0.12.0']]);
+  const runner = mock([['0.12.0', '0.13.0']]);
   assert.match(stagePackage(pkg, runner), /Skipped/);
   assert.equal(runner.calls.length, 1);
 });
