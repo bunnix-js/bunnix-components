@@ -570,7 +570,8 @@ export function SwitchPage() {
 }
 
 export function SegmentedPickerPage() {
-  const textValue = useState("week");
+  const baseValue = useState("week");
+  const selectedValue = useState("week");
   const iconValue = useState("calendar");
 
   return Column(
@@ -587,7 +588,6 @@ export function SegmentedPickerPage() {
         import { useState } from "@bunnix/core";
 
         const timeframe = useState("week");
-        const destination = useState("calendar");
 
         SegmentedPicker({
           value: timeframe,
@@ -597,6 +597,64 @@ export function SegmentedPickerPage() {
             { key: "month", text: "Month" },
           ],
         });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Base Segments"),
+      Text("Text-only segments for single keyed selection."),
+      Spacer({ minHeight: 8 }),
+      SegmentedPicker({
+        value: baseValue,
+        items: [
+          { key: "day", text: "Day" },
+          { key: "week", text: "Week" },
+          { key: "month", text: "Month" },
+        ],
+      }),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { SegmentedPicker, Text } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const range = useState("week");
+
+        SegmentedPicker({
+          value: range,
+          items: [
+            { key: "day", text: "Day" },
+            { key: "week", text: "Week" },
+            { key: "month", text: "Month" },
+          ],
+        });
+        Text(range.map((v) => \`Selected range: "\${v}"\`));
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Reactive Selection"),
+      Text("Two-way binding with useState; selection syncs via value.get/set."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        SegmentedPicker({
+          value: selectedValue,
+          items: [
+            { key: "day", text: "Day" },
+            { key: "week", text: "Week" },
+            { key: "month", text: "Month" },
+          ],
+        }),
+        Text({ color: "secondary" }, selectedValue.map((value) => `Selected range: "${value}"`)),
+      ),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { SegmentedPicker, Text } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const destination = useState("calendar");
 
         SegmentedPicker({
           value: destination,
@@ -606,22 +664,14 @@ export function SegmentedPickerPage() {
             { key: "mail", text: "Mail", icon: "envelope" },
           ],
         });
+        Text(destination.map((v) => \`Selected destination: "\${v}"\`));
         `,
       },
-      Heading({ h3: true, color: "secondary" }, "SegmentedPicker"),
-      Text("Classic segmented control for single keyed selection."),
+      Heading({ h3: true, color: "secondary" }, "With Icons"),
+      Text("Segments combining icons and text labels."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
-        SegmentedPicker({
-          value: textValue,
-          items: [
-            { key: "day", text: "Day" },
-            { key: "week", text: "Week" },
-            { key: "month", text: "Month" },
-          ],
-        }),
-        Text({ color: "secondary" }, textValue.map((value) => `Selected range: ${value}`)),
         SegmentedPicker({
           value: iconValue,
           items: [
@@ -630,7 +680,15 @@ export function SegmentedPickerPage() {
             { key: "mail", text: "Mail", icon: "envelope" },
           ],
         }),
-        Text({ color: "secondary" }, iconValue.map((value) => `Selected destination: ${value}`)),
+        Text({ color: "secondary" }, iconValue.map((value) => `Selected destination: "${value}"`)),
+      ),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { SegmentedPicker } from "@bunnix/components";
+
         SegmentedPicker({
           value: "week",
           disabled: true,
@@ -639,8 +697,21 @@ export function SegmentedPickerPage() {
             { key: "week", text: "Week" },
             { key: "month", text: "Month" },
           ],
-        }),
-      ),
+        });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Disabled"),
+      Text("Disabled state blocks interaction."),
+      Spacer({ minHeight: 8 }),
+      SegmentedPicker({
+        value: "week",
+        disabled: true,
+        items: [
+          { key: "day", text: "Day" },
+          { key: "week", text: "Week" },
+          { key: "month", text: "Month" },
+        ],
+      }),
     ),
   );
 }
