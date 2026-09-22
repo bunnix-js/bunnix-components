@@ -22,7 +22,7 @@ Then import components as needed:
 ```js
 import { Button, Icon } from "@bunnix/components";
 
-Button({ variant: "regular" }, [
+Button([
   Icon({ name: "star", color: "primary-inverted" }),
   "Star"
 ]);

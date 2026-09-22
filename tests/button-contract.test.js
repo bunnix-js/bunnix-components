@@ -10,23 +10,32 @@ const playground = readFileSync(
   "utf8",
 );
 
-test("flat Button shares tertiary base styling", () => {
-  assert.match(css, /\.button\.tertiary,\s*\n\.button\.flat\s*\{/);
+test("quaternary Button shares tertiary base styling", () => {
+  assert.match(css, /\.button\.tertiary,\s*\n\.button\.quaternary\s*\{/);
   assert.match(
     css,
-    /\.button\.tertiary,\s*\n\.button\.flat\s*\{[^}]*background-color:\s*transparent;[^}]*color:\s*var\(--color-fg-primary\);[^}]*border:\s*1px solid transparent;/s,
+    /\.button\.tertiary,\s*\n\.button\.quaternary\s*\{[^}]*background-color:\s*transparent;[^}]*color:\s*var\(--color-fg-primary\);[^}]*border:\s*1px solid transparent;/s,
   );
 });
 
-test("flat Button hover uses the Highlight color at 15 percent opacity", () => {
+test("quaternary Button hover blends a design token with transparency", () => {
   assert.match(
     css,
-    /\.button\.flat:hover:not\(:disabled\)\s*\{\s*background-color:\s*color-mix\(in srgb, Highlight 15%, transparent\);\s*\}/,
+    /\.button\.quaternary:hover:not\(:disabled\)\s*\{[^}]*background-color:\s*var\(--color-bg-primary-dimmed\);[^}]*background-color:\s*color-mix\(in srgb, var\(--color-fg-primary\) 15%, transparent\);[^}]*\}/s,
   );
+  assert.doesNotMatch(css, /Highlight/);
+  assert.doesNotMatch(css, /--color-link[^;]*transparent/);
 });
 
-test("flat is documented in the Button API and playground", () => {
-  assert.match(types, /variant\?:[^;]*"flat"/);
-  assert.match(source, /"tertiary" \| "flat" \| "danger"/);
-  assert.match(playground, /Button\(\{ variant: "flat" \}, "Flat"\)/);
+test("flat variant no longer exists in the Button API", () => {
+  assert.doesNotMatch(css, /\.button\.flat/);
+  assert.doesNotMatch(types, /"flat"/);
+  assert.doesNotMatch(source, /"flat"/);
+  assert.doesNotMatch(playground, /variant: "flat"/);
+});
+
+test("quaternary is documented in the Button API and playground", () => {
+  assert.match(types, /variant\?:[^;]*"quaternary"/);
+  assert.match(source, /"tertiary" \| "quaternary" \| "danger"/);
+  assert.match(playground, /Button\(\{ variant: "quaternary" \}, "Quaternary"\)/);
 });

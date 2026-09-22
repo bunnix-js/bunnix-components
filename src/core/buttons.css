@@ -44,7 +44,7 @@
 }
 
 .button.tertiary,
-.button.flat {
+.button.quaternary {
   background-color: transparent;
   color: var(--color-fg-primary);
   border: 1px solid transparent;
@@ -54,8 +54,9 @@
   background-color: var(--color-bg-secondary);
 }
 
-.button.flat:hover:not(:disabled) {
-  background-color: color-mix(in srgb, Highlight 15%, transparent);
+.button.quaternary:hover:not(:disabled) {
+  background-color: var(--color-bg-primary-dimmed);
+  background-color: color-mix(in srgb, var(--color-fg-primary) 15%, transparent);
 }
 
 .button.danger {

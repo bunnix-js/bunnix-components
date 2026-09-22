@@ -32,7 +32,7 @@ npm install @bunnix/components @bunnix/core
 import "@bunnix/components/styles.css";
 import { Button, Icon } from "@bunnix/components";
 
-Button({ variant: "regular" }, [
+Button([
   Icon({ name: "star", color: "primary-inverted" }),
   "Star"
 ]);

@@ -1,5 +1,5 @@
 import { useState } from "@bunnix/core";
-import { Heading, Text, Column, Row, Spacer, Button, LinkButton, Icon } from "@bunnix/components";
+import { Heading, Text, Column, Row, Spacer, Grid, Button, LinkButton, Icon } from "@bunnix/components";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function ButtonPage() {
@@ -63,19 +63,19 @@ export function ButtonPage() {
         Button("Primary");
         Button({ variant: "secondary" }, "Secondary");
         Button({ variant: "tertiary" }, "Tertiary");
-        Button({ variant: "flat" }, "Flat");
+        Button({ variant: "quaternary" }, "Quaternary");
         Button({ variant: "danger" }, "Danger");
         `,
       },
       Heading({ h3: true, color: "secondary" }, "Variants"),
-      Text("Style variants without icons. Flat shares the tertiary base with its own hover state."),
+      Text("Style variants without icons. Quaternary shares the tertiary base with a transparent-blend hover instead of a solid fill."),
       Spacer({ minHeight: 8 }),
-      Row(
-        { gap: "small" },
+      Grid(
+        { layout: "flow", gridGap: "small" },
         Button("Primary"),
         Button({ variant: "secondary" }, "Secondary"),
         Button({ variant: "tertiary" }, "Tertiary"),
-        Button({ variant: "flat" }, "Flat"),
+        Button({ variant: "quaternary" }, "Quaternary"),
         Button({ variant: "danger" }, "Danger"),
       ),
     ),
@@ -90,9 +90,9 @@ export function ButtonPage() {
           "With Icon"
         );
         Button(
-          { variant: "flat" },
+          { variant: "quaternary" },
           Icon({ name: "star", size: 16 }),
-          "Flat Star"
+          "Quaternary Star"
         );
         `,
       },
@@ -106,9 +106,9 @@ export function ButtonPage() {
           "With Icon",
         ),
         Button(
-          { variant: "flat" },
+          { variant: "quaternary" },
           Icon({ name: "star", size: 16 }),
-          "Flat Star",
+          "Quaternary Star",
         ),
       ),
     ),
