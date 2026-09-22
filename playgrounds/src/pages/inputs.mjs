@@ -271,7 +271,8 @@ export function SelectPage() {
 }
 
 export function CheckBoxPage() {
-  const checkboxValue = useState(false);
+  const baseChecked = useState(false);
+  const boundChecked = useState(false);
 
   return Column(
     Heading({ h2: true }, "CheckBox Component"),
@@ -289,17 +290,57 @@ export function CheckBoxPage() {
         const checked = useState(false);
 
         CheckBox({ checked });
-        CheckBox({ checked, label: "Accept terms" });
         `,
       },
-      Heading({ h3: true, color: "secondary" }, "CheckBox"),
-      Text("Simple checkbox input with optional label and state binding."),
+      Heading({ h3: true, color: "secondary" }, "Base Usage"),
+      Text("Bare checkbox without label."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
-        CheckBox({ checked: checkboxValue }),
-        CheckBox({ checked: checkboxValue, label: "Accept terms" }),
-        Text({ color: "secondary" }, `Checked: ${checkboxValue.get()}`),
+        CheckBox({ checked: baseChecked }),
+      ),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { CheckBox, Text } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const checked = useState(false);
+
+        CheckBox({ checked, label: "Subscribe" });
+        CheckBox({ value: checked, label: "Via value alias" });
+        Text(checked.map((v) => \`Checked: \${v}\`));
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Reactive Binding"),
+      Text("Two-way binding with useState; checked and value alias share the same state."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        CheckBox({ checked: boundChecked, label: "Subscribe" }),
+        CheckBox({ value: boundChecked, label: "Via value alias" }),
+        Text({ color: "secondary" }, boundChecked.map((v) => `Checked: ${v}`)),
+      ),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { CheckBox } from "@bunnix/components";
+
+        CheckBox({ checked: true, disabled: true, label: "Disabled checked" });
+        CheckBox({ checked: false, disabled: true, label: "Disabled unchecked" });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Disabled"),
+      Text("Disabled state blocks interaction."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        CheckBox({ checked: true, disabled: true, label: "Disabled checked" }),
+        CheckBox({ checked: false, disabled: true, label: "Disabled unchecked" }),
       ),
     ),
   );
