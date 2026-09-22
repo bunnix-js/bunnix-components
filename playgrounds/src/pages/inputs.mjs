@@ -3,7 +3,11 @@ import { Heading, Text, Column, Spacer, TextInput, TextArea, Select, CheckBox, S
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function TextInputPage() {
-  const textValue = useState("");
+  const baseValue = useState("");
+  const boundValue = useState("Hello");
+  const textTypeValue = useState("");
+  const emailValue = useState("");
+  const dateValue = useState(new Date(2026, 8, 22));
 
   return Column(
     Heading({ h2: true }, "TextInput Component"),
@@ -20,20 +24,79 @@ export function TextInputPage() {
 
         const value = useState("");
 
-        TextInput({ value, placeholder: "Enter text..." });
-        TextInput({ value, label: "Name" });
-        TextInput({ value, type: "email", placeholder: "email@example.com" });
+        TextInput({ value, label: "Name", placeholder: "Enter text..." });
         `,
       },
-      Heading({ h3: true, color: "secondary" }, "TextInput"),
-      Text("Single-line text input with optional placeholder and state binding."),
+      Heading({ h3: true, color: "secondary" }, "Base Input"),
+      Text("Label plus placeholder with state binding."),
+      Spacer({ minHeight: 8 }),
+      TextInput({ value: baseValue, label: "Name", placeholder: "Enter text..." }),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { TextInput, Text } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const value = useState("Hello");
+
+        TextInput({ value, placeholder: "Type here..." });
+        Text(value.map((v) => \`Current value: "\${v}"\`));
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Reactive Binding"),
+      Text("Two-way binding with useState; external edits sync via value.get/set."),
       Spacer({ minHeight: 8 }),
       Column(
         { gap: "regular" },
-        TextInput({ value: textValue, placeholder: "Enter text..." }),
-        TextInput({ value: textValue, label: "Name" }),
-        TextInput({ value: textValue, type: "email", placeholder: "email@example.com" }),
-        Text({ color: "secondary" }, `Current value: "${textValue.get()}"`),
+        TextInput({ value: boundValue, placeholder: "Type here..." }),
+        Text({ color: "secondary" }, boundValue.map((v) => `Current value: "${v}"`)),
+      ),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { TextInput } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const text = useState("");
+        const email = useState("");
+        const birthday = useState(new Date(2026, 8, 22));
+
+        TextInput({ value: text, type: "text", label: "Username", placeholder: "Enter username..." });
+        TextInput({ value: email, type: "email", label: "Email", placeholder: "email@example.com" });
+        TextInput({ value: birthday, type: "date", label: "Birthday" });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Input Types"),
+      Text("Native types text, email and date. Date accepts a Date state and renders yyyy-mm-dd."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        TextInput({ value: textTypeValue, type: "text", label: "Username", placeholder: "Enter username..." }),
+        TextInput({ value: emailValue, type: "email", label: "Email", placeholder: "email@example.com" }),
+        TextInput({ value: dateValue, type: "date", label: "Birthday" }),
+      ),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { TextInput } from "@bunnix/components";
+
+        TextInput({ value: "Disabled text", label: "Disabled", disabled: true });
+        TextInput({ value: "", label: "Disabled empty", placeholder: "Cannot type here", disabled: true });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Disabled"),
+      Text("Disabled state blocks interaction. Accepts a plain boolean or reactive state."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        TextInput({ value: "Disabled text", label: "Disabled", disabled: true }),
+        TextInput({ value: "", label: "Disabled empty", placeholder: "Cannot type here", disabled: true }),
       ),
     ),
   );
