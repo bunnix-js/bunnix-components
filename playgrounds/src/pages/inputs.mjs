@@ -103,7 +103,10 @@ export function TextInputPage() {
 }
 
 export function TextAreaPage() {
-  const textAreaValue = useState("Line one\nLine two");
+  const baseValue = useState("");
+  const boundValue = useState("Line one\nLine two");
+  const growValue = useState("");
+  const keysValue = useState("");
 
   return Column(
     Heading({ h2: true }, "TextArea Component"),
@@ -118,10 +121,50 @@ export function TextAreaPage() {
         import { TextArea } from "@bunnix/components";
         import { useState } from "@bunnix/core";
 
+        const value = useState("");
+
+        TextArea({ value, label: "Notes", placeholder: "Write a message..." });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Base Input"),
+      Text("Label plus placeholder with state binding."),
+      Spacer({ minHeight: 8 }),
+      TextArea({ value: baseValue, label: "Notes", placeholder: "Write a message..." }),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { TextArea, Text } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
         const value = useState("Line one\\nLine two");
 
-        TextArea({ value, placeholder: "Write a message..." });
-        TextArea({ value, label: "Notes" });
+        TextArea({ value, placeholder: "Type here..." });
+        Text(value.map((v) => \`Current text: "\${v}"\`));
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Reactive Binding"),
+      Text("Two-way binding with useState; external edits sync via value.get/set."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        TextArea({ value: boundValue, placeholder: "Type here..." }),
+        Text(
+          { color: "secondary" },
+          boundValue.map((value) => `Current text: "${value}"`),
+        ),
+      ),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { TextArea } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const value = useState("");
+
         TextArea({
           value,
           label: "Description",
@@ -131,29 +174,33 @@ export function TextAreaPage() {
         });
         `,
       },
-      Heading({ h3: true, color: "secondary" }, "TextArea"),
-      Text("Multiline text input with optional label and auto-growing height between min and max lines."),
+      Heading({ h3: true, color: "secondary" }, "Auto-Grow"),
+      Text("Grows between minLines and maxLines, then scrolls."),
       Spacer({ minHeight: 8 }),
-      Column(
-        { gap: "regular" },
-        TextArea({ value: textAreaValue, placeholder: "Write a message..." }),
-        TextArea({ value: textAreaValue, label: "Notes" }),
-        TextArea({
-          value: textAreaValue,
-          label: "Description",
-          minLines: 3,
-          maxLines: 6,
-          placeholder: "Auto-grow between 3 and 6 lines",
-        }),
-        Text(
-          { color: "secondary" },
-          "Use Shift+Enter for a new line. Enter submits the parent form when available.",
-        ),
-        Text(
-          { color: "secondary" },
-          textAreaValue.map((value) => `Current text: "${value}"`),
-        ),
-      ),
+      TextArea({
+        value: growValue,
+        label: "Description",
+        minLines: 3,
+        maxLines: 6,
+        placeholder: "Auto-grow between 3 and 6 lines",
+      }),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { TextArea } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const value = useState("");
+
+        TextArea({ value, placeholder: "Press Enter..." });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Keyboard"),
+      Text("Use Shift+Enter for a new line. Enter submits the parent form when available."),
+      Spacer({ minHeight: 8 }),
+      TextArea({ value: keysValue, placeholder: "Press Enter..." }),
     ),
   );
 }
