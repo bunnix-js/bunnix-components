@@ -5,6 +5,7 @@
  *
  * Components:
  * - TextInput: Single-line text input with optional placeholder and state binding
+ * - CurrencyInput: Localized currency input with focus/edit and blur/format modes
  * - Picker: Menu-backed selection input with a selector-style trigger
  * - SegmentedPicker: iOS-style segmented selection control with optional icons
  * - Select: Dropdown input with mapped options
@@ -39,6 +40,15 @@ import {
   getTextAreaHeightMetrics,
   resolveTextAreaLines,
 } from "./textareaUtils.mjs";
+import {
+  formatCurrency,
+  getFractionDigits,
+  isIncompleteDecimal,
+  parseCurrency,
+  resolveCurrency,
+  resolveLocale,
+  toEditableString,
+} from "./currencyUtils.mjs";
 import "./input.css";
 
 const { input, textarea, select, option, div, button } = Bunnix;
@@ -239,6 +249,140 @@ const TextInputCore = (props, _) => {
       },
       placeholder: placeholder,
       class: `${defaultClass} ${focusClass} ${props.class || ""}`,
+    }),
+  );
+};
+
+/** Currency Input core component and logic */
+const CurrencyInputCore = (props, _) => {
+  const valueState = isStateLike(props.value)
+    ? props.value
+    : useState(props.value ?? null);
+  const inputRef = useRef(null);
+  const placeholder = props.placeholder ?? "";
+  const focusClass = resolveInputFocusClass(props.outline);
+  const defaultClass =
+    "padding-sm border-primary radius-md flex-grow-1 bg-primary text-default";
+  const inputHandler = props.input;
+
+  delete props.outline;
+  delete props.currency;
+  delete props.locale;
+  delete props.fractionDigits;
+  delete props.liveFormat;
+
+  const display = useState("");
+  const focusedFlag = useState(false);
+  let lastValid = valueState.get?.() ?? props.value ?? null;
+  if (lastValid === undefined) lastValid = null;
+
+  const readOptions = () => {
+    const locale = resolveLocale(props.locale);
+    const currency = resolveCurrency(props.currency, locale);
+    const fractionDigits = getFractionDigits(currency, locale, props.fractionDigits);
+    return { locale, currency, fractionDigits };
+  };
+
+  const formatValue = (val) => formatCurrency(val, readOptions());
+  const editableValue = (val) => toEditableString(val, readOptions());
+
+  useEffect((val) => {
+    if (val === undefined) val = null;
+    if (typeof val === "number" && Number.isFinite(val)) lastValid = val;
+    if (val === null) lastValid = null;
+    display.set(focusedFlag.get() ? editableValue(val) : formatValue(val));
+  }, valueState);
+
+  const applyRawToState = (raw, event) => {
+    if (isIncompleteDecimal(raw, readOptions())) {
+      display.set(raw);
+      return;
+    }
+
+    const parsed = parseCurrency(raw, readOptions());
+    if (!parsed.valid) {
+      display.set(raw);
+      return;
+    }
+
+    if (parsed.value === null) {
+      lastValid = null;
+      valueState.set?.(null);
+      display.set(raw);
+      inputHandler && inputHandler({ ...event, value: null });
+      return;
+    }
+
+    lastValid = parsed.value;
+    valueState.set?.(parsed.value);
+    display.set(raw);
+    inputHandler && inputHandler({ ...event, value: parsed.value });
+  };
+
+  return wrapIntoLabel(
+    props,
+    input({
+      ...props,
+      ref: inputRef,
+      value: display,
+      disabled: props.disabled,
+      inputmode: "decimal",
+      autocomplete: "off",
+      placeholder,
+      class: `${defaultClass} ${focusClass} ${props.class || ""}`,
+      focus: (e) => {
+        focusedFlag.set(true);
+        display.set(editableValue(valueState.get()));
+        props.focus && props.focus(e);
+      },
+      blur: (e) => {
+        focusedFlag.set(false);
+        const raw = e?.target?.value ?? display.get?.() ?? "";
+        const parsed = parseCurrency(raw, readOptions());
+        const fallback = lastValid ?? valueState.get?.() ?? null;
+        if (!parsed.valid || parsed.value === null) {
+          if (parsed.value === null && parsed.valid) {
+            lastValid = null;
+            valueState.set?.(null);
+            display.set("");
+            inputHandler && inputHandler({ ...e, value: null });
+          } else {
+            display.set(formatValue(fallback));
+          }
+        } else {
+          if (parsed.value !== valueState.get?.()) {
+            lastValid = parsed.value;
+            valueState.set?.(parsed.value);
+            inputHandler && inputHandler({ ...e, value: parsed.value });
+          }
+          display.set(formatValue(parsed.value));
+        }
+        props.blur && props.blur(e);
+      },
+      input: (e) => {
+        applyRawToState(e?.target?.value ?? "", e);
+      },
+      paste: (e) => {
+        try {
+          e?.preventDefault?.();
+        } catch {
+          // ignore preventDefault failures in non-DOM environments
+        }
+        const pasted = e?.clipboardData?.getData?.("text") ?? "";
+        const target = e?.target;
+        const current = target?.value ?? display.get?.() ?? "";
+        const start = typeof target?.selectionStart === "number" ? target.selectionStart : current.length;
+        const end = typeof target?.selectionEnd === "number" ? target.selectionEnd : current.length;
+        const next = `${current.slice(0, start)}${pasted}${current.slice(end)}`;
+        applyRawToState(next, e);
+        if (target && typeof target.value === "string") {
+          try {
+            target.value = next;
+          } catch {
+            // ignore read-only test targets
+          }
+        }
+      },
     }),
   );
 };
@@ -814,6 +958,34 @@ const SliderCore = (props, _) => {
 export const TextInput = withNormalizedArgs((props, ...children) =>
   withExtractedStyles((finalProps, ...children) =>
     TextInputCore(finalProps, ...children),
+  )({ minHeight: 32, textSize: "1rem", ...props }, ...children),
+);
+
+/**
+ * Localized currency input with locale-aware editing and formatting.
+ *
+ * Blur shows Intl currency format, focus shows locale-aware decimal without symbol/group.
+ * Parser accepts both '.' and ',' with last occurrence winning for cross-locale paste.
+ * Empty emits null, invalid/incomplete input keeps display and reverts on blur.
+ *
+ * @param {Object} props - Component props
+ * @param {Object|number|null} [props.value] - Canonical numeric value (useState object or number|null)
+ * @param {string} [props.currency] - ISO 4217 code, defaults to USD fallback
+ * @param {string} [props.locale] - BCP 47 locale, defaults to navigator.language
+ * @param {number} [props.fractionDigits] - Override fraction digits (defaults from currency)
+ * @param {boolean} [props.liveFormat] - Reserved for future live masking (v1 always false behavior)
+ * @param {string} [props.label] - Label text (wraps in Column with Heading)
+ * @param {string} [props.placeholder] - Placeholder text
+ * @param {boolean} [props.outline] - Show focus outline
+ * @param {boolean} [props.disabled] - Disabled state
+ * @param {Function} [props.input] - Input event handler receiving numeric payload
+ * @param {string} [props.class] - Additional CSS classes
+ * @param {...*} children - Children elements (ignored)
+ * @returns {*} CurrencyInput component
+ */
+export const CurrencyInput = withNormalizedArgs((props, ...children) =>
+  withExtractedStyles((finalProps, ...children) =>
+    CurrencyInputCore(finalProps, ...children),
   )({ minHeight: 32, textSize: "1rem", ...props }, ...children),
 );
 
