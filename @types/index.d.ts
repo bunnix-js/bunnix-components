@@ -115,6 +115,19 @@ export interface TextInputProps extends LayoutProps {
   input?: (event?: any) => void;
 }
 
+export interface CurrencyInputProps extends LayoutProps {
+  value?: number | null | StateLike<number | null>;
+  currency?: string;
+  locale?: string;
+  fractionDigits?: number;
+  liveFormat?: false;
+  label?: string;
+  placeholder?: string;
+  outline?: boolean;
+  disabled?: boolean;
+  input?: (event?: any) => void;
+}
+
 export interface TextAreaProps extends LayoutProps {
   value?: string | number | StateLike<any>;
   focused?: boolean | StateLike<boolean>;
@@ -328,6 +341,7 @@ export const Button: Component<ButtonProps>;
 export const LinkButton: Component<LinkButtonProps>;
 
 export const TextInput: Component<TextInputProps>;
+export const CurrencyInput: Component<CurrencyInputProps>;
 export const TextArea: Component<TextAreaProps>;
 export const Select: Component<SelectProps>;
 export const CheckBox: Component<CheckBoxProps>;

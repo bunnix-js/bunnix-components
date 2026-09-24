@@ -1,5 +1,5 @@
 import Bunnix, { useState } from "@bunnix/core";
-import { Heading, Text, Column, Spacer, TextInput, TextArea, Select, CheckBox, Switch, SegmentedPicker, Slider } from "@bunnix/components";
+import { Heading, Text, Column, Spacer, TextInput, TextArea, Select, CheckBox, Switch, SegmentedPicker, Slider, CurrencyInput } from "@bunnix/components";
 import { ComponentShowcase } from "../reusable/ComponentShowcase.mjs";
 
 export function TextInputPage() {
@@ -753,6 +753,90 @@ export function SegmentedPickerPage() {
           { key: "month", text: "Month" },
         ],
       }),
+    ),
+  );
+}
+
+export function CurrencyInputPage() {
+  const defaultValue = useState(404.25);
+  const brlValue = useState(1404.25);
+  const usdValue = useState(1404.25);
+
+  return Column(
+    Heading({ h2: true }, "CurrencyInput Component"),
+    Heading(
+      { h4: true, color: "secondary", weight: "heavy" },
+      "Localized currency input with editable decimal on focus",
+    ),
+    Spacer({ minHeight: 24 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { CurrencyInput } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const price = useState(404.25);
+
+        CurrencyInput({ value: price, label: "Price" });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Default Locale"),
+      Text("Falls back to navigator.language with USD currency. Blur formats, focus edits."),
+      Spacer({ minHeight: 8 }),
+      CurrencyInput({ value: defaultValue, label: "Price" }),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { CurrencyInput, Text } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const price = useState(1404.25);
+
+        CurrencyInput({ value: price, currency: "BRL", locale: "pt-BR", label: "Preco" });
+        Text(price.map((v) => \`Canonical: \${v}\`));
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "BRL pt-BR Reactive"),
+      Text("Displays R$ 1.404,25 on blur and 1404,25 while editing. Canonical value stays numeric."),
+      Spacer({ minHeight: 8 }),
+      Column(
+        { gap: "regular" },
+        CurrencyInput({ value: brlValue, currency: "BRL", locale: "pt-BR", label: "Preco" }),
+        Text({ color: "secondary" }, brlValue.map((v) => `Canonical: ${v}`)),
+      ),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { CurrencyInput } from "@bunnix/components";
+        import { useState } from "@bunnix/core";
+
+        const price = useState(1404.25);
+
+        CurrencyInput({ value: price, currency: "USD", locale: "en-US", label: "Amount" });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "USD en-US"),
+      Text("Displays $1,404.25 on blur and 1404.25 while editing. Paste normalizes cross-locale values."),
+      Spacer({ minHeight: 8 }),
+      CurrencyInput({ value: usdValue, currency: "USD", locale: "en-US", label: "Amount" }),
+    ),
+    Spacer({ minHeight: 16 }),
+    ComponentShowcase(
+      {
+        code: `
+        import { CurrencyInput } from "@bunnix/components";
+
+        CurrencyInput({ value: 99.9, currency: "USD", locale: "en-US", label: "Disabled", disabled: true });
+        `,
+      },
+      Heading({ h3: true, color: "secondary" }, "Disabled"),
+      Text("Disabled state blocks interaction."),
+      Spacer({ minHeight: 8 }),
+      CurrencyInput({ value: 99.9, currency: "USD", locale: "en-US", label: "Disabled", disabled: true }),
     ),
   );
 }

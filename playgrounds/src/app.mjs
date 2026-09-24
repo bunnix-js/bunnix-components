@@ -3,7 +3,7 @@ import { Column, Grid, Sidebar } from "@bunnix/components";
 import { AlignmentPage, ColumnPage, RowPage, SpacerPage } from "./pages/Layout.mjs";
 import { HeadingPage, TextPage } from "./pages/Typography.mjs";
 import { AvatarPage, IconPage, MediaPage, SpinnerPage } from "./pages/Media.mjs";
-import { CheckBoxPage, SegmentedPickerPage, SelectPage, SliderPage, SwitchPage, TextAreaPage, TextInputPage } from "./pages/inputs.mjs";
+import { CheckBoxPage, CurrencyInputPage, SegmentedPickerPage, SelectPage, SliderPage, SwitchPage, TextAreaPage, TextInputPage } from "./pages/inputs.mjs";
 import { TablePage } from "./pages/table.mjs";
 import { DialogPage } from "./pages/dialog.mjs";
 import { ButtonPage, LinkButtonPage } from "./pages/Buttons.mjs";
@@ -82,6 +82,7 @@ const sidebarItems = [
     children: [
       { key: "text-input", text: "TextInput" },
       { key: "text-area", text: "TextArea" },
+      { key: "currency-input", text: "CurrencyInput" },
       { key: "select", text: "Select" },
       { key: "checkbox", text: "CheckBox" },
       { key: "switch", text: "Switch" },
@@ -117,6 +118,7 @@ const contentPageKeys = new Set([
   "avatar",
   "text-input",
   "text-area",
+  "currency-input",
   "select",
   "checkbox",
   "switch",
@@ -190,6 +192,7 @@ export function App() {
           if (item === "avatar") return AvatarPage();
           if (item === "text-input") return TextInputPage();
           if (item === "text-area") return TextAreaPage();
+          if (item === "currency-input") return CurrencyInputPage();
           if (item === "select") return SelectPage();
           if (item === "checkbox") return CheckBoxPage();
           if (item === "switch") return SwitchPage();
